@@ -11,7 +11,7 @@
 
            },
            controller : "NavbarController",
-           templateUrl : "app/layouts/navbar/navbar.template.html"
+           templateUrl : "app/components/navbar/navbar.template.html"
        }
     }
 })();
