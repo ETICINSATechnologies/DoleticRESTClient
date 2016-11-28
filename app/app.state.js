@@ -8,23 +8,18 @@
     stateConfig.$inject = ['$urlRouterProvider','$stateProvider'];
 
     function stateConfig($urlRouterProvider, $stateProvider) {
-        $urlRouterProvider.otherwise("/home");
+        $urlRouterProvider.otherwise("/dashboard");
 
         $stateProvider
-            .state('home',
+            .state('dashboard',
                 {
-                    url: "/home",
-                    templateUrl: "app/layouts/home/home.template.html"
+                    url: "/dashboard",
+                    templateUrl: "app/layouts/dashboard/dashboard.template.html"
                 }
             ).state('login',
                 {
                     url: "/login",
                     templateUrl: "app/layouts/login/login.template.html"
-                }
-            ).state('navbar',
-                {
-                    url: "/navbar",
-                    templateUrl: "app/layouts/navbar/navbar.template.html"
                 }
             );
     }

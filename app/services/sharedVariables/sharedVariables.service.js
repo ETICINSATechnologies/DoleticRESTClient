@@ -11,8 +11,8 @@
 
         return {
             session:{
-                accessToken:"",
-                tokenType:""
+                accessToken:null,
+                tokenType:null
             }
         }
     }
