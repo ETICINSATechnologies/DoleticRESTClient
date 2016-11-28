@@ -19,6 +19,8 @@
                     console.log(response);
                     SharedVariables.session.accessToken = response.data.access_token;
                     SharedVariables.session.tokenType = response.data.token_type;
+                    SharedVariables.session.isLogged = true;
+                    $state.go("dashboard");
                 }, function (error) {
                     console.log("Error :",error);
                     $scope.loginError = true;

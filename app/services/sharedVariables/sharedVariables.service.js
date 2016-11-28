@@ -11,6 +11,7 @@
 
         return {
             session:{
+                isLogged:false,
                 accessToken:null,
                 tokenType:null
             }

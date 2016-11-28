@@ -3,11 +3,11 @@
 
     angular
         .module('doleticApp')
-        .controller('aboutModalController', aboutModalController);
+        .controller('AboutModalController', AboutModalController);
 
-    aboutModalController.$inject = ['$scope'];
+    AboutModalController.$inject = ['$scope'];
 
-    function aboutModalController($scope) {
+    function AboutModalController($scope) {
         $scope.hideAboutDoletic = hideAboutDoletic;
 
         function hideAboutDoletic() {
