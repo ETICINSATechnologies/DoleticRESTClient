@@ -1,0 +1,10 @@
+<div id="settings_modal" class="ui modal">
+    <div class="header">Préférences</div>
+    <div class="content">
+        {{DoleticUISettings.configurationForm}}
+    </div>
+    <div class="actions">
+        <div class="ui button" ng-click="DoleticUISettings.defaultSettings();">Default</div>
+        <div class="ui green button" ng-click="DoleticMasterInterface.hideSettingsModal();">Terminé !</div>
+    </div>
+</div>

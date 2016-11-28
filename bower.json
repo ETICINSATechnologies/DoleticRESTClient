@@ -1,0 +1,29 @@
+{
+  "name": "Doletic",
+  "homepage": "https://github.com/Olivice/DoleticREST",
+  "authors": [
+    "Olivice <olivier.vicente95@gmail.com>"
+  ],
+  "description": "ERP for JE",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.5.8",
+    "angular-ui-router": "0.3.1",
+    "angular-resource": "^1.5.8",
+    "angular-loading-spinner": "^0.0.3",
+    "jQuery": "^3.1.1",
+    "lodash": "^4.16.6",
+    "semantic": "semantic-ui#^2.2.6",
+    "angular-modal-service": "^0.10.1",
+    "a0-angular-storage": "^0.0.15"
+  }
+}
