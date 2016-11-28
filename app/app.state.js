@@ -14,12 +14,12 @@
             .state('dashboard',
                 {
                     url: "/dashboard",
-                    templateUrl: "app/layouts/dashboard/dashboard.template.html"
+                    templateUrl: "app/components/dashboard/dashboard.template.html"
                 }
             ).state('login',
                 {
                     url: "/login",
-                    templateUrl: "app/layouts/login/login.template.html"
+                    templateUrl: "app/components/login/login.template.html"
                 }
             );
     }

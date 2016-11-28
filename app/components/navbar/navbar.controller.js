@@ -5,9 +5,11 @@
         .module('doleticApp')
         .controller('NavbarController', NavbarController);
 
-    NavbarController.$inject = ['$scope', 'ModalService'];
+    NavbarController.$inject = ['$scope', '$state', 'ModalService', 'SharedVariables'];
 
-    function NavbarController($scope, ModalService) {
+    function NavbarController($scope, $state, ModalService, SharedVariables) {
+
+        $scope.sharedVariables = SharedVariables;
 
         $scope.showAbout = function() {
             ModalService.showModal({
@@ -33,6 +35,11 @@
                 // error contains a detailed error message.
                 console.log(error);
             });
+        };
+
+        $scope.logout = function() {
+            SharedVariables.session.isLogged = false;
+            $state.go("login");
         };
     }
 })();
