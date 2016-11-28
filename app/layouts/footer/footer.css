@@ -1,0 +1,69 @@
+#footer {
+    margin-top: 20px;
+    background-color: #f0f0f0;
+    border-top: solid #eee 1px;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------ *\
+$small-footer $copyright
+\* ------------------------------------------------------------------------------------------------------------------ */
+#small-footer > div {
+    padding: 20px 0;
+
+}
+
+#footer .copyright {
+    padding: 4px 0;
+}
+
+#small-footer > div,
+#footer > .copyright > p {
+    display: inline-flex;
+    justify-content: center;
+}
+#small-footer > div * {
+    display: inherit;
+}
+
+#small-footer > div > span,
+#footer > .copyright  i.material-icons {
+    margin: 0 4px;
+}
+
+#small-footer,
+#footer .copyright {
+    text-align: center;
+}
+
+
+/* ------------------------------------------------------------------------------------------------------------------ *\
+$large-footer
+\* ------------------------------------------------------------------------------------------------------------------ */
+#large-footer .contact>p {
+    font-size: 20px;
+    display: inline-flex;
+
+}
+#large-footer .contact>p>:first-child {
+    margin-right: 4px;
+}
+
+#large-footer .contact-phone>p::after {
+    content: 'Survolez moi pour voir le numéro';
+    font-style: italic;
+    margin-left: 2px;
+    color: grey;
+    font-size: 14px;
+}
+#large-footer .contact-phone>p:hover::after {
+    content: '06 00 00 00 00';
+    font-style: normal;
+    color: black;
+    font-size: 20px;
+}
+
+#large-footer .submit-mail {
+    max-width: 300px;
+    text-align: right;
+}
+
