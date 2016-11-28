@@ -6,8 +6,7 @@
             'ngResource',
             'ui.router',
             'ngLoadingSpinner',
-            'angularModalService',
-            'angular-storagegit config --add --global core.filemode false'
+            'angularModalService'
         ])
         .run(run)
         .config(config);
