@@ -7,7 +7,7 @@
             'ui.router',
             'ngLoadingSpinner',
             'angularModalService',
-            'angular-storagegit config --add --global core.filemode false'
+            'angular-storage'
         ])
         .run(run)
         .config(config);
@@ -19,6 +19,6 @@
     }
 
     function config($httpProvider){
-        $httpProvider.defaults.headers.common['Authorization'] = "Bearer 265662";
+        $httpProvider.interceptors.push('APIInterceptorService');
     }
 })();
