@@ -5,9 +5,9 @@
         .module('doleticApp')
         .controller('MessageBoxController', MessageBoxController);
 
-    MessageBoxController.$inject = ['$scope', 'SharedVariables'];
+    MessageBoxController.$inject = ['$scope', 'MessageBoxService'];
 
-    function MessageBoxController($scope, SharedVariables) {
-        $scope.sharedVariables = SharedVariables;
+    function MessageBoxController($scope, MessageBoxService) {
+        $scope.messageBoxService = MessageBoxService;
     }
 })();

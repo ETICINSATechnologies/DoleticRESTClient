@@ -14,12 +14,6 @@
                 isLogged: false,
                 accessToken: null,
                 tokenType: null
-            },
-            messageBox: {
-                show: false,
-                title: null,
-                content: null,
-                color: "info"
             }
         }
     }
