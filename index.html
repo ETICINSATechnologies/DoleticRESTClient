@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Doletic 2</title>
+    <link rel="icon" href="/resources/doletic_logo.png">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -24,7 +25,12 @@
     <![endif]-->
 
     <nav-bar-component></nav-bar-component>
-    <div ui-view ng-cloak></div>
+    <div id="message_container" class="ui one column centered grid container">
+        <message-box-component></message-box-component>
+    </div>
+    <div id="module_container" class="ui one column centered grid container">
+        <div ui-view ng-cloak></div>
+    </div>
     <span us-spinner></span>
 
     <!-- Javascript Import -->
@@ -48,6 +54,7 @@
 
         <script src="app/services/sharedVariables/sharedVariables.service.js"></script>
         <script src="app/services/user/user.service.js"></script>
+        <script src="app/services/message-box/message-box.service.js"></script>
         <script src="app/services/interceptor/api-interceptor.service.js"></script>
         <script src="app/services/login/login.service.js"></script>
 
@@ -59,6 +66,9 @@
         <!-- Component -->
         <script src="app/components/navbar/navbar.controller.js"></script>
         <script src="app/components/navbar/navbar.component.js"></script>
+
+        <script src="app/components/message-box/message-box.controller.js"></script>
+        <script src="app/components/message-box/message-box.component.js"></script>
         <!-- End Component -->
 
 

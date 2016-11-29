@@ -5,9 +5,9 @@
         .module('doleticApp')
         .service('APIInterceptorService', APIInterceptorService);
 
-    APIInterceptorService.$inject = ['$rootScope', 'SharedVariables'];
+    APIInterceptorService.$inject = ['$rootScope', '$q', 'SharedVariables'];
 
-    function APIInterceptorService($rootScope,SharedVariables) {
+    function APIInterceptorService($rootScope, $q, SharedVariables) {
         var service = this;
         service.request = function(config) {
             /*var currentUser = UserService.getCurrentUser();
@@ -22,11 +22,16 @@
             }
             return config;
         };
-        service.responseError = function(response) {
-            if (response.status === 401) {
+        service.responseError = function(rejection) {
+            return $q.reject(rejection);
+            /*if (response.status === 401) {
                 $rootScope.$broadcast('unauthorized');
             }
-            return response;
+            return response;*/
+        };
+        service.requestError = function(rejection) {
+            SharedVariables.messageBox.show = true;
+            return $q.reject(rejection);
         };
     }
 
