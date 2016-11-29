@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -18,17 +18,17 @@
     function run($rootScope, $state, SharedVariables) {
         $rootScope.$on("$stateChangeStart", function (evt, toState, toParams, fromState, fromParams) {
             console.log(fromState);
-            if (toState.name!="login" && !SharedVariables.session.isLogged){
+            if (toState.name != "login" && !SharedVariables.session.isLogged) {
                 $state.go('login');
                 evt.preventDefault();
-            } else if(toState.name=="login" && SharedVariables.session.isLogged){
+            } else if (toState.name == "login" && SharedVariables.session.isLogged) {
                 $state.go('dashboard');
                 evt.preventDefault();
             }
         });
     }
 
-    function config($httpProvider){
+    function config($httpProvider) {
         $httpProvider.interceptors.push('APIInterceptorService');
     }
 })();
