@@ -24,6 +24,7 @@
     "lodash": "^4.16.6",
     "semantic": "semantic-ui#^2.2.6",
     "angular-modal-service": "^0.10.1",
-    "a0-angular-storage": "^0.0.15"
+    "a0-angular-storage": "^0.0.15",
+    "angular-datatables": "^0.5.5"
   }
 }

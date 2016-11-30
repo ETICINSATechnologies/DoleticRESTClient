@@ -5,7 +5,8 @@
         .module('doleticApp')
         .constant('VERSION', "0.1.1-SNAPSHOT")
         .constant('DEBUG_INFO_ENABLED', true)
-        .constant('LOGIN_CONFIG', loginConfig());
+        .constant('LOGIN_CONFIG', loginConfig())
+        .constant('SERVER_CONFIG', serverConfig());
 
     function loginConfig() {
         return {
@@ -13,6 +14,11 @@
             secretId: "thxmlw1iks0o00wgg8ck4skoog4c80gc4w0gw4ggkck08o0og",
             grantType: "password",
             redirectURL: "localhost"
+        }
+    }
+    function serverConfig() {
+        return {
+            url: "http://127.0.0.1:8000"
         }
     }
 })();
