@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -10,10 +10,10 @@
     function SharedVariables() {
 
         return {
-            session:{
-                isLogged:false,
-                accessToken:null,
-                tokenType:null
+            session: {
+                isLogged: false,
+                accessToken: null,
+                tokenType: null
             }
         }
     }

@@ -10,16 +10,23 @@
                     </div>
                     <p>Veuillez vous identifier.</p>
                 </div>
-                <form id="login_form" ng-class="{'ui form error':loginError, 'ui form segment error':inputError}" class="ui form attached fluid segment">
+                <form id="login_form" ng-class="{'ui form error':loginError, 'ui form segment error':inputError}"
+                      class="ui form attached fluid segment">
                     <div id="uname_field" ng-class="{'field error':inputError}" class="required field">
                         <label>Nom d'utilisateur</label>
                         <input id="uname_input" placeholder="pnom" name="username" type="text" ng-model="username">
-                        <div ng-if="" id="uname_error" class="ui basic red pointing prompt label transition visible">Veuillez entrer votre nom d'utilisateur</div>
+                        <div ng-if="" id="uname_error" class="ui basic red pointing prompt label transition visible">
+                            Veuillez entrer votre nom d'utilisateur
+                        </div>
                     </div>
                     <div id="pass_field" ng-class="{'field error':inputError}" class="required field">
                         <label>Mot de passe</label>
-                        <input id="pass_input" placeholder="mot de passe" name="password" type="password" ng-model="password" onKeyPress="if(event.keyCode == 13) { checkLoginFormInputs(); }">
-                        <div ng-if="inputError" id="pass_error" class="ui basic red pointing prompt label transition visible">Veuillez entrer votre mot de passe</div>
+                        <input id="pass_input" placeholder="mot de passe" name="password" type="password"
+                               ng-model="password" onKeyPress="if(event.keyCode == 13) { checkLoginFormInputs(); }">
+                        <div ng-if="inputError" id="pass_error"
+                             class="ui basic red pointing prompt label transition visible">Veuillez entrer votre mot de
+                            passe
+                        </div>
                         <div ng-if="inputError" id="login_error" class="ui error message">
                             <div class="header">Connexion refusée !</div>
                             <p>Veuillez saisir vos identifiants de nouveau.</p>

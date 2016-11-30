@@ -5,27 +5,34 @@
 .holder {
     height: 800px
 }
+
 .holder .middle {
     height: 100%
 }
+
 /*
 	JSON Highlight classes colors
 */
 .json_number {
     color: RGBA(0, 200, 0, 0.8)
 }
+
 .json_key {
     color: RGBA(0, 0, 200, 0.8)
 }
+
 .json_value {
     color: RGBA(120, 140, 0, 0.8)
 }
+
 .json_bool {
     color: RGBA(200, 0, 0, 0.8)
 }
+
 .json_null {
     color: RGBA(200, 0, 200, 0.8)
 }
+
 .plotly-graph {
     width: 100%;
     height: 500px;
@@ -44,11 +51,12 @@
     margin-top: 50px;
 }
 
-#master_container {
+#message_container {
     position: fixed;
-    top: 50px;
+    top: 60px;
     opacity: 1;
-    z-index: 100;
+    z-index: 1000;
+    width: 100% !important;
 }
 
 .sorting:hover, .sorting_desc:hover, .sorting_asc:hover {

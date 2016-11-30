@@ -1,11 +1,11 @@
-(function() {
+(function () {
     'use strict';
 
     angular
         .module('doleticApp')
         .factory('loginService', loginService);
 
-    loginService.$inject = ['$http','LOGIN_CONFIG'];
+    loginService.$inject = ['$http', 'LOGIN_CONFIG'];
 
     function loginService($http, LOGIN_CONFIG) {
         var server = "http://127.0.0.1:8000";

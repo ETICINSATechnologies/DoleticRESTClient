@@ -1,5 +1,4 @@
 <div>
-    <a id="doletic_download" href="" download="" hidden></a>
     <div id="left_menu" class="ui fixed menu">
         <a id="menu_doletic" class="header item" ng-click="">
             <img class="ui mini spaced image" style="height:15px; width:15px;" src="/resources/doletic_logo.png"/>
@@ -8,10 +7,11 @@
         <a id="menu_about_doletic" class="right floated item" ng-click="showAbout()">
             <i class="info circle icon"></i>
         </a>
-        <a ng-if="sharedVariables.session.isLogged" id="menu_preferences_doletic" class="item" ng-click="showSettingsModal();">
+        <a ng-if="sharedVariables.session.isLogged" id="menu_preferences_doletic" class="item"
+           ng-click="showSettingsModal();">
             <i class="settings icon"></i>
         </a>
-        <a ng-if="sharedVariables.session.isLogged" id="menu_logout" class="item" ng-click="logout();">
+        <a ng-if="sharedVariables.session.isLogged" id="menu_logout" class="item" ng-click="showLogout();">
             <i class="power icon"></i>
         </a>
     </div>
