@@ -14,7 +14,8 @@
             .state('dashboard',
                 {
                     url: "/dashboard",
-                    templateUrl: "app/components/dashboard/dashboard.template.html"
+                    templateUrl: "app/components/dashboard/dashboard.template.html",
+                    controller: "DashboardController"
                 }
             ).state('login',
             {

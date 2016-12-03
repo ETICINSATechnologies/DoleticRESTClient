@@ -1,0 +1,27 @@
+<table class="ui very basic celled table" id="contact_table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Nom</th>
+            <th>Statut</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th></th>
+            <th>Nom</th>
+            <th>Statut</th>
+            </tr>
+        </tfoot>
+    <tbody id="contact_body">
+        <tr ng-repeat="contact in contacts">
+            <td>
+                <button ng-click="" class="ui teal icon button" data-tooltip="Détails du contact">
+                    <i class="user icon"></i>
+                </button>
+            </td>
+            <td>{{contact.first_name}} {{contact.last_name}}</td>
+            <td>{{contact.origin}}</td>
+        </tr>
+    </tbody>
+</table>

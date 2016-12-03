@@ -18,7 +18,7 @@
             var access_token = SharedVariables.session.accessToken;
             var token_type = SharedVariables.session.tokenType;
             if (access_token && token_type) {
-                config.headers.authorization = token_type + " " + access_token;
+                config.headers.Authorization = token_type + " " + access_token;
             }
             return config;
         };

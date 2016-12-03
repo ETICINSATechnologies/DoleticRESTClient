@@ -5,10 +5,10 @@
         .module('doleticApp')
         .factory('loginService', loginService);
 
-    loginService.$inject = ['$http', 'LOGIN_CONFIG'];
+    loginService.$inject = ['$http', 'LOGIN_CONFIG', 'SERVER_CONFIG'];
 
-    function loginService($http, LOGIN_CONFIG) {
-        var server = "http://127.0.0.1:8000";
+    function loginService($http, LOGIN_CONFIG, SERVER_CONFIG) {
+        var server = SERVER_CONFIG.url;
         var urlBase = '/oauth/v2/token';
         var dataFactory = {};
 

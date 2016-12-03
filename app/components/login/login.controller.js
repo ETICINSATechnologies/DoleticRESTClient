@@ -5,9 +5,9 @@
         .module('doleticApp')
         .controller('loginController', loginController);
 
-    loginController.$inject = ['$scope', '$state', 'loginService', 'SharedVariables', 'MessageBoxService'];
+    loginController.$inject = ['$scope', '$state', 'loginService', 'SharedVariables', 'MessageBoxService', 'UserService'];
 
-    function loginController($scope, $state, loginService, SharedVariables, MessageBoxService) {
+    function loginController($scope, $state, loginService, SharedVariables, MessageBoxService, UserService) {
         $scope.login = login;
         $scope.resetFields = resetFields;
         $scope.loginError = false;
@@ -16,16 +16,24 @@
         function login() {
             loginService.login($scope.username, $scope.password)
                 .success(function (data) {
-                    console.log(data);
                     SharedVariables.session.accessToken = data.access_token;
-                    SharedVariables.session.tokenType = data.token_type;
                     SharedVariables.session.isLogged = true;
-                    $state.go("dashboard");
+                    UserService.getServerCurrentUser()
+                        .then(function (response) {
+                                SharedVariables.session.currentUser = response.data.user;
+                                $state.go("dashboard");
+                            },
+                            function (data) {
+                                console.log("Error :", error);
+                                resetFields();
+                                MessageBoxService.showError("Erreur de connexion", "La combinaison login/mot de passe est incorrecte !");
+                                $scope.loginError = true;
+                            });
                 })
                 .error(function (error) {
-                    console.log("Error :", error);
+                    console.error("Error :", error);
                     resetFields();
-                    MessageBoxService.showError("Erreur de connexion", "La combinaison login/mot de passe est incorrecte !")
+                    MessageBoxService.showError("Erreur de connexion", "La combinaison login/mot de passe est incorrecte !");
                     $scope.loginError = true;
                 });
         }

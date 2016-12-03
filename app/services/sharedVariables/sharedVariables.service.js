@@ -13,7 +13,8 @@
             session: {
                 isLogged: false,
                 accessToken: null,
-                tokenType: null
+                tokenType: "Bearer",
+                currentUser: null
             }
         }
     }

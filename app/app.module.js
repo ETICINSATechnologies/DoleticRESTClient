@@ -7,7 +7,8 @@
             'ui.router',
             'ngLoadingSpinner',
             'angularModalService',
-            'angular-storage'
+            'angular-storage',
+            'datatables'
         ])
         .run(run)
         .config(config);
@@ -17,7 +18,6 @@
 
     function run($rootScope, $state, SharedVariables) {
         $rootScope.$on("$stateChangeStart", function (evt, toState, toParams, fromState, fromParams) {
-            console.log(fromState);
             if (toState.name != "login" && !SharedVariables.session.isLogged) {
                 $state.go('login');
                 evt.preventDefault();

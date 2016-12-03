@@ -1,56 +1,65 @@
-<div class="four wide column">
-    <div class="row">
-        <div class="ui card">
-            <div class="image">
-                <a class="ui medium image" ng-click="$('#upload_btn_avatar').click()" data-tooltip="Uploader un avatar"
-                   data-position="right center">
-                    <img id="user_avatar" src="/resources/image.png">
-                </a>
-            </div>
-            <div class="content">
-                <a id="user_fulname" class="header">John Doe</a>
-                <div class="meta">
-                    <span class="date">Dernière connexion le <span
-                            id="lastco_timestamp">13-02-2015 à 12:00</span></span>
+<div class="ui two column grid container">
+    <div class="four wide column">
+        <div class="row">
+            <div class="ui card">
+                <div class="image">
+                    <a class="ui medium image" ng-click="$('#upload_btn_avatar').click()" data-tooltip="Uploader un avatar"
+                       data-position="right center">
+                        <img id="user_avatar" src="/resources/image.png">
+                    </a>
                 </div>
-                <div id="user_position" class="description">Responsable DSI</div>
-            </div>
-            <div class="extra content">
-                <a ng-click="showEditProfileForm();">
-                    <i class="user icon"></i>
-                    Modifier mon profil
-                </a>
-                <br>
-                <a ng-click="showEditPassForm();">
-                    <i class="privacy icon"></i>
-                    Modifier mon mot de passe
-                </a>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <br><br>
-    </div>
-    <div class="row">
-        <div class="ui segment">
-            <h4 class="ui header">Liens utiles</h4>
-            <div class="ui middle aligned selection list">
-                <a class="item" href="http://webmail.etic-insa.com" target="_blank">
-                    <i class="mail icon"></i>
-                    <div class="content">
-                        <div class="header">
-                            Webmail Etic
-                        </div>
+                <div class="content">
+                    <a id="user_fulname" class="header">John Doe</a>
+                    <div class="meta">
+                        <span class="date">Dernière connexion le <span
+                                id="lastco_timestamp">13-02-2015 à 12:00</span></span>
                     </div>
-                </a>
+                    <div id="user_position" class="description">Responsable DSI</div>
+                </div>
+                <div class="extra content">
+                    <a ng-click="showEditProfileForm();">
+                        <i class="user icon"></i>
+                        Modifier mon profil
+                    </a>
+                    <br>
+                    <a ng-click="showEditPassForm();">
+                        <i class="privacy icon"></i>
+                        Modifier mon mot de passe
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <br><br>
+        </div>
+        <div class="row">
+            <div class="ui segment">
+                <h4 class="ui header">Liens utiles</h4>
+                <div class="ui middle aligned selection list">
+                    <a class="item" href="http://webmail.etic-insa.com" target="_blank">
+                        <i class="mail icon"></i>
+                        <div class="content">
+                            <div class="header">
+                                Webmail Etic
+                            </div>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="twelve wide column">
-    <div class="ui horizontal divider">
-        Mes études
-    </div>
-    <div class="row" id="project_table_container">
+    <div class="twelve wide column">
+        <div class="ui horizontal divider">
+            Mes études
+        </div>
+        <div class="row" id="project_table_container">
+            <project-table-component></project-table-component>
+        </div>
+        <div class="ui horizontal divider">
+            Mes contacts
+        </div>
+        <div class="row" id="contact_table_container">
+            <contact-table-component></contact-table-component>
+        </div>
     </div>
 </div>

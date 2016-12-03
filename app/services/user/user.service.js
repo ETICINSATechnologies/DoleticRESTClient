@@ -3,24 +3,33 @@
 
     angular
         .module('doleticApp')
-        .service('UserService', userService);
+        .factory('UserService', userService);
 
-    userService.$inject = ['store'];
+    userService.$inject = ['store', 'SERVER_CONFIG', '$http'];
 
-    function userService(store) {
-        var service = this,
-            currentUser = {};
-        service.setCurrentUser = function (user) {
+    function userService(store, SERVER_CONFIG, $http) {
+        var userFactory = {};
+
+        var server = SERVER_CONFIG.url;
+        var currentUser = {};
+
+        userFactory.setCurrentUser = function (user) {
             currentUser = user;
             store.set('user', user);
             return currentUser;
         };
-        service.getCurrentUser = function () {
+        userFactory.getCurrentUser = function () {
             if (!currentUser) {
                 currentUser = store.get('user');
             }
             return currentUser;
         };
+        userFactory.getServerCurrentUser = function () {
+            var urlBase = '/api/kernel/user/current';
+            return $http.get(server + urlBase);
+        };
+
+        return userFactory;
     }
 
 })();
