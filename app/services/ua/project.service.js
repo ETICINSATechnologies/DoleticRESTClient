@@ -9,11 +9,15 @@
 
     function ProjectService($http, SERVER_CONFIG) {
         var server = SERVER_CONFIG.url;
-        var urlBase = '/api/ua/projects';
+        var urlBase = '/api/ua/project';
         var projectFactory = {};
 
         projectFactory.getProjectByManagerId = function (id) {
-            return $http.get(server + urlBase + "/manager/" + id);
+            return $http.get(server + urlBase + "s/manager/" + id);
+        };
+
+        projectFactory.getProjectByAuditorId = function (id) {
+            return $http.get(server + urlBase + "s/auditor/" + id);
         };
 
         return projectFactory;
