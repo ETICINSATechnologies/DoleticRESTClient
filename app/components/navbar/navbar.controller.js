@@ -5,11 +5,11 @@
         .module('doleticApp')
         .controller('NavbarController', NavbarController);
 
-    NavbarController.$inject = ['$scope', '$state', 'ModalService', 'SharedVariables', 'ConfirmModalService'];
+    NavbarController.$inject = ['$scope', '$state', 'ModalService', 'ConfirmModalService', 'AuthService'];
 
-    function NavbarController($scope, $state, ModalService, SharedVariables, ConfirmModalService) {
+    function NavbarController($scope, $state, ModalService, ConfirmModalService, AuthService) {
 
-        $scope.sharedVariables = SharedVariables;
+        $scope.AuthService = AuthService;
 
         $scope.showAbout = function () {
             ModalService.showModal({
@@ -37,7 +37,7 @@
             });
         };
 
-        $scope.showLogout = function () {
+        $scope.showLogout = function (event) {
             ConfirmModalService.showConfirmModal(
                 "Confirmez la déconnexion",
                 "Voulez-vous vraiment vous déconnecter ?",
@@ -47,9 +47,10 @@
         };
 
         function logout() {
-            SharedVariables.session.isLogged = false;
-            SharedVariables.accessToken = null;
+            AuthService.setLogged(false);
+            AuthService.setAccessToken(null);
             $state.go("login");
+            // event.preventDefault();
         }
     }
 })();

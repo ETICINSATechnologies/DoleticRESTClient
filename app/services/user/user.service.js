@@ -24,7 +24,8 @@
             }
             return currentUser;
         };
-        userFactory.getServerCurrentUser = function () {
+
+        userFactory.getServerCurrentUser = function (s) {
             var urlBase = '/api/kernel/user/current';
             return $http.get(server + urlBase);
         };
