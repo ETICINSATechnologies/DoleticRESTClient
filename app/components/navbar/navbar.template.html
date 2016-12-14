@@ -13,11 +13,11 @@
         <a id="menu_about_doletic" class="right floated item" ng-click="showAbout()">
             <i class="info circle icon"></i>
         </a>
-        <a ng-if="sharedVariables.session.isLogged" id="menu_preferences_doletic" class="item"
+        <a ng-if="AuthService.isLogged()" id="menu_preferences_doletic" class="item"
            ng-click="showSettingsModal();">
             <i class="settings icon"></i>
         </a>
-        <a ng-if="sharedVariables.session.isLogged" id="menu_logout" class="item" ng-click="showLogout();">
+        <a ng-if="AuthService.isLogged()" id="menu_logout" class="item" ng-click="showLogout();">
             <i class="power icon"></i>
         </a>
     </div>
