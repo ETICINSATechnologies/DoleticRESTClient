@@ -4,6 +4,12 @@
             <img class="ui mini spaced image" style="height:15px; width:15px;" src="/resources/doletic_logo.png"/>
             Doletic v2.1
         </a>
+        <a ng-if="sharedVariables.session.isLogged" class="item module_submenu" id="submenu_home" ui-sref="dashboard">Accueil</a>
+        <a ng-if="sharedVariables.session.isLogged" class="item module_submenu" id="submenu_grc" ng-click="">Gestion Relations Clients</a>
+        <a ng-if="sharedVariables.session.isLogged" class="item module_submenu" id="submenu_rh" ui-sref="hr.membersTab">Ressources humaines</a>
+        <a ng-if="sharedVariables.session.isLogged" class="item module_submenu" id="submenu_support" ng-click="">Support</a>
+        <a ng-if="sharedVariables.session.isLogged" class="item module_submenu" id="submenu_tools" ng-click="">Outils</a>
+        <a ng-if="sharedVariables.session.isLogged" class="item module_submenu" id="submenu_ua" ng-click="">Unité d'Affaires</a>
         <a id="menu_about_doletic" class="right floated item" ng-click="showAbout()">
             <i class="info circle icon"></i>
         </a>
