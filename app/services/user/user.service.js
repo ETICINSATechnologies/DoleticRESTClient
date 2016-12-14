@@ -11,7 +11,7 @@
         var userFactory = {};
 
         var server = SERVER_CONFIG.url;
-        var currentUser = {};
+        var currentUser = null;
 
         userFactory.setCurrentUser = function (user) {
             currentUser = user;

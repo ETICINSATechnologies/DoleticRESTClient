@@ -5,10 +5,10 @@
         .module('doleticApp')
         .controller('ProjectTableController', ProjectTableController);
 
-    ProjectTableController.$inject = ['$scope', '$state', 'SharedVariables', 'ProjectService'];
+    ProjectTableController.$inject = ['$scope', '$state', 'UserService', 'ProjectService'];
 
-    function ProjectTableController($scope, $state, SharedVariables, ProjectService) {
-        $scope.currentUser = SharedVariables.session.currentUser;
+    function ProjectTableController($scope, $state, UserService, ProjectService) {
+        $scope.currentUser = UserService.getCurrentUser();
         $scope.projects = [];
 
         function getCurrentUserProjects() {
@@ -24,7 +24,7 @@
                                 console.log(responseAuditor);
                             });
                     },function (responseManager) {
-                        console.error(data);
+                        console.error(responseManager);
                     }
                 )
         }
