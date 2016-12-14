@@ -13,15 +13,16 @@
         .run(run)
         .config(config);
 
-    run.$inject = ['$rootScope', '$state', 'SharedVariables'];
+    run.$inject = ['$rootScope', '$state', 'store', 'AuthService'];
     config.$inject = ['$httpProvider'];
 
-    function run($rootScope, $state, SharedVariables) {
+    function run($rootScope, $state, store, AuthService) {
         $rootScope.$on("$stateChangeStart", function (evt, toState, toParams, fromState, fromParams) {
-            if (toState.name != "login" && !SharedVariables.session.isLogged) {
+            var isLogged = AuthService.isLogged();
+            if (toState.name != "login" && !isLogged) {
                 $state.go('login');
                 evt.preventDefault();
-            } else if (toState.name == "login" && SharedVariables.session.isLogged) {
+            } else if (toState.name == "login" && isLogged) {
                 $state.go('dashboard');
                 evt.preventDefault();
             }
