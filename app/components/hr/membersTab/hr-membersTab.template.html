@@ -1,0 +1,164 @@
+<div class="ui two column grid container">
+    <div class="row">
+        <div class="twelve wide column">
+            <div class="ui buttons">
+                <div id="adduser_modal_btn" class="ui green button" onClick="DoleticUIModule.showNewUserForm();">Ajouter
+                    un
+                    membre
+                </div>
+                <div id="refresh_user_btn" class="ui olive button" onClick="DoleticUIModule.fillUsersList();">Actualiser
+                    la
+                    liste
+                </div>
+                <div id="excel_user_btn" class="ui yellow button" onClick="alert('Fonction non implémentée...')">
+                    Exporter au
+                    format Excel
+                </div>
+            </div>
+        </div>
+        <div class="four wide column">
+            <div class="ui toggle checkbox">
+                <input type="checkbox" id="toggle_old">
+                <label>Afficher les anciens membres</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="sixteen wide column" id="user_table_container">
+            <div class="ui loader active"></div>
+            <!-- USER LIST WILL GO THERE -->
+        </div>
+    </div>
+    <div class="row">
+    </div>
+</div>
+<div class="ui modal" id="user_form_modal">
+    <div class="ui segment">
+        <form id="user_form" class="ui form vertical segment">
+            <h4 class="ui dividing header">Ajout d'un membre</h4>
+            <div class="fields">
+                <div id="firstname_field" class="eight wide required field">
+                    <label>Prénom</label>
+                    <input id="firstname" placeholder="Prénom..." type="text"/>
+                </div>
+                <div id="lastname_field" class="eight wide required field">
+                    <label>Nom</label>
+                    <input id="lastname" placeholder="Nom..." type="text"/>
+                </div>
+            </div>
+            <div class="fields">
+                <div class="twelve wide required field" id="gender_field">
+                    <label>Civilité</label>
+                    <div id="gender_search" class="ui fluid search selection dropdown">
+                        <input type="hidden" id="gender"/>
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Civilité...</div>
+                        <div class="menu">
+                            <!-- GENDERS WILL GO HERE -->
+                        </div>
+                    </div>
+                </div>
+                <div id="birthdate_field" class="twelve wide field">
+                    <label>Date de naissance</label>
+                    <div class="ui calendar" id="birthdate_calendar">
+                        <div class="ui input left icon">
+                            <i class="calendar icon"></i>
+                            <input id="birthdate" placeholder="AAA-mm-jj" type="text"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="fields">
+                <div id="tel_field" class="twelve wide required field">
+                    <label>Numéro de téléphone</label>
+                    <input id="tel" placeholder="0000000000" type="text"/>
+                </div>
+                <div id="mail_field" class="twelve wide required field">
+                    <label>Adresse mail</label>
+                    <input id="mail" placeholder="exemple@domaine.com" type="text"/>
+                </div>
+            </div>
+            <div id="address_field" class="sixteen wide required field">
+                <label>Adresse</label>
+                <input id="address" placeholder="X rue de ..." type="text"/>
+            </div>
+            <div class="fields">
+                <div id="postalcode_field" class="twelve wide required field">
+                    <label>Code postal</label>
+                    <input id="postalcode" placeholder="00000" type="text"/>
+                </div>
+                <div id="city_field" class="twelve wide required field">
+                    <label>Ville</label>
+                    <input id="city" placeholder="Ville..." type="text"/>
+                </div>
+            </div>
+            <div class="sixteen wide required field" id="country_field">
+                <label>Pays</label>
+                <div id="country_search" class="ui fluid search selection dropdown">
+                    <input type="hidden" id="country"/>
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Pays...</div>
+                    <div class="menu">
+                        <!-- COUNTRIES WILL GO HERE -->
+                    </div>
+                </div>
+            </div>
+            <div class="fields">
+                <div class="sixteen wide required field" id="schoolyear_field">
+                    <label>Année d'étude</label>
+                    <div id="schoolyear_search" class="ui fluid search selection dropdown">
+                        <input type="hidden" id="schoolyear"/>
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Année...</div>
+                        <div class="menu">
+                            <!-- YEARS WILL GO HERE -->
+                        </div>
+                    </div>
+                </div>
+                <div class="sixteen wide required field" id="dept_field">
+                    <label>Département</label>
+                    <div id="dept_search" class="ui fluid search selection dropdown">
+                        <input type="hidden" id="dept"/>
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Département...</div>
+                        <div class="menu">
+                            <!-- DEPTS WILL GO HERE -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="fields">
+                <div class="nine wide required field" id="position_field">
+                    <label>Position</label>
+                    <div id="position_search" class="ui fluid search selection dropdown">
+                        <input type="hidden" id="position"/>
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Poste...</div>
+                        <div class="menu">
+                            <!-- POSITIONS WILL GO HERE -->
+                        </div>
+                    </div>
+                </div>
+                <div class="seven wide required field" id="ag_field">
+                    <label>AG de recrutement</label>
+                    <div id="ag_search" class="ui fluid search selection dropdown">
+                        <input type="hidden" id="ag"/>
+                        <i class="dropdown icon"></i>
+                        <div class="default text">AGR...</div>
+                        <div class="menu">
+                            <!-- AGRS WILL GO HERE -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui hr_center small buttons">
+                <div id="abort_btn" class="ui button" onClick="DoleticUIModule.cancelNewUserForm();">Annuler
+                </div>
+                <div class="or" data-text="ou"></div>
+                <div id="adduser_btn" class="ui green button" onClick="DoleticUIModule.insertNewUser();">
+                    Ajouter
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

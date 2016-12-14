@@ -1,0 +1,19 @@
+<div class="ui two column grid container">
+    <div class="row"></div>
+    <div class="row">
+        <div class="sixteen wide column" id="page_content">
+            <div class="ui top attached tabular menu" id="tabmenu">
+                <a ng-class="{active: $state.current.activetab == 'stats'}" class="item" data-tab="stats" ui-sref="hr.statsTab">Statistiques</a>
+                <a ng-class="{active: $state.current.activetab == 'members'}" class="item" id="memlist" data-tab="members" ui-sref="hr.membersTab">Liste des membres</a>
+                <a ng-class="{active: $state.current.activetab == 'disabledMembers'}" class="item" id="dislist" data-tab="disabledMembers" ui-sref="hr.disabledMembersTab">Utilisateurs inactifs</a>
+                <a ng-class="{active: $state.current.activetab == 'teams'}" class="item" data-tab="teams" ui-sref="hr.teamsTab">Liste des équipes</a>
+                <a ng-class="{active: $state.current.activetab == 'userDetails'}" class="item" id="det" data-tab="userDetails" ui-sref="hr.userDetailsTab">Détails de l'utilisateur</a>
+            </div>
+            <div class="ui bottom attached tab segment active" data-tab="{{$state.current.activetab}}">
+                <div ui-view></div>
+            </div>
+        </div>
+    </div>
+    <div class="row"></div>
+    <div class="row"></div>
+</div>
