@@ -1,0 +1,121 @@
+<div class="ui grid container">
+    <div class="row">
+        <div class="sixteen wide column">
+            <div class="ui buttons">
+                <div id="edituser_modal_btn" class="ui green button" onClick="DoleticUIModule.editUser(-1, -1);">
+                    Modifier l'utilisateur
+                </div>
+                <div id="olduser_btn" class="ui yellow button" onClick="DoleticUIModule.tagOld(-1);">
+                    Marquer comme ancien membre
+                </div>
+                <div id="disableuser_btn" class="ui orange button" onClick="DoleticUIModule.disableUser(-1, -1);">
+                    Désactiver l'utilisateur
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="four wide column">
+            <div class="ui relaxed divided list">
+                <div class="item">
+                    <div class="content">
+                        <div class="header">Nom complet</div>
+                        <div class="description" id="det_name">undefined</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        <div class="header">Poste actuel</div>
+                        <div class="description" id="det_pos">undefined</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        <div class="header">Date de naissance</div>
+                        <div class="description" id="det_birth">undefined</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        <div class="header">Année</div>
+                        <div class="description" id="det_year">undefined</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        <div class="header">Téléphone</div>
+                        <div class="description" id="det_tel">undefined</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        <div class="header">Email</div>
+                        <div class="description" id="det_mail">undefined</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        <div class="header">Adresse</div>
+                        <div class="description" id="det_add">undefined</div>
+                        <div class="description" id="det_postal">undefined</div>
+                        <div class="description" id="det_city">undefined</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        <div class="header">Nationalité</div>
+                        <div class="description" id="det_country">undefined</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        <div class="header">AG de recrutement</div>
+                        <div class="description" id="det_ag">undefined</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div id="addadmm_modal_btn" class="ui green icon button"
+                         onClick="DoleticUIModule.showNewAdmMembershipForm(-1);">Nouvelle adhésion administrateur
+                    </div>
+                </div>
+                <div class="item">
+                    <div id="addintm_modal_btn" class="ui green button"
+                         onClick="DoleticUIModule.showNewIntMembershipForm(-1);">Nouvelle adhésion consultant
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="twelve wide column">
+            <div class="ui horizontal divider">
+                Adhésions administrateur
+            </div>
+            <div class="row" id="admm_table_container">
+            </div>
+            <div class="ui horizontal divider">
+                Adhésions consultant
+            </div>
+            <div class="row" id="intm_table_container">
+            </div>
+            <div class="ui horizontal divider">
+                Historique des postes
+            </div>
+            <div class="row" id="positions_history">
+                <table class="ui very basic celled table">
+                    <thead>
+                    <tr>
+                        <th>
+                            Poste
+                        </th>
+                        <th>
+                            Depuis le
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody id="pos_history_body">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
