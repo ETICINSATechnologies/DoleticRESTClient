@@ -1,0 +1,77 @@
+<table class="ui very basic celled table" id="user_table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Nom/Mail</th>
+            <th>Poste</th>
+            <th>Pôle</th>
+            <th>Téléphone</th>
+            <th>Année</th>
+            <th>Actif</th>
+            <th>Consultant</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th></th>
+            <th>Nom</th>
+            <th>Poste</th>
+            <th>Pôle</th>
+            <th>Téléphone</th>
+            <th>Année</th>
+            <th>Actif</th>
+            <th>Consultant</th>
+            <th></th>
+        </tr>
+    </tfoot>
+    <tbody id="user_body">
+        <tr ng-repeat="user in users">
+            <td ng-class="{
+                error: (data.object[i].admm_status == 'Invalide')
+                    || (data.object[i].intm_status == 'Invalide')
+                    || (data.object[i].admm_status == 'Non')
+                    && (data.object[i].intm_status == 'Non')
+                }">
+                <button class="ui teal icon button"
+                        data-tooltip="Détails de {{data.object[i].firstname}} {{data.object[i].lastname}}"
+                        data-content="Cliquez ici pour afficher plus d'informations"
+                        ng-click="">
+                    <i class="user icon"></i>
+                </button>
+            </td>
+            <td>
+                <h4 class="ui header">
+                    <div class="content">
+                        {{data.object[i].firstname}} {{data.object[i].lastname}}
+                        <div class="sub header">
+                            <a href="mailto:{{data.object[i].email}}" target="_blank">{{data.object[i].email}}</a>
+                        </div>
+                    </div>
+                </h4>
+            </td>
+            <td>{{data.object[i].position[0].label}}</td>
+            <td>{{data.object[i].position[0].division}}</td>
+            <td>{{data.object[i].tel}}</td>
+            <td>{{data.object[i].school_year}}{{data.object[i].insa_dept}}</td>
+            <td>{{data.object[i].admm_statu}}</td>
+            <td>{{data.object[i].intm_status}}</td>
+            <td>
+                <div class="ui icon buttons">
+                    <button class="ui blue icon button" data-tooltip="Modifier" ng-click="">
+                        <i class="write icon"></i>
+                    </button>
+                    <button ng-if="data.object[i].old" class="ui yellow icon button" data-tooltip="Marquer comme membre actuel" ng-click="">
+                        <i class="add user icon"></i>
+                    </button>
+                    <button ng-if="!data.object[i].old" class="ui yellow icon button" data-tooltip="Marquer comme ancien membre" ng-click="">
+                        <i class="student icon"></i>
+                    </button>
+                    <button class="ui orange icon button" data-tooltip="Désactiver" ng-click="">
+                        <i class="remove user icon"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

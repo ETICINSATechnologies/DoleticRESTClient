@@ -11,6 +11,7 @@
         var userFactory = {};
 
         var server = SERVER_CONFIG.url;
+        var urlBase = "/api/kernel/user";
         var currentUser = null;
 
         userFactory.setCurrentUser = function (user) {
@@ -18,6 +19,7 @@
             store.set('user', user);
             return currentUser;
         };
+
         userFactory.getCurrentUser = function () {
             if (!currentUser) {
                 currentUser = store.get('user');
@@ -26,8 +28,11 @@
         };
 
         userFactory.getServerCurrentUser = function (s) {
-            var urlBase = '/api/kernel/user/current';
-            return $http.get(server + urlBase);
+            return $http.get(server + urlBase + "/current");
+        };
+
+        userFactory.getAllUsers = function () {
+            return $http.get(server + urlBase + 's');
         };
 
         return userFactory;

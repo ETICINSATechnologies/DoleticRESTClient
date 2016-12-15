@@ -2,15 +2,15 @@
     <div class="row">
         <div class="twelve wide column">
             <div class="ui buttons">
-                <div id="adduser_modal_btn" class="ui green button" onClick="DoleticUIModule.showNewUserForm();">Ajouter
+                <div id="adduser_modal_btn" class="ui green button" ng-click="">Ajouter
                     un
                     membre
                 </div>
-                <div id="refresh_user_btn" class="ui olive button" onClick="DoleticUIModule.fillUsersList();">Actualiser
+                <div id="refresh_user_btn" class="ui olive button" ng-click="">Actualiser
                     la
                     liste
                 </div>
-                <div id="excel_user_btn" class="ui yellow button" onClick="alert('Fonction non implémentée...')">
+                <div id="excel_user_btn" class="ui yellow button" ng-click="alert('Fonction non implémentée...')">
                     Exporter au
                     format Excel
                 </div>
@@ -24,9 +24,9 @@
         </div>
     </div>
     <div class="row">
-        <div class="sixteen wide column" id="user_table_container">
+        <hr class="sixteen wide column" id="user_table_container">
             <div class="ui active"></div>
-            <!-- USER LIST WILL GO THERE -->
+            <hr-user-table-component></hr-user-table-component>
         </div>
     </div>
     <div class="row">
