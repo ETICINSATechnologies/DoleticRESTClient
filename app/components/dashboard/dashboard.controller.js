@@ -13,7 +13,6 @@
         $scope.currentUser.activePosition = _.find($scope.currentUser.positions, 'active');
         $scope.showEditProfileForm = showEditProfileForm;
         $scope.showEditPassForm = showEditPassForm;
-        console.log($scope.currentUser)
 
         function showEditProfileForm() {
             

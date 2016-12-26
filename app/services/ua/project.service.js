@@ -20,6 +20,10 @@
             return $http.get(server + urlBase + "s/auditor/" + id);
         };
 
+        projectFactory.getProjectByConsultantId = function (id) {
+            return $http.get(server + urlBase + "s/consultant/" + id);
+        };
+
         return projectFactory;
     }
 
