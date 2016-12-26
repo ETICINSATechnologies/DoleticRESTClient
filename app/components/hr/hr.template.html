@@ -7,7 +7,7 @@
                 <a ng-class="{active: $state.current.activetab == 'members'}" class="item" id="memlist" data-tab="members" ui-sref="hr.membersTab">Liste des membres</a>
                 <a ng-class="{active: $state.current.activetab == 'disabledMembers'}" class="item" id="dislist" data-tab="disabledMembers" ui-sref="hr.disabledMembersTab">Utilisateurs inactifs</a>
                 <a ng-class="{active: $state.current.activetab == 'teams'}" class="item" data-tab="teams" ui-sref="hr.teamsTab">Liste des équipes</a>
-                <a ng-class="{active: $state.current.activetab == 'userDetails'}" class="item" id="det" data-tab="userDetails" ui-sref="hr.userDetailsTab">Détails de l'utilisateur</a>
+                <a ng-if="sharedVariables.rh.selectedUser" ng-class="{active: $state.current.activetab == 'userDetails'}" class="item" id="det" data-tab="userDetails" ui-sref="hr.userDetailsTab">Détails de {{sharedVariables.rh.selectedUser.first_name}} {{sharedVariables.rh.selectedUser.last_name}}</a>
             </div>
             <div class="ui bottom attached tab segment active" data-tab="{{$state.current.activetab}}">
                 <div ui-view></div>

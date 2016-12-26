@@ -2,13 +2,13 @@
     <div class="row">
         <div class="sixteen wide column">
             <div class="ui buttons">
-                <div id="edituser_modal_btn" class="ui green button" onClick="DoleticUIModule.editUser(-1, -1);">
+                <div id="edituser_modal_btn" class="ui green button" ng-click="">
                     Modifier l'utilisateur
                 </div>
-                <div id="olduser_btn" class="ui yellow button" onClick="DoleticUIModule.tagOld(-1);">
+                <div id="olduser_btn" class="ui yellow button" ng-click="">
                     Marquer comme ancien membre
                 </div>
-                <div id="disableuser_btn" class="ui orange button" onClick="DoleticUIModule.disableUser(-1, -1);">
+                <div id="disableuser_btn" class="ui orange button" ng-click="">
                     Désactiver l'utilisateur
                 </div>
             </div>
@@ -20,51 +20,51 @@
                 <div class="item">
                     <div class="content">
                         <div class="header">Nom complet</div>
-                        <div class="description" id="det_name">undefined</div>
+                        <div class="description" id="det_name">{{user.first_name}} {{user.last_name}}</div>
                     </div>
                 </div>
                 <div class="item">
                     <div class="content">
                         <div class="header">Poste actuel</div>
-                        <div class="description" id="det_pos">undefined</div>
+                        <div class="description" id="det_pos">{{user | GetUserActivePosition:"label"}}</div>
                     </div>
                 </div>
                 <div class="item">
                     <div class="content">
                         <div class="header">Date de naissance</div>
-                        <div class="description" id="det_birth">undefined</div>
+                        <div class="description" id="det_birth">{{}}</div>
                     </div>
                 </div>
                 <div class="item">
                     <div class="content">
                         <div class="header">Année</div>
-                        <div class="description" id="det_year">undefined</div>
+                        <div class="description" id="det_year">{{user.school_year.year}}{{user.department.label}}</div>
                     </div>
                 </div>
                 <div class="item">
                     <div class="content">
                         <div class="header">Téléphone</div>
-                        <div class="description" id="det_tel">undefined</div>
+                        <div class="description" id="det_tel">0{{user.tel}}</div>
                     </div>
                 </div>
                 <div class="item">
                     <div class="content">
                         <div class="header">Email</div>
-                        <div class="description" id="det_mail">undefined</div>
+                        <div class="description" id="det_mail">{{user.email}}</div>
                     </div>
                 </div>
                 <div class="item">
                     <div class="content">
                         <div class="header">Adresse</div>
-                        <div class="description" id="det_add">undefined</div>
-                        <div class="description" id="det_postal">undefined</div>
-                        <div class="description" id="det_city">undefined</div>
+                        <div class="description" id="det_add">{{user.address}}</div>
+                        <div class="description" id="det_postal">{{user.postal_code}}</div>
+                        <div class="description" id="det_city">{{user.city}}</div>
                     </div>
                 </div>
                 <div class="item">
                     <div class="content">
                         <div class="header">Nationalité</div>
-                        <div class="description" id="det_country">undefined</div>
+                        <div class="description" id="det_country">{{user.country.label}}</div>
                     </div>
                 </div>
                 <div class="item">
@@ -75,12 +75,12 @@
                 </div>
                 <div class="item">
                     <div id="addadmm_modal_btn" class="ui green icon button"
-                         onClick="DoleticUIModule.showNewAdmMembershipForm(-1);">Nouvelle adhésion administrateur
+                         ng-click="">Nouvelle adhésion administrateur
                     </div>
                 </div>
                 <div class="item">
                     <div id="addintm_modal_btn" class="ui green button"
-                         onClick="DoleticUIModule.showNewIntMembershipForm(-1);">Nouvelle adhésion consultant
+                         ng-click="">Nouvelle adhésion consultant
                     </div>
                 </div>
             </div>
@@ -100,21 +100,6 @@
                 Historique des postes
             </div>
             <div class="row" id="positions_history">
-                <table class="ui very basic celled table">
-                    <thead>
-                    <tr>
-                        <th>
-                            Poste
-                        </th>
-                        <th>
-                            Depuis le
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody id="pos_history_body">
-
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>

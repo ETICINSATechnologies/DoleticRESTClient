@@ -28,43 +28,43 @@
     <tbody id="user_body">
         <tr ng-repeat="user in users">
             <td ng-class="{
-                error: (data.object[i].admm_status == 'Invalide')
-                    || (data.object[i].intm_status == 'Invalide')
-                    || (data.object[i].admm_status == 'Non')
-                    && (data.object[i].intm_status == 'Non')
+                error: (user.admm_status == 'Invalide')
+                    || (user.intm_status == 'Invalide')
+                    || (user.admm_status == 'Non')
+                    && (user.intm_status == 'Non')
                 }">
                 <button class="ui teal icon button"
-                        data-tooltip="Détails de {{data.object[i].firstname}} {{data.object[i].lastname}}"
+                        data-tooltip="Détails de {{user.first_name}} {{user.last_name}}"
                         data-content="Cliquez ici pour afficher plus d'informations"
-                        ng-click="">
+                        ng-click="goToUserDetailsTab(user)">
                     <i class="user icon"></i>
                 </button>
             </td>
             <td>
                 <h4 class="ui header">
                     <div class="content">
-                        {{data.object[i].firstname}} {{data.object[i].lastname}}
+                        {{user.first_name}} {{user.last_name}}
                         <div class="sub header">
-                            <a href="mailto:{{data.object[i].email}}" target="_blank">{{data.object[i].email}}</a>
+                            <a href="mailto:{{user.email}}" target="_blank">{{user.email}}</a>
                         </div>
                     </div>
                 </h4>
             </td>
-            <td>{{data.object[i].position[0].label}}</td>
-            <td>{{data.object[i].position[0].division}}</td>
-            <td>{{data.object[i].tel}}</td>
-            <td>{{data.object[i].school_year}}{{data.object[i].insa_dept}}</td>
-            <td>{{data.object[i].admm_statu}}</td>
-            <td>{{data.object[i].intm_status}}</td>
+            <td>{{user | GetUserActivePosition:"label"}}</td>
+            <td>{{user | GetUserActivePosition:"division"}}</td>
+            <td>0{{user.tel}}</td>
+            <td>{{user.school_year.year}}{{user.department.label}}</td>
+            <td>{{}}</td>
+            <td>{{}}</td>
             <td>
                 <div class="ui icon buttons">
                     <button class="ui blue icon button" data-tooltip="Modifier" ng-click="">
                         <i class="write icon"></i>
                     </button>
-                    <button ng-if="data.object[i].old" class="ui yellow icon button" data-tooltip="Marquer comme membre actuel" ng-click="">
+                    <button ng-if="user.old" class="ui yellow icon button" data-tooltip="Marquer comme membre actuel" ng-click="">
                         <i class="add user icon"></i>
                     </button>
-                    <button ng-if="!data.object[i].old" class="ui yellow icon button" data-tooltip="Marquer comme ancien membre" ng-click="">
+                    <button ng-if="!user.old" class="ui yellow icon button" data-tooltip="Marquer comme ancien membre" ng-click="">
                         <i class="student icon"></i>
                     </button>
                     <button class="ui orange icon button" data-tooltip="Désactiver" ng-click="">

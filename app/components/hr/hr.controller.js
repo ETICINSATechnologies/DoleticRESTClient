@@ -5,9 +5,10 @@
         .module('doleticApp')
         .controller('hrController', hrController);
 
-    hrController.$inject = ['$scope', '$state'];
+    hrController.$inject = ['$scope', '$state', 'SharedVariables'];
 
-    function hrController($scope, $state) {
+    function hrController($scope, $state, SharedVariables) {
         $scope.$state = $state;
+        $scope.sharedVariables = SharedVariables;
     }
 })();
