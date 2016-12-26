@@ -3,26 +3,26 @@
         <div class="row">
             <div class="ui card">
                 <div class="image">
-                    <a class="ui medium image" ng-click="$('#upload_btn_avatar').click()" data-tooltip="Uploader un avatar"
+                    <a class="ui medium image" ng-click="" data-tooltip="Uploader un avatar"
                        data-position="right center">
                         <img id="user_avatar" src="/resources/image.png">
                     </a>
                 </div>
                 <div class="content">
-                    <a id="user_fulname" class="header">John Doe</a>
+                    <a id="user_fulname" class="header">{{currentUser.first_name}} {{currentUser.last_name}}</a>
                     <div class="meta">
                         <span class="date">Dernière connexion le <span
                                 id="lastco_timestamp">13-02-2015 à 12:00</span></span>
                     </div>
-                    <div id="user_position" class="description">Responsable DSI</div>
+                    <div id="user_position" class="description">{{currentUser.activePosition.position.label}}</div>
                 </div>
                 <div class="extra content">
-                    <a ng-click="showEditProfileForm();">
+                    <a ng-click="showEditProfileForm()">
                         <i class="user icon"></i>
                         Modifier mon profil
                     </a>
                     <br>
-                    <a ng-click="showEditPassForm();">
+                    <a ng-click="showEditPassForm()">
                         <i class="privacy icon"></i>
                         Modifier mon mot de passe
                     </a>
