@@ -5,10 +5,15 @@
         .module('doleticApp')
         .controller('hrUserTableController', hrUserTableController);
 
-    hrUserTableController.$inject = ['$scope', '$state', 'UserService', 'SharedVariables'];
+    hrUserTableController.$inject = ['$scope', '$state', 'UserService', 'SharedVariables', 'DTOptionsBuilder', 'DTColumnDefBuilder'];
 
-    function hrUserTableController($scope, $state, UserService, SharedVariables) {
+    function hrUserTableController($scope, $state, UserService, SharedVariables, DTOptionsBuilder, DTColumnDefBuilder) {
         $scope.users = {};
+        $scope.dtOptions = DTOptionsBuilder
+            .newOptions()
+            .withPaginationType('full_numbers')
+            .withDisplayLength(20);
+        $scope.dtColumnDefs = [];
         $scope.goToUserDetailsTab = goToUserDetailsTab;
 
         function getAllUserData() {
