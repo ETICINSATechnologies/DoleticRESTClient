@@ -1,0 +1,65 @@
+<table class="ui very basic celled table" id="disabled_table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Nom/Mail</th>
+            <th>Poste</th>
+            <th>Pôle</th>
+            <th>Téléphone</th>
+            <th>Année</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th></th>
+            <th>Nom</th>
+            <th>Poste</th>
+            <th>Pôle</th>
+            <th>Téléphone</th>
+            <th>Année</th>
+            <th></th>
+        </tr>
+    </tfoot>
+    <tbody id="disabled_body">"
+        <tr ng-repeat="disabledUser in disabledUsers">
+            <td>
+                <button class="ui teal icon button"
+                        data-tooltip="Détails de {{data.object[i].firstname}} {{data.object[i].lastname}}"
+                        data-content="Cliquez ici pour afficher plus d'informations"
+                        ng-click="">
+                    <i class="user icon"></i>
+                </button>
+            </td>
+            <td>
+                <h4 class="ui header">
+                    <div class="content">{{data.object[i].firstname}} {{data.object[i].lastname}}
+                        <div class="sub header">
+                            <a href="mailto:{{data.object[i].email}}" target="_blank">{{data.object[i].email}}</a>
+                        </div>
+                    </div>
+                </h4>
+            </td>
+            <td>{{data.object[i].position[0].label}}</td>
+            <td>{{data.object[i].position[0].division}}</td>
+            <td>{{data.object[i].tel}}</td>
+            <td>{{data.object[i].school_year}} {{data.object[i].insa_dept}}</td>
+            <td>
+                <div class="ui icon buttons">
+                    <button class="ui olive icon button" data-tooltip="Réactiver" ng-click="">
+                        <i class="refresh icon"></i>
+                    </button>
+                    <button ng-if="data.object[i].old" class="ui yellow icon button" data-tooltip="Marquer comme membre actuel" ng-click="">
+                        <i class="add user icon"></i>
+                    </button>
+                    <button ng-if="!data.object[i].old" class="ui yellow icon button" data-tooltip="Marquer comme ancien membre" ng-click="">
+                        <i class="student icon"></i>
+                    </button>
+                    <button class="ui red icon button" data-tooltip="Supprimer" ng-click="">
+                        <i class="remove icon"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

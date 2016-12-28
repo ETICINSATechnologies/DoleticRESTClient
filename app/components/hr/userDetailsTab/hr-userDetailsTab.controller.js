@@ -5,9 +5,10 @@
         .module('doleticApp')
         .controller('hrUserDetailsTabController', hrUserDetailsTabController);
 
-    hrUserDetailsTabController.$inject = ['$scope'];
+    hrUserDetailsTabController.$inject = ['$scope', 'SharedVariables'];
 
-    function hrUserDetailsTabController($scope) {
-
+    function hrUserDetailsTabController($scope, SharedVariables) {
+        $scope.user = SharedVariables.rh.selectedUser;
+        console.log($scope.user)
     }
 })();

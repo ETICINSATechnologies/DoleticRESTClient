@@ -15,6 +15,9 @@
                 accessToken: null,
                 tokenType: "Bearer",
                 currentUser: null
+            },
+            rh: {
+                selectedUser: null
             }
         }
     }
