@@ -10,8 +10,8 @@
 
     function loginConfig() {
         return {
-            clientId: "1_20cpdghyq9msgg84wkg40cgokkk80w44gowgkcgskk8ckc4g88",
-            secretId: "3vtkh5n5rl6ok4ogosskow40o048swcsw80k4g8c0scggcg4k8",
+            clientId: "1_504up3nc36ccgcswwkco80k48cgg8s4c84wg8008w0888c40kg",
+            secretId: "2wcwlfs5p8iswk84k08cockko4ok8000sco40skw8cswggk4wg",
             grantType: "password",
             redirectURL: "localhost"
         }

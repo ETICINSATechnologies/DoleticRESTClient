@@ -18,6 +18,9 @@
             },
             rh: {
                 selectedUser: null
+            },
+            grc: {
+                selectedContact: null
             }
         }
     }

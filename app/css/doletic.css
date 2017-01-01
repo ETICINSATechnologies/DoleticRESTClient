@@ -62,3 +62,12 @@
 .sorting:hover, .sorting_desc:hover, .sorting_asc:hover {
     cursor: pointer !important;
 }
+
+.ng-invalid.ng-dirty:not(form) {
+    background-color: #FFF6F6 !important;
+    color: #9F3A38 !important;
+}
+.ng-valid.ng-dirty:not(form) {
+    background-color: #FCFFF5 !important;
+    color: #2C662D !important;
+}
