@@ -20,6 +20,16 @@
             return currentUser;
         };
 
+        userFactory.updatePassword = function (oldpass, newpass, confirmpass, successhandler) {
+            $http.post(server + urlBase + "/current/password",
+                {
+                    "old" : oldpass,
+                    "new[first]" : newpass,
+                    "new[second]" : confirmpass
+                }
+            )
+        }
+
         userFactory.getCurrentUser = function () {
             if (!currentUser) {
                 currentUser = store.get('user');
@@ -33,6 +43,18 @@
 
         userFactory.getAllUsers = function () {
             return $http.get(server + urlBase + 's');
+        };
+
+        userFactory.getUserByUsername = function(user){
+            return $http.get(server + urlBase + "/" + user);
+        };
+
+        userFactory.getUserByMail = function(mail){
+            return $http.get(server + urlBase + "/" + mail);
+        };
+
+        userFactory.getUserById = function (id) {
+            return $http.get(server + urlBase + "/" + id);
         };
 
         return userFactory;
