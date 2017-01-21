@@ -16,26 +16,32 @@
         $scope.cancelPassForm = cancelPassForm;
         $scope.updatePassword = updatePassword;
         $scope.checkPassForm = checkPassForm;
+        $scope.editState = false;
+        $scope.olpass = "";
+        $scope.nepass = "";
+        $scope.confpass = "";
 
         function showEditProfileForm() {
             
         }
         
         function showEditPassForm() {
-            $('#pass_form_modal').modal('show');
+            $scope.editState = true;
         }
 
         function cancelPassForm() {
-            $('#oldpass, #newpass, #confirm').val('');
-            $('#pass_form_modal').modal('hide');
+            $scope.olpass = "";
+            $scope.nepass = "";
+            $scope.confpass = "";
+            $scope.editState = false;
         }
 
         function updatePassword(){
             if(checkPassForm()){
                 UserService.updatePassword(
-                    $('#oldpass').val(),
-                    $('#newpass').val(),
-                    $('#confirm').val(),
+                    $scope.olpass,
+                    $scope.nepass,
+                    $scope.confpass,
                     function (data) {
                         if(data.code ==0){
                             checkPassForm();
@@ -49,13 +55,13 @@
         }
 
         function checkPassForm(){
-            $('#pass_form.field').removeClass("error");
+            element.find("pass_form").removeClass("error");
             var valid = true;
-            if ($('#newpass').val() != $('#confirm').val()) {
-                $('#newpass.field').addClass("error");
-                $('#confirm.field').addClass("error");
+            if ($scope.nepass != $scope.confpass) {
+                element.find('newpass_field').addClass("error");
+                element.find('confirm_field').addClass("error");
                 valid = false;
-                $('#pass_form').transition('shake');
+                element.find('pass_form').transition('shake');
             }
             return valid;
         }
