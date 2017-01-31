@@ -27,6 +27,12 @@
                 abstract: true,
                 templateUrl: "app/components/hr/hr.template.html",
                 controller: "hrController"
+            }).state('grc',
+            {
+                url: "/grc",
+                abstract: true,
+                templateUrl: "app/components/grc/grc.template.html",
+                controller: "grcController"
             });
     }
 })();
