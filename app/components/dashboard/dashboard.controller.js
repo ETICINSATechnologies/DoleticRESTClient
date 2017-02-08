@@ -9,45 +9,33 @@
 
     function DashboardController($scope, $state, SharedVariables, MessageBoxService, UserService) {
 
+        $scope.$state = $state;
+        $scope.sharedVariables = SharedVariables;
         $scope.currentUser = UserService.getCurrentUser();
         $scope.currentUser.activePosition = _.find($scope.currentUser.positions, 'active');
-        $scope.showEditProfileForm = showEditProfileForm;
-        $scope.showEditPassForm = showEditPassForm;
-        $scope.cancelPassForm = cancelPassForm;
-        $scope.updatePassword = updatePassword;
         $scope.editState = false;
-        $scope.olpass = "";
-        $scope.nepass = "";
-        $scope.confpass = "";
+        $scope.editProfile = false;
+        $scope.showEditPassForm = showEditPassForm;
+        $scope.showEditProfileForm = showEditProfileForm;
+        $scope.cancelPassForm = cancelPassForm();
+        $scope.cancelProfileForm = cancelProfileForm;
+
+        function cancelPassForm() {
+            $scope.editState = false;
+        }
+
+        function cancelProfileForm(){
+            $scope.editProfile = false;
+        }
 
         function showEditProfileForm() {
-            
+            $scope.editProfile =true;
         }
 
         function showEditPassForm() {
             $scope.editState = true;
         }
 
-        function cancelPassForm() {
-            $scope.olpass = "";
-            $scope.nepass = "";
-            $scope.confpass = "";
-            $scope.editState = false;
-        }
 
-        function updatePassword(){
-            UserService.updatePassword(
-                $scope.olpass,
-                $scope.nepass,
-                $scope.confpass,
-                function (data) {
-                    if(data.code ==0){
-                        MessageBoxService.showSuccess('Succès !', 'Mot de passe mis à jour avec succès !' );
-                    } else {
-                        MessageBoxService.handleServiceError(data);
-                    }
-                }
-            );
-        }
     }
 })();
