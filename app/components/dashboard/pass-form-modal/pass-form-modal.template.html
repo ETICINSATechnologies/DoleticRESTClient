@@ -18,7 +18,7 @@
                 <div ng-messages="pass_form.confirm.$error" ng-messages-include="Erreurs.html" ></div>
             </div>
             <div class="ui hr_center small buttons">
-                <div id="abort_pass" class="ui button" ng-click="cancelPassForm();">Annuler
+                <div id="abort_pass" class="ui button" ng-click="DashboardController.cancelPassForm();">Annuler
                 </div>
                 <div class="or" data-text="ou"></div>
                 <div id="pass_btn" class="ui green button" ng-disabled="pass_form.$invalid" ng-click="updatePassword();">
