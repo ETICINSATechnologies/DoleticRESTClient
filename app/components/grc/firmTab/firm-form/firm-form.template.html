@@ -16,14 +16,7 @@
         </div>
         <div class="sixteen wide required field">
             <label>Type de société</label>
-            <div class="ui fluid search selection dropdown" id="firm_type_dropdown">
-                <input type="hidden" name="type" ng-model="firm.type" required/>
-                <i class="dropdown icon"></i>
-                <div class="default text">Type...</div>
-                <div class="menu">
-                    <div ng-repeat="firmType in firmTypes" class="item" data-value="{{ firmType.id }}" ng-click="setType(firmType.id)">{{ firmType.label }}</div>
-                </div>
-            </div>
+            <ng-dropdown data-label="label" ng-option="firmTypes" data-value="id" ng-model="firm.type" required="true"></ng-dropdown>
         </div>
         <div class="ui fields">
             <div class="ten wide field">
@@ -42,14 +35,7 @@
             </div>
             <div class="eight wide required field">
                 <label>Pays</label>
-                <div class="ui fluid search selection dropdown" id="firm_country_dropdown">
-                    <input type="hidden" name="country" ng-model="firm.country" required/>
-                    <i class="dropdown icon"></i>
-                    <div class="default text">Pays...</div>
-                    <div class="menu">
-                        <div ng-repeat="country in countries" class="item" data-value="{{ country.id }}" ng-click="setCountry(country.id)">{{ country.label }}</div>
-                    </div>
-                </div>
+                <ng-dropdown data-label="label" ng-option="countries" data-value="id" ng-model="firm.country" required="true"></ng-dropdown>
             </div>
         </div>
         <div class="ui hr_center small buttons">

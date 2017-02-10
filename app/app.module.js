@@ -8,7 +8,8 @@
             'ngLoadingSpinner',
             'angularModalService',
             'angular-storage',
-            'datatables'
+            'datatables',
+            'ngDropdown'
         ])
         .run(run)
         .config(config);
