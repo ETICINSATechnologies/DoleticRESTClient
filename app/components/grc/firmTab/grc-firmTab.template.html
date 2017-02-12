@@ -5,7 +5,7 @@
                 <div class="ui green button" ng-click="showFirmForm()">
                     Ajouter une société
                 </div>
-                <div class="ui olive button" ng-click="getAllFirms(false)">
+                <div class="ui olive button" ng-click="firmService.getAllFirms(false);">
                     Actualiser la liste
                 </div>
                 <div class="ui yellow button" ng-click="alert('Fonction non implémentée...')">
@@ -15,7 +15,7 @@
         </div>
         <div class="five wide column">
             <div class="ui toggle checkbox">
-                <input type="checkbox" id="toggle_old_firms">
+                <input type="checkbox"/>
                 <label>Afficher les anciennes sociétés</label>
             </div>
         </div>

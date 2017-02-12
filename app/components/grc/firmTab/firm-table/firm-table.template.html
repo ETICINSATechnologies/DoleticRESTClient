@@ -24,7 +24,7 @@
     </tr>
     </tfoot>
     <tbody>
-    <tr ng-repeat="firm in firms">
+    <tr ng-repeat="firm in firmService.firms">
         <td>{{firm.name}}</td>
         <td>{{firm.siret}}</td>
         <td>{{firm.type.label}}</td>
@@ -37,7 +37,7 @@
                 <button class="ui blue icon button" data-tooltip="Modifier" ng-click="">
                     <i class="write icon"></i>
                 </button>
-                <button class="ui red icon button" data-tooltip="Supprimer" ng-click="">
+                <button class="ui red icon button" data-tooltip="Supprimer" ng-click="deleteFirm(firm.id)">
                     <i class="remove icon"></i>
                 </button>
             </div>

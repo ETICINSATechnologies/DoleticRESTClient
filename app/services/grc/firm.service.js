@@ -10,17 +10,41 @@
     function FirmService($http, SERVER_CONFIG) {
         var server = SERVER_CONFIG.url;
         var urlBase = '/api/grc/firm';
-        var projectFactory = {};
+        var firmFactory = {firms: {}};
 
-        projectFactory.getAllFirms = function (cache) {
-            return $http.get(server + urlBase + "s", {cache: cache});
+        firmFactory.getAllFirms = function (cache) {
+            return $http.get(server + urlBase + "s", {cache: cache}).success(function (data) {
+                firmFactory.firms = data.firms;
+            }).error(function () {
+                console.log(data);
+            });
         };
 
-        projectFactory.postFirm = function (firm) {
-            return $http.post(server + urlBase, firm);
+        firmFactory.postFirm = function (firm) {
+            return $http.post(server + urlBase, firm).success(function (data) {
+                firmFactory.firms[data.firm.id] = data.firm;
+            }).error(function (data) {
+                console.log(error);
+            });
         };
 
-        return projectFactory;
+        firmFactory.putFirm = function (firm) {
+            return $http.post(server + urlBase + "/" + firm.id, firm).success(function (data) {
+                firmFactory.firms[firm.id] = data.firm;
+            }).error(function (data) {
+                console.log(error);
+            });
+        };
+
+        firmFactory.deleteFirm = function (id) {
+            return $http.delete(server + urlBase + "/" + id).success(function (data) {
+                delete firmFactory.firms[id];
+            }).error(function (data) {
+                console.log(data);
+            });
+        };
+
+        return firmFactory;
     }
 
 })();

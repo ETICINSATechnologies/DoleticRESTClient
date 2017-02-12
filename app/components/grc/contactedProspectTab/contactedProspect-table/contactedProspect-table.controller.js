@@ -3,11 +3,11 @@
 
     angular
         .module('doleticApp')
-        .controller('grcProspectTableController', grcProspectTableController);
+        .controller('grcContactedProspectTableController', grcContactedProspectTableController);
 
-    grcProspectTableController.$inject = ['$scope', '$state', 'ContactService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'ConfirmModalService', 'MessageBoxService'];
+    grcContactedProspectTableController.$inject = ['$scope', '$state', 'ContactService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'ConfirmModalService', 'MessageBoxService'];
 
-    function grcProspectTableController($scope, $state, ContactService, DTOptionsBuilder, DTColumnDefBuilder, ConfirmModalService, MessageBoxService) {
+    function grcContactedProspectTableController($scope, $state, ContactService, DTOptionsBuilder, DTColumnDefBuilder, ConfirmModalService, MessageBoxService) {
         $scope.contactService = ContactService;
 
         $scope.dtOptions = DTOptionsBuilder
@@ -17,15 +17,15 @@
             .withOption('stateSave', true);
         $scope.dtColumnDefs = [];
 
-        $scope.deleteProspect = function (id) {
-            console.log(ContactService.prospects);
-            var name = ContactService.prospects[id].first_name + " " + ContactService.prospects[id].last_name;
+        $scope.deleteContactedProspect = function (id) {
+            console.log(ContactService.contactedProspects);
+            var name = ContactService.contactedProspects[id].first_name + " " + ContactService.contactedProspects[id].last_name;
             ConfirmModalService.showConfirmModal(
                 "Confirmer la suppression",
                 "Voulez-vous vraiment supprimer le prospect " + name + " ?",
                 "remove user",
                 function () {
-                    ContactService.deleteProspect(id).success(function (data) {
+                    ContactService.deleteContactedProspect(id).success(function (data) {
                         MessageBoxService.showSuccess(
                             "Suppression réussie !",
                             "Le prospect " + name + " a été supprimé."
@@ -40,6 +40,6 @@
             )
         };
 
-        ContactService.getAllProspects(true);
+        ContactService.getAllContactedProspects(true);
     }
 })();

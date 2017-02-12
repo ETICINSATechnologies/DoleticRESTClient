@@ -1,32 +1,22 @@
-<div class="ui two column grid container">
+<div class="ui two column grid container" ng-controller="grcClientTabController">
     <div class="row">
-        <div class="twelve wide column">
+        <div class="sixteen wide column">
             <div class="ui buttons">
-                <div id="adduser_modal_btn" class="ui green button" ng-click="">Ajouter
-                    un
-                    membre
+                <div class="ui green button" ng-click="showClientForm()">
+                    Ajouter un client
                 </div>
-                <div id="refresh_user_btn" class="ui olive button" ng-click="">Actualiser
-                    la
-                    liste
+                <div class="ui olive button" ng-click="contactService.getAllClients(false)">
+                    Actualiser la liste
                 </div>
-                <div id="excel_user_btn" class="ui yellow button" ng-click="alert('Fonction non implémentée...')">
-                    Exporter au
-                    format Excel
+                <div class="ui yellow button" ng-click="alert('Fonction non implémentée...')">
+                    Exporter au format Excel
                 </div>
-            </div>
-        </div>
-        <div class="four wide column">
-            <div class="ui toggle checkbox">
-                <input type="checkbox" id="toggle_old">
-                <label>Afficher les anciens membres</label>
             </div>
         </div>
     </div>
     <div class="row">
-        <hr class="sixteen wide column" id="user_table_container">
-            <div class="ui active"></div>
-            <hr-user-table-component></hr-user-table-component>
+        <div class="sixteen wide column">
+            <grc-client-table-component></grc-client-table-component>
         </div>
     </div>
     <div class="row">

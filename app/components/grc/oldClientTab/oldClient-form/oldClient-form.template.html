@@ -1,0 +1,73 @@
+<div class="ui modal" id="old_client_form_modal">
+    <div class="ui segment">
+        <form name="oldClientForm" class="ui form vertical segment" ng-submit="oldClientForm.$valid && addProspect()" novalidate>
+            <div class="ui message" ng-show="oldClientForm.$dirty" ng-class="{'positive' : oldClientForm.$valid, 'negative' : oldClientForm.$invalid}">
+                Le formulaire est {{ oldClientForm.$valid ? "valide" : "invalide" }}
+            </div>
+            <h4 class="ui dividing header">Ajout d'un client</h4>
+            <div class="fields">
+                <div class="eight wide required field">
+                    <label>Prénom</label>
+                    <input placeholder="Prénom..." type="text" ng-model="oldClient.firstName" required/>
+                </div>
+                <div class="eight wide required field">
+                    <label>Nom</label>
+                    <input placeholder="Nom..." type="text" ng-model="oldClient.lastName" required/>
+                </div>
+            </div>
+            <div class="fields">
+                <div class="eight wide required field">
+                    <label>Civilité</label>
+                    <ng-dropdown data-label="label" ng-option="genderService.genders" data-value="id" ng-model="oldClient.gender" required="true"></ng-dropdown>
+                </div>
+                <div class="eight wide field">
+                    <label>Email</label>
+                    <input placeholder="Email..." type="email" ng-model="oldClient.email"/>
+                </div>
+            </div>
+            <div class="fields">
+                <div class="eight wide field">
+                    <label>Numéro de téléphone</label>
+                    <input placeholder="0000000000" ng-model="oldClient.phone"/>
+                </div>
+                <div class="eight wide field">
+                    <label>Numéro de téléphone mobile</label>
+                    <input placeholder="0000000000" ng-model="oldClient.cellPhone"/>
+                </div>
+            </div>
+            <div class="fields">
+                <div class="eight wide required field">
+                    <label>Société</label>
+                    <ng-dropdown data-label="name" ng-option="firmService.firms" data-value="id" ng-model="oldClient.firm" required="true"></ng-dropdown>
+                </div>
+                <div class="eight wide field">
+                    <label>Poste</label>
+                    <input placeholder="Poste..." type="text" ng-model="oldClient.role"/>
+                </div>
+            </div>
+            <div class="sixteen wide field">
+                <label>Origine des coordonnées</label>
+                <input placeholder="Origine..." type="text" ng-model="oldClient.origin"/>
+            </div>
+            <div class="fields">
+                <div class="eight wide field">
+                    <label>Prochaine prospection</label>
+                    <input placeholder="JJ/MM/AAAA" type="date" ng-model="oldClient.nextProspecting"/>
+                </div>
+                <div class="eight wide field">
+                    <label>Assigné à</label>
+                    <ng-dropdown data-label="fullName" ng-option="prospectors" data-value="id" ng-model="oldClient.prospector"></ng-dropdown>
+                </div>
+            </div>
+            <div class="sixteen wide field">
+                <label>Notes</label>
+                <textarea ng-model="oldClient.notes" placeholder="Notes..."></textarea>
+            </div>
+            <div class="ui small buttons">
+                <input type="reset" value="Annuler" class="ui button"/>
+                <div class="or" data-text="ou"></div>
+                <input type="submit" value="Ajouter" class="ui green button" ng-class="{'disabled':oldClientForm.$invalid}"/>
+            </div>
+        </form>
+    </div>
+</div>

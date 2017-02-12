@@ -1,74 +1,63 @@
-<table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="ui very basic celled table" id="user_table">
+<table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="ui very basic celled table">
     <thead>
         <tr>
             <th></th>
-            <th>Nom/Mail</th>
-            <th>Poste</th>
-            <th>Pôle</th>
+            <th>Nom/Email</th>
             <th>Téléphone</th>
-            <th>Année</th>
-            <th>Actif</th>
-            <th>Consultant</th>
+            <th>Mobile</th>
+            <th>Société</th>
+            <th>Rôle</th>
+            <th>Assigné à</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tfoot>
         <tr>
             <th></th>
-            <th>Nom</th>
-            <th>Poste</th>
-            <th>Pôle</th>
+            <th>Nom/Email</th>
             <th>Téléphone</th>
-            <th>Année</th>
-            <th>Actif</th>
-            <th>Consultant</th>
+            <th>Mobile</th>
+            <th>Société</th>
+            <th>Rôle</th>
+            <th>Assigné à</th>
             <th></th>
         </tr>
     </tfoot>
-    <tbody id="user_body">
-        <tr ng-repeat="user in users">
-            <td ng-class="{
-                error: (user.admm_status == 'Invalide')
-                    || (user.intm_status == 'Invalide')
-                    || (user.admm_status == 'Non')
-                    && (user.intm_status == 'Non')
-                }">
+    <tbody>
+        <tr ng-repeat="oldClient in contactService.oldClients">
+            <td>
                 <button class="ui teal icon button"
-                        data-tooltip="Détails de {{user.first_name}} {{user.last_name}}"
+                        data-tooltip="Détails de {{oldClient.first_name}} {{oldClient.last_name}}"
                         data-content="Cliquez ici pour afficher plus d'informations"
-                        ng-click="goToUserDetailsTab(user)">
+                        ng-click="">
                     <i class="user icon"></i>
                 </button>
             </td>
             <td>
-                <h4 class="ui header">
+                <div class="ui small header">
                     <div class="content">
-                        {{user.first_name}} {{user.last_name}}
+                        {{oldClient.first_name}} {{oldClient.last_name}}
                         <div class="sub header">
-                            <a href="mailto:{{user.email}}" target="_blank">{{user.email}}</a>
+                            <a href="mailto:{{oldClient.email}}" target="_blank">{{oldClient.email}}</a>
                         </div>
                     </div>
-                </h4>
+                </div>
             </td>
-            <td>{{user | GetUserActivePosition:"label"}}</td>
-            <td>{{user | GetUserActivePosition:"division"}}</td>
-            <td>0{{user.tel}}</td>
-            <td>{{user.school_year.year}}{{user.department.label}}</td>
-            <td>{{}}</td>
-            <td>{{}}</td>
+            <td>0{{oldClient.phone}}</td>
+            <td>0{{oldClient.cell_phone}}</td>
+            <td>{{oldClient.firm.name}}</td>
+            <td>{{oldClient.role}}</td>
+            <td>{{oldClient.prospector.first_name}} {{oldClient.prospector.last_name}}</td>
             <td>
                 <div class="ui icon buttons">
                     <button class="ui blue icon button" data-tooltip="Modifier" ng-click="">
                         <i class="write icon"></i>
                     </button>
-                    <button ng-if="user.old" class="ui yellow icon button" data-tooltip="Marquer comme membre actuel" ng-click="">
-                        <i class="add user icon"></i>
+                    <button class="ui yellow icon button" data-tooltip="Marquer comme à prospecter" ng-click="">
+                        <i class="call icon"></i>
                     </button>
-                    <button ng-if="!user.old" class="ui yellow icon button" data-tooltip="Marquer comme ancien membre" ng-click="">
-                        <i class="student icon"></i>
-                    </button>
-                    <button class="ui orange icon button" data-tooltip="Désactiver" ng-click="">
-                        <i class="remove user icon"></i>
+                    <button class="ui red icon button" data-tooltip="Supprimer" ng-click="deleteOldClient(oldClient.id)">
+                        <i class="remove icon"></i>
                     </button>
                 </div>
             </td>

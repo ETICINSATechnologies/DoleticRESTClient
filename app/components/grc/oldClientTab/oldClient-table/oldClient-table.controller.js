@@ -5,37 +5,41 @@
         .module('doleticApp')
         .controller('grcOldClientTableController', grcOldClientTableController);
 
-    grcOldClientTableController.$inject = ['$scope', '$state', 'OldClientService', 'SharedVariables', 'DTOptionsBuilder', 'DTColumnDefBuilder'];
+    grcOldClientTableController.$inject = ['$scope', '$state', 'ContactService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'ConfirmModalService', 'MessageBoxService'];
 
-    function grcOldClientTableController($scope, $state, OldClientService, SharedVariables, DTOptionsBuilder, DTColumnDefBuilder) {
-        console.log($scope.users);
-        $scope.users = {};
+    function grcOldClientTableController($scope, $state, ContactService, DTOptionsBuilder, DTColumnDefBuilder, ConfirmModalService, MessageBoxService) {
+        $scope.contactService = ContactService;
+
         $scope.dtOptions = DTOptionsBuilder
             .newOptions()
             .withPaginationType('full_numbers')
-            .withDisplayLength(20);
+            .withDisplayLength(25)
+            .withOption('stateSave', true);
         $scope.dtColumnDefs = [];
-        $scope.goToOldClientDetailsTab = goToOldClientDetailsTab;
 
-        function getAllOldClientData() {
-            OldClientService.getAllOldClients()
-                .success(
-                    function (data) {
-                        $scope.users = data.users;
-                        console.log($scope.users);
-                    }
-                ).error(
-                    function (data) {
-                        console.log(data);
-                    }
-                );
-        }
-        
-        function goToOldClientDetailsTab(user) {
-            SharedVariables.grc.selectedOldClient = user;
-            $state.go("grc.userDetailsTab");
-        }
+        $scope.deleteOldClient = function (id) {
+            console.log(ContactService.oldClients);
+            var name = ContactService.oldClients[id].first_name + " " + ContactService.oldClients[id].last_name;
+            ConfirmModalService.showConfirmModal(
+                "Confirmer la suppression",
+                "Voulez-vous vraiment supprimer l'ancien client " + name + " ?",
+                "remove user",
+                function () {
+                    ContactService.deleteOldClient(id).success(function (data) {
+                        MessageBoxService.showSuccess(
+                            "Suppression réussie !",
+                            "L'ancien client " + name + " a été supprimé."
+                        );
+                    }).error(function (data) {
+                        MessageBoxService.showError(
+                            "Echec de la suppression...",
+                            "L'ancien client " + name + " n'a pas pu être supprimé. Vérifiez qu'il n'est pas référencé ailleurs."
+                        );
+                    });
+                }
+            )
+        };
 
-        getAllOldClientData();
+        ContactService.getAllOldClients(true);
     }
 })();
