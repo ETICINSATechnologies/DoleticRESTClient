@@ -9,7 +9,7 @@
         return {
             bindings: {},
             controller: "grcFirmFormController",
-            templateUrl: "app/components/grc/firmTab/firm-table/firm-table.template.html"
+            templateUrl: "app/components/grc/firmTab/firm-form/firm-form.template.html"
         }
     }
 })();

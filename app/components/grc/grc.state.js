@@ -27,12 +27,12 @@
                 templateUrl: "app/components/grc/firmTab/grc-firmTab.template.html",
                 controller: "grcFirmTabController",
                 activetab: 'firm'
-            }).state('grc.contactTab', {
+            }).state('grc.contactedProspectTab', {
                 parent: 'grc',
-                url: "/contactTab",
-                templateUrl: "app/components/grc/contactTab/grc-contactTab.template.html",
-                controller: "grcContactTabController",
-                activetab: 'contact'
+                url: "/contactedProspectTab",
+                templateUrl: "app/components/grc/contactedProspectTab/grc-contactedProspectTab.template.html",
+                controller: "grcContactedProspectTabController",
+                activetab: 'contactedProspect'
             }).state('grc.clientTab', {
                 parent: 'grc',
                 url: "/clientTab",
@@ -44,7 +44,7 @@
                 url: "/oldClientTab",
                 templateUrl: "app/components/grc/oldClientTab/grc-oldClientTab.template.html",
                 controller: "grcOldClientTabController",
-                activetab: 'old'
+                activetab: 'oldClient'
             }).state('grc.contactDetailsTab', {
                 parent: 'grc',
                 url: "/contactDetailsTab",

@@ -5,37 +5,41 @@
         .module('doleticApp')
         .controller('grcClientTableController', grcClientTableController);
 
-    grcClientTableController.$inject = ['$scope', '$state', 'ClientService', 'SharedVariables', 'DTOptionsBuilder', 'DTColumnDefBuilder'];
+    grcClientTableController.$inject = ['$scope', '$state', 'ContactService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'ConfirmModalService', 'MessageBoxService'];
 
-    function grcClientTableController($scope, $state, ClientService, SharedVariables, DTOptionsBuilder, DTColumnDefBuilder) {
-        console.log($scope.users);
-        $scope.users = {};
+    function grcClientTableController($scope, $state, ContactService, DTOptionsBuilder, DTColumnDefBuilder, ConfirmModalService, MessageBoxService) {
+        $scope.contactService = ContactService;
+
         $scope.dtOptions = DTOptionsBuilder
             .newOptions()
             .withPaginationType('full_numbers')
-            .withDisplayLength(20);
+            .withDisplayLength(25)
+            .withOption('stateSave', true);
         $scope.dtColumnDefs = [];
-        $scope.goToClientDetailsTab = goToClientDetailsTab;
 
-        function getAllClientData() {
-            ClientService.getAllClients()
-                .success(
-                    function (data) {
-                        $scope.users = data.users;
-                        console.log($scope.users);
-                    }
-                ).error(
-                    function (data) {
-                        console.log(data);
-                    }
-                );
-        }
-        
-        function goToClientDetailsTab(user) {
-            SharedVariables.rh.selectedClient = user;
-            $state.go("grc.userDetailsTab");
-        }
+        $scope.deleteClient = function (id) {
+            console.log(ContactService.clients);
+            var name = ContactService.clients[id].first_name + " " + ContactService.clients[id].last_name;
+            ConfirmModalService.showConfirmModal(
+                "Confirmer la suppression",
+                "Voulez-vous vraiment supprimer le client " + name + " ?",
+                "remove user",
+                function () {
+                    ContactService.deleteClient(id).success(function (data) {
+                        MessageBoxService.showSuccess(
+                            "Suppression réussie !",
+                            "Le client " + name + " a été supprimé."
+                        );
+                    }).error(function (data) {
+                        MessageBoxService.showError(
+                            "Echec de la suppression...",
+                            "Le client " + name + " n'a pas pu être supprimé. Vérifiez qu'il n'est pas référencé ailleurs."
+                        );
+                    });
+                }
+            )
+        };
 
-        getAllClientData();
+        ContactService.getAllClients(true);
     }
 })();

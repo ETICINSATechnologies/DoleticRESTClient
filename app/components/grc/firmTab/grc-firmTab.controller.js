@@ -5,9 +5,11 @@
         .module('doleticApp')
         .controller('grcFirmTabController', grcFirmTabController);
 
-    grcFirmTabController.$inject = ['$scope', 'ModalService'];
+    grcFirmTabController.$inject = ['$scope', 'ModalService', 'FirmService'];
 
-    function grcFirmTabController($scope, ModalService) {
+    function grcFirmTabController($scope, ModalService, FirmService) {
+
+        $scope.firmService = FirmService;
 
         $scope.showFirmForm = function () {
             ModalService.showModal({
