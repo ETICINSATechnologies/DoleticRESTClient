@@ -5,12 +5,12 @@
             <div class="fields">
                 <div id="firstname_field" class="eight wide required field">
                     <label>Prénom</label>
-                    <input id="firstname" placeholder="Prénom..." type="text" required ng-model="profile.firstname"/>
+                    <input id="firstname" placeholder="Prénom..." type="text" required="true" ng-model="profile.firstname"/>
                     <div ng-messages="pass_form.oldpass.$error" ng-messages-include="Erreurs.html" ></div>
                 </div>
                 <div id="lastname_field" class="eight wide required field">
                     <label>Nom</label>
-                    <input id="lastname" placeholder="Nom..." type="text" required ng-model="profile.lastname"/>
+                    <input id="lastname" placeholder="Nom..." type="text" required="true" ng-model="profile.lastname"/>
                     <div ng-messages="pass_form.oldpass.$error" ng-messages-include="Erreurs.html" ></div>
                 </div>
             </div>
@@ -18,15 +18,8 @@
                 <div class="twelve wide required field" id="gender_field">
                     <label>Civilité</label>
                     <div id="gender_search" class="ui fluid search selection dropdown">
-                        <input type="hidden" id="gender" required ng-model="profile.gender"/>
+                        <ng-dropdown data-label="label" ng-option="GenderService.genders" data-value="id" ng-model="profile.gender" required="true"></ng-dropdown>
                         <div ng-messages="pass_form.oldpass.$error" ng-messages-include="Erreurs.html" ></div>
-                        <i class="dropdown icon"></i>
-                        <div class="default text">Civilité...</div>
-                        <div class="menu">
-                            <div ng-repeat="gender in genders" class="item" data-value="{{gender.id}}" ng-click="setGender(gender.id)">
-                                {{gender.label}}
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div id="birthdate_field" class="twelve wide required field">
@@ -48,7 +41,7 @@
                 </div>
                 <div id="mail_field" class="twelve wide required field">
                     <label>Adresse mail</label>
-                    <input id="mail" placeholder="exemple@domaine.com" type="email" required ng-model="profile.mail"/>
+                    <input id="mail" placeholder="exemple@domaine.com" type="email" required="true" ng-model="profile.mail"/>
                     <div ng-messages="pass_form.oldpass.$error" ng-messages-include="Erreurs.html" ></div>
                 </div>
             </div>
@@ -72,44 +65,23 @@
             <div class="sixteen wide required field" id="country_field">
                 <label>Pays</label>
                 <div id="country_search" class="ui fluid search selection dropdown">
-                    <input type="hidden" id="country" required ng-model="profile.country"/>
+                    <ng-dropdown data-label="label" ng-option="CountryService.countries" data-value="id" ng-model="profile.country" required="true"></ng-dropdown>
                     <div ng-messages="pass_form.oldpass.$error" ng-messages-include="Erreurs.html" ></div>
-                    <i class="dropdown icon"></i>
-                    <div class="default text">Pays...</div>
-                    <div class="menu">
-                        <div ng-repeat="country in countries" class="item" data-value="{{country.id}}" ng-click="setCountry(country.id)">
-                            {{country.label}}
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="fields">
                 <div class="sixteen wide required field" id="schoolyear_field">
                     <label>Année d'étude</label>
                     <div id="schoolyear_search" class="ui fluid search selection dropdown">
-                        <input type="hidden" id="schoolyear" required ng-model="profile.shoolyear"/>
+                        <ng-dropdown data-label="label" ng-option="YearService.years" data-value="id" ng-model="profile.year" required="true"></ng-dropdown>
                         <div ng-messages="pass_form.oldpass.$error" ng-messages-include="Erreurs.html" ></div>
-                        <i class="dropdown icon"></i>
-                        <div class="default text">Année...</div>
-                        <div class="menu">
-                            <div ng-repeat="year in years" class="item" data-value="{{year.id}}" ng-click="setYear(year.id)">
-                                {{year.label}}
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="sixteen wide required field" id="dept_field">
                     <label>Département</label>
                     <div id="dept_search" class="ui fluid search selection dropdown">
-                        <input type="hidden" id="dept" required ng-model="profile.dept"/>
+                        <ng-dropdown data-label="label" ng-option="DepartmentService.departments" data-value="id" ng-model="profile.department" required="true"></ng-dropdown>
                         <div ng-messages="pass_form.oldpass.$error" ng-messages-include="Erreurs.html" ></div>
-                        <i class="dropdown icon"></i>
-                        <div class="default text">Département...</div>
-                        <div class="menu">
-                            <div ng-repeat="department in departments" class="item" data-value="{{department.id}}" ng-click="setDepartment(department.id)">
-                                {{department.label}}
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
