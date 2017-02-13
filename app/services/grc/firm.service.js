@@ -10,10 +10,15 @@
     function FirmService($http, SERVER_CONFIG) {
         var server = SERVER_CONFIG.url;
         var urlBase = '/api/grc/firm';
-        var firmFactory = {firms: {}};
+        var firmFactory = {};
 
         firmFactory.getAllFirms = function (cache) {
-            return $http.get(server + urlBase + "s", {cache: cache}).success(function (data) {
+            if (!cache) {
+                delete firmFactory.firms;
+            } else if (firmFactory.firms) {
+                return;
+            }
+            return $http.get(server + urlBase + "s").success(function (data) {
                 firmFactory.firms = data.firms;
             }).error(function () {
                 console.log(data);

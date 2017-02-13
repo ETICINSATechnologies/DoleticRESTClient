@@ -13,7 +13,12 @@
         var firmTypeFactory = {firmTypes: {}};
 
         firmTypeFactory.getAllFirmTypes = function (cache) {
-            return $http.get(server + urlBase + "s", {cache: cache}).success(function (data) {
+            if (!cache) {
+                delete firmTypeFactory.firmTypes;
+            } else if (firmTypeFactory.firmTypes) {
+                return;
+            }
+            return $http.get(server + urlBase + "s").success(function (data) {
                 firmTypeFactory.firmTypes = data.firm_types;
             }).error(function (data) {
                 console.log(data);
