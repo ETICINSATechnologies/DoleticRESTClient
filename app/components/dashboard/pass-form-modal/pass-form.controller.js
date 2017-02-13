@@ -17,14 +17,14 @@
         $scope.updatePassword = updatePassword;
         $scope.pass = {};
 
-        function updatePassword(){
+        function updatePassword() {
             UserService.updatePassword(
                 $scope.pass.olpass,
                 $scope.pass.nepass,
                 $scope.pass.confpass,
                 function (data) {
-                    if(data.code ==0){
-                        MessageBoxService.showSuccess('Succès !', 'Mot de passe mis à jour avec succès !' );
+                    if (data.code == 0) {
+                        MessageBoxService.showSuccess('Succès !', 'Mot de passe mis à jour avec succès !');
                     } else {
                         MessageBoxService.handleServiceError(data);
                     }
@@ -33,3 +33,4 @@
         }
 
     }
+})
