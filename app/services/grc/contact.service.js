@@ -57,6 +57,14 @@
             });
         };
 
+        contactFactory.getContactDetails = function (id, cache) {
+            return $http.get(server + urlBase + "/" + id, {cache: cache}).success(function(data) {
+                contactFactory.selectedContact = data.contact;
+            }).error(function(data) {
+                console.log(data);
+            });
+        };
+
         // POST
         contactFactory.postProspect = function (prospect) {
             prospect.type = 1;

@@ -1,105 +1,107 @@
-<div class="ui grid container">
+<div class="ui grid container" ng-init="loadContact()">
     <div class="row">
         <div class="sixteen wide column">
             <div class="ui buttons">
-                <div id="edituser_modal_btn" class="ui green button" ng-click="">
-                    Modifier l'utilisateur
+                <div class="ui green button" ng-click="">
+                    Modifier le contact
                 </div>
-                <div id="olduser_btn" class="ui yellow button" ng-click="">
-                    Marquer comme ancien membre
-                </div>
-                <div id="disableuser_btn" class="ui orange button" ng-click="">
-                    Désactiver l'utilisateur
+                <div class="ui red button" ng-click="">
+                    Supprimer le contact
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="four wide column">
+            <div class="ui horizontal divider">Profil du contact</div>
             <div class="ui relaxed divided list">
                 <div class="item">
                     <div class="content">
                         <div class="header">Nom complet</div>
-                        <div class="description" id="det_name">{{user.first_name}} {{user.last_name}}</div>
+                        <div class="description">{{contactService.selectedContact.full_name}}</div>
                     </div>
                 </div>
-                <div class="item">
-                    <div class="content">
-                        <div class="header">Poste actuel</div>
-                        <div class="description" id="det_pos">{{user | GetUserActivePosition:"label"}}</div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="content">
-                        <div class="header">Date de naissance</div>
-                        <div class="description" id="det_birth">{{}}</div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="content">
-                        <div class="header">Année</div>
-                        <div class="description" id="det_year">{{user.school_year.year}}{{user.department.label}}</div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="content">
-                        <div class="header">Téléphone</div>
-                        <div class="description" id="det_tel">0{{user.tel}}</div>
-                    </div>
-                </div>
-                <div class="item">
+                <div class="item" ng-if="contactService.selectedContact.email">
                     <div class="content">
                         <div class="header">Email</div>
-                        <div class="description" id="det_mail">{{user.email}}</div>
+                        <div class="description">
+                            <a href="mailto:{{contactService.selectedContact.email}}">{{contactService.selectedContact.email}}</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="item" ng-if="contactService.selectedContact.phone">
+                    <div class="content">
+                        <div class="header">Téléphone</div>
+                        <div class="description">0{{contactService.selectedContact.phone}}</div>
+                    </div>
+                </div>
+                <div class="item" ng-if="contactService.selectedContact.cell_phone">
+                    <div class="content">
+                        <div class="header">Téléphone mobile</div>
+                        <div class="description">0{{contactService.selectedContact.cell_phone}}</div>
+                    </div>
+                </div>
+                <div class="item" ng-if="contactService.selectedContact.firm">
+                    <div class="content">
+                        <div class="header">Société</div>
+                        <div class="description">{{contactService.selectedContact.firm.name}}</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content" ng-if="contactService.selectedContact.role">
+                        <div class="header">Poste</div>
+                        <div class="description">{{contactService.selectedContact.role}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui horizontal divider">Informations de gestion</div>
+            <div class="ui relaxed divided list">
+                <div class="item" ng-if="contactService.selectedContact.origin">
+                    <div class="content">
+                        <div class="header">Origine des coordonnées</div>
+                        <div class="description">{{contactService.selectedContact.origin}}</div>
                     </div>
                 </div>
                 <div class="item">
                     <div class="content">
-                        <div class="header">Adresse</div>
-                        <div class="description" id="det_add">{{user.address}}</div>
-                        <div class="description" id="det_postal">{{user.postal_code}}</div>
-                        <div class="description" id="det_city">{{user.city}}</div>
+                        <div class="header">Issu de la prospection ?</div>
+                        <div class="description">
+                            {{contactService.selectedContact.from_prospecting ? 'Oui' : 'Non'}}
+                        </div>
                     </div>
                 </div>
                 <div class="item">
                     <div class="content">
-                        <div class="header">Nationalité</div>
-                        <div class="description" id="det_country">{{user.country.label}}</div>
+                        <div class="header">Erreur dans les coordonnées ?</div>
+                        <div class="description">
+                            {{contactService.selectedContact.error ? 'Oui' : 'Non'}}
+                        </div>
                     </div>
                 </div>
-                <div class="item">
+                <div class="item" ng-if="contactService.selectedContact.next_prospecting">
                     <div class="content">
-                        <div class="header">AG de recrutement</div>
-                        <div class="description" id="det_ag">undefined</div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div id="addadmm_modal_btn" class="ui green icon button"
-                         ng-click="">Nouvelle adhésion administrateur
-                    </div>
-                </div>
-                <div class="item">
-                    <div id="addintm_modal_btn" class="ui green button"
-                         ng-click="">Nouvelle adhésion consultant
+                        <div class="header">Prochaine prospection</div>
+                        <div class="description">{{contactService.selectedContact.nex_prospecting}}</div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="twelve wide column">
-            <div class="ui horizontal divider">
-                Adhésions administrateur
+            <div class="ui horizontal divider" ng-if="contactService.selectedContact.notes">
+                Notes sur le contact
             </div>
-            <div class="row" id="admm_table_container">
-            </div>
-            <div class="ui horizontal divider">
-                Adhésions consultant
-            </div>
-            <div class="row" id="intm_table_container">
+            <div class="row" ng-if="contactService.selectedContact.notes">
+                <div class="description">
+                    {{contactService.selectedContact.notes}}
+                </div>
             </div>
             <div class="ui horizontal divider">
-                Historique des postes
+                Historique des prises de contact
             </div>
-            <div class="row" id="positions_history">
+            <div class="row">
+            </div>
+            <div class="ui green fluid button" ng-click="">
+                Ajouter une prise de contact
             </div>
         </div>
     </div>
