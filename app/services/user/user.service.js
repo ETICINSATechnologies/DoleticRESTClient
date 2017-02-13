@@ -8,7 +8,7 @@
     userService.$inject = ['store', 'SERVER_CONFIG', '$http'];
 
     function userService(store, SERVER_CONFIG, $http) {
-        var userFactory = {};
+        var userFactory = {users: {}};
 
         var server = SERVER_CONFIG.url;
         var urlBase = "/api/kernel/user";
@@ -31,8 +31,12 @@
             return $http.get(server + urlBase + "/current");
         };
 
-        userFactory.getAllUsers = function () {
-            return $http.get(server + urlBase + 's');
+        userFactory.getAllUsers = function (cache) {
+            return $http.get(server + urlBase + 's', {cache: cache}).success(function (data) {
+                userFactory.users = data.users;
+            }).error(function (data) {
+                console.log(data);
+            });
         };
 
         return userFactory;
