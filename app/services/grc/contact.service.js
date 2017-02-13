@@ -42,7 +42,7 @@
         };
 
         contactFactory.getAllClients = function (cache) {
-            return $http.get(server + urlBase + "s/type/1", {cache: cache}).success(function (data) {
+            return $http.get(server + urlBase + "s/type/3", {cache: cache}).success(function (data) {
                 contactFactory.clients = data.contacts;
             }).error(function (data) {
                 console.log(data);
@@ -50,7 +50,7 @@
         };
 
         contactFactory.getAllOldClients = function (cache) {
-            return $http.get(server + urlBase + "s/type/1", {cache: cache}).success(function (data) {
+            return $http.get(server + urlBase + "s/type/4", {cache: cache}).success(function (data) {
                 contactFactory.oldClients = data.contacts;
             }).error(function (data) {
                 console.log(data);
@@ -119,7 +119,7 @@
             });
         };
 
-        contactFactory.postOldClient = function (oldClient) {
+        contactFactory.putOldClient = function (oldClient) {
             return $http.post(server + urlBase + "/" + oldClient.id, oldClient).success(function (data) {
                 contactFactory.oldClients[data.contact.id] = data.contact;
             }).error(function (data) {

@@ -14,7 +14,7 @@
         $scope.firmTypeService = FirmTypeService;
         $scope.countryService = CountryService;
 
-        $scope.resetForm = function() {
+        $scope.resetForm = function () {
             $scope.firm = {};
             $scope.firmForm.$setPristine();
             $scope.editMode = false;
@@ -33,7 +33,8 @@
                     $('#firm_form_modal').modal('hide');
                     MessageBoxService.showError(
                         "Echec de l'ajout...",
-                        "La société n'a pas pu être ajoutée. Vérifiez que le nom n'est pas déjà utilisé.");
+                        "La société n'a pas pu être ajoutée. Vérifiez que le nom n'est pas déjà utilisé."
+                    );
                 }
             );
         };

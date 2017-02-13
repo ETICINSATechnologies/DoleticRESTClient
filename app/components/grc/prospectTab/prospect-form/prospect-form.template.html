@@ -52,11 +52,11 @@
             <div class="fields">
                 <div class="eight wide field">
                     <label>Prochaine prospection</label>
-                    <input placeholder="JJ/MM/AAAA" type="date" ng-model="prospect.nextProspecting"/>
+                    <input placeholder="JJ/MM/AAAA" type="text" ng-pattern="/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/" ng-model="prospect.nextProspecting"/>
                 </div>
                 <div class="eight wide field">
                     <label>Assigné à</label>
-                    <ng-dropdown data-label="fullName" ng-option="prospectors" data-value="id" ng-model="prospect.prospector"></ng-dropdown>
+                    <ng-dropdown data-label="full_name" ng-option="userService.users" data-value="id" ng-model="prospect.prospector"></ng-dropdown>
                 </div>
             </div>
             <div class="sixteen wide field">
