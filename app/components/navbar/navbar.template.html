@@ -5,7 +5,7 @@
             Doletic v2.1
         </a>
         <a ng-if="AuthService.isLogged()" class="item module_submenu" id="submenu_home" ui-sref="dashboard">Accueil</a>
-        <a ng-if="AuthService.isLogged()" class="item module_submenu" id="submenu_grc" ng-click="">Gestion Relations Clients</a>
+        <a ng-if="AuthService.isLogged()" class="item module_submenu" id="submenu_grc" ui-sref="grc.firmTab">Gestion Relations Clients</a>
         <a ng-if="AuthService.isLogged()" class="item module_submenu" id="submenu_rh" ui-sref="hr.membersTab">Ressources humaines</a>
         <a ng-if="AuthService.isLogged()" class="item module_submenu" id="submenu_support" ng-click="">Support</a>
         <a ng-if="AuthService.isLogged()" class="item module_submenu" id="submenu_tools" ng-click="">Outils</a>

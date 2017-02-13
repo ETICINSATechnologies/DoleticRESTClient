@@ -1,0 +1,24 @@
+<div class="ui two column grid container" ng-controller="grcContactedProspectTabController">
+    <div class="row">
+        <div class="sixteen wide column">
+            <div class="ui buttons">
+                <div class="ui green button" ng-click="showContactedProspectForm()">
+                    Ajouter un prospect déjà contacté
+                </div>
+                <div class="ui olive button" ng-click="contactService.getAllContactedProspects(false)">
+                    Actualiser la liste
+                </div>
+                <div class="ui yellow button" ng-click="alert('Fonction non implémentée...')">
+                    Exporter au format Excel
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="sixteen wide column">
+            <grc-contacted-prospect-table-component></grc-contacted-prospect-table-component>
+        </div>
+    </div>
+    <div class="row">
+    </div>
+</div>

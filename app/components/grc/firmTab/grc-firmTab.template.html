@@ -1,0 +1,30 @@
+<div class="ui two column grid container" ng-controller="grcFirmTabController">
+    <div class="row">
+        <div class="eleven wide column">
+            <div class="ui buttons">
+                <div class="ui green button" ng-click="showFirmForm()">
+                    Ajouter une société
+                </div>
+                <div class="ui olive button" ng-click="firmService.getAllFirms(false);">
+                    Actualiser la liste
+                </div>
+                <div class="ui yellow button" ng-click="alert('Fonction non implémentée...')">
+                    Exporter au format Excel
+                </div>
+            </div>
+        </div>
+        <div class="five wide column">
+            <div class="ui toggle checkbox">
+                <input type="checkbox"/>
+                <label>Afficher les anciennes sociétés</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="sixteen wide column">
+            <grc-firm-table-component></grc-firm-table-component>
+        </div>
+    </div>
+    <div class="row">
+    </div>
+</div>
