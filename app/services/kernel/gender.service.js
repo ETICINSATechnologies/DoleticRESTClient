@@ -10,10 +10,14 @@
     function GenderService($http, SERVER_CONFIG){
         var server = SERVER_CONFIG.url;
         var urlBase = '/api/kernel/gender';
-        var projectFactory = {};
+        var projectFactory = {genders : {}};
 
-        projectFactory.getAllGenders = function () {
-            return $http.get(server + urlBase + "s", {cache :true});
+        projectFactory.getAllGenders = function (cache) {
+            return $http.get(server + urlBase + "s", { cache: cache}).success(function (data) {
+                projectFactory.genders = data.genders;
+            }).error(function (data) {
+                console.log(data);
+            });
         };
 
         return projectFactory;
