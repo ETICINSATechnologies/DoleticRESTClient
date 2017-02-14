@@ -9,7 +9,8 @@
             'angularModalService',
             'angular-storage',
             'datatables',
-            'ngDropdown'
+            'ngDropdown',
+            'angularify.semantic'
         ])
         .run(run)
         .config(config);

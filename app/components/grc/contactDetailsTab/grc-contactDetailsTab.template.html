@@ -78,6 +78,14 @@
                         </div>
                     </div>
                 </div>
+                <div class="item">
+                    <div class="content">
+                        <div class="header">Contact à rappeler ?</div>
+                        <div class="description">
+                            {{contactService.selectedContact.satisfied ? 'Oui' : 'Non'}}
+                        </div>
+                    </div>
+                </div>
                 <div class="item" ng-if="contactService.selectedContact.next_prospecting">
                     <div class="content">
                         <div class="header">Prochaine prospection</div>
