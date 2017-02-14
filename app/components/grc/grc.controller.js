@@ -5,10 +5,10 @@
         .module('doleticApp')
         .controller('grcController', grcController);
 
-    grcController.$inject = ['$scope', '$state', 'SharedVariables'];
+    grcController.$inject = ['$scope', '$state', 'ContactService'];
 
-    function grcController($scope, $state, SharedVariables) {
+    function grcController($scope, $state, ContactService) {
         $scope.$state = $state;
-        $scope.sharedVariables = SharedVariables;
+        $scope.contactService = ContactService;
     }
 })();

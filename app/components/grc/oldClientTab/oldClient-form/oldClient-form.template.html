@@ -1,6 +1,6 @@
 <div class="ui modal" id="old_client_form_modal">
     <div class="ui segment">
-        <form name="oldClientForm" class="ui form vertical segment" ng-submit="oldClientForm.$valid && addProspect()" novalidate>
+        <form name="oldClientForm" class="ui form vertical segment" ng-submit="oldClientForm.$valid && addOldClient()" novalidate>
             <div class="ui message" ng-show="oldClientForm.$dirty" ng-class="{'positive' : oldClientForm.$valid, 'negative' : oldClientForm.$invalid}">
                 Le formulaire est {{ oldClientForm.$valid ? "valide" : "invalide" }}
             </div>
@@ -52,11 +52,21 @@
             <div class="fields">
                 <div class="eight wide field">
                     <label>Prochaine prospection</label>
-                    <input placeholder="JJ/MM/AAAA" type="date" ng-model="oldClient.nextProspecting"/>
+                    <input placeholder="JJ/MM/AAAA" type="text" ng-pattern="/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/" ng-model="oldClient.nextProspecting"/>
                 </div>
                 <div class="eight wide field">
                     <label>Assigné à</label>
-                    <ng-dropdown data-label="fullName" ng-option="prospectors" data-value="id" ng-model="oldClient.prospector"></ng-dropdown>
+                    <ng-dropdown data-label="full_name" ng-option="userService.users" data-value="id" ng-model="oldClient.prospector"></ng-dropdown>
+                </div>
+            </div>
+            <div class="fields">
+                <div class="eight wide field">
+                    <label>Erreur dans les coordonnées ?</label>
+                    <checkbox type="toggle" ng-model="oldClient.error"></checkbox>
+                </div>
+                <div class="eight wide field">
+                    <label>Contact à rappeler ?</label>
+                    <checkbox type="toggle" ng-model="oldClient.satisfied"></checkbox>
                 </div>
             </div>
             <div class="sixteen wide field">

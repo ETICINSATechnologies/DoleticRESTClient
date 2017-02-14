@@ -10,7 +10,7 @@
     function ContactService($http, SERVER_CONFIG) {
         var server = SERVER_CONFIG.url;
         var urlBase = '/api/grc/contact';
-        var contactFactory = {prospects: {}, contactedProspects: {}, clients: {}, oldClients: {}};
+        var contactFactory = {};
 
         // GET
         contactFactory.getCurrentUserContacts = function (cache) {
@@ -26,7 +26,12 @@
         };
 
         contactFactory.getAllProspects = function (cache) {
-            return $http.get(server + urlBase + "s/type/1", {cache: cache}).success(function (data) {
+            if (!cache) {
+                delete contactFactory.prospects;
+            } else if (contactFactory.prospects) {
+                return;
+            }
+            return $http.get(server + urlBase + "s/type/1").success(function (data) {
                 contactFactory.prospects = data.contacts;
             }).error(function (data) {
                 console.log(data);
@@ -34,7 +39,12 @@
         };
 
         contactFactory.getAllContactedProspects = function (cache) {
-            return $http.get(server + urlBase + "s/type/2", {cache: cache}).success(function (data) {
+            if (!cache) {
+                delete contactFactory.contactedProspects;
+            } else if (contactFactory.contactedProspects) {
+                return;
+            }
+            return $http.get(server + urlBase + "s/type/2").success(function (data) {
                 contactFactory.contactedProspects = data.contacts;
             }).error(function (data) {
                 console.log(data);
@@ -42,7 +52,12 @@
         };
 
         contactFactory.getAllClients = function (cache) {
-            return $http.get(server + urlBase + "s/type/1", {cache: cache}).success(function (data) {
+            if (!cache) {
+                delete contactFactory.clients;
+            } else if (contactFactory.clients) {
+                return;
+            }
+            return $http.get(server + urlBase + "s/type/3").success(function (data) {
                 contactFactory.clients = data.contacts;
             }).error(function (data) {
                 console.log(data);
@@ -50,8 +65,26 @@
         };
 
         contactFactory.getAllOldClients = function (cache) {
-            return $http.get(server + urlBase + "s/type/1", {cache: cache}).success(function (data) {
+            if (!cache) {
+                delete contactFactory.oldClients;
+            } else if (contactFactory.oldClients) {
+                return;
+            }
+            return $http.get(server + urlBase + "s/type/4").success(function (data) {
                 contactFactory.oldClients = data.contacts;
+            }).error(function (data) {
+                console.log(data);
+            });
+        };
+
+        contactFactory.getContactDetails = function (id, cache) {
+            if (!cache) {
+                delete contactFactory.selectedContact;
+            } else if (contactFactory.selectedContact && contactFactory.selectedContact.id === id) {
+                return;
+            }
+            return $http.get(server + urlBase + "/" + id).success(function (data) {
+                contactFactory.selectedContact = data.contact;
             }).error(function (data) {
                 console.log(data);
             });
@@ -119,7 +152,7 @@
             });
         };
 
-        contactFactory.postOldClient = function (oldClient) {
+        contactFactory.putOldClient = function (oldClient) {
             return $http.post(server + urlBase + "/" + oldClient.id, oldClient).success(function (data) {
                 contactFactory.oldClients[data.contact.id] = data.contact;
             }).error(function (data) {
@@ -131,6 +164,9 @@
         contactFactory.deleteProspect = function (id) {
             return $http.delete(server + urlBase + "/" + id).success(function (data) {
                 delete contactFactory.prospects[id];
+                if (id === contactFactory.selectedContact.id) {
+                    delete contactFactory.selectedContact;
+                }
             }).error(function (data) {
                 console.log(data);
             });
@@ -139,6 +175,9 @@
         contactFactory.deleteContactedProspect = function (id) {
             return $http.delete(server + urlBase + "/" + id).success(function (data) {
                 delete contactFactory.contactedProspects[id];
+                if (id === contactFactory.selectedContact.id) {
+                    delete contactFactory.selectedContact;
+                }
             }).error(function (data) {
                 console.log(data);
             });
@@ -147,6 +186,9 @@
         contactFactory.deleteClient = function (id) {
             return $http.delete(server + urlBase + "/" + id).success(function (data) {
                 delete contactFactory.clients[id];
+                if (id === contactFactory.selectedContact.id) {
+                    delete contactFactory.selectedContact;
+                }
             }).error(function (data) {
                 console.log(data);
             });
@@ -155,6 +197,9 @@
         contactFactory.deleteOldClient = function (id) {
             return $http.delete(server + urlBase + "/" + id).success(function (data) {
                 delete contactFactory.oldClients[id];
+                if (id === contactFactory.selectedContact.id) {
+                    delete contactFactory.selectedContact;
+                }
             }).error(function (data) {
                 console.log(data);
             });
