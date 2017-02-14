@@ -19,7 +19,7 @@
 
         $scope.deleteContactedProspect = function (id) {
             console.log(ContactService.contactedProspects);
-            var name = ContactService.contactedProspects[id].first_name + " " + ContactService.contactedProspects[id].last_name;
+            var name = ContactService.contactedProspects[id].fullName;
             ConfirmModalService.showConfirmModal(
                 "Confirmer la suppression",
                 "Voulez-vous vraiment supprimer le prospect " + name + " ?",

@@ -18,8 +18,7 @@
         $scope.dtColumnDefs = [];
 
         $scope.deleteProspect = function (id) {
-            console.log(ContactService.prospects);
-            var name = ContactService.prospects[id].first_name + " " + ContactService.prospects[id].last_name;
+            var name = ContactService.prospects[id].fullName;
             ConfirmModalService.showConfirmModal(
                 "Confirmer la suppression",
                 "Voulez-vous vraiment supprimer le prospect " + name + " ?",
@@ -37,7 +36,7 @@
                         );
                     });
                 }
-            )
+            );
         };
 
         ContactService.getAllProspects(true);
