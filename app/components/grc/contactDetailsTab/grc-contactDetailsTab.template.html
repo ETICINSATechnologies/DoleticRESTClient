@@ -5,7 +5,7 @@
                 <div class="ui green button" ng-click="">
                     Modifier le contact
                 </div>
-                <div class="ui red button" ng-click="">
+                <div class="ui red button" ng-click="deleteCurrentContact()">
                     Supprimer le contact
                 </div>
             </div>
@@ -18,7 +18,7 @@
                 <div class="item">
                     <div class="content">
                         <div class="header">Nom complet</div>
-                        <div class="description">{{contactService.selectedContact.full_name}}</div>
+                        <div class="description">{{contactService.selectedContact.fullName}}</div>
                     </div>
                 </div>
                 <div class="item" ng-if="contactService.selectedContact.email">
@@ -35,10 +35,10 @@
                         <div class="description">0{{contactService.selectedContact.phone}}</div>
                     </div>
                 </div>
-                <div class="item" ng-if="contactService.selectedContact.cell_phone">
+                <div class="item" ng-if="contactService.selectedContact.cellPhone">
                     <div class="content">
                         <div class="header">Téléphone mobile</div>
-                        <div class="description">0{{contactService.selectedContact.cell_phone}}</div>
+                        <div class="description">0{{contactService.selectedContact.cellPhone}}</div>
                     </div>
                 </div>
                 <div class="item" ng-if="contactService.selectedContact.firm">
@@ -66,7 +66,7 @@
                     <div class="content">
                         <div class="header">Issu de la prospection ?</div>
                         <div class="description">
-                            {{contactService.selectedContact.from_prospecting ? 'Oui' : 'Non'}}
+                            {{contactService.selectedContact.fromProspecting ? 'Oui' : 'Non'}}
                         </div>
                     </div>
                 </div>
@@ -86,10 +86,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="item" ng-if="contactService.selectedContact.next_prospecting">
+                <div class="item" ng-if="contactService.selectedContact.nextProspecting">
                     <div class="content">
                         <div class="header">Prochaine prospection</div>
-                        <div class="description">{{contactService.selectedContact.next_prospecting|date:"dd/MM/y"}}</div>
+                        <div class="description">{{contactService.selectedContact.nextProspecting|date:"dd/MM/y"}}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -107,6 +108,7 @@
                 Historique des prises de contact
             </div>
             <div class="row">
+                <grc-action-table-component></grc-action-table-component>
             </div>
             <div class="ui green fluid button" ng-click="">
                 Ajouter une prise de contact

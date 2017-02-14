@@ -27,7 +27,7 @@
         <tr ng-repeat="client in contactService.clients">
             <td>
                 <a class="ui teal icon button"
-                   data-tooltip="Détails de {{client.full_name}}"
+                   data-tooltip="Détails de {{client.fullName}}"
                    data-content="Cliquez ici pour afficher plus d'informations"
                    ui-sref="grc.contactDetailsTab({id : client.id})">
                     <i class="user icon"></i>
@@ -36,7 +36,7 @@
             <td>
                 <div class="ui small header">
                     <div class="content">
-                        {{client.first_name}} {{client.last_name}}
+                        {{client.fullName}}
                         <div class="sub header">
                             <a href="mailto:{{client.email}}" target="_blank">{{client.email}}</a>
                         </div>
@@ -44,10 +44,10 @@
                 </div>
             </td>
             <td>0{{client.phone}}</td>
-            <td>0{{client.cell_phone}}</td>
+            <td>0{{client.cellPhone}}</td>
             <td>{{client.firm.name}}</td>
             <td>{{client.role}}</td>
-            <td>{{client.prospector.first_name}} {{client.prospector.last_name}}</td>
+            <td>{{client.prospector.fullName}}</td>
             <td>
                 <div class="ui icon buttons">
                     <button class="ui blue icon button" data-tooltip="Modifier" ng-click="">

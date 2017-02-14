@@ -19,7 +19,7 @@
 
         $scope.deleteOldClient = function (id) {
             console.log(ContactService.oldClients);
-            var name = ContactService.oldClients[id].first_name + " " + ContactService.oldClients[id].last_name;
+            var name = ContactService.oldClients[id].fullName;
             ConfirmModalService.showConfirmModal(
                 "Confirmer la suppression",
                 "Voulez-vous vraiment supprimer l'ancien client " + name + " ?",
