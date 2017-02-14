@@ -20,15 +20,15 @@
             }
             return $http.get(server + urlBase + "s").success(function (data) {
                 firmFactory.firms = data.firms;
-            }).error(function () {
-                console.log(data);
+            }).error(function (error) {
+                console.log(error);
             });
         };
 
         firmFactory.postFirm = function (firm) {
             return $http.post(server + urlBase, firm).success(function (data) {
                 firmFactory.firms[data.firm.id] = data.firm;
-            }).error(function (data) {
+            }).error(function (error) {
                 console.log(error);
             });
         };
@@ -36,7 +36,7 @@
         firmFactory.putFirm = function (firm) {
             return $http.post(server + urlBase + "/" + firm.id, firm).success(function (data) {
                 firmFactory.firms[firm.id] = data.firm;
-            }).error(function (data) {
+            }).error(function (error) {
                 console.log(error);
             });
         };
@@ -44,8 +44,8 @@
         firmFactory.deleteFirm = function (id) {
             return $http.delete(server + urlBase + "/" + id).success(function (data) {
                 delete firmFactory.firms[id];
-            }).error(function (data) {
-                console.log(data);
+            }).error(function (error) {
+                console.log(error);
             });
         };
 
