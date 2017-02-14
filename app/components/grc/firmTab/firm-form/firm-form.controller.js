@@ -5,12 +5,13 @@
         .module('doleticApp')
         .controller('grcFirmFormController', grcFirmFormController);
 
-    grcFirmFormController.$inject = ['$scope', 'FirmService', 'FirmTypeService', 'CountryService', 'MessageBoxService'];
+    grcFirmFormController.$inject = ['$scope', 'FirmService', 'FirmTypeService', 'CountryService', 'MessageBoxService', 'editMode', 'firm'];
 
-    function grcFirmFormController($scope, FirmService, FirmTypeService, CountryService, MessageBoxService) {
+    function grcFirmFormController($scope, FirmService, FirmTypeService, CountryService, MessageBoxService, editMode, firm) {
 
-        $scope.firm = {};
-        $scope.editMode = false;
+        if(firm!={})formatFirm();
+        $scope.firm = firm;
+        $scope.editMode = editMode?editMode:false;
         $scope.firmTypeService = FirmTypeService;
         $scope.countryService = CountryService;
 
@@ -56,9 +57,13 @@
                 }
             );
         };
-
         FirmTypeService.getAllFirmTypes(true);
         CountryService.getAllCountries(true);
+        
+        function formatFirm() {
+            if(firm.country)firm.country = firm.country.id;
+            if(firm.type)firm.type = firm.type.id;
+        }
     }
 
 })();

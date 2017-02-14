@@ -10,7 +10,7 @@
     function FirmTypeService($http, SERVER_CONFIG) {
         var server = SERVER_CONFIG.url;
         var urlBase = '/api/grc/firm_type';
-        var firmTypeFactory = {firmTypes: {}};
+        var firmTypeFactory = {};
 
         firmTypeFactory.getAllFirmTypes = function (cache) {
             if (!cache) {

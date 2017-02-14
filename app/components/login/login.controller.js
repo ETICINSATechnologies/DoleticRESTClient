@@ -25,7 +25,7 @@
                                 UserService.setCurrentUser(response.data.user);
                                 $state.go("dashboard");
                             },
-                            function (data) {
+                            function (error) {
                                 console.log("Error :", error);
                                 resetFields();
                                 MessageBoxService.showError("Erreur de connexion", "La combinaison login/mot de passe est incorrecte !");

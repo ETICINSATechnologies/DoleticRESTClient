@@ -5,9 +5,9 @@
         .module('doleticApp')
         .controller('grcFirmTableController', grcFirmTableController);
 
-    grcFirmTableController.$inject = ['$scope', '$state', 'FirmService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'ConfirmModalService', 'MessageBoxService'];
+    grcFirmTableController.$inject = ['$scope', '$state', 'FirmService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'ConfirmModalService', 'MessageBoxService', 'ModalService'];
 
-    function grcFirmTableController($scope, $state, FirmService, DTOptionsBuilder, DTColumnDefBuilder, ConfirmModalService, MessageBoxService) {
+    function grcFirmTableController($scope, $state, FirmService, DTOptionsBuilder, DTColumnDefBuilder, ConfirmModalService, MessageBoxService, ModalService) {
         $scope.firmService = FirmService;
 
         $scope.dtOptions = DTOptionsBuilder
@@ -37,6 +37,22 @@
                     });
                 }
             )
+        };
+
+        $scope.showFirmForm = function (firm) {
+            ModalService.showModal({
+                templateUrl: "app/components/grc/firmTab/firm-form/firm-form.template.html",
+                controller: "grcFirmFormController",
+                inputs:{
+                    editMode:true,
+                    firm:angular.copy(firm)
+                }
+            }).then(function (modal) {
+                modal.element.modal('show');
+            }).catch(function (error) {
+                // error contains a detailed error message.
+                console.log(error);
+            });
         };
 
         FirmService.getAllFirms(true);
