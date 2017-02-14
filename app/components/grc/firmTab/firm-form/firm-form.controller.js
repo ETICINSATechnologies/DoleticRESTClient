@@ -41,13 +41,14 @@
         };
 
         $scope.editFirm = function () {
+            var name = $scope.firm.name;
             FirmService.putFirm($scope.firm)
                 .success(function (data) {
                     $('#firm_form_modal').modal('hide');
                     $scope.resetForm();
                     MessageBoxService.showSuccess(
                         "Opération réussie !",
-                        "La société " + $scope.firm.name + " a été modifiée !"
+                        "La société " + name + " a été modifiée !"
                     );
                 }).error(function (data) {
                     $('#firm_form_modal').modal('hide');

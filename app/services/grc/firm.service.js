@@ -34,8 +34,10 @@
         };
 
         firmFactory.putFirm = function (firm) {
-            return $http.post(server + urlBase + "/" + firm.id, firm).success(function (data) {
-                firmFactory.firms[firm.id] = data.firm;
+            var id = firm.id;
+            delete firm.id;
+            return $http.post(server + urlBase + "/" + id, firm).success(function (data) {
+                firmFactory.firms[id] = data.firm;
             }).error(function (error) {
                 console.log(error);
             });
