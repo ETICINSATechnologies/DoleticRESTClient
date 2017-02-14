@@ -80,7 +80,7 @@
         contactFactory.getContactDetails = function (id, cache) {
             if (!cache) {
                 delete contactFactory.selectedContact;
-            } else if (contactFactory.selectedContact) {
+            } else if (contactFactory.selectedContact && contactFactory.selectedContact.id === id) {
                 return;
             }
             return $http.get(server + urlBase + "/" + id).success(function (data) {
@@ -164,6 +164,9 @@
         contactFactory.deleteProspect = function (id) {
             return $http.delete(server + urlBase + "/" + id).success(function (data) {
                 delete contactFactory.prospects[id];
+                if (id === contactFactory.selectedContact.id) {
+                    delete contactFactory.selectedContact;
+                }
             }).error(function (data) {
                 console.log(data);
             });
@@ -172,6 +175,9 @@
         contactFactory.deleteContactedProspect = function (id) {
             return $http.delete(server + urlBase + "/" + id).success(function (data) {
                 delete contactFactory.contactedProspects[id];
+                if (id === contactFactory.selectedContact.id) {
+                    delete contactFactory.selectedContact;
+                }
             }).error(function (data) {
                 console.log(data);
             });
@@ -180,6 +186,9 @@
         contactFactory.deleteClient = function (id) {
             return $http.delete(server + urlBase + "/" + id).success(function (data) {
                 delete contactFactory.clients[id];
+                if (id === contactFactory.selectedContact.id) {
+                    delete contactFactory.selectedContact;
+                }
             }).error(function (data) {
                 console.log(data);
             });
@@ -188,6 +197,9 @@
         contactFactory.deleteOldClient = function (id) {
             return $http.delete(server + urlBase + "/" + id).success(function (data) {
                 delete contactFactory.oldClients[id];
+                if (id === contactFactory.selectedContact.id) {
+                    delete contactFactory.selectedContact;
+                }
             }).error(function (data) {
                 console.log(data);
             });

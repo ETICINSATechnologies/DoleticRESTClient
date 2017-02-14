@@ -59,6 +59,16 @@
                     <ng-dropdown data-label="full_name" ng-option="userService.users" data-value="id" ng-model="client.prospector"></ng-dropdown>
                 </div>
             </div>
+            <div class="fields">
+                <div class="eight wide field">
+                    <label>Erreur dans les coordonnées ?</label>
+                    <checkbox type="toggle" ng-model="client.error"></checkbox>
+                </div>
+                <div class="eight wide field">
+                    <label>Contact à rappeler ?</label>
+                    <checkbox type="toggle" ng-model="client.satisfied"></checkbox>
+                </div>
+            </div>
             <div class="sixteen wide field">
                 <label>Notes</label>
                 <textarea ng-model="client.notes" placeholder="Notes..."></textarea>
