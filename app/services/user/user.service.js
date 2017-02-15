@@ -47,8 +47,17 @@
             return $http.get(server + urlBase + "/current");
         };
 
-        userFactory.getAllUsers = function () {
-            return $http.get(server + urlBase + 's');
+        userFactory.getAllUsers = function (cache) {
+            if (!cache) {
+                delete userFactory.users;
+            } else if (userFactory.users) {
+                return;
+            }
+            return $http.get(server + urlBase + 's').success(function (data) {
+                userFactory.users = data.users;
+            }).error(function (data) {
+                console.log(data);
+            });
         };
 
         userFactory.getUserByUsername = function(user){

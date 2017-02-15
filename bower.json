@@ -25,6 +25,12 @@
     "semantic": "semantic-ui#^2.2.6",
     "angular-modal-service": "^0.10.1",
     "a0-angular-storage": "^0.0.15",
-    "angular-datatables": "^0.5.5"
+    "angular-datatables": "^0.5.5",
+    "ng-dropdown": "semanticUI.ngDropdown#^1.0.4",
+    "dataTables.semanticui.min": "https://cdn.datatables.net/1.10.13/js/dataTables.semanticui.min.js",
+    "angular-semantic-ui": "^0.0.3"
+  },
+  "resolutions": {
+    "angular": "1.5.8"
   }
 }

@@ -1,0 +1,41 @@
+<table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="ui very basic celled table">
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Auteur</th>
+        <th>Notes</th>
+        <th>Répondu ?</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tfoot>
+    <tr>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Auteur</th>
+        <th>Notes</th>
+        <th>Répondu ?</th>
+        <th></th>
+    </tr>
+    </tfoot>
+    <tbody>
+    <tr ng-repeat="action in contactService.selectedContact.actions">
+        <td>{{action.date}}</td>
+        <td>{{action.type.label}}</td>
+        <td>{{action.prospector.fullName}}</td>
+        <td>{{action.notes}}</td>
+        <td>{{action.answered ? 'Oui' : 'Non'}}</td>
+        <td>
+            <div class="ui icon buttons">
+                <button class="ui blue icon button" data-tooltip="Modifier" ng-click="">
+                    <i class="write icon"></i>
+                </button>
+                <button class="ui red icon button" data-tooltip="Supprimer" ng-click="deleteAction(action.id)">
+                    <i class="remove icon"></i>
+                </button>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>

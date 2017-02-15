@@ -1,0 +1,118 @@
+<div class="ui grid container" ng-init="loadContact()">
+    <div class="row">
+        <div class="sixteen wide column">
+            <div class="ui buttons">
+                <div class="ui green button" ng-click="">
+                    Modifier le contact
+                </div>
+                <div class="ui red button" ng-click="deleteCurrentContact()">
+                    Supprimer le contact
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="four wide column">
+            <div class="ui horizontal divider">Profil du contact</div>
+            <div class="ui relaxed divided list">
+                <div class="item">
+                    <div class="content">
+                        <div class="header">Nom complet</div>
+                        <div class="description">{{contactService.selectedContact.fullName}}</div>
+                    </div>
+                </div>
+                <div class="item" ng-if="contactService.selectedContact.email">
+                    <div class="content">
+                        <div class="header">Email</div>
+                        <div class="description">
+                            <a href="mailto:{{contactService.selectedContact.email}}">{{contactService.selectedContact.email}}</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="item" ng-if="contactService.selectedContact.phone">
+                    <div class="content">
+                        <div class="header">Téléphone</div>
+                        <div class="description">0{{contactService.selectedContact.phone}}</div>
+                    </div>
+                </div>
+                <div class="item" ng-if="contactService.selectedContact.cellPhone">
+                    <div class="content">
+                        <div class="header">Téléphone mobile</div>
+                        <div class="description">0{{contactService.selectedContact.cellPhone}}</div>
+                    </div>
+                </div>
+                <div class="item" ng-if="contactService.selectedContact.firm">
+                    <div class="content">
+                        <div class="header">Société</div>
+                        <div class="description">{{contactService.selectedContact.firm.name}}</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content" ng-if="contactService.selectedContact.role">
+                        <div class="header">Poste</div>
+                        <div class="description">{{contactService.selectedContact.role}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui horizontal divider">Informations de gestion</div>
+            <div class="ui relaxed divided list">
+                <div class="item" ng-if="contactService.selectedContact.origin">
+                    <div class="content">
+                        <div class="header">Origine des coordonnées</div>
+                        <div class="description">{{contactService.selectedContact.origin}}</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        <div class="header">Issu de la prospection ?</div>
+                        <div class="description">
+                            {{contactService.selectedContact.fromProspecting ? 'Oui' : 'Non'}}
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        <div class="header">Erreur dans les coordonnées ?</div>
+                        <div class="description">
+                            {{contactService.selectedContact.error ? 'Oui' : 'Non'}}
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        <div class="header">Contact à rappeler ?</div>
+                        <div class="description">
+                            {{contactService.selectedContact.satisfied ? 'Oui' : 'Non'}}
+                        </div>
+                    </div>
+                </div>
+                <div class="item" ng-if="contactService.selectedContact.nextProspecting">
+                    <div class="content">
+                        <div class="header">Prochaine prospection</div>
+                        <div class="description">{{contactService.selectedContact.nextProspecting|date:"dd/MM/y"}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="twelve wide column">
+            <div class="ui horizontal divider" ng-if="contactService.selectedContact.notes">
+                Notes sur le contact
+            </div>
+            <div class="row" ng-if="contactService.selectedContact.notes">
+                <div class="description">
+                    {{contactService.selectedContact.notes}}
+                </div>
+            </div>
+            <div class="ui horizontal divider">
+                Historique des prises de contact
+            </div>
+            <div class="row">
+                <grc-action-table-component></grc-action-table-component>
+            </div>
+            <div class="ui green fluid button" ng-click="">
+                Ajouter une prise de contact
+            </div>
+        </div>
+    </div>
+</div>

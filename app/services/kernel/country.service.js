@@ -10,13 +10,22 @@
     function CountryService($http, SERVER_CONFIG) {
         var server = SERVER_CONFIG.url;
         var urlBase = '/api/kernel/countr';
-        var projectFactory = {};
+        var countryFactory = {};
 
-        projectFactory.getAllCountries = function () {
-            return $http.get(server + urlBase + "ies", { cache:true });
+        countryFactory.getAllCountries = function (cache) {
+            if (!cache) {
+                delete countryFactory.countries;
+            } else if (countryFactory.countries) {
+                return;
+            }
+            return $http.get(server + urlBase + "ies").success(function (data) {
+                countryFactory.countries = data.countries;
+            }).error(function (data) {
+                console.log(data);
+            });
         };
 
-        return projectFactory;
+        return countryFactory;
     }
 
 })();

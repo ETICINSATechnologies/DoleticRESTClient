@@ -1,0 +1,47 @@
+<table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="ui very basic celled table">
+    <thead>
+    <tr>
+        <th>Nom</th>
+        <th>SIRET</th>
+        <th>Type</th>
+        <th>Adresse</th>
+        <th>Code postal</th>
+        <th>Ville</th>
+        <th>Pays</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tfoot>
+    <tr>
+        <th>Nom</th>
+        <th>SIRET</th>
+        <th>Type</th>
+        <th>Adresse</th>
+        <th>Code postal</th>
+        <th>Ville</th>
+        <th>Pays</th>
+        <th></th>
+    </tr>
+    </tfoot>
+    <tbody>
+    <tr ng-repeat="firm in firmService.firms">
+        <td>{{firm.name}}</td>
+        <td>{{firm.siret}}</td>
+        <td>{{firm.type.label}}</td>
+        <td>{{firm.address}}</td>
+        <td>{{firm.postalCode}}</td>
+        <td>{{firm.city}}</td>
+        <td>{{firm.country.label}}</td>
+        <td>
+            <div class="ui icon buttons">
+                <button class="ui blue icon button" data-tooltip="Modifier" ng-click="showFirmForm(firm)">
+                    <i class="write icon"></i>
+                </button>
+                <button class="ui red icon button" data-tooltip="Supprimer" ng-click="deleteFirm(firm.id)">
+                    <i class="remove icon"></i>
+                </button>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>

@@ -1,0 +1,21 @@
+<div class="ui two column grid container">
+    <div class="row"></div>
+    <div class="row">
+        <div class="sixteen wide column" id="page_content">
+            <div class="ui top attached tabular menu" id="tabmenu">
+                <a ng-class="{active: $state.current.activetab == 'stats'}" class="item" data-tab="stats" ui-sref="grc.statsTab">Statistiques</a>
+                <a ng-class="{active: $state.current.activetab == 'firm'}" class="item" data-tab="firm" ui-sref="grc.firmTab">Sociétés</a>
+                <a ng-class="{active: $state.current.activetab == 'prospect'}" class="item" data-tab="prospect" ui-sref="grc.prospectTab">Prospection à réaliser</a>
+                <a ng-class="{active: $state.current.activetab == 'contactedProspect'}" class="item" data-tab="contactedProspect" ui-sref="grc.contactedProspectTab">Prospects appelés</a>
+                <a ng-class="{active: $state.current.activetab == 'client'}" class="item" data-tab="client" ui-sref="grc.clientTab">Clients actuels</a>
+                <a ng-class="{active: $state.current.activetab == 'oldClient'}" class="item" data-tab="oldClient" ui-sref="grc.oldClientTab">Ancien clients</a>
+                <a ng-if="contactService.selectedContact" ng-class="{active: $state.current.activetab == 'contactDetails'}" class="item" data-tab="userDetails" ui-sref="grc.contactDetailsTab({id:contactService.selectedContact.id})">Détails de {{contactService.selectedContact.full_name}}</a>
+            </div>
+            <div class="ui bottom attached tab segment active" data-tab="{{$state.current.activetab}}">
+                <div ui-view></div>
+            </div>
+        </div>
+    </div>
+    <div class="row"></div>
+    <div class="row"></div>
+</div>

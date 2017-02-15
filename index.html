@@ -51,6 +51,9 @@
         <script src="bower_components/a0-angular-storage/dist/angular-storage.min.js"></script>
         <script src="bower_components/lodash/dist/lodash.min.js"></script>
         <script src="bower_components/semantic/dist/semantic.min.js"></script>
+        <script src="bower_components/dataTables.semanticui.min/index.js"></script>
+        <script src="bower_components/ng-dropdown/dist/ngDropdown.js"></script>
+        <script src="bower_components/angular-semantic-ui/dist/angular-semantic-ui.min.js"></script>
 
         <script src="app/app.module.js"></script>
         <script src="app/app.state.js"></script>
@@ -59,6 +62,8 @@
         <!-- Services -->
         <script src="app/services/sharedVariables/sharedVariables.service.js"></script>
         <script src="app/services/user/user.service.js"></script>
+        <script src="app/services/kernel/country.service.js"></script>
+        <script src="app/services/kernel/gender.service.js"></script>
         <script src="app/services/auth/auth.service.js"></script>
         <script src="app/services/message-box/message-box.service.js"></script>
         <script src="app/services/confirm-modal/confirm-modal.service.js"></script>
@@ -66,17 +71,31 @@
         <script src="app/services/login/login.service.js"></script>
         <script src="app/services/ua/project.service.js"></script>
         <script src="app/services/grc/contact.service.js"></script>
+        <script src="app/services/grc/contactAction.service.js"></script>
+        <script src="app/services/grc/firm.service.js"></script>
+        <script src="app/services/grc/firmType.service.js"></script>
         <!-- End Services -->
 
         <!-- Controllers -->
         <script src="app/components/login/login.controller.js"></script>
+
         <script src="app/components/dashboard/dashboard.controller.js"></script>
+
         <script src="app/components/hr/hr.controller.js"></script>
         <script src="app/components/hr/disabledMembersTab/hr-disabledMembersTab.controller.js"></script>
         <script src="app/components/hr/membersTab/hr-membersTab.controller.js"></script>
         <script src="app/components/hr/statsTab/hr-statsTab.controller.js"></script>
         <script src="app/components/hr/teamsTab/hr-teamsTab.controller.js"></script>
         <script src="app/components/hr/userDetailsTab/hr-userDetailsTab.controller.js"></script>
+
+        <script src="app/components/grc/grc.controller.js"></script>
+        <script src="app/components/grc/statsTab/grc-statsTab.controller.js"></script>
+        <script src="app/components/grc/firmTab/grc-firmTab.controller.js"></script>
+        <script src="app/components/grc/prospectTab/grc-prospectTab.controller.js"></script>
+        <script src="app/components/grc/contactedProspectTab/grc-contactedProspectTab.controller.js"></script>
+        <script src="app/components/grc/clientTab/grc-clientTab.controller.js"></script>
+        <script src="app/components/grc/oldClientTab/grc-oldClientTab.controller.js"></script>
+        <script src="app/components/grc/contactDetailsTab/grc-contactDetailsTab.controller.js"></script>
         <!-- End Controllers -->
 
         <!-- Filters -->
@@ -85,6 +104,7 @@
 
         <!-- States -->
         <script src="app/components/hr/hr.state.js"></script>
+        <script src="app/components/grc/grc.state.js"></script>
         <!-- End States -->
 
         <!-- Modals -->
@@ -113,6 +133,39 @@
 
         <script src="app/components/hr/disabledMembersTab/disabled-table/disabled-table.controller.js"></script>
         <script src="app/components/hr/disabledMembersTab/disabled-table/disabled-table.component.js"></script>
+
+        <script src="app/components/grc/firmTab/firm-table/firm-table.controller.js"></script>
+        <script src="app/components/grc/firmTab/firm-table/firm-table.component.js"></script>
+
+        <script src="app/components/grc/firmTab/firm-form/firm-form.controller.js"></script>
+        <script src="app/components/grc/firmTab/firm-form/firm-form.component.js"></script>
+
+        <script src="app/components/grc/prospectTab/prospect-table/prospect-table.controller.js"></script>
+        <script src="app/components/grc/prospectTab/prospect-table/prospect-table.component.js"></script>
+
+        <script src="app/components/grc/prospectTab/prospect-form/prospect-form.controller.js"></script>
+        <script src="app/components/grc/prospectTab/prospect-form/prospect-form.component.js"></script>
+
+        <script src="app/components/grc/contactedProspectTab/contactedProspect-table/contactedProspect-table.controller.js"></script>
+        <script src="app/components/grc/contactedProspectTab/contactedProspect-table/contactedProspect-table.component.js"></script>
+
+        <script src="app/components/grc/contactedProspectTab/contactedProspect-form/contactedProspect-form.controller.js"></script>
+        <script src="app/components/grc/contactedProspectTab/contactedProspect-form/contactedProspect-form.component.js"></script>
+
+        <script src="app/components/grc/clientTab/client-table/client-table.controller.js"></script>
+        <script src="app/components/grc/clientTab/client-table/client-table.component.js"></script>
+
+        <script src="app/components/grc/clientTab/client-form/client-form.controller.js"></script>
+        <script src="app/components/grc/clientTab/client-form/client-form.component.js"></script>
+
+        <script src="app/components/grc/oldClientTab/oldClient-table/oldClient-table.controller.js"></script>
+        <script src="app/components/grc/oldClientTab/oldClient-table/oldClient-table.component.js"></script>
+
+        <script src="app/components/grc/oldClientTab/oldClient-form/oldClient-form.controller.js"></script>
+        <script src="app/components/grc/oldClientTab/oldClient-form/oldClient-form.component.js"></script>
+
+        <script src="app/components/grc/contactDetailsTab/action-table/action-table.controller.js"></script>
+        <script src="app/components/grc/contactDetailsTab/action-table/action-table.component.js"></script>
         <!-- End Component -->
 
 
