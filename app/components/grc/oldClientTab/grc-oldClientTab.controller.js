@@ -15,8 +15,7 @@
                 templateUrl: "app/components/grc/oldClientTab/oldClient-form/oldClient-form.template.html",
                 controller: "grcOldClientFormController"
             }).then(function (modal) {
-                console.log(modal);
-                $('#old_client_form_modal').modal('show');
+                modal.element.modal('show');
             }).catch(function (error) {
                 // error contains a detailed error message.
                 console.log(error);
