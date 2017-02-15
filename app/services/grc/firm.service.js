@@ -27,6 +27,8 @@
 
         firmFactory.postFirm = function (firm) {
             return $http.post(server + urlBase, firm).success(function (data) {
+                firmFactory.firm = angular.equals(firmFactory.firm, []) ?
+                    {} : firmFactory.firm;
                 firmFactory.firms[data.firm.id] = data.firm;
             }).error(function (error) {
                 console.log(error);

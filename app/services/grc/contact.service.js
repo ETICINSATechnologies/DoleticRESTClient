@@ -94,6 +94,10 @@
         contactFactory.postProspect = function (prospect) {
             prospect.type = 1;
             return $http.post(server + urlBase, prospect).success(function (data) {
+                // If prospects does not exists, it is initialized as [] by default for some reason and this causes an error with ng-repeat in tables
+                // Find a better fix ?
+                contactFactory.prospects = angular.equals(contactFactory.prospects, []) ?
+                    {} : contactFactory.prospects;
                 contactFactory.prospects[data.contact.id] = data.contact;
             }).error(function (data) {
                 console.log(data);
@@ -103,6 +107,8 @@
         contactFactory.postContactedProspect = function (contactedProspect) {
             contactedProspect.type = 2;
             return $http.post(server + urlBase, contactedProspect).success(function (data) {
+                contactFactory.contactedProspects = angular.equals(contactFactory.contactedProspects, []) ?
+                    {} : contactFactory.contactedProspects;
                 contactFactory.contactedProspects[data.contact.id] = data.contact;
             }).error(function (data) {
                 console.log(data);
@@ -112,6 +118,8 @@
         contactFactory.postClient = function (client) {
             client.type = 3;
             return $http.post(server + urlBase, client).success(function (data) {
+                contactFactory.clients = angular.equals(contactFactory.clients, []) ?
+                    {} : contactFactory.clients;
                 contactFactory.clients[data.contact.id] = data.contact;
             }).error(function (data) {
                 console.log(data);
@@ -121,6 +129,8 @@
         contactFactory.postOldClient = function (oldClient) {
             oldClient.type = 4;
             return $http.post(server + urlBase, oldClient).success(function (data) {
+                contactFactory.oldClients = angular.equals(contactFactory.oldClients, []) ?
+                    {} : contactFactory.oldClients;
                 contactFactory.oldClients[data.contact.id] = data.contact;
             }).error(function (data) {
                 console.log(data);
@@ -164,7 +174,7 @@
         contactFactory.deleteProspect = function (id) {
             return $http.delete(server + urlBase + "/" + id).success(function (data) {
                 delete contactFactory.prospects[id];
-                if (id === contactFactory.selectedContact.id) {
+                if (contactFactory.selectedContact && id === contactFactory.selectedContact.id) {
                     delete contactFactory.selectedContact;
                 }
             }).error(function (data) {
@@ -175,7 +185,7 @@
         contactFactory.deleteContactedProspect = function (id) {
             return $http.delete(server + urlBase + "/" + id).success(function (data) {
                 delete contactFactory.contactedProspects[id];
-                if (id === contactFactory.selectedContact.id) {
+                if (contactFactory.selectedContact && id === contactFactory.selectedContact.id) {
                     delete contactFactory.selectedContact;
                 }
             }).error(function (data) {
@@ -186,7 +196,7 @@
         contactFactory.deleteClient = function (id) {
             return $http.delete(server + urlBase + "/" + id).success(function (data) {
                 delete contactFactory.clients[id];
-                if (id === contactFactory.selectedContact.id) {
+                if (contactFactory.selectedContact && id === contactFactory.selectedContact.id) {
                     delete contactFactory.selectedContact;
                 }
             }).error(function (data) {
@@ -197,7 +207,7 @@
         contactFactory.deleteOldClient = function (id) {
             return $http.delete(server + urlBase + "/" + id).success(function (data) {
                 delete contactFactory.oldClients[id];
-                if (id === contactFactory.selectedContact.id) {
+                if (contactFactory.selectedContact && id === contactFactory.selectedContact.id) {
                     delete contactFactory.selectedContact;
                 }
             }).error(function (data) {
