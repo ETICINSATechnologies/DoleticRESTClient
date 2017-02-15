@@ -20,36 +20,19 @@
             return currentUser;
         };
 
-        userFactory.updatePassword = function (oldpass, newpass, confirmpass, successhandler) {
-            $http.post(server + urlBase + "/current/password",
-                {
-                    "old" : oldpass,
-                    "new[first]" : newpass,
-                    "new[second]" : confirmpass
-                }
-            );
+        userFactory.updatePassword = function (pass) {
+            return $http.post(server + urlBase + "/current/password", pass).success()
+                .error(function (error) {
+                    console.log(error);
+                });
         }
 
-        userFactory.updateProfile = function (gender, firstName, lastName, mail, birthDate, department,
-                                              shoolYear, recruitmentEvent, tel, address, city, postalCode,
-                                              country, successhandler){
-            $http.post(server + urlBase + "/current",
-                {
-                    "gender" : gender,
-                    "firstName" : firstName,
-                    "lastName" : lastName,
-                    "email" : mail,
-                    "birthDate" : birthDate,
-                    "department" : department,
-                    "schoolYear" : shoolYear,
-                    "recruitmentEvent" : recruitmentEvent,
-                    "tel" : tel,
-                    "address" : address,
-                    "city" : city,
-                    "postalCode" : postalCode,
-                    "country" : country
-                }
-            );
+        userFactory.updateProfile = function (profile){
+            return $http.post(server + urlBase + "/current", profile).success(function (data) {
+                userFactory.currentUser = data.user;
+            }).error(function (error) {
+                console.log(error);
+            });
         }
 
 
