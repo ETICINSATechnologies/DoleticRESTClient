@@ -20,6 +20,22 @@
             return currentUser;
         };
 
+        userFactory.updatePassword = function (pass) {
+            return $http.post(server + urlBase + "/current/password", pass).success()
+                .error(function (error) {
+                    console.log(error);
+                });
+        }
+
+        userFactory.updateProfile = function (profile){
+            return $http.post(server + urlBase + "/current", profile).success(function (data) {
+                userFactory.currentUser = data.user;
+            }).error(function (error) {
+                console.log(error);
+            });
+        }
+
+
         userFactory.getCurrentUser = function () {
             if (!currentUser) {
                 currentUser = store.get('user');
@@ -42,6 +58,18 @@
             }).error(function (data) {
                 console.log(data);
             });
+        };
+
+        userFactory.getUserByUsername = function(user){
+            return $http.get(server + urlBase + "/" + user);
+        };
+
+        userFactory.getUserByMail = function(mail){
+            return $http.get(server + urlBase + "/" + mail);
+        };
+
+        userFactory.getUserById = function (id) {
+            return $http.get(server + urlBase + "/" + id);
         };
 
         return userFactory;

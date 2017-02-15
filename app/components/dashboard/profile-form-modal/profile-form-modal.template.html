@@ -1,27 +1,25 @@
-<div class="ui modal" id="profile_form_modal">
+<div class="ui modal" id="profile_form_modal" ng-controller="ProfileFormController">
     <div class="ui segment">
-        <form id="profile_form" class="ui form">
+        <form id="profileForm" name="profileForm" class="ui form">
             <h4 class="ui header" id="form_header">Edition du profil de </h4>
             <div class="fields">
                 <div id="firstname_field" class="eight wide required field">
                     <label>Prénom</label>
-                    <input id="firstname" placeholder="Prénom..." type="text"/>
+                    <input id="firstname" placeholder="Prénom..." type="text" required="true" ng-model="profile.firstname"/>
+                    <div ng-messages="pass_form.oldpass.$error" ng-messages-include="Erreurs.html" ></div>
                 </div>
                 <div id="lastname_field" class="eight wide required field">
                     <label>Nom</label>
-                    <input id="lastname" placeholder="Nom..." type="text"/>
+                    <input id="lastname" placeholder="Nom..." type="text" required="true" ng-model="profile.lastname"/>
+                    <div ng-messages="pass_form.oldpass.$error" ng-messages-include="Erreurs.html" ></div>
                 </div>
             </div>
             <div class="fields">
                 <div class="twelve wide required field" id="gender_field">
                     <label>Civilité</label>
                     <div id="gender_search" class="ui fluid search selection dropdown">
-                        <input type="hidden" id="gender"/>
-                        <i class="dropdown icon"></i>
-                        <div class="default text">Civilité...</div>
-                        <div class="menu">
-                            <!-- GENDERS WILL GO HERE -->
-                        </div>
+                        <ng-dropdown data-label="label" ng-option="GenderService.genders" data-value="id" ng-model="profile.gender" required="true"></ng-dropdown>
+                        <div ng-messages="pass_form.oldpass.$error" ng-messages-include="Erreurs.html" ></div>
                     </div>
                 </div>
                 <div id="birthdate_field" class="twelve wide required field">
@@ -29,7 +27,8 @@
                     <div class="ui calendar" id="birthdate_calendar">
                         <div class="ui input left icon">
                             <i class="calendar icon"></i>
-                            <input id="birthdate" placeholder="AAA-mm-jj" type="text"/>
+                            <input id="birthdate" placeholder="dd/MM/yyyy" type="date" ng-model="profile.birthdate"/>
+                            <div ng-messages="pass_form.oldpass.$error" ng-messages-include="Erreurs.html" ></div>
                         </div>
                     </div>
                 </div>
@@ -37,67 +36,59 @@
             <div class="fields">
                 <div id="tel_field" class="twelve wide required field">
                     <label>Numéro de téléphone</label>
-                    <input id="tel" placeholder="0000000000" type="text"/>
+                    <input id="tel" placeholder="0000000000" type="number" ng-model="profile.tel"/>
+                    <div ng-messages="pass_form.oldpass.$error" ng-messages-include="Erreurs.html" ></div>
                 </div>
                 <div id="mail_field" class="twelve wide required field">
                     <label>Adresse mail</label>
-                    <input id="mail" placeholder="exemple@domaine.com" type="text"/>
+                    <input id="mail" placeholder="exemple@domaine.com" type="email" required="true" ng-model="profile.mail"/>
+                    <div ng-messages="pass_form.oldpass.$error" ng-messages-include="Erreurs.html" ></div>
                 </div>
             </div>
             <div id="address_field" class="sixteen wide required field">
                 <label>Adresse</label>
-                <input id="address" placeholder="X rue de ..." type="text"/>
+                <input id="address" placeholder="X rue de ..." type="text" ng-model="profile.address"/>
+                <div ng-messages="pass_form.oldpass.$error" ng-messages-include="Erreurs.html" ></div>
             </div>
             <div class="fields">
                 <div id="postalcode_field" class="twelve wide required field">
                     <label>Code postal</label>
-                    <input id="postalcode" placeholder="00000" type="text"/>
+                    <input id="postalcode" placeholder="00000" type="number" ng-model="profile.postalcode"/>
+                    <div ng-messages="pass_form.oldpass.$error" ng-messages-include="Erreurs.html" ></div>
                 </div>
                 <div id="city_field" class="twelve wide required field">
                     <label>Ville</label>
-                    <input id="city" placeholder="Ville..." type="text"/>
+                    <input id="city" placeholder="Ville..." type="text" ng-model="profile.city"/>
+                    <div ng-messages="pass_form.oldpass.$error" ng-messages-include="Erreurs.html" ></div>
                 </div>
             </div>
             <div class="sixteen wide required field" id="country_field">
                 <label>Pays</label>
                 <div id="country_search" class="ui fluid search selection dropdown">
-                    <input type="hidden" id="country"/>
-                    <i class="dropdown icon"></i>
-                    <div class="default text">Pays...</div>
-                    <div class="menu">
-                        <!-- COUNTRIES WILL GO HERE -->
-                    </div>
+                    <ng-dropdown data-label="label" ng-option="CountryService.countries" data-value="id" ng-model="profile.country" required="true"></ng-dropdown>
+                    <div ng-messages="pass_form.oldpass.$error" ng-messages-include="Erreurs.html" ></div>
                 </div>
             </div>
             <div class="fields">
                 <div class="sixteen wide required field" id="schoolyear_field">
                     <label>Année d'étude</label>
                     <div id="schoolyear_search" class="ui fluid search selection dropdown">
-                        <input type="hidden" id="schoolyear"/>
-                        <i class="dropdown icon"></i>
-                        <div class="default text">Année...</div>
-                        <div class="menu">
-                            <!-- YEARS WILL GO HERE -->
-                        </div>
+                        <ng-dropdown data-label="label" ng-option="YearService.years" data-value="id" ng-model="profile.year" required="true"></ng-dropdown>
+                        <div ng-messages="pass_form.oldpass.$error" ng-messages-include="Erreurs.html" ></div>
                     </div>
                 </div>
                 <div class="sixteen wide required field" id="dept_field">
                     <label>Département</label>
                     <div id="dept_search" class="ui fluid search selection dropdown">
-                        <input type="hidden" id="dept"/>
-                        <i class="dropdown icon"></i>
-                        <div class="default text">Département...</div>
-                        <div class="menu">
-                            <!-- DEPTS WILL GO HERE -->
-                        </div>
+                        <ng-dropdown data-label="label" ng-option="DepartmentService.departments" data-value="id" ng-model="profile.department" required="true"></ng-dropdown>
+                        <div ng-messages="pass_form.oldpass.$error" ng-messages-include="Erreurs.html" ></div>
                     </div>
                 </div>
             </div>
             <div class="ui hr_center small buttons">
-                <div id="abort_btn" class="ui button" ng-click="DoleticUIModule.cancelProfileForm();">Annuler
-                </div>
+                <input type="reset" value="Annuler" class="ui button"/>
                 <div class="or" data-text="ou"></div>
-                <div id="profile_btn" class="ui green button" ng-click="DoleticUIModule.updateProfile();">
+                <div id="profile_btn" class="ui green button" ng-click="updateProfile()" ng-disabled="profile_form.$invalid">
                     Confirmer
                 </div>
             </div>
