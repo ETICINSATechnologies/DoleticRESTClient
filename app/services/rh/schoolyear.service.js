@@ -10,16 +10,16 @@
     function YearService($http, SERVER_CONFIG){
         var server = SERVER_CONFIG.url;
         var urlBase = '/api/rh/year';
-        var projectFactory = {years : {}};
+        var yearFactory = {years : {}};
 
-        projectFactory.getAllYears = function (cache) {
+        yearFactory.getAllYears = function (cache) {
             return $http.get(server + urlBase + "s", { cache: cache}).success(function (data) {
-                projectFactory.years = data.years;
+                yearFactory.years = data.years;
             }).error(function (data) {
                 console.log(data);
             });
         };
 
-        return projectFactory;
+        return yearFactory;
     }
 });
