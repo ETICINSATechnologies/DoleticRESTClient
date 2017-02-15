@@ -5,9 +5,9 @@
         .module('doleticApp')
         .controller('ProfileFormController', ProfileFormController);
 
-    ProfileFormController.$inject = ['$scope', '$state', 'SharedVariables', 'MessageBoxService', 'UserService', 'CountryService', 'GenderService', 'YearService', 'DepartmentService'];
+    ProfileFormController.$inject = ['$scope', '$state', 'SharedVariables', 'MessageBoxService', 'UserService', 'CountryService', 'GenderService', 'YearService', 'DepartmentService', 'editMode', 'profile'];
 
-    function ProfileFormController($scope, $state, SharedVariables, MessageBoxService, UserService, CountryService, GenderService, YearService, DepartmentService) {
+    function ProfileFormController($scope, $state, SharedVariables, MessageBoxService, UserService, CountryService, GenderService, YearService, DepartmentService, editMode, profile) {
 
         $scope.$state = $state;
         $scope.sharedVariables = SharedVariables;
@@ -18,29 +18,30 @@
         $scope.GenderService = GenderService;
         $scope.YearService = YearService;
         $scope.DepartmentService = DepartmentService;
-        $scope.profile = {};
+        if(profile!={})formatProfile();
+        $scope.profile = profile;
+        $scope.editMode = editMode?editMode:false;
+
+        $scope.resetForm = function () {
+            $scope.profile = {};
+            $scope.profileForm.$setPristine();
+            $scope.editMode = false;
+        };
 
         function updateProfile() {
-            UserService.updateProfile(
-                $scope.profile.gender,
-                $scope.profile.firstName,
-                $scope.profile.lastName,
-                $scope.profile.mail,
-                $scope.profile.birthDate,
-                $scope.profile.department,
-                $scope.profile.year,
-                $scope.profile.recruitmentEvent,
-                $scope.profile.tel,
-                $scope.profile.address,
-                $scope.profile.city,
-                $scope.profile.postalCode,
-                $scope.profile.country,
-                function (data) {
-                    if (data.code == 0) {
-                        MessageBoxService.showSuccess('Succès !', 'Profile mis à jour avec succès !');
-                    } else {
-                        MessageBoxService.handleServiceError(data);
-                    }
+            UserService.updateProfile($scope.profile)
+                .success(function (data) {
+                    $('#profile_form_modal').modal('hide');
+                    $scope.resetForm();
+                    MessageBoxService.showSuccess(
+                        "Opération réussie !",
+                        "Le profile a été modifié avec succès !"
+                    );
+                }).error(function (data) {
+                    $('#profile_form_modal').modal('hide');
+                    MessageBoxService.showError(
+                        "Echec de la modification...",
+                        "Le profile n'a pas pu être modifié.");
                 }
             );
         }
@@ -49,6 +50,13 @@
         GenderService.getAllGenders(true);
         YearService.getAllYears(true);
         DepartmentService.getAllDepartments(true);
+
+        function formatProfile() {
+            if(profile.country)profile.country = profile.country.id;
+            if(profile.gender)profile.gender = profile.gender.id;
+            if(profile.year)profile.year = profile.year.id;
+            if(profile.department)profile.department = profile.department.id;
+        }
 
     }
 
