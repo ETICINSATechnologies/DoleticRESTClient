@@ -5,9 +5,9 @@
         .module('doleticApp')
         .controller('DashboardController', DashboardController);
 
-    DashboardController.$inject = ['$scope', '$state', 'SharedVariables', 'MessageBoxService', 'UserService'];
+    DashboardController.$inject = ['$scope', '$state', 'SharedVariables', 'UserService', 'ModalService'];
 
-    function DashboardController($scope, $state, SharedVariables, MessageBoxService, UserService) {
+    function DashboardController($scope, $state, SharedVariables, UserService, ModalService) {
 
         $scope.$state = $state;
         $scope.sharedVariables = SharedVariables;
@@ -21,7 +21,6 @@
                 templateUrl: "app/components/dashboard/profile-form-modal/profile-form-modal.template.html",
                 controller: "ProfileFormController",
                 inputs:{
-                    editMode: false,
                     profile:{}
                 }
             }).then(function (modal) {
@@ -37,8 +36,7 @@
                 templateUrl: "app/components/dashboard/pass-form-modal/pass-form-modal.template.html",
                 controller: "PassFormController",
                 inputs:{
-                    editMode: false,
-                    pass :{}
+                    pass:{}
                 }
             }).then(function (modal) {
                 modal.element.modal('show');
