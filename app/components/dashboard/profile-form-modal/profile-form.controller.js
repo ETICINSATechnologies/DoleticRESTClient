@@ -5,9 +5,9 @@
         .module('doleticApp')
         .controller('ProfileFormController', ProfileFormController);
 
-    ProfileFormController.$inject = ['$scope', '$state', 'SharedVariables', 'MessageBoxService', 'UserService', 'CountryService', 'GenderService', 'YearService', 'DepartmentService', 'editMode', 'profile'];
+    ProfileFormController.$inject = ['$scope', '$state', 'SharedVariables', 'MessageBoxService', 'UserService', 'CountryService', 'GenderService', 'YearService', 'DepartmentService', 'profile'];
 
-    function ProfileFormController($scope, $state, SharedVariables, MessageBoxService, UserService, CountryService, GenderService, YearService, DepartmentService, editMode, profile) {
+    function ProfileFormController($scope, $state, SharedVariables, MessageBoxService, UserService, CountryService, GenderService, YearService, DepartmentService, profile) {
 
         $scope.$state = $state;
         $scope.sharedVariables = SharedVariables;
@@ -20,12 +20,10 @@
         $scope.DepartmentService = DepartmentService;
         if(profile!={})formatProfile();
         $scope.profile = profile;
-        $scope.editMode = editMode?editMode:false;
 
         $scope.resetForm = function () {
             $scope.profile = {};
             $scope.profileForm.$setPristine();
-            $scope.editMode = false;
         };
 
         function updateProfile() {
@@ -60,4 +58,4 @@
 
     }
 
-})
+})();

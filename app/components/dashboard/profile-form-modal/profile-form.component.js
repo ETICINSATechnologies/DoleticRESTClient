@@ -3,9 +3,9 @@
 
     angular
         .module('doleticApp')
-        .component('ProfileFormComponent', ProfileFormComponent());
+        .component('profileFormComponent', profileFormComponent());
 
-    function ProfileFormComponent() {
+    function profileFormComponent() {
         return {
             bindings: {},
             controller: "ProfileFormController",
