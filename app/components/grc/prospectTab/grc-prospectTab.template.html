@@ -2,7 +2,7 @@
     <div class="row">
         <div class="sixteen wide column">
             <div class="ui buttons">
-                <div class="ui green button" ng-click="showProspectForm()">
+                <div class="ui green button" ng-if="grcService.rightLevel >= 3" ng-click="showProspectForm()">
                     Ajouter un prospect
                 </div>
                 <div class="ui olive button" ng-click="contactService.getAllProspects(false)">

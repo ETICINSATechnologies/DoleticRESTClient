@@ -5,10 +5,12 @@
         .module('doleticApp')
         .controller('grcOldClientTableController', grcOldClientTableController);
 
-    grcOldClientTableController.$inject = ['$scope', '$state', 'ContactService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'ConfirmModalService', 'MessageBoxService', 'ModalService'];
+    grcOldClientTableController.$inject = ['$scope', '$state', 'ContactService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'ConfirmModalService', 'MessageBoxService', 'ModalService', 'GRCService', 'UserService'];
 
-    function grcOldClientTableController($scope, $state, ContactService, DTOptionsBuilder, DTColumnDefBuilder, ConfirmModalService, MessageBoxService, ModalService) {
+    function grcOldClientTableController($scope, $state, ContactService, DTOptionsBuilder, DTColumnDefBuilder, ConfirmModalService, MessageBoxService, ModalService, GRCService, UserService) {
         $scope.contactService = ContactService;
+        $scope.grcService = GRCService;
+        $scope.userService = UserService;
 
         $scope.dtOptions = DTOptionsBuilder
             .newOptions()

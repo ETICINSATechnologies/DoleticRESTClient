@@ -50,13 +50,17 @@
         <td>{{client.prospector.fullName}}</td>
         <td>
             <div class="ui icon buttons">
-                <button class="ui blue icon button" data-tooltip="Modifier" ng-click="showClientForm(client)">
+                <button class="ui blue icon button" ng-if="grcService.rightLevel >= 3" data-tooltip="Modifier"
+                        ng-click="showClientForm(client)">
                     <i class="write icon"></i>
                 </button>
-                <button class="ui yellow icon button" data-tooltip="Marquer comme ancien client" ng-click="toOldClient(client)">
+                <button class="ui yellow icon button" ng-if="grcService.rightLevel >= 3"
+                        data-tooltip="Marquer comme ancien client" ng-click="toOldClient(client)">
                     <i class="student icon"></i>
                 </button>
-                <button class="ui red icon button" data-tooltip="Supprimer" ng-click="deleteClient(client.id)">
+                <button class="ui red icon button"
+                        ng-if="grcService.rightLevel >= 4 || client.creator.id == userService.getCurrentUser().id"
+                        data-tooltip="Supprimer" ng-click="deleteClient(client.id)">
                     <i class="remove icon"></i>
                 </button>
             </div>
