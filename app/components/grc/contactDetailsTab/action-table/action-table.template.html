@@ -20,8 +20,8 @@
     </tr>
     </tfoot>
     <tbody>
-    <tr ng-repeat="action in contactService.selectedContact.actions">
-        <td>{{action.date}}</td>
+    <tr ng-repeat="action in contactActionService.currentContactActions">
+        <td>{{action.date|date:"dd/MM/y"}}</td>
         <td>{{action.type.label}}</td>
         <td>{{action.prospector.fullName}}</td>
         <td>{{action.notes}}</td>

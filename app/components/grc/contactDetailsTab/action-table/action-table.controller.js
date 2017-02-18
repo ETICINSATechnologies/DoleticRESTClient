@@ -5,10 +5,10 @@
         .module('doleticApp')
         .controller('grcActionTableController', grcActionTableController);
 
-    grcActionTableController.$inject = ['$scope', '$state', 'ContactService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'ConfirmModalService', 'MessageBoxService', 'ContactActionService'];
+    grcActionTableController.$inject = ['$scope', '$state', 'ContactActionService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'ConfirmModalService', 'MessageBoxService'];
 
-    function grcActionTableController($scope, $state, ContactService, DTOptionsBuilder, DTColumnDefBuilder, ConfirmModalService, MessageBoxService, ContactActionService) {
-        $scope.contactService = ContactService;
+    function grcActionTableController($scope, $state, ContactActionService, DTOptionsBuilder, DTColumnDefBuilder, ConfirmModalService, MessageBoxService) {
+        $scope.contactActionService = ContactActionService;
 
         $scope.dtOptions = DTOptionsBuilder
             .newOptions()
@@ -20,5 +20,7 @@
         $scope.deleteAction = function (id) {
 
         };
+
+        ContactActionService.getContactActionsByContact($state.params.id, true);
     }
 })();

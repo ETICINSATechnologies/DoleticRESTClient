@@ -141,6 +141,9 @@
         contactFactory.putProspect = function (prospect) {
             return $http.post(server + urlBase + "/" + prospect.id, prospect).success(function (data) {
                 contactFactory.prospects[data.contact.id] = data.contact;
+                if (contactFactory.selectedContact && data.contact.id == contactFactory.selectedContact.id) {
+                    contactFactory.selectedContact = data.contact;
+                }
             }).error(function (data) {
                 console.log(data);
             });
@@ -149,6 +152,9 @@
         contactFactory.putContactedProspect = function (contactedProspect) {
             return $http.post(server + urlBase + "/" + contactedProspect.id, contactedProspect).success(function (data) {
                 contactFactory.contactedProspects[data.contact.id] = data.contact;
+                if (contactFactory.selectedContact && data.contact.id == contactFactory.selectedContact.id) {
+                    contactFactory.selectedContact = data.contact;
+                }
             }).error(function (data) {
                 console.log(data);
             });
@@ -157,6 +163,9 @@
         contactFactory.putClient = function (client) {
             return $http.post(server + urlBase + "/" + client.id, client).success(function (data) {
                 contactFactory.clients[data.contact.id] = data.contact;
+                if (contactFactory.selectedContact && data.contact.id == contactFactory.selectedContact.id) {
+                    contactFactory.selectedContact = data.contact;
+                }
             }).error(function (data) {
                 console.log(data);
             });
@@ -165,6 +174,9 @@
         contactFactory.putOldClient = function (oldClient) {
             return $http.post(server + urlBase + "/" + oldClient.id, oldClient).success(function (data) {
                 contactFactory.oldClients[data.contact.id] = data.contact;
+                if (contactFactory.selectedContact && data.contact.id == contactFactory.selectedContact.id) {
+                    contactFactory.selectedContact = data.contact;
+                }
             }).error(function (data) {
                 console.log(data);
             });
