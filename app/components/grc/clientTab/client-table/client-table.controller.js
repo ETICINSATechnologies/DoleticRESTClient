@@ -5,9 +5,9 @@
         .module('doleticApp')
         .controller('grcClientTableController', grcClientTableController);
 
-    grcClientTableController.$inject = ['$scope', '$state', 'ContactService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'ConfirmModalService', 'MessageBoxService'];
+    grcClientTableController.$inject = ['$scope', '$state', 'ContactService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'ConfirmModalService', 'MessageBoxService', 'ModalService'];
 
-    function grcClientTableController($scope, $state, ContactService, DTOptionsBuilder, DTColumnDefBuilder, ConfirmModalService, MessageBoxService) {
+    function grcClientTableController($scope, $state, ContactService, DTOptionsBuilder, DTColumnDefBuilder, ConfirmModalService, MessageBoxService, ModalService) {
         $scope.contactService = ContactService;
 
         $scope.dtOptions = DTOptionsBuilder
@@ -38,6 +38,22 @@
                     });
                 }
             )
+        };
+
+        $scope.showClientForm = function (client) {
+            ModalService.showModal({
+                templateUrl: "app/components/grc/clientTab/client-form/client-form.template.html",
+                controller: "grcClientFormController",
+                inputs: {
+                    editMode: true,
+                    client: angular.copy(client)
+                }
+            }).then(function (modal) {
+                modal.element.modal('show');
+            }).catch(function (error) {
+                // error contains a detailed error message.
+                console.log(error);
+            });
         };
 
         ContactService.getAllClients(true);

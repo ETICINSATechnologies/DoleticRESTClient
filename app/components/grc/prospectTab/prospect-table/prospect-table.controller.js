@@ -5,9 +5,9 @@
         .module('doleticApp')
         .controller('grcProspectTableController', grcProspectTableController);
 
-    grcProspectTableController.$inject = ['$scope', '$state', 'ContactService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'ConfirmModalService', 'MessageBoxService'];
+    grcProspectTableController.$inject = ['$scope', '$state', 'ContactService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'ConfirmModalService', 'ModalService', 'MessageBoxService'];
 
-    function grcProspectTableController($scope, $state, ContactService, DTOptionsBuilder, DTColumnDefBuilder, ConfirmModalService, MessageBoxService) {
+    function grcProspectTableController($scope, $state, ContactService, DTOptionsBuilder, DTColumnDefBuilder, ConfirmModalService, ModalService, MessageBoxService) {
         $scope.contactService = ContactService;
 
         $scope.dtOptions = DTOptionsBuilder
@@ -37,6 +37,22 @@
                     });
                 }
             );
+        };
+
+        $scope.showProspectForm = function (prospect) {
+            ModalService.showModal({
+                templateUrl: "app/components/grc/prospectTab/prospect-form/prospect-form.template.html",
+                controller: "grcProspectFormController",
+                inputs:{
+                    editMode:true,
+                    prospect:angular.copy(prospect)
+                }
+            }).then(function (modal) {
+                modal.element.modal('show');
+            }).catch(function (error) {
+                // error contains a detailed error message.
+                console.log(error);
+            });
         };
 
         ContactService.getAllProspects(true);

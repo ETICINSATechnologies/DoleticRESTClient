@@ -1,66 +1,68 @@
 <table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="ui very basic celled table">
     <thead>
-        <tr>
-            <th></th>
-            <th>Nom/Email</th>
-            <th>Téléphone</th>
-            <th>Mobile</th>
-            <th>Société</th>
-            <th>Rôle</th>
-            <th>Assigné à</th>
-            <th>Actions</th>
-        </tr>
+    <tr>
+        <th></th>
+        <th>Nom/Email</th>
+        <th>Téléphone</th>
+        <th>Mobile</th>
+        <th>Société</th>
+        <th>Rôle</th>
+        <th>Assigné à</th>
+        <th>Actions</th>
+    </tr>
     </thead>
     <tfoot>
-        <tr>
-            <th></th>
-            <th>Nom/Email</th>
-            <th>Téléphone</th>
-            <th>Mobile</th>
-            <th>Société</th>
-            <th>Rôle</th>
-            <th>Assigné à</th>
-            <th></th>
-        </tr>
+    <tr>
+        <th></th>
+        <th>Nom/Email</th>
+        <th>Téléphone</th>
+        <th>Mobile</th>
+        <th>Société</th>
+        <th>Rôle</th>
+        <th>Assigné à</th>
+        <th></th>
+    </tr>
     </tfoot>
     <tbody>
-        <tr ng-repeat="contactedProspect in contactService.contactedProspects">
-            <td>
-                <a class="ui teal icon button"
-                   data-tooltip="Détails de {{contactedProspect.fullName}}"
-                   data-content="Cliquez ici pour afficher plus d'informations"
-                   ui-sref="grc.contactDetailsTab({id : contactedProspect.id})">
-                    <i class="user icon"></i>
-                </a>
-            </td>
-            <td>
-                <div class="ui small header">
-                    <div class="content">
-                        {{contactedProspect.fullName}}
-                        <div class="sub header">
-                            <a href="mailto:{{contactedProspect.email}}" target="_blank">{{contactedProspect.email}}</a>
-                        </div>
+    <tr ng-repeat="contactedProspect in contactService.contactedProspects">
+        <td>
+            <a class="ui teal icon button"
+               data-tooltip="Détails de {{contactedProspect.fullName}}"
+               data-content="Cliquez ici pour afficher plus d'informations"
+               ui-sref="grc.contactDetailsTab({id : contactedProspect.id})">
+                <i class="user icon"></i>
+            </a>
+        </td>
+        <td>
+            <div class="ui small header">
+                <div class="content">
+                    {{contactedProspect.fullName}}
+                    <div class="sub header">
+                        <a href="mailto:{{contactedProspect.email}}" target="_blank">{{contactedProspect.email}}</a>
                     </div>
                 </div>
-            </td>
-            <td>0{{contactedProspect.phone}}</td>
-            <td>0{{contactedProspect.cellPhone}}</td>
-            <td>{{contactedProspect.firm.name}}</td>
-            <td>{{contactedProspect.role}}</td>
-            <td>{{contactedProspect.prospector.fullName}}</td>
-            <td>
-                <div class="ui icon buttons">
-                    <button class="ui blue icon button" data-tooltip="Modifier" ng-click="">
-                        <i class="write icon"></i>
-                    </button>
-                    <button class="ui yellow icon button" data-tooltip="Marquer comme client" ng-click="">
-                        <i class="call icon"></i>
-                    </button>
-                    <button class="ui red icon button" data-tooltip="Supprimer" ng-click="deleteContactedProspect(contactedProspect.id)">
-                        <i class="remove icon"></i>
-                    </button>
-                </div>
-            </td>
-        </tr>
+            </div>
+        </td>
+        <td>0{{contactedProspect.phone}}</td>
+        <td>0{{contactedProspect.cellPhone}}</td>
+        <td>{{contactedProspect.firm.name}}</td>
+        <td>{{contactedProspect.role}}</td>
+        <td>{{contactedProspect.prospector.fullName}}</td>
+        <td>
+            <div class="ui icon buttons">
+                <button class="ui blue icon button" data-tooltip="Modifier"
+                        ng-click="showContactedProspectForm(contactedProspect)">
+                    <i class="write icon"></i>
+                </button>
+                <button class="ui yellow icon button" data-tooltip="Marquer comme client" ng-click="">
+                    <i class="call icon"></i>
+                </button>
+                <button class="ui red icon button" data-tooltip="Supprimer"
+                        ng-click="deleteContactedProspect(contactedProspect.id)">
+                    <i class="remove icon"></i>
+                </button>
+            </div>
+        </td>
+    </tr>
     </tbody>
 </table>
