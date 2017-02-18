@@ -5,9 +5,9 @@
         .module('doleticApp')
         .controller('grcContactedProspectFormController', grcContactedProspectFormController);
 
-    grcContactedProspectFormController.$inject = ['$scope', 'ContactService', 'GenderService', 'FirmService', 'MessageBoxService', 'UserService', 'editMode', 'contactedProspect'];
+    grcContactedProspectFormController.$inject = ['$scope', '$filter', 'ContactService', 'GenderService', 'FirmService', 'MessageBoxService', 'UserService', 'editMode', 'contactedProspect'];
 
-    function grcContactedProspectFormController($scope, ContactService, GenderService, FirmService, MessageBoxService, UserService, editMode, contactedProspect) {
+    function grcContactedProspectFormController($scope, $filter, ContactService, GenderService, FirmService, MessageBoxService, UserService, editMode, contactedProspect) {
 
         if (contactedProspect != {}) formatContactedProspect();
         $scope.contactedProspect = contactedProspect;
@@ -69,6 +69,7 @@
             if (contactedProspect.prospector) contactedProspect.prospector = contactedProspect.prospector.id;
             if (contactedProspect.firm) contactedProspect.firm = contactedProspect.firm.id;
             if (contactedProspect.type) contactedProspect.type = contactedProspect.type.id;
+            if (contactedProspect.nextProspecting) contactedProspect.nextProspecting = $filter('date')(contactedProspect.nextProspecting, "dd/MM/y");
         }
 
         GenderService.getAllGenders(true);
