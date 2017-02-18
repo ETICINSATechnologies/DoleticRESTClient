@@ -25,7 +25,7 @@
                 .error(function (error) {
                     console.log(error);
                 });
-        }
+        };
 
         userFactory.updateProfile = function (profile){
             return $http.post(server + urlBase + "/current", profile).success(function (data) {
@@ -33,7 +33,7 @@
             }).error(function (error) {
                 console.log(error);
             });
-        }
+        };
 
 
         userFactory.getCurrentUser = function () {
