@@ -1,0 +1,22 @@
+<div class="ui two column grid container">
+    <div class="row"></div>
+    <div class="row">
+        <div class="sixteen wide column" id="page_content">
+            <div class="ui top attached tabular menu" id="tabmenu">
+                <a ng-class="{active: $state.current.activetab == 'signature'}" class="item" data-tab="signature"
+                   ui-sref="tools.signatureTab">Signature Mail</a>
+                <a ng-if="kernelService.rightLevel >= 3" ng-class="{active: $state.current.activetab == 'mailing'}"
+                   class="item" data-tab="mailing"
+                   ui-sref="tools.mailingTab">Listes de diffusion</a>
+                <a ng-if="kernelService.rightLevel >= 3" ng-class="{active: $state.current.activetab == 'indicator'}"
+                   class="item" data-tab="indicator"
+                   ui-sref="tools.indicatorTab">Indicateurs</a>
+            </div>
+            <div class="ui bottom attached tab segment active" data-tab="{{$state.current.activetab}}">
+                <div ui-view></div>
+            </div>
+        </div>
+    </div>
+    <div class="row"></div>
+    <div class="row"></div>
+</div>
