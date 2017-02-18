@@ -56,6 +56,50 @@
             });
         };
 
+        $scope.toProspect = function (oldClient) {
+            var name = oldClient.fullName;
+            ConfirmModalService.showConfirmModal(
+                "Confirmer la modification",
+                "Voulez-vous vraiment demander une nouvelle prospection pour " + name + " ?",
+                "reply all",
+                function () {
+                    ContactService.oldClientToProspect(oldClient).success(function (data) {
+                        MessageBoxService.showSuccess(
+                            "Modification réussie !",
+                            "L'ancien client " + name + " a été marqué comme à prospecter."
+                        );
+                    }).error(function (data) {
+                        MessageBoxService.showError(
+                            "Echec de la modification...",
+                            "L'ancien client " + name + " n'a pas pu être marqué comme à prospecter."
+                        );
+                    });
+                }
+            );
+        };
+
+        $scope.toClient = function (oldClient) {
+            var name = oldClient.fullName;
+            ConfirmModalService.showConfirmModal(
+                "Confirmer la modification",
+                "Voulez-vous vraiment marquer " + name + " comme client actuel ?",
+                "reply",
+                function () {
+                    ContactService.oldClientToClient(oldClient).success(function (data) {
+                        MessageBoxService.showSuccess(
+                            "Modification réussie !",
+                            "L'ancien client " + name + " a été marqué comme client actuel."
+                        );
+                    }).error(function (data) {
+                        MessageBoxService.showError(
+                            "Echec de la modification...",
+                            "L'ancien client " + name + " n'a pas pu être marqué comme client actuel."
+                        );
+                    });
+                }
+            );
+        };
+
         ContactService.getAllOldClients(true);
     }
 })();
