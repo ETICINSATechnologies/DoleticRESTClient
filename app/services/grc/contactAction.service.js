@@ -30,10 +30,18 @@
 
         contactActionFactory.postContactAction = function (contactAction) {
             return $http.post(server + urlBase, contactAction).success(function (data) {
-                contactActionFactory.currentContactActions = angular.equals(contactAction.currentContactActions, []) ?
+                contactActionFactory.currentContactActions = angular.equals(contactActionFactory.currentContactActions, []) ?
                     {} : contactActionFactory.currentContactActions;
-                contactAction.currentContactId = data.contact_action.contact.id;
-                contactAction.currentContactActions[data.contact_action.id] = data.contact_action;
+                contactActionFactory.currentContactId = data.contact_action.contact.id;
+                contactActionFactory.currentContactActions[data.contact_action.id] = data.contact_action;
+            }).error(function (error) {
+                console.log(error);
+            });
+        };
+
+        contactActionFactory.putContactAction = function (contactAction) {
+            return $http.post(server + urlBase + "/" + contactAction.id, contactAction).success(function (data) {
+                contactActionFactory.currentContactActions[data.contact_action.id] = data.contact_action;
             }).error(function (error) {
                 console.log(error);
             });
@@ -41,7 +49,7 @@
 
         contactActionFactory.deleteContactAction = function (id) {
             return $http.delete(server + urlBase + "/" + id).success(function (data) {
-
+                delete contactActionFactory.currentContactActions[id];
             }).error(function (data) {
                 console.log(data);
             });

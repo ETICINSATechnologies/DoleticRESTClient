@@ -130,5 +130,21 @@
                 );
             }
         };
+
+        $scope.showContactActionForm = function () {
+            ModalService.showModal({
+                templateUrl: "app/components/grc/contactDetailsTab/action-form/action-form.template.html",
+                controller: "grcActionFormController",
+                inputs: {
+                    editMode: false,
+                    action: {}
+                }
+            }).then(function (modal) {
+                modal.element.modal('show');
+            }).catch(function (error) {
+                // error contains a detailed error message.
+                console.log(error);
+            });
+        };
     }
 })();
