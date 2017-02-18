@@ -5,9 +5,9 @@
         .module('doleticApp')
         .controller('toolsSignatureTabController', toolsSignatureTabController);
 
-    toolsSignatureTabController.$inject = ['$scope'];
+    toolsSignatureTabController.$inject = ['$scope', 'UserService'];
 
-    function toolsSignatureTabController($scope) {
-
+    function toolsSignatureTabController($scope, UserService) {
+        $scope.user = UserService.getCurrentUser();
     }
 })();

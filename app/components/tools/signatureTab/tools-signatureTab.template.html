@@ -1,5 +1,77 @@
 <div class="ui two column grid container">
     <div class="row">
-
+        <div class="ui header">
+            <i class="copy icon"></i>
+            <div class="content">
+                Signature à copier dans le webmail
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="ten wide column left aligned">
+            <div>
+                <table style="color: #000000; font-size: medium;">
+                    <tbody>
+                    <tr>
+                        <td style="padding-right: 15px;"><a href="http://www.etic-insa.com"><img
+                                src="http://www.etic-insa.com/assets/logo-etic.png" alt="" width="139" height="109"></a>
+                        </td>
+                        <td style="font-size: 13px; line-height: 14px; font-family: Helvetica,sans-serif;"><p
+                                style="margin: 0px 0px;"><span
+                                style="display: inline-block; margin-top: 12px; color: #006600; font-size: medium;">
+                                {{user.fullName}}
+                            </span><br>
+                            <span style="display: inline-block; margin-top: 2px; color: #006600; font-size: medium;">
+                                    <strong>{{user.activePosition.position.detail}}</strong>
+                                </span><br>
+                            <span style="color: #3366ff;">
+                                    <span style="display: inline-block; margin-top: 2px;">
+                                        <a style="color: #3366ff;" href="tel:0{{user.tel}}">
+                                        +33 (0){{user.tel}}
+                                        </a>
+                                    </span>
+                                    <span style="display: inline-block; margin-top: 2px;">&nbsp;|&nbsp;
+                                        <a style="color: #3366ff;" href="mailto:{{user.email}}">
+                                            {{user.email}}
+                                        </a>
+                                    </span>
+                                </span>
+                        </p>
+                            <p style="margin: 0px 0px;">
+                                <span style="display: inline-block; margin-top: 2px; color: #888888;"></span>
+                                <strong>
+                                        <span style="display: inline-block; margin-top: 2px; color: #888888;">
+                                            ETIC INSA Technologies
+                                        </span>&nbsp;
+                                </strong>
+                                <br>
+                                <span style="display: inline-block; margin-top: 2px; color: #888888;">
+                                        <span>
+                                            20 avenue Albert Einstein - 69 100 Villeurbanne
+                                        </span>
+                                    </span>
+                                <br>
+                                <span style="display: inline-block; margin-top: 2px; color: #888888;">
+                                        <span>
+                                            Téléphone :
+                                            <span style="color: #888888;">
+                                                <a style="color: #888888;" href="tel:+33 (0)4 78 94 02 27">
+                                                    +33 (0)4 78 94 02 27
+                                                </a>
+                                            </span>
+                                        </span>
+                                    </span>
+                            </p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="six wide column left aligned">
+            <div class="ui segment">
+                Dans le webmail, ajoutez un signature au format HTML et copiez directement la signature ci-contre.
+            </div>
+        </div>
     </div>
 </div>
