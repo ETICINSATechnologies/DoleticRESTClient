@@ -5,9 +5,9 @@
         .module('doleticApp')
         .controller('grcOldClientTableController', grcOldClientTableController);
 
-    grcOldClientTableController.$inject = ['$scope', '$state', 'ContactService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'ConfirmModalService', 'MessageBoxService'];
+    grcOldClientTableController.$inject = ['$scope', '$state', 'ContactService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'ConfirmModalService', 'MessageBoxService', 'ModalService'];
 
-    function grcOldClientTableController($scope, $state, ContactService, DTOptionsBuilder, DTColumnDefBuilder, ConfirmModalService, MessageBoxService) {
+    function grcOldClientTableController($scope, $state, ContactService, DTOptionsBuilder, DTColumnDefBuilder, ConfirmModalService, MessageBoxService, ModalService) {
         $scope.contactService = ContactService;
 
         $scope.dtOptions = DTOptionsBuilder
@@ -38,6 +38,22 @@
                     });
                 }
             )
+        };
+
+        $scope.showOldClientForm = function (oldClient) {
+            ModalService.showModal({
+                templateUrl: "app/components/grc/oldClientTab/oldClient-form/oldClient-form.template.html",
+                controller: "grcOldClientFormController",
+                inputs: {
+                    editMode: true,
+                    oldClient: angular.copy(oldClient)
+                }
+            }).then(function (modal) {
+                modal.element.modal('show');
+            }).catch(function (error) {
+                // error contains a detailed error message.
+                console.log(error);
+            });
         };
 
         ContactService.getAllOldClients(true);

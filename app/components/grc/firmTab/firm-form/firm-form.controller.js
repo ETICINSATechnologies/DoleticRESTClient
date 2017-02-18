@@ -9,9 +9,9 @@
 
     function grcFirmFormController($scope, FirmService, FirmTypeService, CountryService, MessageBoxService, editMode, firm) {
 
-        if(firm!={})formatFirm();
+        if (firm != {}) formatFirm();
         $scope.firm = firm;
-        $scope.editMode = editMode?editMode:false;
+        $scope.editMode = editMode ? editMode : false;
         $scope.firmTypeService = FirmTypeService;
         $scope.countryService = CountryService;
 
@@ -58,12 +58,13 @@
                 }
             );
         };
+
         FirmTypeService.getAllFirmTypes(true);
         CountryService.getAllCountries(true);
-        
+
         function formatFirm() {
-            if(firm.country)firm.country = firm.country.id;
-            if(firm.type)firm.type = firm.type.id;
+            if (firm.country) firm.country = firm.country.id;
+            if (firm.type) firm.type = firm.type.id;
         }
     }
 

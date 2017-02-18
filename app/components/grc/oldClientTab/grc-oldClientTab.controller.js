@@ -13,7 +13,11 @@
         $scope.showOldClientForm = function () {
             ModalService.showModal({
                 templateUrl: "app/components/grc/oldClientTab/oldClient-form/oldClient-form.template.html",
-                controller: "grcOldClientFormController"
+                controller: "grcOldClientFormController",
+                inputs: {
+                    editMode: false,
+                    oldClient: {}
+                }
             }).then(function (modal) {
                 modal.element.modal('show');
             }).catch(function (error) {
