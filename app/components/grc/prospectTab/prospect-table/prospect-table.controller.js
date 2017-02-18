@@ -43,9 +43,9 @@
             ModalService.showModal({
                 templateUrl: "app/components/grc/prospectTab/prospect-form/prospect-form.template.html",
                 controller: "grcProspectFormController",
-                inputs:{
-                    editMode:true,
-                    prospect:angular.copy(prospect)
+                inputs: {
+                    editMode: true,
+                    prospect: angular.copy(prospect)
                 }
             }).then(function (modal) {
                 modal.element.modal('show');
@@ -53,6 +53,28 @@
                 // error contains a detailed error message.
                 console.log(error);
             });
+        };
+
+        $scope.toContactedProspect = function (prospect) {
+            var name = prospect.fullName;
+            ConfirmModalService.showConfirmModal(
+                "Confirmer la modification",
+                "Voulez-vous vraiment marquer le prospect " + name + " comme contacté ?",
+                "call",
+                function () {
+                    ContactService.prospectToContactedProspect(prospect).success(function (data) {
+                        MessageBoxService.showSuccess(
+                            "Modification réussie !",
+                            "Le prospect " + name + " a été marqué comme contacté."
+                        );
+                    }).error(function (data) {
+                        MessageBoxService.showError(
+                            "Echec de la modification...",
+                            "Le prospect " + name + " n'a pas pu être marqué comme contacté."
+                        );
+                    });
+                }
+            );
         };
 
         ContactService.getAllProspects(true);

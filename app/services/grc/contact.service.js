@@ -182,6 +182,85 @@
             });
         };
 
+        // PUT - TYPE
+        contactFactory.prospectToContactedProspect = function (prospect) {
+            return $http.post(server + urlBase + "/" + prospect.id + "/type/2").success(function (data) {
+                if (contactFactory.contactedProspects) {
+                    contactFactory.contactedProspects = angular.equals(contactFactory.contactedProspects, []) ?
+                        {} : contactFactory.contactedProspects;
+                    contactFactory.contactedProspects[data.contact.id] = data.contact;
+                }
+                delete contactFactory.prospects[data.contact.id];
+            }).error(function (data) {
+                console.log(data);
+            });
+        };
+
+        contactFactory.contactedProspectToProspect = function (contactedProspect) {
+            return $http.post(server + urlBase + "/" + contactedProspect.id + "/type/1").success(function (data) {
+                if (contactFactory.prospects) {
+                    contactFactory.prospects = angular.equals(contactFactory.prospects, []) ?
+                        {} : contactFactory.prospects;
+                    contactFactory.prospects[data.contact.id] = data.contact;
+                }
+                delete contactFactory.contactedProspects[data.contact.id];
+            }).error(function (data) {
+                console.log(data);
+            });
+        };
+
+        contactFactory.contactedProspectToClient = function (contactedProspect) {
+            return $http.post(server + urlBase + "/" + contactedProspect.id + "/type/3").success(function (data) {
+                if (contactFactory.clients) {
+                    contactFactory.clients = angular.equals(contactFactory.clients, []) ?
+                        {} : contactFactory.clients;
+                    contactFactory.clients[data.contact.id] = data.contact;
+                }
+                delete contactFactory.contactedProspects[data.contact.id];
+            }).error(function (data) {
+                console.log(data);
+            });
+        };
+
+        contactFactory.clientToOldClient = function (client) {
+            return $http.post(server + urlBase + "/" + client.id + "/type/4").success(function (data) {
+                if (contactFactory.oldClients) {
+                    contactFactory.oldClients = angular.equals(contactFactory.oldClients, []) ?
+                        {} : contactFactory.oldClients;
+                    contactFactory.oldClients[data.contact.id] = data.contact;
+                }
+                delete contactFactory.clients[data.contact.id];
+            }).error(function (data) {
+                console.log(data);
+            });
+        };
+
+        contactFactory.oldClientToClient = function (oldClient) {
+            return $http.post(server + urlBase + "/" + oldClient.id + "/type/3").success(function (data) {
+                if (contactFactory.clients) {
+                    contactFactory.clients = angular.equals(contactFactory.clients, []) ?
+                        {} : contactFactory.clients;
+                    contactFactory.clients[data.contact.id] = data.contact;
+                }
+                delete contactFactory.oldClients[data.contact.id];
+            }).error(function (data) {
+                console.log(data);
+            });
+        };
+
+        contactFactory.oldClientToProspect = function (oldClient) {
+            return $http.post(server + urlBase + "/" + oldClient.id + "/type/1").success(function (data) {
+                if (contactFactory.prospects) {
+                    contactFactory.prospects = angular.equals(contactFactory.prospects, []) ?
+                        {} : contactFactory.prospects;
+                    contactFactory.prospects[data.contact.id] = data.contact;
+                }
+                delete contactFactory.oldClients[data.contact.id];
+            }).error(function (data) {
+                console.log(data);
+            });
+        };
+
         // DELETE
         contactFactory.deleteProspect = function (id) {
             return $http.delete(server + urlBase + "/" + id).success(function (data) {

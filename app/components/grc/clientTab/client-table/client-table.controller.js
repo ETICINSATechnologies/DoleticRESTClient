@@ -56,6 +56,28 @@
             });
         };
 
+        $scope.toOldClient = function (client) {
+            var name = client.fullName;
+            ConfirmModalService.showConfirmModal(
+                "Confirmer la modification",
+                "Voulez-vous vraiment marquer le client " + name + " comme ancien client ?",
+                "student",
+                function () {
+                    ContactService.clientToOldClient(client).success(function (data) {
+                        MessageBoxService.showSuccess(
+                            "Modification réussie !",
+                            "Le client " + name + " a été marqué comme ancien client."
+                        );
+                    }).error(function (data) {
+                        MessageBoxService.showError(
+                            "Echec de la modification...",
+                            "Le client " + name + " n'a pas pu être marqué comme ancien client."
+                        );
+                    });
+                }
+            );
+        };
+
         ContactService.getAllClients(true);
     }
 })();

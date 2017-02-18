@@ -56,6 +56,50 @@
             });
         };
 
+        $scope.toProspect = function (contactedProspect) {
+            var name = contactedProspect.fullName;
+            ConfirmModalService.showConfirmModal(
+                "Confirmer la modification",
+                "Voulez-vous vraiment demander une nouvelle prospection pour " + name + " ?",
+                "reply",
+                function () {
+                    ContactService.contactedProspectToProspect(contactedProspect).success(function (data) {
+                        MessageBoxService.showSuccess(
+                            "Modification réussie !",
+                            "Le prospect " + name + " a été marqué comme à prospecter."
+                        );
+                    }).error(function (data) {
+                        MessageBoxService.showError(
+                            "Echec de la modification...",
+                            "Le prospect " + name + " n'a pas pu être marqué comme à prospecter."
+                        );
+                    });
+                }
+            );
+        };
+
+        $scope.toClient = function (contactedProspect) {
+            var name = contactedProspect.fullName;
+            ConfirmModalService.showConfirmModal(
+                "Confirmer la modification",
+                "Voulez-vous vraiment marquer " + name + " comme client actuel ?",
+                "suitcase",
+                function () {
+                    ContactService.contactedProspectToClient(contactedProspect).success(function (data) {
+                        MessageBoxService.showSuccess(
+                            "Modification réussie !",
+                            "Le prospect " + name + " a été marqué comme client actuel."
+                        );
+                    }).error(function (data) {
+                        MessageBoxService.showError(
+                            "Echec de la modification...",
+                            "Le prospect " + name + " n'a pas pu être marqué comme client actuel."
+                        );
+                    });
+                }
+            );
+        };
+
         ContactService.getAllContactedProspects(true);
     }
 })();

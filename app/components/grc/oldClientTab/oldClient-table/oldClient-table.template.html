@@ -53,8 +53,13 @@
                 <button class="ui blue icon button" data-tooltip="Modifier" ng-click="showOldClientForm(oldClient)">
                     <i class="write icon"></i>
                 </button>
-                <button class="ui yellow icon button" data-tooltip="Marquer comme à prospecter" ng-click="">
-                    <i class="call icon"></i>
+                <button class="ui orange icon button" data-tooltip="Demander une prospection"
+                        ng-click="toProspect(oldClient)">
+                    <i class="reply all icon"></i>
+                </button>
+                <button class="ui yellow icon button" data-tooltip="Rétablir en tant que client"
+                        ng-click="toClient(oldClient)">
+                    <i class="reply icon"></i>
                 </button>
                 <button class="ui red icon button" data-tooltip="Supprimer" ng-click="deleteOldClient(oldClient.id)">
                     <i class="remove icon"></i>
