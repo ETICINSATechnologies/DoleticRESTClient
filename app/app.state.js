@@ -33,6 +33,12 @@
                 abstract: true,
                 templateUrl: "app/components/grc/grc.template.html",
                 controller: "grcController"
+            }).state('tools',
+            {
+                url: "/tools",
+                abstract: true,
+                templateUrl: "app/components/tools/tools.template.html",
+                controller: "toolsController"
             });
     }
 })();
