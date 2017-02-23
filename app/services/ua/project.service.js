@@ -12,6 +12,8 @@
         var urlBase = '/api/ua/project';
         var projectFactory = {};
 
+        // GET
+
         projectFactory.getAllUnsignedProjects = function (cache) {
             if (!cache) {
                 delete projectFactory.unsignedProjects;
@@ -74,6 +76,18 @@
 
         projectFactory.getProjectByConsultantId = function (id) {
             return $http.get(server + urlBase + "s/consultant/" + id);
+        };
+
+        // POST
+        projectFactory.postProject = function (project) {
+            project.status = 1;
+            return $http.post(server + urlBase, project).success(function (data) {
+                projectFactory.unsignedProjects = angular.equals(projectFactory.unsignedProjects, []) ?
+                    {} : projectFactory.unsignedProjects;
+                projectFactory.unsignedProjects[data.project.id] = data.project;
+            }).error(function (error) {
+                console.log(error);
+            });
         };
 
         return projectFactory;

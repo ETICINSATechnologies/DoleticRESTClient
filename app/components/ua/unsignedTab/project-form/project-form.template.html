@@ -1,49 +1,53 @@
-<div class="ui modal" id="firm_form_modal">
-    <form class="ui form segment" name="firmForm" ng-submit="firmForm.$valid && editMode?editFirm():addFirm()" novalidate>
-        <div class="ui message" ng-show="firmForm.$dirty" ng-class="{'positive' : firmForm.$valid, 'negative' : firmForm.$invalid}">
-            Le formulaire est {{ firmForm.$valid ? "valide" : "invalide" }}
+<div class="ui modal" id="project_form_modal">
+    <form class="ui form segment" name="projectForm" ng-submit="projectForm.$valid && editMode?editProject():addProject()" novalidate>
+        <div class="ui message" ng-show="projectForm.$dirty" ng-class="{'positive' : projectForm.$valid, 'negative' : projectForm.$invalid}">
+            Le formulaire est {{ projectForm.$valid ? "valide" : "invalide" }}
         </div>
-        <h2 ng-if="!editMode" class="ui dividing header">Ajout d'une société</h2>
-        <h2 ng-if="editMode" class="ui dividing header">Modification d'une société</h2>
-        <div class="ui fields">
-            <div class="eight wide field">
-                <label>SIRET</label>
-                <input name="siret" placeholder="SIRET..." type="text" ng-model="firm.siret"/>
-            </div>
-            <div class="eight wide required field">
-                <label>Nom</label>
-                <input name="name" placeholder="Nom..." type="text" ng-model="firm.name" required/>
-            </div>
+        <h2 ng-if="!editMode" class="ui dividing header">Ajout d'une sollicitation</h2>
+        <h2 ng-if="editMode" class="ui dividing header">Modification d'une étude</h2>
+        <div class="sixteen wide required field">
+            <label>Nom de l'étude</label>
+            <input name="name" placeholder="Nom..." type="text" ng-model="project.name" required/>
         </div>
         <div class="sixteen wide required field">
-            <label>Type de société</label>
-            <ng-dropdown data-label="label" ng-option="firmTypeService.firmTypes" data-value="id" ng-model="firm.type" required="true"></ng-dropdown>
+            <label>Notes</label>
+            <textarea ng-model="prospect.notes" placeholder="Notes..." required></textarea>
         </div>
         <div class="ui fields">
-            <div class="ten wide field">
-                <label>Adresse</label>
-                <input name="address" placeholder="Adresse..." type="text" ng-model="firm.address"/>
+            <div class="eight wide required field">
+                <label>Origine de la sollicitation</label>
+                <ng-dropdown data-label="label" ng-option="projectOriginService.projectOrigins" data-value="id" ng-model="project.origin" required="true"></ng-dropdown>
             </div>
-            <div class="six wide field">
-                <label>Code Postal</label>
-                <input name="postalCode" placeholder="Code Postal..." type="text" ng-model="firm.postalCode"/>
+            <div class="eight wide required field">
+                <label>Domaine principal</label>
+                <ng-dropdown data-label="label" ng-option="projectFieldService.projectFields" data-value="id" ng-model="project.field" required="true"></ng-dropdown>
             </div>
         </div>
         <div class="ui fields">
             <div class="eight wide field">
-                <label>Ville</label>
-                <input name="city" placeholder="Ville..." type="text" ng-model="firm.city"/>
+                <label>Société</label>
+                <ng-dropdown data-label="name" ng-option="firmService.firms" data-value="id" ng-model="project.firm" required="true"></ng-dropdown>
             </div>
-            <div class="eight wide required field">
-                <label>Pays</label>
-                <ng-dropdown data-label="label" ng-option="countryService.countries" data-value="id" ng-model="firm.country" required="true"></ng-dropdown>
+            <div class="eight wide field">
+                <label>Je suis chargé d'affaires</label>
+                <checkbox type="toggle" ng-model="project.currentAsManager"></checkbox>
+            </div>
+        </div>
+        <div class="fields">
+            <div class="eight wide field">
+                <label>Etude confidentielle ?</label>
+                <checkbox type="toggle" ng-model="prospect.secret"></checkbox>
+            </div>
+            <div class="eight wide field">
+                <label>Etude critique ?</label>
+                <checkbox type="toggle" ng-model="prospect.critical"></checkbox>
             </div>
         </div>
         <div class="ui hr_center small buttons">
             <input type="reset" value="Annuler" class="ui button"/>
             <div class="or" data-text="ou"></div>
-            <input ng-if="!editMode" type="submit" value="Ajouter" class="ui green button" ng-class="{ 'disabled': firmForm.$invalid }"/>
-            <input ng-if="editMode" type="submit" value="Modifier" class="ui green button" ng-class="{ 'disabled': firmForm.$invalid }"/>
+            <input ng-if="!editMode" type="submit" value="Ajouter" class="ui green button" ng-class="{ 'disabled': projectForm.$invalid }"/>
+            <input ng-if="editMode" type="submit" value="Modifier" class="ui green button" ng-class="{ 'disabled': projectForm.$invalid }"/>
         </div>
     </form>
 </div>

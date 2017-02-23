@@ -1,45 +1,71 @@
 <table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="ui very basic celled table">
     <thead>
     <tr>
+        <th>Numéro</th>
         <th>Nom</th>
-        <th>SIRET</th>
-        <th>Type</th>
-        <th>Adresse</th>
-        <th>Code postal</th>
-        <th>Ville</th>
-        <th>Pays</th>
+        <th>Domaine</th>
+        <th>Société</th>
+        <th>Chargés d'affaires</th>
+        <th>Consultants</th>
+        <th>Corresp. Qualité</th>
+        <th>Statut</th>
         <th>Actions</th>
     </tr>
     </thead>
     <tfoot>
     <tr>
+        <th>Numéro</th>
         <th>Nom</th>
-        <th>SIRET</th>
-        <th>Type</th>
-        <th>Adresse</th>
-        <th>Code postal</th>
-        <th>Ville</th>
-        <th>Pays</th>
+        <th>Domaine</th>
+        <th>Société</th>
+        <th>Chargés d'affaires</th>
+        <th>Consultants</th>
+        <th>Corresp. Qualité</th>
+        <th>Statut</th>
         <th></th>
     </tr>
     </tfoot>
     <tbody>
-    <tr ng-repeat="firm in firmService.firms">
-        <td>{{firm.name}}</td>
-        <td>{{firm.siret}}</td>
-        <td>{{firm.type.label}}</td>
-        <td>{{firm.address}}</td>
-        <td>{{firm.postalCode}}</td>
-        <td>{{firm.city}}</td>
-        <td>{{firm.country.label}}</td>
+    <tr ng-repeat="project in projectService.unsignedProjects">
+        <td>
+            <a class="ui teal button"
+               data-tooltip="Détails de l'étude {{project.number}}"
+               data-content="Cliquez ici pour afficher plus d'informations"
+               ui-sref="ua.projectDetailsTab({id : project.id})">
+                {{project.number}}
+            </a>
+        </td>
+        <td>{{project.name}}</td>
+        <td>{{project.field.label}}</td>
+        <td>{{project.firm.name}}</td>
+        <td>
+            <a ng-repeat="manager in project.managers" ui-sref="rh.userDetails({id : manager.manager.id})">
+                {{manager.manager.fullName}}<br>
+            </a>
+        </td>
+        <td>
+            <a ng-repeat="consultant in project.consultants" ui-sref="rh.userDetails({id : consultant.user.id})">
+                {{consultant.user.fullName}}<br>
+            </a>
+        </td>
+        <td>
+            <a ui-sref="rh.userDetails({id : project.auditor.id})">
+                {{project.auditor.fullName}}
+            </a>
+        </td>
+        <td>{{project.status.label}}</td>
         <td>
             <div class="ui icon buttons">
-                <button class="ui blue icon button" ng-if="grcService.rightLevel >= 3" data-tooltip="Modifier"
-                        ng-click="showFirmForm(firm)">
+                <button class="ui blue icon button" ng-if="uaService.rightLevel >= 3"
+                        data-tooltip="Modifier" ng-click="showProjectForm(project)">
                     <i class="write icon"></i>
                 </button>
-                <button class="ui red icon button" ng-if="grcService.rightLevel >= 4" data-tooltip="Supprimer"
-                        ng-click="deleteFirm(firm.id)">
+                <button class="ui yellow icon button" ng-if="uaService.rightLevel >= 4"
+                        data-tooltip="Avorter" ng-click="abortProject(project)">
+                    <i class="archive icon"></i>
+                </button>
+                <button class="ui orange icon button" ng-if="uaService.rightLevel >= 4"
+                        data-tooltip="Mettre en stand-by" ng-click="disableProject(project)">
                     <i class="remove icon"></i>
                 </button>
             </div>

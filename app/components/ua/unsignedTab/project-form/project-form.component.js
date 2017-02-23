@@ -3,13 +3,13 @@
 
     angular
         .module('doleticApp')
-        .component('grcFirmFormComponent', grcFirmFormComponent());
+        .component('uaProjectFormComponent', uaProjectFormComponent());
 
-    function grcFirmFormComponent() {
+    function uaProjectFormComponent() {
         return {
             bindings: {},
-            controller: "grcFirmFormController",
-            templateUrl: "app/components/grc/firmTab/firm-form/firm-form.template.html"
+            controller: "uaProjectFormController",
+            templateUrl: "app/components/ua/unsignedTab/project-form/project-form.template.html"
         }
     }
 })();

@@ -3,68 +3,72 @@
 
     angular
         .module('doleticApp')
-        .controller('grcFirmFormController', grcFirmFormController);
+        .controller('uaProjectFormController', uaProjectFormController);
 
-    grcFirmFormController.$inject = ['$scope', 'FirmService', 'FirmTypeService', 'CountryService', 'MessageBoxService', 'editMode', 'firm'];
+    uaProjectFormController.$inject = ['$scope', 'ProjectService', 'ProjectFieldService', 'ProjectOriginService', 'FirmService', 'MessageBoxService', 'UserService', 'UAService', 'editMode', 'project'];
 
-    function grcFirmFormController($scope, FirmService, FirmTypeService, CountryService, MessageBoxService, editMode, firm) {
+    function uaProjectFormController($scope, ProjectService, ProjectFieldService, ProjectOriginService, FirmService, MessageBoxService, UserService, UAService, editMode, project) {
 
-        if (firm != {}) formatFirm();
-        $scope.firm = firm;
+        if (project != {}) formatProject();
+        $scope.project = project;
         $scope.editMode = editMode ? editMode : false;
-        $scope.firmTypeService = FirmTypeService;
-        $scope.countryService = CountryService;
+        $scope.projectFieldService = ProjectFieldService;
+        $scope.projectOriginService = ProjectOriginService;
+        $scope.firmService = FirmService;
 
         $scope.resetForm = function () {
-            $scope.firm = {};
-            $scope.firmForm.$setPristine();
+            $scope.project = {};
+            $scope.projectForm.$setPristine();
             $scope.editMode = false;
         };
 
-        $scope.addFirm = function () {
-            FirmService.postFirm($scope.firm)
+        $scope.addProject = function () {
+            ProjectService.postProject($scope.project)
                 .success(function (data) {
-                    $('#firm_form_modal').modal('hide');
+                    $('#project_form_modal').modal('hide');
                     $scope.resetForm();
                     MessageBoxService.showSuccess(
                         "Opération réussie !",
-                        "La société a été ajoutée."
+                        "L'étude a été ajoutée."
                     );
                 }).error(function (data) {
-                    $('#firm_form_modal').modal('hide');
+                    $('#project_form_modal').modal('hide');
                     MessageBoxService.showError(
                         "Echec de l'ajout...",
-                        "La société n'a pas pu être ajoutée. Vérifiez que le nom n'est pas déjà utilisé."
+                        "L'étude n'a pas pu être ajoutée."
                     );
                 }
             );
         };
 
-        $scope.editFirm = function () {
-            var name = $scope.firm.name;
-            FirmService.putFirm($scope.firm)
+        $scope.editProject = function () {
+            var number = $scope.project.number;
+            ProjectService.putProject($scope.project)
                 .success(function (data) {
-                    $('#firm_form_modal').modal('hide');
+                    $('#project_form_modal').modal('hide');
                     $scope.resetForm();
                     MessageBoxService.showSuccess(
                         "Opération réussie !",
-                        "La société " + name + " a été modifiée !"
+                        "L'étude " + number + " a été modifiée !"
                     );
                 }).error(function (data) {
-                    $('#firm_form_modal').modal('hide');
+                    $('#project_form_modal').modal('hide');
                     MessageBoxService.showError(
                         "Echec de la modification...",
-                        "La société n'a pas pu être modifiée. Vérifiez que le nom n'est pas déjà utilisé.");
+                        "L'étude n'a pas pu être modifiée.");
                 }
             );
         };
 
-        FirmTypeService.getAllFirmTypes(true);
-        CountryService.getAllCountries(true);
+        ProjectFieldService.getAllProjectFields(true);
+        ProjectOriginService.getAllProjectOrigins(true);
+        FirmService.getAllFirms(true);
 
-        function formatFirm() {
-            if (firm.country) firm.country = firm.country.id;
-            if (firm.type) firm.type = firm.type.id;
+        function formatProject() {
+            if (project.firm) project.firm = project.firm.id;
+            if (project.field) project.field = project.field.id;
+            if (project.origin) project.origin = project.origin.id;
+            if (project.status) project.status = project.status.id;
         }
     }
 

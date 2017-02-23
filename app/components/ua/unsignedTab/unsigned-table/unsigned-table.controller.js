@@ -63,6 +63,28 @@
             )
         };
 
+        $scope.disableProject = function (project) {
+            var number = project.number;
+            ConfirmModalService.showConfirmModal(
+                "Confirmer l'avortement",
+                "Voulez-vous vraiment désactiver la sollicitation " + number + " ?",
+                "reply",
+                function () {
+                    ProjectService.disableUnsignedProject(id).success(function (data) {
+                        MessageBoxService.showSuccess(
+                            "Désactivation réussie !",
+                            "La sollicitation " + number + " a été désactivée."
+                        );
+                    }).error(function (data) {
+                        MessageBoxService.showError(
+                            "Echec de la désactivation...",
+                            "La sollicitation " + number + " n'a pas pu être désactivée."
+                        );
+                    });
+                }
+            )
+        };
+
         $scope.showProjectForm = function (project) {
             ModalService.showModal({
                 templateUrl: "app/components/ua/unsignedTab/project-form/project-form.template.html",
