@@ -7,7 +7,7 @@
         <a ng-if="AuthService.isLogged()" class="item module_submenu" id="submenu_home" ui-sref="dashboard">Accueil</a>
         <a ng-if="AuthService.isLogged()" class="item module_submenu" id="submenu_grc" ui-sref="grc.firmTab">Gestion Relations Clients</a>
         <a ng-if="AuthService.isLogged()" class="item module_submenu" id="submenu_rh" ui-sref="hr.membersTab">Ressources humaines</a>
-        <a ng-if="AuthService.isLogged()" class="item module_submenu" id="submenu_support" ng-click="">Support</a>
+        <a ng-if="AuthService.isLogged()" class="item module_submenu" id="submenu_support" ui-sref="support.ticketTab">Support</a>
         <a ng-if="AuthService.isLogged()" class="item module_submenu" id="submenu_tools" ui-sref="tools.signatureTab">Outils</a>
         <a ng-if="AuthService.isLogged()" class="item module_submenu" id="submenu_ua" ng-click="">Unité d'Affaires</a>
         <a id="menu_about_doletic" class="right floated item" ng-click="showAbout()">
