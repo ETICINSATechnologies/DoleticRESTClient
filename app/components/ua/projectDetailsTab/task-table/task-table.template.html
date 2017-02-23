@@ -1,0 +1,54 @@
+<table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="ui very basic celled table">
+    <thead>
+    <tr>
+        <th>Ordre</th>
+        <th>Nom</th>
+        <th>Nb. de JEH</th>
+        <th>Prix du JEH</th>
+        <th>Début</th>
+        <th>Fin</th>
+        <th>Terminée ?</th>
+        <th>Livrables</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tfoot>
+    <tr>
+        <th>Ordre</th>
+        <th>Nom</th>
+        <th>Nb. de JEH</th>
+        <th>Prix du JEH</th>
+        <th>Début</th>
+        <th>Fin</th>
+        <th>Terminée ?</th>
+        <th>Livrables</th>
+        <th></th>
+    </tr>
+    </tfoot>
+    <tbody>
+    <tr ng-repeat="task in taskService.currentProjectTasks">
+        <td>{{task.number}}</td>
+        <td>{{task.name}}</td>
+        <td>{{task.jehAmount}}</td>
+        <td>{{task.jehCost}}</td>
+        <td>{{task.startDate|date:"dd/MM/y"}}</td>
+        <td>{{task.endDate|date:"dd/MM/y"}}</td>
+        <td>{{task.ended ? 'Oui' : 'Non'}}</td>
+        <td>
+            <button class="ui teal button" ng-click="">
+                Gérer
+            </button>
+        </td>
+        <td>
+            <div class="ui icon buttons">
+                <button class="ui blue icon button" data-tooltip="Modifier" ng-click="showTaskForm(task)">
+                    <i class="write icon"></i>
+                </button>
+                <button class="ui red icon button" data-tooltip="Supprimer" ng-click="deleteTask(task.id)">
+                    <i class="remove icon"></i>
+                </button>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>

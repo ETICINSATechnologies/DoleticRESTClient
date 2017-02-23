@@ -16,15 +16,24 @@
             return $http.get(server + urlBase + '/' + id);
         };
 
-        projectOriginFactory.getAllProjectOrigins = function () {
-            return $http.get(server + urlBase + 's');
+        projectOriginFactory.getAllProjectOrigins = function (cache) {
+            if (!cache) {
+                delete projectOriginFactory.projectOrigins;
+            } else if (projectOriginFactory.projectOrigins) {
+                return;
+            }
+            return $http.get(server + urlBase + "s").success(function (data) {
+                projectOriginFactory.projectOrigins = data.project_origins;
+            }).error(function (data) {
+                console.log(data);
+            });
         };
 
         projectOriginFactory.getProjectOriginByLabel = function (label) {
             return $http.get(server + urlBase + '/' + label);
         };
 
-        return projectStatusFactory;
+        return projectOriginFactory;
     }
 
 })();

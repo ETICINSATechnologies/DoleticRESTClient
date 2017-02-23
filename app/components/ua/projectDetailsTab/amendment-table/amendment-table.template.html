@@ -1,0 +1,42 @@
+<table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="ui very basic celled table">
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>Types</th>
+        <th>Contenu</th>
+        <th>Imputable à la J.E. ?</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tfoot>
+    <tr>
+        <th>Date</th>
+        <th>Types</th>
+        <th>Contenu</th>
+        <th>Imputable à la J.E. ?</th>
+        <th></th>
+    </tr>
+    </tfoot>
+    <tbody>
+    <tr ng-repeat="amendment in amendmentService.currentProjectAmendments">
+        <td>{{amendment.date|date:"dd/MM/y"}}</td>
+        <td>
+            <p ng-repeat="type in amendment.types">
+                {{type.label}}<br>
+            </p>
+        </td>
+        <td>{{amendment.content}}</td>
+        <td>{{amendment.attributable ? 'Oui' : 'Non'}}</td>
+        <td>
+            <div class="ui icon buttons">
+                <button class="ui blue icon button" data-tooltip="Modifier" ng-click="showAmendmentForm(amendment)">
+                    <i class="write icon"></i>
+                </button>
+                <button class="ui red icon button" data-tooltip="Supprimer" ng-click="deleteAmendment(amendment.id)">
+                    <i class="remove icon"></i>
+                </button>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
