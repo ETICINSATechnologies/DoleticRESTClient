@@ -12,6 +12,58 @@
         var urlBase = '/api/ua/project';
         var projectFactory = {};
 
+        projectFactory.getAllUnsignedProjects = function (cache) {
+            if (!cache) {
+                delete projectFactory.unsignedProjects;
+            } else if (projectFactory.unsignedProjects) {
+                return;
+            }
+            return $http.get(server + urlBase + "s/unsigned").success(function (data) {
+                projectFactory.unsignedProjects = data.projects;
+            }).error(function (data) {
+                console.log(data);
+            });
+        };
+
+        projectFactory.getAllCurrentProjects = function (cache) {
+            if (!cache) {
+                delete projectFactory.currentProjects;
+            } else if (projectFactory.currentProjects) {
+                return;
+            }
+            return $http.get(server + urlBase + "s/current").success(function (data) {
+                projectFactory.currentProjects = data.projects;
+            }).error(function (data) {
+                console.log(data);
+            });
+        };
+
+        projectFactory.getAllArchivedProjects = function (cache) {
+            if (!cache) {
+                delete projectFactory.archivedProjects;
+            } else if (projectFactory.archivedProjects) {
+                return;
+            }
+            return $http.get(server + urlBase + "s/archived").success(function (data) {
+                projectFactory.archivedProjects = data.projects;
+            }).error(function (data) {
+                console.log(data);
+            });
+        };
+
+        projectFactory.getAllDisabledProjects = function (cache) {
+            if (!cache) {
+                delete projectFactory.disabledProjects;
+            } else if (projectFactory.disabledProjects) {
+                return;
+            }
+            return $http.get(server + urlBase + "s/disabled").success(function (data) {
+                projectFactory.disabledProjects = data.projects;
+            }).error(function (data) {
+                console.log(data);
+            });
+        };
+
         projectFactory.getProjectByManagerId = function (id) {
             return $http.get(server + urlBase + "s/manager/" + id);
         };

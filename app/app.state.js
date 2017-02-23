@@ -33,6 +33,12 @@
                 abstract: true,
                 templateUrl: "app/components/grc/grc.template.html",
                 controller: "grcController"
+            }).state('ua',
+            {
+                url: "/ua",
+                abstract: true,
+                templateUrl: "app/components/ua/ua.template.html",
+                controller: "uaController"
             }).state('tools',
             {
                 url: "/tools",
