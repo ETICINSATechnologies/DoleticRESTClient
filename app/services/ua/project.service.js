@@ -184,6 +184,15 @@
             })
         };
 
+        // DELETE
+        projectFactory.deleteProject = function (id) {
+            return $http.delete(server + urlBase + "/" + id).success(function (data) {
+                delete projectFactory.disabledProjects[id];
+            }).error(function (error) {
+                console.log(error);
+            });
+        };
+
         return projectFactory;
     }
 
