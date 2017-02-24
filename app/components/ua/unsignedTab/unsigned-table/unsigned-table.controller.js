@@ -41,34 +41,27 @@
             )
         };
 
-        $scope.disableProject = function (project) {
-            var number = project.number;
-            ConfirmModalService.showConfirmModal(
-                "Confirmer la désactivation",
-                "Voulez-vous vraiment désactiver la sollicitation " + number + " ?",
-                "reply",
-                function () {
-                    ProjectService.disableUnsignedProject(id).success(function (data) {
-                        MessageBoxService.showSuccess(
-                            "Désactivation réussie !",
-                            "La sollicitation " + number + " a été désactivée."
-                        );
-                    }).error(function (data) {
-                        MessageBoxService.showError(
-                            "Echec de la désactivation...",
-                            "La sollicitation " + number + " n'a pas pu être désactivée."
-                        );
-                    });
-                }
-            )
-        };
-
         $scope.showProjectForm = function (project) {
             ModalService.showModal({
                 templateUrl: "app/components/ua/unsignedTab/project-form/project-form.template.html",
                 controller: "uaProjectFormController",
                 inputs: {
                     editMode: true,
+                    project: angular.copy(project)
+                }
+            }).then(function (modal) {
+                modal.element.modal('show');
+            }).catch(function (error) {
+                // error contains a detailed error message.
+                console.log(error);
+            });
+        };
+
+        $scope.showDisableForm = function (project) {
+            ModalService.showModal({
+                templateUrl: "app/components/ua/unsignedTab/disable-form/disable-form.template.html",
+                controller: "uaDisableFormController",
+                inputs: {
                     project: angular.copy(project)
                 }
             }).then(function (modal) {

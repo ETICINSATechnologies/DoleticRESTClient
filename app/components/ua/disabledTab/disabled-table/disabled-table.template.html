@@ -57,13 +57,13 @@
         <td>
             <div class="ui icon buttons">
                 <button class="ui yellow icon button" ng-if="uaService.rightLevel >= 4"
-                        data-tooltip="Restaurer" ng-click="restoreProject(project)">
+                        data-tooltip="Réactiver" ng-click="enableProject(project)">
                     <i class="reply icon"></i>
                 </button>
                 <button class="ui red icon button"
                         ng-if="uaService.rightLevel >= 4"
                         data-tooltip="Supprimer"
-                        ng-click="deleteDisabledProject(project.id)">
+                        ng-click="deleteProject(project.id)">
                     <i class="remove icon"></i>
                 </button>
             </div>

@@ -1,0 +1,22 @@
+<div class="ui modal" id="disable_project_form_modal">
+    <form class="ui form segment" name="disableForm"
+          ng-submit="disableForm.$valid && disableProject()" novalidate>
+        <fix-modal-component></fix-modal-component>
+        <div class="ui message" ng-show="disableForm.$dirty"
+             ng-class="{'positive' : disableForm.$valid, 'negative' : disableForm.$invalid}">
+            Le formulaire est {{ disableForm.$valid ? "valide" : "invalide" }}
+        </div>
+        <h4 class="ui dividing header">Confirmez la désactivation</h4>
+        <div class="sixteen wide required">
+            <label>Date de réactivation</label>
+            <input placeholder="JJ/MM/AAAA" type="text"
+                   ng-pattern="/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/"
+                   ng-model="project.disabledUntil"/>        </div>
+        <div class="ui hr_center small buttons">
+            <input type="reset" value="Annuler" class="ui button"/>
+            <div class="or" data-text="ou"></div>
+            <input type="submit" value="Désactiver" class="ui green button"
+                   ng-class="{ 'disabled': disableForm.$invalid }"/>
+        </div>
+    </form>
+</div>

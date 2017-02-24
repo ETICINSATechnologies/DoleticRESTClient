@@ -19,14 +19,14 @@
             .withOption('stateSave', true);
         $scope.dtColumnDefs = [];
 
-        $scope.deleteDisabledProject = function (id) {
+        $scope.deleteProject = function (id) {
             var number = ProjectService.disabledProjects[id].number;
             ConfirmModalService.showConfirmModal(
                 "Confirmer la suppression",
                 "Voulez-vous vraiment supprimer l'étude " + number + " ?",
                 "remove",
                 function () {
-                    ProjectService.deleteDisabledProject(id).success(function (data) {
+                    ProjectService.deleteProject(id).success(function (data) {
                         MessageBoxService.showSuccess(
                             "Suppression réussie !",
                             "L'étude " + number + " a été supprimée."
@@ -48,7 +48,7 @@
                 "Voulez-vous vraiment réactiver l'étude " + number + " ?",
                 "reply",
                 function () {
-                    ProjectService.enableProject(id).success(function (data) {
+                    ProjectService.enableProject(project).success(function (data) {
                         MessageBoxService.showSuccess(
                             "Réactivation réussie !",
                             "L'étude " + number + " a été réactivée."

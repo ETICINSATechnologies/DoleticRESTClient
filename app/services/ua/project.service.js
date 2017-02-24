@@ -150,6 +150,49 @@
             })
         };
 
+        projectFactory.disableProject = function (project) {
+            var list = 'unsignedProjects';
+            if (project.signDate) {
+                list = 'currentProjects';
+            }
+            return $http.post(server + urlBase + "/" + project.id + "/disable", project).success(function (data) {
+                if (projectFactory.disabledProjects) {
+                    projectFactory.disabledProjects = angular.equals(projectFactory.disabledProjects, []) ?
+                        {} : projectFactory.disabledProjects;
+                    projectFactory.disabledProjects[data.project.id] = data.project;
+                }
+                delete projectFactory[list][data.project.id];
+            }).error(function (error) {
+                console.log(error);
+            });
+        };
+
+        projectFactory.enableProject = function (project) {
+            var list = 'unsignedProjects';
+            if (project.signDate) {
+                list = 'currentProjects';
+            }
+            return $http.post(server + urlBase + "/" + project.id + "/enable").success(function (data) {
+                if (projectFactory[list]) {
+                    projectFactory[list] = angular.equals(projectFactory[list], []) ?
+                        {} : projectFactory[list];
+                    projectFactory[list][data.project.id] = data.project;
+                }
+                delete projectFactory.disabledProjects[data.project.id];
+            }).error(function (error) {
+                console.log(error);
+            })
+        };
+
+        // DELETE
+        projectFactory.deleteProject = function (id) {
+            return $http.delete(server + urlBase + "/" + id).success(function (data) {
+                delete projectFactory.disabledProjects[id];
+            }).error(function (error) {
+                console.log(error);
+            });
+        };
+
         return projectFactory;
     }
 
