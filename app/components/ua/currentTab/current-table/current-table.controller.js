@@ -19,34 +19,12 @@
             .withOption('stateSave', true);
         $scope.dtColumnDefs = [];
 
-        $scope.deleteCurrentProject = function (id) {
-            var number = ProjectService.currentProjects[id].number;
-            ConfirmModalService.showConfirmModal(
-                "Confirmer la suppression",
-                "Voulez-vous vraiment supprimer l'étude " + number + " ?",
-                "remove",
-                function () {
-                    ProjectService.deleteCurrentProject(id).success(function (data) {
-                        MessageBoxService.showSuccess(
-                            "Suppression réussie !",
-                            "L'étude " + number + " a été supprimée."
-                        );
-                    }).error(function (data) {
-                        MessageBoxService.showError(
-                            "Echec de la suppression...",
-                            "L'étude " + number + " n'a pas pu être supprimée."
-                        );
-                    });
-                }
-            )
-        };
-
-        $scope.archivedProject = function (project) {
+        $scope.archiveProject = function (project) {
             var number = project.number;
             ConfirmModalService.showConfirmModal(
                 "Confirmer l'archivage",
                 "Voulez-vous vraiment archiver l'étude " + number + " ?",
-                "reply",
+                "archive",
                 function () {
                     ProjectService.archiveCurrentProject(id).success(function (data) {
                         MessageBoxService.showSuccess(
@@ -57,6 +35,28 @@
                         MessageBoxService.showError(
                             "Echec de l'archivage...",
                             "L'étude " + number + " n'a pas pu être archivée."
+                        );
+                    });
+                }
+            )
+        };
+
+        $scope.disableProject = function (project) {
+            var number = project.number;
+            ConfirmModalService.showConfirmModal(
+                "Confirmer la désactivation",
+                "Voulez-vous vraiment désactiver la sollicitation " + number + " ?",
+                "reply",
+                function () {
+                    ProjectService.disableUnsignedProject(id).success(function (data) {
+                        MessageBoxService.showSuccess(
+                            "Désactivation réussie !",
+                            "La sollicitation " + number + " a été désactivée."
+                        );
+                    }).error(function (data) {
+                        MessageBoxService.showError(
+                            "Echec de la désactivation...",
+                            "La sollicitation " + number + " n'a pas pu être désactivée."
                         );
                     });
                 }

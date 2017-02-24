@@ -107,6 +107,49 @@
             });
         };
 
+        projectFactory.abortUnsignedProject = function (project) {
+            return $http.post(server + urlBase + "/" + project.id + "/archive").success(function (data) {
+                if (projectFactory.archivedProjects) {
+                    projectFactory.archivedProjects = angular.equals(projectFactory.archivedProjects, []) ?
+                        {} : projectFactory.archivedProjects;
+                    projectFactory.archivedProjects[data.project.id] = data.project;
+                }
+                delete projectFactory.unsignedProjects[data.project.id];
+            }).error(function (error) {
+                console.log(error);
+            })
+        };
+
+        projectFactory.archiveCurrentProject = function (project) {
+            return $http.post(server + urlBase + "/" + project.id + "/archive").success(function (data) {
+                if (projectFactory.archivedProjects) {
+                    projectFactory.archivedProjects = angular.equals(projectFactory.archivedProjects, []) ?
+                        {} : projectFactory.archivedProjects;
+                    projectFactory.archivedProjects[data.project.id] = data.project;
+                }
+                delete projectFactory.currentProjects[data.project.id];
+            }).error(function (error) {
+                console.log(error);
+            })
+        };
+
+        projectFactory.restoreArchivedProject = function (project) {
+            var list = 'unsignedProjects';
+            if (project.signDate) {
+                list = 'currentProjects';
+            }
+            return $http.post(server + urlBase + "/" + project.id + "/unarchive").success(function (data) {
+                if (projectFactory[list]) {
+                    projectFactory[list] = angular.equals(projectFactory[list], []) ?
+                        {} : projectFactory[list];
+                    projectFactory[list][data.project.id] = data.project;
+                }
+                delete projectFactory.archivedProjects[data.project.id];
+            }).error(function (error) {
+                console.log(error);
+            })
+        };
+
         return projectFactory;
     }
 
