@@ -34,7 +34,7 @@
                     && (user.intm_status == 'Non')
                 }">
                 <button class="ui teal icon button"
-                        data-tooltip="Détails de {{user.first_name}} {{user.last_name}}"
+                        data-tooltip="Détails de {{user.fullName}}"
                         data-content="Cliquez ici pour afficher plus d'informations"
                         ng-click="goToUserDetailsTab(user)">
                     <i class="user icon"></i>
@@ -43,15 +43,15 @@
             <td>
                 <h4 class="ui header">
                     <div class="content">
-                        {{user.first_name}} {{user.last_name}}
+                        {{user.fullName}}
                         <div class="sub header">
                             <a href="mailto:{{user.email}}" target="_blank">{{user.email}}</a>
                         </div>
                     </div>
                 </h4>
             </td>
-            <td>{{user | GetUserActivePosition:"label"}}</td>
-            <td>{{user | GetUserActivePosition:"division"}}</td>
+            <td>{{user.mainPosition.label}}</td>
+            <td>{{user.mainPosition.division.label}}</td>
             <td>0{{user.tel}}</td>
             <td>{{user.school_year.year}}{{user.department.label}}</td>
             <td>{{}}</td>

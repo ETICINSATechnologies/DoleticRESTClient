@@ -5,11 +5,13 @@
         .module('doleticApp')
         .controller('grcOldClientFormController', grcOldClientFormController);
 
-    grcOldClientFormController.$inject = ['$scope', 'ContactService', 'GenderService', 'FirmService', 'MessageBoxService', 'UserService'];
+    grcOldClientFormController.$inject = ['$scope', '$filter', 'ContactService', 'GenderService', 'FirmService', 'MessageBoxService', 'UserService', 'editMode', 'oldClient'];
 
-    function grcOldClientFormController($scope, ContactService, GenderService, FirmService, MessageBoxService, UserService) {
+    function grcOldClientFormController($scope, $filter, ContactService, GenderService, FirmService, MessageBoxService, UserService, editMode, oldClient) {
 
-        $scope.oldClient = {};
+        if (oldClient != {}) formatOldClient();
+        $scope.oldClient = oldClient;
+        $scope.editMode = editMode ? editMode : false;
         $scope.genderService = GenderService;
         $scope.firmService = FirmService;
         $scope.userService = UserService;
@@ -39,6 +41,33 @@
                     }
                 )
         };
+
+        $scope.editOldClient = function () {
+            var name = $scope.oldClient.fullName;
+            ContactService.putOldClient($scope.oldClient)
+                .success(function (data) {
+                    $('#old_client_form_modal').modal('hide');
+                    $scope.resetForm();
+                    MessageBoxService.showSuccess(
+                        "Opération réussie !",
+                        "L'ancien client " + name + " a été modifié !"
+                    );
+                }).error(function (data) {
+                    $('#old_client_form_modal').modal('hide');
+                    MessageBoxService.showError(
+                        "Echec de la modification...",
+                        "L'ancien client n'a pas pu être modifié.");
+                }
+            );
+        };
+
+        function formatOldClient() {
+            if (oldClient.gender) oldClient.gender = oldClient.gender.id;
+            if (oldClient.prospector) oldClient.prospector = oldClient.prospector.id;
+            if (oldClient.firm) oldClient.firm = oldClient.firm.id;
+            if (oldClient.type) oldClient.type = oldClient.type.id;
+            if (oldClient.nextProspecting) oldClient.nextProspecting = $filter('date')(oldClient.nextProspecting, "dd/MM/y");
+        }
 
         GenderService.getAllGenders(true);
         FirmService.getAllFirms(true);

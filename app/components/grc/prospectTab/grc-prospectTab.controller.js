@@ -13,10 +13,13 @@
         $scope.showProspectForm = function () {
             ModalService.showModal({
                 templateUrl: "app/components/grc/prospectTab/prospect-form/prospect-form.template.html",
-                controller: "grcProspectFormController"
+                controller: "grcProspectFormController",
+                inputs: {
+                    editMode: false,
+                    prospect: {}
+                }
             }).then(function (modal) {
-                console.log(modal);
-                $('#prospect_form_modal').modal('show');
+                modal.element.modal('show');
             }).catch(function (error) {
                 // error contains a detailed error message.
                 console.log(error);

@@ -1,0 +1,19 @@
+<div class="ui two column grid container">
+    <div class="row"></div>
+    <div class="row">
+        <div class="sixteen wide column" id="page_content">
+            <div class="ui top attached tabular menu" id="tabmenu">
+                <a ng-class="{active: $state.current.activetab == 'ticket'}" class="item" data-tab="signature"
+                   ui-sref="support.ticketTab">Mes tickets</a>
+                <a ng-if="supportService.rightLevel >= 4" ng-class="{active: $state.current.activetab == 'admin'}"
+                   class="item" data-tab="mailing"
+                   ui-sref="support.adminTab">Administration</a>
+            </div>
+            <div class="ui bottom attached tab segment active" data-tab="{{$state.current.activetab}}">
+                <div ui-view></div>
+            </div>
+        </div>
+    </div>
+    <div class="row"></div>
+    <div class="row"></div>
+</div>

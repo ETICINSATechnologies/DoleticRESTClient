@@ -27,7 +27,7 @@
     <tr ng-repeat="prospect in contactService.prospects">
         <td>
             <a class="ui teal icon button"
-               data-tooltip="Détails de {{prospect.full_name}}"
+               data-tooltip="Détails de {{prospect.fullName}}"
                data-content="Cliquez ici pour afficher plus d'informations"
                ui-sref="grc.contactDetailsTab({id : prospect.id})">
                 <i class="user icon"></i>
@@ -36,7 +36,7 @@
         <td>
             <div class="ui small header">
                 <div class="content">
-                    {{prospect.first_name}} {{prospect.last_name}}
+                    {{prospect.fullName}}
                     <div class="sub header">
                         <a href="mailto:{{prospect.email}}" target="_blank">{{prospect.email}}</a>
                     </div>
@@ -44,19 +44,24 @@
             </div>
         </td>
         <td>0{{prospect.phone}}</td>
-        <td>0{{prospect.cell_phone}}</td>
+        <td>0{{prospect.cellPhone}}</td>
         <td>{{prospect.firm.name}}</td>
         <td>{{prospect.role}}</td>
-        <td>{{prospect.prospector.first_name}} {{prospect.prospector.last_name}}</td>
+        <td>{{prospect.prospector.fullName}}</td>
         <td>
             <div class="ui icon buttons">
-                <button class="ui blue icon button" data-tooltip="Modifier" ng-click="">
+                <button class="ui blue icon button" ng-if="grcService.rightLevel >= 3" data-tooltip="Modifier"
+                        ng-click="showProspectForm(prospect)">
                     <i class="write icon"></i>
                 </button>
-                <button class="ui yellow icon button" data-tooltip="Marquer comme prospecté" ng-click="">
+                <button class="ui yellow icon button" ng-if="grcService.rightLevel >= 3"
+                        data-tooltip="Marquer comme prospecté"
+                        ng-click="toContactedProspect(prospect)">
                     <i class="call icon"></i>
                 </button>
-                <button class="ui red icon button" data-tooltip="Supprimer" ng-click="deleteProspect(prospect.id)">
+                <button class="ui red icon button"
+                        ng-if="grcService.rightLevel >= 4 || prospect.creator.id == userService.getCurrentUser().id"
+                        data-tooltip="Supprimer" ng-click="deleteProspect(prospect.id)">
                     <i class="remove icon"></i>
                 </button>
             </div>

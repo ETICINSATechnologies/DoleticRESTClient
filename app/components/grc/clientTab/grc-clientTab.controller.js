@@ -13,10 +13,13 @@
         $scope.showClientForm = function () {
             ModalService.showModal({
                 templateUrl: "app/components/grc/clientTab/client-form/client-form.template.html",
-                controller: "grcClientFormController"
+                controller: "grcClientFormController",
+                inputs: {
+                    editMode: false,
+                    client: {}
+                }
             }).then(function (modal) {
-                console.log(modal);
-                $('#client_form_modal').modal('show');
+                modal.element.modal('show');
             }).catch(function (error) {
                 // error contains a detailed error message.
                 console.log(error);

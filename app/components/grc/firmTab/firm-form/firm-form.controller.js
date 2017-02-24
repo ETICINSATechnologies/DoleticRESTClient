@@ -9,9 +9,9 @@
 
     function grcFirmFormController($scope, FirmService, FirmTypeService, CountryService, MessageBoxService, editMode, firm) {
 
-        if(firm!={})formatFirm();
+        if (firm != {}) formatFirm();
         $scope.firm = firm;
-        $scope.editMode = editMode?editMode:false;
+        $scope.editMode = editMode ? editMode : false;
         $scope.firmTypeService = FirmTypeService;
         $scope.countryService = CountryService;
 
@@ -41,13 +41,14 @@
         };
 
         $scope.editFirm = function () {
+            var name = $scope.firm.name;
             FirmService.putFirm($scope.firm)
                 .success(function (data) {
                     $('#firm_form_modal').modal('hide');
                     $scope.resetForm();
                     MessageBoxService.showSuccess(
                         "Opération réussie !",
-                        "La société " + $scope.firm.name + " a été modifiée !"
+                        "La société " + name + " a été modifiée !"
                     );
                 }).error(function (data) {
                     $('#firm_form_modal').modal('hide');
@@ -57,12 +58,13 @@
                 }
             );
         };
+
         FirmTypeService.getAllFirmTypes(true);
         CountryService.getAllCountries(true);
-        
+
         function formatFirm() {
-            if(firm.country)firm.country = firm.country.id;
-            if(firm.type)firm.type = firm.type.id;
+            if (firm.country) firm.country = firm.country.id;
+            if (firm.type) firm.type = firm.type.id;
         }
     }
 

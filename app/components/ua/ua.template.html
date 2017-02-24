@@ -1,0 +1,20 @@
+<div class="ui two column grid container">
+    <div class="row"></div>
+    <div class="row">
+        <div class="sixteen wide column" id="page_content">
+            <div class="ui top attached tabular menu" id="tabmenu">
+                <a ng-class="{active: $state.current.activetab == 'stats'}" class="item" data-tab="stats" ui-sref="ua.statsTab">Statistiques</a>
+                <a ng-class="{active: $state.current.activetab == 'unsigned'}" class="item" data-tab="unsigned" ui-sref="ua.unsignedTab">Sollicitations</a>
+                <a ng-class="{active: $state.current.activetab == 'current'}" class="item" data-tab="current" ui-sref="ua.currentTab">Etudes en cours</a>
+                <a ng-class="{active: $state.current.activetab == 'archived'}" class="item" data-tab="archived" ui-sref="ua.archivedTab">Etudes archivées</a>
+                <a ng-if="uaService.rightLevel >= 4" ng-class="{active: $state.current.activetab == 'disabled'}" class="item" data-tab="disabled" ui-sref="ua.disabledTab">Etudes désactivées</a>
+                <a ng-if="projectService.selectedProject" ng-class="{active: $state.current.activetab == 'projectDetails'}" class="item" data-tab="projectDetails" ui-sref="ua.projectDetailsTab({id:projectService.selectedProject.id})">Détails de l'étude {{projectService.selectedProject.number}}</a>
+            </div>
+            <div class="ui bottom attached tab segment active" data-tab="{{$state.current.activetab}}">
+                <div ui-view></div>
+            </div>
+        </div>
+    </div>
+    <div class="row"></div>
+    <div class="row"></div>
+</div>
