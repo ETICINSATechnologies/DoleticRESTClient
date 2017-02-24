@@ -19,36 +19,14 @@
             .withOption('stateSave', true);
         $scope.dtColumnDefs = [];
 
-        $scope.deleteUnsignedProject = function (id) {
-            var number = ProjectService.archivedProjects[id].number;
-            ConfirmModalService.showConfirmModal(
-                "Confirmer la suppression",
-                "Voulez-vous vraiment supprimer l'étude " + number + " ?",
-                "remove",
-                function () {
-                    ProjectService.deleteUnsignedProject(id).success(function (data) {
-                        MessageBoxService.showSuccess(
-                            "Suppression réussie !",
-                            "L'étude " + number + " a été supprimée."
-                        );
-                    }).error(function (data) {
-                        MessageBoxService.showError(
-                            "Echec de la suppression...",
-                            "L'étude " + number + " n'a pas pu être supprimée."
-                        );
-                    });
-                }
-            )
-        };
-
         $scope.abortProject = function (project) {
             var number = project.number;
             ConfirmModalService.showConfirmModal(
                 "Confirmer l'avortement",
                 "Voulez-vous vraiment avorter la sollicitation " + number + " ?",
-                "reply",
+                "delete calendar",
                 function () {
-                    ProjectService.abortUnsignedProject(id).success(function (data) {
+                    ProjectService.abortUnsignedProject(project).success(function (data) {
                         MessageBoxService.showSuccess(
                             "Avortement réussi !",
                             "La sollicitation " + number + " a été avortée."
@@ -66,7 +44,7 @@
         $scope.disableProject = function (project) {
             var number = project.number;
             ConfirmModalService.showConfirmModal(
-                "Confirmer l'avortement",
+                "Confirmer la désactivation",
                 "Voulez-vous vraiment désactiver la sollicitation " + number + " ?",
                 "reply",
                 function () {

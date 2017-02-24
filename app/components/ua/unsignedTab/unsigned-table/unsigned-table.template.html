@@ -56,13 +56,13 @@
         <td>{{project.status.label}}</td>
         <td>
             <div class="ui icon buttons">
-                <button class="ui blue icon button" ng-if="uaService.rightLevel >= 3"
+                <button class="ui blue icon button" ng-if="project.userHasRights"
                         data-tooltip="Modifier" ng-click="showProjectForm(project)">
                     <i class="write icon"></i>
                 </button>
                 <button class="ui yellow icon button" ng-if="uaService.rightLevel >= 4"
                         data-tooltip="Avorter" ng-click="abortProject(project)">
-                    <i class="archive icon"></i>
+                    <i class="delete calendar icon"></i>
                 </button>
                 <button class="ui orange icon button" ng-if="uaService.rightLevel >= 4"
                         data-tooltip="Mettre en stand-by" ng-click="disableProject(project)">

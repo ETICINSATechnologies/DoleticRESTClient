@@ -48,7 +48,7 @@
                 "Voulez-vous vraiment restaurer l'étude " + number + " ?",
                 "reply",
                 function () {
-                    ProjectService.restoreArchivedProject(id).success(function (data) {
+                    ProjectService.restoreArchivedProject(project).success(function (data) {
                         MessageBoxService.showSuccess(
                             "Restauration réussie !",
                             "L'étude " + number + " a été restaurée."
