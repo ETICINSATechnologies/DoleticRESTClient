@@ -90,6 +90,23 @@
             });
         };
 
+        // PUT
+        projectFactory.putProject = function (project) {
+            var list = 'unsignedProjects';
+            if (project.disabled) {
+                list = 'disabledProjects';
+            } else if (project.archived) {
+                list = 'archivedProjects';
+            } else if (project.signDate) {
+                list = 'currentProjects';
+            }
+            return $http.post(server + urlBase + "/" + project.id, project).success(function (data) {
+                projectFactory[list][data.project.id] = data.project;
+            }).error(function (error) {
+                console.log(error);
+            });
+        };
+
         return projectFactory;
     }
 
