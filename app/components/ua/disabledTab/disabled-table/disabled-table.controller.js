@@ -48,7 +48,7 @@
                 "Voulez-vous vraiment réactiver l'étude " + number + " ?",
                 "reply",
                 function () {
-                    ProjectService.enableProject(id).success(function (data) {
+                    ProjectService.enableProject(project).success(function (data) {
                         MessageBoxService.showSuccess(
                             "Réactivation réussie !",
                             "L'étude " + number + " a été réactivée."

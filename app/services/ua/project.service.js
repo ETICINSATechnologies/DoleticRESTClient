@@ -178,7 +178,7 @@
                         {} : projectFactory[list];
                     projectFactory[list][data.project.id] = data.project;
                 }
-                delete projectFactory.archivedProjects[data.project.id];
+                delete projectFactory.disabledProjects[data.project.id];
             }).error(function (error) {
                 console.log(error);
             })
