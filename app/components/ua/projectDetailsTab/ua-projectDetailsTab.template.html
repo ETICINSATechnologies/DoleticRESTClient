@@ -1,120 +1,142 @@
-<div class="ui grid container" ng-init="loadContact()">
+<div class="ui grid container" ng-init="loadProject()">
     <div class="row">
         <div class="sixteen wide column">
             <div class="ui buttons">
-                <div class="ui green button" ng-click="showContactForm()">
-                    Modifier le contact
+                <div ng-if="projectService.selectedProject.userHasRights" class="ui green button"
+                     ng-click="showProjectForm()">
+                    Modifier l'étude
                 </div>
-                <div class="ui olive button" ng-click="updateHistory()">
-                    Actualiser l'historique
+                <div class="ui olive button" ng-click="loadProject()">
+                    Actualiser les détails
                 </div>
-                <div class="ui red button" ng-click="deleteCurrentContact()">
-                    Supprimer le contact
+                <div ng-if="uaService.rightLevel >= 4" class="ui orange button" ng-click="disableSelectedProject()">
+                    Mettre l'étude en stand-by
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="four wide column">
-            <div class="ui horizontal divider">Profil du contact</div>
+            <div class="ui horizontal divider">Informations sur l'étude</div>
             <div class="ui relaxed divided list">
                 <div class="item">
                     <div class="content">
-                        <div class="header">Nom complet</div>
-                        <div class="description">{{contactService.selectedContact.fullName}}</div>
+                        <div class="header">Intitulé</div>
+                        <div class="description">{{projectService.selectedProject.name}}</div>
                     </div>
                 </div>
-                <div class="item" ng-if="contactService.selectedContact.email">
+                <div class="item" ng-if="projectService.selectedProject.field">
                     <div class="content">
-                        <div class="header">Email</div>
+                        <div class="header">Domaine principal</div>
                         <div class="description">
-                            <a href="mailto:{{contactService.selectedContact.email}}">{{contactService.selectedContact.email}}</a>
+                            {{projectService.selectedProject.field.detail}}
                         </div>
                     </div>
                 </div>
-                <div class="item" ng-if="contactService.selectedContact.phone">
+                <div class="item" ng-if="projectService.selectedProject.origin">
                     <div class="content">
-                        <div class="header">Téléphone</div>
-                        <div class="description">0{{contactService.selectedContact.phone}}</div>
-                    </div>
-                </div>
-                <div class="item" ng-if="contactService.selectedContact.cellPhone">
-                    <div class="content">
-                        <div class="header">Téléphone mobile</div>
-                        <div class="description">0{{contactService.selectedContact.cellPhone}}</div>
-                    </div>
-                </div>
-                <div class="item" ng-if="contactService.selectedContact.firm">
-                    <div class="content">
-                        <div class="header">Société</div>
-                        <div class="description">{{contactService.selectedContact.firm.name}}</div>
+                        <div class="header">Origine de la sollicitation</div>
+                        <div class="description">{{projectService.selectedProject.origin.detail}}</div>
                     </div>
                 </div>
                 <div class="item">
-                    <div class="content" ng-if="contactService.selectedContact.role">
-                        <div class="header">Poste</div>
-                        <div class="description">{{contactService.selectedContact.role}}</div>
+                    <div class="content">
+                        <div class="header">Statut actuel</div>
+                        <div class="description">{{projectService.selectedProject.status.detail}}</div>
+                    </div>
+                </div>
+                <div class="item" ng-if="projectService.selectedProject.firm">
+                    <div class="content">
+                        <div class="header">Société</div>
+                        <div class="description">{{projectService.selectedProject.firm.name}}</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        <div class="header">Date de création</div>
+                        <div class="description">{{projectService.selectedProject.creationDate|date:"dd/MM/y"}}</div>
                     </div>
                 </div>
             </div>
-            <div class="ui horizontal divider">Informations de gestion</div>
+            <div class="ui horizontal divider">Informations de facturation</div>
             <div class="ui relaxed divided list">
-                <div class="item" ng-if="contactService.selectedContact.origin">
+                <div class="item" ng-if="projectService.selectedProject.managementFee">
                     <div class="content">
-                        <div class="header">Origine des coordonnées</div>
-                        <div class="description">{{contactService.selectedContact.origin}}</div>
+                        <div class="header">Frais de gestion</div>
+                        <div class="description">{{projectService.selectedProject.managementFee}}€</div>
                     </div>
                 </div>
-                <div class="item">
+                <div class="item" ng-if="projectService.selectedProject.applicationFee">
                     <div class="content">
-                        <div class="header">Issu de la prospection ?</div>
-                        <div class="description">
-                            {{contactService.selectedContact.fromProspecting ? 'Oui' : 'Non'}}
-                        </div>
+                        <div class="header">Frais de dossier</div>
+                        <div class="description">{{projectService.selectedProject.applicationFee}}€</div>
                     </div>
                 </div>
-                <div class="item">
+                <div class="item" ng-if="projectService.selectedProject.rebilledFee">
                     <div class="content">
-                        <div class="header">Erreur dans les coordonnées ?</div>
-                        <div class="description">
-                            {{contactService.selectedContact.error ? 'Oui' : 'Non'}}
-                        </div>
+                        <div class="header">Frais refacturés</div>
+                        <div class="description">{{projectService.selectedProject.rebilledFee}}€</div>
                     </div>
                 </div>
-                <div class="item">
+                <div class="item" ng-if="projectService.selectedProject.advance">
                     <div class="content">
-                        <div class="header">Contact à rappeler ?</div>
-                        <div class="description">
-                            {{contactService.selectedContact.satisfied ? 'Oui' : 'Non'}}
-                        </div>
-                    </div>
-                </div>
-                <div class="item" ng-if="contactService.selectedContact.nextProspecting">
-                    <div class="content">
-                        <div class="header">Prochaine prospection</div>
-                        <div class="description">{{contactService.selectedContact.nextProspecting|date:"dd/MM/y"}}
-                        </div>
+                        <div class="header">Acompte</div>
+                        <div class="description">{{projectService.selectedProject.advance}}€</div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="twelve wide column">
-            <div class="ui horizontal divider" ng-if="contactService.selectedContact.notes">
-                Notes sur le contact
+            <div class="ui horizontal divider" ng-if="projectService.selectedProject.description">
+                Description de l'étude
             </div>
-            <div class="row" ng-if="contactService.selectedContact.notes">
+            <div class="row" ng-if="projectService.selectedProject.descripton">
                 <div class="description">
-                    {{contactService.selectedContact.notes}}
+                    {{projectService.selectedProject.description}}
                 </div>
             </div>
             <div class="ui horizontal divider">
-                Historique des prises de contact
+                Contacts de l'étude
             </div>
             <div class="row">
-                <grc-action-table-component></grc-action-table-component>
+                <!-- ng-if is necessary to make sure the project details have been loaded -->
+                <ua-contact-table-component ng-if="projectService.selectedProject"></ua-contact-table-component>
             </div>
-            <div class="ui green fluid button" ng-click="showContactActionForm()">
-                Ajouter une prise de contact
+            <div class="ui horizontal divider">
+                Correspondant qualité de l'étude
+            </div>
+            <div class="row">
+                <ua-auditor-table-component ng-if="projectService.selectedProject"></ua-auditor-table-component>
+            </div>
+            <div class="ui horizontal divider">
+                Chargés d'affaires de l'étude
+            </div>
+            <div class="row">
+                <ua-manager-table-component></ua-manager-table-component>
+            </div>
+            <div class="ui horizontal divider">
+                Consultants de l'étude
+            </div>
+            <div class="row">
+                <ua-consultant-table-component></ua-consultant-table-component>
+            </div>
+            <div class="ui horizontal divider">
+                Phases de l'étude
+            </div>
+            <div class="row">
+                <ua-task-table-component></ua-task-table-component>
+            </div>
+            <div class="ui green fluid button" ng-click="showTaskForm()">
+                Ajouter une phase
+            </div>
+            <div class="ui horizontal divider">
+                Avenants de l'étude
+            </div>
+            <div class="row">
+                <ua-amendment-table-component></ua-amendment-table-component>
+            </div>
+            <div class="ui green fluid button" ng-click="showTaskForm()">
+                Ajouter un avenant
             </div>
         </div>
     </div>

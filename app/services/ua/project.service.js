@@ -66,6 +66,19 @@
             });
         };
 
+        projectFactory.getProjectDetails = function (id, cache) {
+            if (!cache) {
+                delete projectFactory.selectedProject;
+            } else if (projectFactory.selectedProject && projectFactory.selectedProject.id === id) {
+                return;
+            }
+            return $http.get(server + urlBase + "/" + id).success(function (data) {
+                projectFactory.selectedProject = data.project;
+            }).error(function (data) {
+                console.log(data);
+            });
+        };
+
         projectFactory.getProjectByManagerId = function (id) {
             return $http.get(server + urlBase + "s/manager/" + id);
         };
@@ -102,6 +115,25 @@
             }
             return $http.post(server + urlBase + "/" + project.id, project).success(function (data) {
                 projectFactory[list][data.project.id] = data.project;
+            }).error(function (error) {
+                console.log(error);
+            });
+        };
+
+        projectFactory.setProjectAuditor = function (project) {
+            var list = 'unsignedProjects';
+            if (project.disabled) {
+                list = 'disabledProjects';
+            } else if (project.archived) {
+                list = 'archivedProjects';
+            } else if (project.signDate) {
+                list = 'currentProjects';
+            }
+            return $http.post(server + urlBase + "/" + project.id + "/auditor", project).success(function (data) {
+                projectFactory[list][data.project.id] = data.project;
+                if (projectFactory.selectedProject && projectFactory.selectedProject.id == project.id) {
+                    projectFactory.selectedProject = data.project;
+                }
             }).error(function (error) {
                 console.log(error);
             });
