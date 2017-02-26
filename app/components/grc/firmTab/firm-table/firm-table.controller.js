@@ -15,7 +15,8 @@
             .newOptions()
             .withPaginationType('full_numbers')
             .withDisplayLength(25)
-            .withOption('stateSave', true);
+            .withOption('stateSave', true)
+            .withColumnFilter({});
         $scope.dtColumnDefs = [];
 
         $scope.deleteFirm = function (id) {

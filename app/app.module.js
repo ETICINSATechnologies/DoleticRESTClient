@@ -9,6 +9,7 @@
             'angularModalService',
             'angular-storage',
             'datatables',
+            'datatables.columnfilter',
             'ngDropdown',
             'angularify.semantic'
         ])
