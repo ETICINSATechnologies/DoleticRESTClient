@@ -5,9 +5,9 @@
         .module('doleticApp')
         .controller('ProfileFormController', ProfileFormController);
 
-    ProfileFormController.$inject = ['$scope', '$state', 'SharedVariables', 'MessageBoxService', 'UserService', 'CountryService', 'GenderService', 'YearService', 'DepartmentService', 'editMode', 'profile'];
+    ProfileFormController.$inject = ['$scope', 'close', '$state', 'SharedVariables', 'MessageBoxService', 'UserService', 'CountryService', 'GenderService', 'YearService', 'DepartmentService', 'editMode', 'profile'];
 
-    function ProfileFormController($scope, $state, SharedVariables, MessageBoxService, UserService, CountryService, GenderService, YearService, DepartmentService, editMode, profile) {
+    function ProfileFormController($scope, close, $state, SharedVariables, MessageBoxService, UserService, CountryService, GenderService, YearService, DepartmentService, editMode, profile) {
 
         $scope.$state = $state;
         $scope.sharedVariables = SharedVariables;
@@ -37,6 +37,7 @@
                         "Opération réussie !",
                         "Le profile a été modifié avec succès !"
                     );
+                    close();
                 }).error(function (data) {
                     $('#profile_form_modal').modal('hide');
                     MessageBoxService.showError(

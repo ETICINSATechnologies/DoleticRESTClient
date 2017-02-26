@@ -5,9 +5,9 @@
         .module('doleticApp')
         .controller('uaDisableFormController', uaDisableFormController);
 
-    uaDisableFormController.$inject = ['$scope', 'ProjectService', 'MessageBoxService', 'project'];
+    uaDisableFormController.$inject = ['$scope', 'close', 'ProjectService', 'MessageBoxService', 'project'];
 
-    function uaDisableFormController($scope, ProjectService, MessageBoxService, project) {
+    function uaDisableFormController($scope, close, ProjectService, MessageBoxService, project) {
         $scope.project = project;
 
         $scope.resetForm = function () {
@@ -24,6 +24,7 @@
                         "Opération réussie !",
                         "L'étude a été mise en stand-by."
                     );
+                    close();
                 }).error(function (data) {
                     $('#disable_project_form_modal').modal('hide');
                     MessageBoxService.showError(

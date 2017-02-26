@@ -5,9 +5,9 @@
         .module('doleticApp')
         .controller('grcActionFormController', grcActionFormController);
 
-    grcActionFormController.$inject = ['$scope', '$state', '$filter', 'ContactActionService', 'ContactActionTypeService', 'MessageBoxService', 'UserService', 'editMode', 'action'];
+    grcActionFormController.$inject = ['$scope', 'close', '$state', '$filter', 'ContactActionService', 'ContactActionTypeService', 'MessageBoxService', 'UserService', 'editMode', 'action'];
 
-    function grcActionFormController($scope, $state, $filter, ContactActionService, ContactActionTypeService, MessageBoxService, UserService, editMode, action) {
+    function grcActionFormController($scope, close, $state, $filter, ContactActionService, ContactActionTypeService, MessageBoxService, UserService, editMode, action) {
 
         if (action != {}) formatAction();
         $scope.action = action;
@@ -33,6 +33,7 @@
                             "Opération réussie !",
                             "La prise de contact a été ajoutée."
                         );
+                        close();
                     }
                 )
                 .error(
@@ -55,6 +56,7 @@
                         "Opération réussie !",
                         "L'action  a été modifiée !"
                     );
+                    close();
                 }).error(function (data) {
                     $('#action_form_modal').modal('hide');
                     MessageBoxService.showError(

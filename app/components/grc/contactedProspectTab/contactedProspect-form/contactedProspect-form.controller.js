@@ -5,9 +5,9 @@
         .module('doleticApp')
         .controller('grcContactedProspectFormController', grcContactedProspectFormController);
 
-    grcContactedProspectFormController.$inject = ['$scope', '$filter', 'ContactService', 'GenderService', 'FirmService', 'MessageBoxService', 'UserService', 'editMode', 'contactedProspect'];
+    grcContactedProspectFormController.$inject = ['$scope', 'close', '$filter', 'ContactService', 'GenderService', 'FirmService', 'MessageBoxService', 'UserService', 'editMode', 'contactedProspect'];
 
-    function grcContactedProspectFormController($scope, $filter, ContactService, GenderService, FirmService, MessageBoxService, UserService, editMode, contactedProspect) {
+    function grcContactedProspectFormController($scope, close, $filter, ContactService, GenderService, FirmService, MessageBoxService, UserService, editMode, contactedProspect) {
 
         if (contactedProspect != {}) formatContactedProspect();
         $scope.contactedProspect = contactedProspect;
@@ -32,6 +32,7 @@
                             "Opération réussie !",
                             "Le prospect a été ajouté."
                         );
+                        close();
                     }
                 )
                 .error(
@@ -55,6 +56,7 @@
                         "Opération réussie !",
                         "Le prospect " + name + " a été modifié !"
                     );
+                    close();
                 }).error(function (data) {
                     $('#contacted_prospect_form_modal').modal('hide');
                     MessageBoxService.showError(
