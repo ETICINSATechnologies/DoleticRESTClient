@@ -5,9 +5,9 @@
         .module('doleticApp')
         .factory('ProjectService', ProjectService);
 
-    ProjectService.$inject = ['$http', 'SERVER_CONFIG'];
+    ProjectService.$inject = ['$http', 'SERVER_CONFIG', 'ConsultantService', 'ProjectManagerService', 'ProjectContactService'];
 
-    function ProjectService($http, SERVER_CONFIG) {
+    function ProjectService($http, SERVER_CONFIG, ConsultantService, ProjectManagerService, ProjectContactService) {
         var server = SERVER_CONFIG.url;
         var urlBase = '/api/ua/project';
         var projectFactory = {};
@@ -66,6 +66,37 @@
             });
         };
 
+        projectFactory.getProjectDetails = function (id, cache) {
+            if (!cache) {
+                delete projectFactory.selectedProject;
+            } else if (projectFactory.selectedProject && projectFactory.selectedProject.id === id) {
+                return;
+            }
+            return $http.get(server + urlBase + "/" + id).success(function (data) {
+                projectFactory.selectedProject = data.project;
+                ProjectManagerService.currentProjectManagers = {};
+                var manager;
+                for (manager in data.project.managers) {
+                    ProjectManagerService.currentProjectManagers[data.project.managers[manager].id] = data.project.managers[manager];
+                }
+                ProjectManagerService.currentProjectId = data.project.id;
+                ProjectContactService.currentProjectContacts = {};
+                var contact;
+                for (contact in data.project.contacts) {
+                    ProjectContactService.currentProjectContacts[data.project.contacts[contact].id] = data.project.contacts[contact];
+                }
+                ProjectContactService.currentProjectId = data.project.id;
+                ConsultantService.currentProjectConsultants = {};
+                var consultant;
+                for (consultant in data.project.consultants) {
+                    ConsultantService.currentProjectConsultants[data.project.consultants[consultant].id] = data.project.consultants[consultant];
+                }
+                ConsultantService.currentProjectId = data.project.id;
+            }).error(function (data) {
+                console.log(data);
+            });
+        };
+
         projectFactory.getProjectByManagerId = function (id) {
             return $http.get(server + urlBase + "s/manager/" + id);
         };
@@ -102,6 +133,25 @@
             }
             return $http.post(server + urlBase + "/" + project.id, project).success(function (data) {
                 projectFactory[list][data.project.id] = data.project;
+            }).error(function (error) {
+                console.log(error);
+            });
+        };
+
+        projectFactory.setProjectAuditor = function (project) {
+            var list = 'unsignedProjects';
+            if (project.disabled) {
+                list = 'disabledProjects';
+            } else if (project.archived) {
+                list = 'archivedProjects';
+            } else if (project.signDate) {
+                list = 'currentProjects';
+            }
+            return $http.post(server + urlBase + "/" + project.id + "/auditor", project).success(function (data) {
+                projectFactory[list][data.project.id] = data.project;
+                if (projectFactory.selectedProject && projectFactory.selectedProject.id == project.id) {
+                    projectFactory.selectedProject = data.project;
+                }
             }).error(function (error) {
                 console.log(error);
             });

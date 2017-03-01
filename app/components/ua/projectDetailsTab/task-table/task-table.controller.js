@@ -5,17 +5,10 @@
         .module('doleticApp')
         .controller('uaTaskTableController', uaTaskTableController);
 
-    uaTaskTableController.$inject = ['$scope', '$state', 'TaskService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'ConfirmModalService', 'MessageBoxService', 'ModalService'];
+    uaTaskTableController.$inject = ['$scope', '$state', 'TaskService', 'ConfirmModalService', 'MessageBoxService', 'ModalService'];
 
-    function uaTaskTableController($scope, $state, TaskService, DTOptionsBuilder, DTColumnDefBuilder, ConfirmModalService, MessageBoxService, ModalService) {
+    function uaTaskTableController($scope, $state, TaskService, ConfirmModalService, MessageBoxService, ModalService) {
         $scope.contactTaskService = TaskService;
-
-        $scope.dtOptions = DTOptionsBuilder
-            .newOptions()
-            .withPaginationType('full_numbers')
-            .withDisplayLength(25)
-            .withOption('stateSave', true);
-        $scope.dtColumnDefs = [];
 
         $scope.showTaskForm = function (task) {
             ModalService.showModal({
@@ -54,6 +47,6 @@
             );
         };
 
-        TaskService.getTasksByProject($state.params.id, true);
+        TaskService.getAllTasksByProject($state.params.id, true);
     }
 })();

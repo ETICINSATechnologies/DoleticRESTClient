@@ -5,11 +5,12 @@
         .module('doleticApp')
         .controller('uaProjectDetailsTabController', uaProjectDetailsTabController);
 
-    uaProjectDetailsTabController.$inject = ['$scope', '$state', 'MessageBoxService', 'ProjectService', 'ConfirmModalService', 'ProjectActionService', 'ModalService'];
+    uaProjectDetailsTabController.$inject = ['$scope', '$state', 'MessageBoxService', 'ProjectService', 'ConfirmModalService', 'ModalService', 'UserService'];
 
-    function uaProjectDetailsTabController($scope, $state, MessageBoxService, ProjectService, ConfirmModalService, ProjectActionService, ModalService) {
+    function uaProjectDetailsTabController($scope, $state, MessageBoxService, ProjectService, ConfirmModalService, ModalService, UserService) {
 
         $scope.projectService = ProjectService;
+        $scope.userService = UserService;
 
         $scope.loadProject = function () {
             ProjectService.getProjectDetails($state.params.id, true).success(function (data) {
@@ -72,10 +73,6 @@
                     }
                 }
             );
-        };
-
-        $scope.updateHistory = function () {
-            ProjectActionService.getProjectActionsByProject($state.params.id, false);
         };
 
         $scope.showProjectForm = function () {
@@ -146,5 +143,7 @@
                 console.log(error);
             });
         };
+
+        UserService.getAllUsers(true);
     }
 })();

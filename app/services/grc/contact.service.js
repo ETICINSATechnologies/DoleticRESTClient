@@ -25,6 +25,19 @@
             return $http.get(server + urlBase + "s/type/" + type, {cache: cache});
         };
 
+        contactFactory.getAllContactsByFirm = function (firm, cache) {
+            if (!cache) {
+                delete contactFactory.firmContacts;
+            } else if (contactFactory.firmContacts) {
+                return;
+            }
+            return $http.get(server + urlBase + "s/firm/" + firm).success(function (data) {
+                contactFactory.firmContacts = data.contacts;
+            }).error(function (data) {
+                console.log(data);
+            });
+        };
+
         contactFactory.getAllProspects = function (cache) {
             if (!cache) {
                 delete contactFactory.prospects;

@@ -10,25 +10,38 @@
     function AmendmentService($http, SERVER_CONFIG) {
         var server = SERVER_CONFIG.url;
         var urlBase = '/api/ua/amendment';
-        var amendmentService = {};
+        var amendmentFactory = {};
 
-        amendmentService.getAmendment = function (id) {
+        amendmentFactory.getAmendment = function (id) {
             return $http.get(server + urlBase + '/' + id);
         };
 
-        amendmentService.getAllAmendments = function () {
+        amendmentFactory.getAllAmendments = function () {
             return $http.get(server + urlBase + 's');
         };
 
-        amendmentService.getAllAmendmentsByProject = function (id) {
-            return $http.get(server + urlBase + 's/project/' + id);
+        amendmentFactory.getAllAmendmentsByProject = function (id, cache) {
+            if (!cache) {
+                delete amendmentFactory.currentProjectAmendments;
+            } else if (
+                amendmentFactory.currentProjectAmendments &&
+                amendmentFactory.currentProjectId == id
+            ) {
+                return;
+            }
+            return $http.get(server + urlBase + "s/project/" + id).success(function (data) {
+                amendmentFactory.currentProjectAmendments = data.amendments;
+                amendmentFactory.currentProjectId = id;
+            }).error(function (error) {
+                console.log(error);
+            });
         };
 
-        amendmentService.getAllAmendmentsByType = function (id) {
+        amendmentFactory.getAllAmendmentsByType = function (id) {
             return $http.get(server + urlBase + 's/type/' + id);
         };
 
-        return amendmentService;
+        return amendmentFactory;
     }
 
 })();

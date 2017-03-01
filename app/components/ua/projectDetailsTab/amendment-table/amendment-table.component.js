@@ -3,13 +3,13 @@
 
     angular
         .module('doleticApp')
-        .component('grcActionTableComponent', grcActionTableComponent());
+        .component('uaAmendmentTableComponent', uaAmendmentTableComponent());
 
-    function grcActionTableComponent() {
+    function uaAmendmentTableComponent() {
         return {
             bindings: {},
-            controller: "grcActionTableController",
-            templateUrl: "app/components/grc/contactDetailsTab/action-table/action-table.template.html"
+            controller: "uaAmendmentTableController",
+            templateUrl: "app/components/ua/projectDetailsTab/amendment-table/amendment-table.template.html"
         }
     }
 })();

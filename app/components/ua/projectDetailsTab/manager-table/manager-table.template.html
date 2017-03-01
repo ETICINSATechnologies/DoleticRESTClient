@@ -1,0 +1,46 @@
+<table class="ui very basic celled table">
+    <thead>
+    <tr>
+        <th>Nom complet</th>
+        <th>Téléphone</th>
+        <th>Adresse mail</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tfoot ng-if="uaService.rightLevel >= 4">
+    <tr>
+        <th colspan="4">
+            <form name="projectManagerForm" ng-submit="projectManagerForm.$valid && addProjectManager()" novalidate>
+                <div class="ui centered grid">
+                    <div class="thirteen wide column">
+                        <ng-dropdown data-label="fullName" ng-option="userService.users" data-value="id"
+                                     ng-model="projectManager.manager" required="true"></ng-dropdown>
+                    </div>
+                    <div class="three wide column">
+                        <input type="submit" value="Ajouter" class="ui green button"
+                               ng-class="{ 'disabled': projectManagerForm.$invalid }"/>
+                    </div>
+                </div>
+            </form>
+        </th>
+    </tr>
+    </tfoot>
+    <tbody>
+    <tr ng-repeat="manager in projectManagerService.currentProjectManagers">
+        <td>
+            <a ui-sref="rh.userDetailsTab({id : manager.manager.id})">
+                {{manager.manager.fullName}}<br>
+            </a>
+        </td>
+        <td>{{manager.manager.tel}}</td>
+        <td>{{manager.manager.email}}</td>
+        <td>
+            <div class="ui icon buttons" ng-if="uaService.rightLevel >= 4">
+                <button class="ui red icon button" data-tooltip="Supprimer" ng-click="deleteProjectManager(manager.id)">
+                    <i class="remove icon"></i>
+                </button>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>

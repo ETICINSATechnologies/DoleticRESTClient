@@ -20,8 +20,21 @@
             return $http.get(server + urlBase + 's');
         };
 
-        taskFactory.getAllTasksByProject = function (id) {
-            return $http.get(server + urlBase + 's/project/' + id);
+        taskFactory.getAllTasksByProject = function (id, cache) {
+            if (!cache) {
+                delete taskFactory.currentProjectTasks;
+            } else if (
+                taskFactory.currentProjectTasks &&
+                taskFactory.currentProjectId == id
+            ) {
+                return;
+            }
+            return $http.get(server + urlBase + "s/project/" + id).success(function (data) {
+                taskFactory.currentProjectTasks = data.tasks;
+                taskFactory.currentProjectId = id;
+            }).error(function (error) {
+                console.log(error);
+            });
         };
 
         return taskFactory;

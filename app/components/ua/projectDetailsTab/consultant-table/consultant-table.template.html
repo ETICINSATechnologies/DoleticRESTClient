@@ -1,0 +1,62 @@
+<table class="ui very basic celled table">
+    <thead>
+    <tr>
+        <th>Nom complet</th>
+        <th>Téléphone</th>
+        <th>Adresse mail</th>
+        <th>JEH assignés</th>
+        <th>Paie par JEH</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tfoot ng-if="projectService.selectedProject.userHasRights">
+    <tr>
+        <th colspan="6">
+            <form name="consultantForm" ng-submit="consultantForm.$valid && addConsultant()" novalidate>
+                <div class="ui centered grid">
+                    <div class="five wide column">
+                        <ng-dropdown data-label="fullName" ng-option="userService.users" data-value="id"
+                                     ng-model="consultant.user" required="true"></ng-dropdown>
+                    </div>
+                    <div class="four wide column">
+                        <div class="ui input">
+                            <input placeholder="Nombre de JEH..." type="number" ng-model="consultant.jehAssigned"
+                                   required="true"/>
+                        </div>
+                    </div>
+                    <div class="four wide column">
+                        <div class="ui input">
+                            <input placeholder="Paie par JEH..." type="number" ng-model="consultant.payByJeh"
+                                   required="true"/>
+                        </div>
+                    </div>
+                    <div class="three wide column">
+                        <input type="submit" value="Ajouter" class="ui green button"
+                               ng-class="{ 'disabled': consultantForm.$invalid }"/>
+                    </div>
+                </div>
+            </form>
+        </th>
+    </tr>
+    </tfoot>
+    <tbody>
+    <tr ng-repeat="consultant in consultantService.currentProjectConsultants">
+        <td>
+            <a ui-sref="rh.userDetailsTab({id : consultant.user.id})">
+                {{consultant.user.fullName}}<br>
+            </a>
+        </td>
+        <td>{{consultant.user.tel}}</td>
+        <td>{{consultant.user.email}}</td>
+        <td>{{consultant.jehAssigned}}</td>
+        <td>{{consultant.payByJeh}}</td>
+        <td>
+            <div class="ui icon buttons" ng-if="uaService.rightLevel >= 4">
+                <button class="ui red icon button" data-tooltip="Supprimer" ng-click="deleteConsultant(consultant.id)">
+                    <i class="remove icon"></i>
+                </button>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
