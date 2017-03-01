@@ -5,9 +5,9 @@
         .module('doleticApp')
         .controller('grcOldClientFormController', grcOldClientFormController);
 
-    grcOldClientFormController.$inject = ['$scope', '$filter', 'ContactService', 'GenderService', 'FirmService', 'MessageBoxService', 'UserService', 'editMode', 'oldClient'];
+    grcOldClientFormController.$inject = ['$scope', 'close', '$filter', 'ContactService', 'GenderService', 'FirmService', 'MessageBoxService', 'UserService', 'editMode', 'oldClient'];
 
-    function grcOldClientFormController($scope, $filter, ContactService, GenderService, FirmService, MessageBoxService, UserService, editMode, oldClient) {
+    function grcOldClientFormController($scope, close, $filter, ContactService, GenderService, FirmService, MessageBoxService, UserService, editMode, oldClient) {
 
         if (oldClient != {}) formatOldClient();
         $scope.oldClient = oldClient;
@@ -29,6 +29,7 @@
                         $('#old_client_form_modal').modal('hide');
                         $scope.resetForm();
                         MessageBoxService.showSuccess("Opération réussie !", "L'ancien client a été ajouté.");
+                        close();
                     }
                 )
                 .error(
@@ -52,6 +53,7 @@
                         "Opération réussie !",
                         "L'ancien client " + name + " a été modifié !"
                     );
+                    close();
                 }).error(function (data) {
                     $('#old_client_form_modal').modal('hide');
                     MessageBoxService.showError(

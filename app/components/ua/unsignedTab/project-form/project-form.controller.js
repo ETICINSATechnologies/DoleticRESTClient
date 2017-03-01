@@ -5,9 +5,9 @@
         .module('doleticApp')
         .controller('uaProjectFormController', uaProjectFormController);
 
-    uaProjectFormController.$inject = ['$scope', 'ProjectService', 'ProjectFieldService', 'ProjectOriginService', 'FirmService', 'MessageBoxService', 'UserService', 'UAService', 'editMode', 'project'];
+    uaProjectFormController.$inject = ['$scope', 'close', 'ProjectService', 'ProjectFieldService', 'ProjectOriginService', 'FirmService', 'MessageBoxService', 'UserService', 'UAService', 'editMode', 'project'];
 
-    function uaProjectFormController($scope, ProjectService, ProjectFieldService, ProjectOriginService, FirmService, MessageBoxService, UserService, UAService, editMode, project) {
+    function uaProjectFormController($scope, close, ProjectService, ProjectFieldService, ProjectOriginService, FirmService, MessageBoxService, UserService, UAService, editMode, project) {
 
         if (project != {}) formatProject();
         $scope.project = project;
@@ -31,6 +31,7 @@
                         "Opération réussie !",
                         "L'étude a été ajoutée."
                     );
+                    close();
                 }).error(function (data) {
                     $('#project_form_modal').modal('hide');
                     MessageBoxService.showError(
@@ -51,6 +52,7 @@
                         "Opération réussie !",
                         "L'étude " + number + " a été modifiée !"
                     );
+                    close();
                 }).error(function (data) {
                     $('#project_form_modal').modal('hide');
                     MessageBoxService.showError(

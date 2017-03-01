@@ -5,9 +5,9 @@
         .module('doleticApp')
         .controller('grcFirmFormController', grcFirmFormController);
 
-    grcFirmFormController.$inject = ['$scope', 'FirmService', 'FirmTypeService', 'CountryService', 'MessageBoxService', 'editMode', 'firm'];
+    grcFirmFormController.$inject = ['$scope', 'FirmService', 'FirmTypeService', 'CountryService', 'MessageBoxService', 'editMode', 'firm', 'close'];
 
-    function grcFirmFormController($scope, FirmService, FirmTypeService, CountryService, MessageBoxService, editMode, firm) {
+    function grcFirmFormController($scope, FirmService, FirmTypeService, CountryService, MessageBoxService, editMode, firm, close) {
 
         if (firm != {}) formatFirm();
         $scope.firm = firm;
@@ -30,6 +30,7 @@
                         "Opération réussie !",
                         "La société a été ajoutée."
                     );
+                    close();
                 }).error(function (data) {
                     $('#firm_form_modal').modal('hide');
                     MessageBoxService.showError(
@@ -50,6 +51,7 @@
                         "Opération réussie !",
                         "La société " + name + " a été modifiée !"
                     );
+                    close();
                 }).error(function (data) {
                     $('#firm_form_modal').modal('hide');
                     MessageBoxService.showError(
