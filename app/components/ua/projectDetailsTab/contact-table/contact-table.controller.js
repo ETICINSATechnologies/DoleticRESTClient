@@ -62,6 +62,5 @@
         };
 
         ContactService.getAllContactsByFirm(ProjectService.selectedProject.firm.id, true);
-        ProjectContactService.getAllContactsByProject($state.params.id, true);
     }
 })();

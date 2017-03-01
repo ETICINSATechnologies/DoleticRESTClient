@@ -63,8 +63,5 @@
                 }
             );
         };
-
-        UserService.getAllUsers(true);
-        ConsultantService.getAllConsultantsByProject($state.params.id, true);
     }
 })();

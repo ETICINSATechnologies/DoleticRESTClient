@@ -46,7 +46,5 @@
             $scope.project = angular.copy(ProjectService.selectedProject);
             $scope.editMode = true;
         };
-
-        UserService.getAllUsers(true);
     }
 })();

@@ -61,8 +61,5 @@
                 }
             );
         };
-
-        UserService.getAllUsers(true);
-        ProjectManagerService.getAllManagersByProject($state.params.id, true);
     }
 })();

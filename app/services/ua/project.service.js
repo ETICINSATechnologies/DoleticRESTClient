@@ -5,9 +5,9 @@
         .module('doleticApp')
         .factory('ProjectService', ProjectService);
 
-    ProjectService.$inject = ['$http', 'SERVER_CONFIG'];
+    ProjectService.$inject = ['$http', 'SERVER_CONFIG', 'ConsultantService', 'ProjectManagerService', 'ProjectContactService'];
 
-    function ProjectService($http, SERVER_CONFIG) {
+    function ProjectService($http, SERVER_CONFIG, ConsultantService, ProjectManagerService, ProjectContactService) {
         var server = SERVER_CONFIG.url;
         var urlBase = '/api/ua/project';
         var projectFactory = {};
@@ -74,6 +74,24 @@
             }
             return $http.get(server + urlBase + "/" + id).success(function (data) {
                 projectFactory.selectedProject = data.project;
+                ProjectManagerService.currentProjectManagers = {};
+                var manager;
+                for (manager in data.project.managers) {
+                    ProjectManagerService.currentProjectManagers[data.project.managers[manager].id] = data.project.managers[manager];
+                }
+                ProjectManagerService.currentProjectId = data.project.id;
+                ProjectContactService.currentProjectContacts = {};
+                var contact;
+                for (contact in data.project.contacts) {
+                    ProjectContactService.currentProjectContacts[data.project.contacts[contact].id] = data.project.contacts[contact];
+                }
+                ProjectContactService.currentProjectId = data.project.id;
+                ConsultantService.currentProjectConsultants = {};
+                var consultant;
+                for (consultant in data.project.consultants) {
+                    ConsultantService.currentProjectConsultants[data.project.consultants[consultant].id] = data.project.consultants[consultant];
+                }
+                ConsultantService.currentProjectId = data.project.id;
             }).error(function (data) {
                 console.log(data);
             });

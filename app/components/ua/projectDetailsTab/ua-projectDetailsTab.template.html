@@ -106,19 +106,19 @@
                 Correspondant qualité de l'étude
             </div>
             <div class="row">
-                <ua-auditor-table-component ng-if="projectService.selectedProject"></ua-auditor-table-component>
+                <ua-auditor-table-component ng-if="projectService.selectedProject && userService.users"></ua-auditor-table-component>
             </div>
             <div class="ui horizontal divider">
                 Chargés d'affaires de l'étude
             </div>
             <div class="row">
-                <ua-manager-table-component></ua-manager-table-component>
+                <ua-manager-table-component ng-if="userService.users"></ua-manager-table-component>
             </div>
             <div class="ui horizontal divider">
                 Consultants de l'étude
             </div>
             <div class="row">
-                <ua-consultant-table-component></ua-consultant-table-component>
+                <ua-consultant-table-component ng-if="userService.users"></ua-consultant-table-component>
             </div>
             <div class="ui horizontal divider">
                 Phases de l'étude
