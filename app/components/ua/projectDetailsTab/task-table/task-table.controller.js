@@ -8,7 +8,7 @@
     uaTaskTableController.$inject = ['$scope', '$state', 'TaskService', 'ConfirmModalService', 'MessageBoxService', 'ModalService'];
 
     function uaTaskTableController($scope, $state, TaskService, ConfirmModalService, MessageBoxService, ModalService) {
-        $scope.contactTaskService = TaskService;
+        $scope.taskService = TaskService;
 
         $scope.showTaskForm = function (task) {
             ModalService.showModal({
@@ -26,13 +26,27 @@
             });
         };
 
-        $scope.deleteTask = function (id) {
+        $scope.switchTasks = function (task, up) {
+            TaskService.switchTasks(task, up).success(function (data) {
+                MessageBoxService.showSuccess(
+                    "Opération réussie !",
+                    "L'ordre des phases a été modifié."
+                );
+            }).error(function (data) {
+                MessageBoxService.showError(
+                    "Erreur !",
+                    "L'ordre des phases n'a pas pu être modifié."
+                );
+            });
+        };
+
+        $scope.deleteTask = function (task) {
             ConfirmModalService.showConfirmModal(
                 "Confirmer la suppression",
                 "Voulez-vous vraiment supprimer la phase ?",
                 "remove",
                 function () {
-                    TaskService.deleteTask(id).success(function (data) {
+                    TaskService.deleteTask(task).success(function (data) {
                         MessageBoxService.showSuccess(
                             "Suppression réussie !",
                             "La phase a été supprimée."
@@ -47,6 +61,5 @@
             );
         };
 
-        TaskService.getAllTasksByProject($state.params.id, true);
     }
 })();

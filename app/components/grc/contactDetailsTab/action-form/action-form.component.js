@@ -3,9 +3,9 @@
 
     angular
         .module('doleticApp')
-        .component('grcClientFormComponent', grcClientFormComponent());
+        .component('grcActionFormComponent', grcActionFormComponent());
 
-    function grcClientFormComponent() {
+    function grcActionFormComponent() {
         return {
             bindings: {},
             controller: "grcActionFormController",

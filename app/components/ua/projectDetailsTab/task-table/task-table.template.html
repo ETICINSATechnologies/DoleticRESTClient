@@ -12,22 +12,23 @@
         <th>Actions</th>
     </tr>
     </thead>
-    <tfoot>
-    <tr>
-        <th>Ordre</th>
-        <th>Nom</th>
-        <th>Nb. de JEH</th>
-        <th>Prix du JEH</th>
-        <th>Début</th>
-        <th>Fin</th>
-        <th>Terminée ?</th>
-        <th>Livrables</th>
-        <th></th>
-    </tr>
-    </tfoot>
     <tbody>
-    <tr ng-repeat="task in taskService.currentProjectTasks">
-        <td>{{task.number}}</td>
+    <tr ng-repeat="task in taskService.currentProjectTasks | filter:{name:''} | orderBy:'number' ">
+        <td>
+            <div class="ui buttons">
+                <div class="ui grey icon button" ng-click="!$first && switchTasks(task, true)" data-tooltip="Monter"
+                     ng-class="{disabled:$first}">
+                    <i class="caret up icon"></i>
+                </div>
+                <div class="ui grey basic button">
+                    {{task.number}}
+                </div>
+                <div class="ui grey icon button" ng-click="!$last && switchTasks(task, false)"
+                     data-tooltip="Descendre" ng-class="{disabled:$last}">
+                    <i class="caret down icon"></i>
+                </div>
+            </div>
+        </td>
         <td>{{task.name}}</td>
         <td>{{task.jehAmount}}</td>
         <td>{{task.jehCost}}</td>
@@ -44,7 +45,7 @@
                 <button class="ui blue icon button" data-tooltip="Modifier" ng-click="showTaskForm(task)">
                     <i class="write icon"></i>
                 </button>
-                <button class="ui red icon button" data-tooltip="Supprimer" ng-click="deleteTask(task.id)">
+                <button class="ui red icon button" data-tooltip="Supprimer" ng-click="deleteTask(task)">
                     <i class="remove icon"></i>
                 </button>
             </div>
