@@ -21,7 +21,7 @@
                 templateUrl: "app/components/dashboard/profile-form-modal/profile-form-modal.template.html",
                 controller: "ProfileFormController",
                 inputs:{
-                    profile:{}
+                    profile: angular.copy($scope.currentUser)
                 }
             }).then(function (modal) {
                 modal.element.modal('show');
