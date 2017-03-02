@@ -5,9 +5,9 @@
         .module('doleticApp')
         .controller('ProfileFormController', ProfileFormController);
 
-    ProfileFormController.$inject = ['$scope', '$state', 'SharedVariables', 'MessageBoxService', 'UserService', 'CountryService', 'GenderService', 'YearService', 'DepartmentService', 'profile'];
+    ProfileFormController.$inject = ['$scope', 'close', '$filter', '$state', 'SharedVariables', 'MessageBoxService', 'UserService', 'CountryService', 'GenderService', 'YearService', 'DepartmentService', 'profile'];
 
-    function ProfileFormController($scope, $state, SharedVariables, MessageBoxService, UserService, CountryService, GenderService, YearService, DepartmentService, profile) {
+    function ProfileFormController($scope, close, $filter, $state, SharedVariables, MessageBoxService, UserService, CountryService, GenderService, YearService, DepartmentService, profile) {
 
         $scope.$state = $state;
         $scope.sharedVariables = SharedVariables;
@@ -35,6 +35,7 @@
                         "Opération réussie !",
                         "Le profile a été modifié avec succès !"
                     );
+                    close();
                 }).error(function (data) {
                     $('#profile_form_modal').modal('hide');
                     MessageBoxService.showError(
@@ -52,8 +53,10 @@
         function formatProfile() {
             if(profile.country)profile.country = profile.country.id;
             if(profile.gender)profile.gender = profile.gender.id;
-            if(profile.year)profile.year = profile.year.id;
+            if(profile.schoolYear)profile.schoolYear = profile.schoolYear.id;
             if(profile.department)profile.department = profile.department.id;
+            if (profile.birthDate) profile.birthDate = $filter('date')(profile.birthDate, "dd/MM/y");
+            if(profile.recruitmentEvent) profile.recruitmentEvent = profile.recruitmentEvent.id;
         }
 
     }

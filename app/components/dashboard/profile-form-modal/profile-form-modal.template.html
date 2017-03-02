@@ -1,18 +1,18 @@
 <div class="ui modal" id="profile_form_modal" >
     <div class="ui segment">
-        <form id="profileForm" name="profileForm" ng-submit="updateProfile();" class="ui form">
+        <form id="profileForm" name="profileForm" ng-submit="updateProfile()" class="ui form">
             <h4 class="ui header" id="form_header">Edition du profil de </h4>
             <div class="fields">
                 <div id="firstname_field" class="eight wide required field">
                     <label>Prénom</label>
-                    <input id="firstname" name="firstname" placeholder="Prénom..." type="text" required ng-model="profile.firstname"/>
+                    <input id="firstname" name="firstname" placeholder="Prénom..." type="text" required ng-model="profile.firstName"/>
                     <div ng-messages="pass_form.oldpass.$error" ng-messages-include="Erreurs.html">
 
                     </div>
                 </div>
                 <div id="lastname_field" class="eight wide required field">
                     <label>Nom</label>
-                    <input id="lastname" placeholder="Nom..." type="text" required="true" ng-model="profile.lastname"/>
+                    <input id="lastname" placeholder="Nom..." type="text" required="true" ng-model="profile.lastName"/>
                     <div ng-messages="pass_form.oldpass.$error" ng-messages-include="Erreurs.html" ></div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                     <label>Date de naissance</label>
                     <div class="ui calendar" id="birthdate_calendar">
                         <div class="ui input left icon">
-                            <input placeholder="JJ/MM/AAAA" type="text" ng-pattern="/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/" ng-model="profile.birthdate"/>
+                            <input placeholder="JJ/MM/AAAA" type="text" ng-pattern="/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/" ng-model="profile.birthDate"/>
                             <div ng-messages="pass_form.oldpass.$error" ng-messages-include="Erreurs.html" ></div>
                         </div>
                     </div>
@@ -40,7 +40,7 @@
                 </div>
                 <div id="mail_field" class="twelve wide required field">
                     <label>Adresse mail</label>
-                    <input id="mail" placeholder="exemple@domaine.com" type="email" required="true" ng-model="profile.mail"/>
+                    <input id="mail" placeholder="exemple@domaine.com" type="text" required="true" ng-model="profile.email"/>
                     <div ng-messages="pass_form.oldpass.$error" ng-messages-include="Erreurs.html" ></div>
                 </div>
             </div>
@@ -52,7 +52,7 @@
             <div class="fields">
                 <div id="postalcode_field" class="twelve wide required field">
                     <label>Code postal</label>
-                    <input id="postalcode" placeholder="00000" type="number" ng-model="profile.postalcode"/>
+                    <input id="postalcode" placeholder="00000" type="number" ng-model="profile.postalCode"/>
                     <div ng-messages="pass_form.oldpass.$error" ng-messages-include="Erreurs.html" ></div>
                 </div>
                 <div id="city_field" class="twelve wide required field">
@@ -69,7 +69,7 @@
             <div class="fields">
                 <div class="sixteen wide required field" id="schoolyear_field">
                     <label>Année d'étude</label>
-                        <ng-dropdown data-label="year" ng-option="YearService.years" data-value="id" ng-model="profile.year" required="true"></ng-dropdown>
+                        <ng-dropdown data-label="year" ng-option="YearService.years" data-value="id" ng-model="profile.schoolYear"  required="true"></ng-dropdown>
                         <div ng-messages="pass_form.oldpass.$error" ng-messages-include="Erreurs.html" ></div>
                 </div>
                 <div class="sixteen wide required field" id="dept_field">
