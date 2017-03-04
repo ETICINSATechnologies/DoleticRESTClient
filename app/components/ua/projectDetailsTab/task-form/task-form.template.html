@@ -1,50 +1,53 @@
-<div class="ui modal" id="action_form_modal">
+<div class="ui modal" id="task_form_modal">
     <div class="ui segment">
-        <form name="actionForm" class="ui form vertical segment"
-              ng-submit="actionForm.$valid && editMode?editAction():addAction()"
+        <form name="taskForm" class="ui form vertical segment"
+              ng-submit="taskForm.$valid && editMode?editTask():addTask()"
               novalidate>
-            <div class="ui message" ng-show="actionForm.$dirty"
-                 ng-class="{'positive' : actionForm.$valid, 'negative' : actionForm.$invalid}">
-                Le formulaire est {{ actionForm.$valid ? "valide" : "invalide" }}
+            <div class="ui message" ng-show="taskForm.$dirty"
+                 ng-class="{'positive' : taskForm.$valid, 'negative' : taskForm.$invalid}">
+                Le formulaire est {{ taskForm.$valid ? "valide" : "invalide" }}
             </div>
-            <h2 ng-if="!editMode" class="ui dividing header">Ajout d'une prise de contact</h2>
-            <h2 ng-if="editMode" class="ui dividing header">Modification d'une prise de contact</h2>
+            <h2 ng-if="!editMode" class="ui dividing header">Ajout d'une phase</h2>
+            <h2 ng-if="editMode" class="ui dividing header">Modification d'une phase</h2>
             <div class="fields">
                 <div class="eight wide required field">
-                    <label>Date de prise de contact</label>
+                    <label>Date de début</label>
                     <input placeholder="JJ/MM/AAAA" type="text"
                            ng-pattern="/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/"
-                           ng-model="action.date" required/>
+                           ng-model="task.startDate" required/>
                 </div>
                 <div class="eight wide required field">
-                    <label>Auteur de l'action</label>
-                    <ng-dropdown data-label="fullName" ng-option="userService.users" data-value="id"
-                                 ng-model="action.prospector" required="true"></ng-dropdown>
-                </div>
-            </div>
-            <div class="fields">
-                <div class="eight wide required field">
-                    <label>Moyen de contact</label>
-                    <ng-dropdown data-label="label" ng-option="contactActionTypeService.contactActionTypes"
-                                 data-value="id"
-                                 ng-model="action.type" required="true"></ng-dropdown>
-                </div>
-                <div class="eight wide field">
-                    <label>Le contact a répondu ?</label>
-                    <checkbox type="toggle" ng-model="action.replied"></checkbox>
+                    <label>Date de fin</label>
+                    <input placeholder="JJ/MM/AAAA" type="text"
+                           ng-pattern="/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/"
+                           ng-model="task.endDate" required/>
                 </div>
             </div>
             <div class="sixteen wide required field">
-                <label>Notes</label>
-                <textarea ng-model="action.notes" placeholder="Notes..." required></textarea>
+                <label>Nom</label>
+                <input placeholder="Name" type="text" ng-model="task.name" required/>
+            </div>
+            <div class="sixteen wide required field">
+                <label>Description</label>
+                <textarea ng-model="task.description" placeholder="Description..." required></textarea>
+            </div>
+            <div class="fields">
+                <div class="eight wide required field">
+                    <label>Nombre de JEH</label>
+                    <input type="number" ng-model="task.jehAmount" name="jehAmount" placeholder="0" required/>
+                </div>
+                <div class="eight wide required field">
+                    <label>Prix par JEH</label>
+                    <input type="number" ng-model="task.jehCost" name="jehCost" placeholder="0" required/>
+                </div>
             </div>
             <div class="ui small buttons">
                 <input type="reset" value="Annuler" class="ui button"/>
                 <div class="or" data-text="ou"></div>
                 <input ng-if="!editMode" type="submit" value="Ajouter" class="ui green button"
-                       ng-class="{ 'disabled': actionForm.$invalid }"/>
+                       ng-class="{ 'disabled': taskForm.$invalid }"/>
                 <input ng-if="editMode" type="submit" value="Modifier" class="ui green button"
-                       ng-class="{ 'disabled': actionForm.$invalid }"/>
+                       ng-class="{ 'disabled': taskForm.$invalid }"/>
             </div>
         </form>
     </div>

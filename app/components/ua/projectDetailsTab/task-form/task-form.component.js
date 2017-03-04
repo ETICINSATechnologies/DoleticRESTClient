@@ -3,13 +3,13 @@
 
     angular
         .module('doleticApp')
-        .component('grcClientFormComponent', grcClientFormComponent());
+        .component('uaTaskFormComponent', uaTaskFormComponent());
 
-    function grcClientFormComponent() {
+    function uaTaskFormComponent() {
         return {
             bindings: {},
-            controller: "grcActionFormController",
-            templateUrl: "app/components/grc/contactDetailsTab/action-form/action-form.template.html"
+            controller: "uaActionFormController",
+            templateUrl: "app/components/ua/contactDetailsTab/task-form/task-form.template.html"
         }
     }
 })();
