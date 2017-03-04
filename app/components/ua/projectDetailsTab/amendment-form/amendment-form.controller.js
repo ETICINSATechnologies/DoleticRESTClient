@@ -3,78 +3,83 @@
 
     angular
         .module('doleticApp')
-        .controller('grcActionFormController', grcActionFormController);
+        .controller('uaAmendmentFormController', uaAmendmentFormController);
 
-    grcActionFormController.$inject = ['$scope', 'close', '$state', '$filter', 'ContactActionService', 'ContactActionTypeService', 'MessageBoxService', 'UserService', 'editMode', 'action'];
+    uaAmendmentFormController.$inject = ['$scope', 'close', '$state', '$filter', 'AmendmentService', 'AmendmentTypeService', 'MessageBoxService', 'editMode', 'amendment'];
 
-    function grcActionFormController($scope, close, $state, $filter, ContactActionService, ContactActionTypeService, MessageBoxService, UserService, editMode, action) {
+    function uaAmendmentFormController($scope, close, $state, $filter, AmendmentService, AmendmentTypeService, MessageBoxService, editMode, amendment) {
 
-        if (action != {}) formatAction();
-        $scope.action = action;
+        if (amendment != {}) formatAmendment();
+        $scope.amendment = amendment;
         $scope.editMode = editMode ? editMode : false;
-        $scope.contactActionTypeService = ContactActionTypeService;
-        $scope.ContactActionService = ContactActionService;
-        $scope.userService = UserService;
+        $scope.amendmentTypeService = AmendmentTypeService;
+        $scope.amendmentService = AmendmentService;
 
         $scope.resetForm = function () {
-            $scope.action = {};
-            $scope.actionForm.$setPristine();
+            $scope.amendment = {};
+            $scope.amendmentForm.$setPristine();
             $scope.editMode = false;
         };
 
-        $scope.addAction = function () {
-            $scope.action.contact = $state.params.id;
-            ContactActionService.postContactAction($scope.action)
+        $scope.addAmendment = function () {
+            $scope.amendment.project = $state.params.id;
+            $scope.amendment.types = $scope.amendment.types.split(',');
+            AmendmentService.postAmendment($scope.amendment)
                 .success(
                     function (data) {
-                        $('#action_form_modal').modal('hide');
+                        $('#amendment_form_modal').modal('hide');
                         $scope.resetForm();
                         MessageBoxService.showSuccess(
                             "Opération réussie !",
-                            "La prise de contact a été ajoutée."
+                            "L'avenant a été ajouté."
                         );
                         close();
                     }
                 )
                 .error(
                     function (data) {
-                        $('#action_form_modal').modal('hide');
+                        $('#amendment_form_modal').modal('hide');
                         MessageBoxService.showError(
                             "Echec de l'ajout...",
-                            "La prise de contact n'a pas pu être ajoutée."
+                            "L'avenant n'a pas pu être ajouté."
                         );
                     }
                 )
         };
 
-        $scope.editAction = function () {
-            ContactActionService.putContactAction($scope.action)
+        $scope.editAmendment = function () {
+            $scope.amendment.project = $state.params.id;
+            $scope.amendment.types = $scope.amendment.types.split(',');
+            AmendmentService.putAmendment($scope.amendment)
                 .success(function (data) {
-                    $('#action_form_modal').modal('hide');
+                    $('#amendment_form_modal').modal('hide');
                     $scope.resetForm();
                     MessageBoxService.showSuccess(
                         "Opération réussie !",
-                        "L'action  a été modifiée !"
+                        "L'avenant  a été modifié !"
                     );
                     close();
                 }).error(function (data) {
-                    $('#action_form_modal').modal('hide');
+                    $('#amendment_form_modal').modal('hide');
                     MessageBoxService.showError(
                         "Echec de la modification...",
-                        "L'action n'a pas pu être modifiée.");
+                        "L'avenant n'a pas pu être modifié.");
                 }
             );
         };
 
-        function formatAction() {
-            if (action.type) action.type = action.type.id;
-            if (action.prospector) action.prospector = action.prospector.id;
-            if (action.contact) action.contact = action.contact.id;
-            if (action.date) action.date = $filter('date')(action.date, "dd/MM/y");
+        function formatAmendment() {
+            if (amendment.date) amendment.date = $filter('date')(amendment.date, "dd/MM/y");
+            if (amendment.types) {
+                var ids = [];
+                for (var i in amendment.types) {
+                    ids.push(amendment.types[i].id);
+                }
+                amendment.types = ids;
+            }
         }
 
-        ContactActionTypeService.getAllContactActionTypes(true);
-        UserService.getAllUsers(true);
+        AmendmentTypeService.getAllAmendmentTypes(true);
     }
 
 })();

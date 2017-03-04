@@ -8,22 +8,13 @@
         <th>Actions</th>
     </tr>
     </thead>
-    <tfoot>
-    <tr>
-        <th>Date</th>
-        <th>Types</th>
-        <th>Contenu</th>
-        <th>Imputable à la J.E. ?</th>
-        <th></th>
-    </tr>
-    </tfoot>
     <tbody>
     <tr ng-repeat="amendment in amendmentService.currentProjectAmendments">
         <td>{{amendment.date|date:"dd/MM/y"}}</td>
         <td>
-            <p ng-repeat="type in amendment.types">
-                {{type.label}}<br>
-            </p>
+            <span ng-repeat="type in amendment.types">
+                {{type.label}}{{$last ? "" :", "}}
+            </span>
         </td>
         <td>{{amendment.content}}</td>
         <td>{{amendment.attributable ? 'Oui' : 'Non'}}</td>
