@@ -23,54 +23,64 @@
             });
         };
 
-        $scope.deleteCurrentProject = function () {
-            var service = null;
-            var name = ProjectService.selectedProject.fullName;
-            ConfirmModalService.showConfirmModal(
-                "Confirmer la suppression",
-                "Voulez-vous vraiment supprimer le prospect " + name + " ?",
-                "remove user",
-                function () {
-                    var redirect = 'firmTab';
+        $scope.showProjectForm = function () {
+            ModalService.showModal({
+                templateUrl: "app/components/ua/unsignedTab/project-form/project-form.template.html",
+                controller: "uaProjectFormController",
+                inputs: {
+                    editMode: true,
+                    project: ProjectService.selectedProject
+                }
+            }).then(function (modal) {
+                modal.element.modal('show');
+            }).catch(function (error) {
+                // error contains a detailed error message.
+                console.log(error);
+            });
+        };
 
-                    switch (ProjectService.selectedProject.type.id) {
-                        case 1:
-                            service = ProjectService.deleteProspect;
-                            redirect = 'prospectTab';
-                            break;
-                        case 2:
-                            service = ProjectService.deleteProjectedProspect;
-                            redirect = 'contactedProspectTab';
-                            break;
-                        case 3:
-                            service = ProjectService.deleteClient;
-                            redirect = 'clientTab';
-                            break;
-                        case 4:
-                            service = ProjectService.deleteOldClient;
-                            redirect = 'oldClientTab';
-                            break;
-                        default:
-                            MessageBoxService.showError(
-                                "Erreur !",
-                                "Le type du contact est inconnu."
-                            );
-                            break;
-                    }
-                    if (service) {
-                        service(ProjectService.selectedProject.id).success(function (data) {
-                            MessageBoxService.showSuccess(
-                                "Suppression réussie !",
-                                "Le contact " + name + " a été supprimé."
-                            );
-                            $state.go('ua.' + redirect);
-                        }).error(function (data) {
-                            MessageBoxService.showError(
-                                "Echec de la suppression...",
-                                "Le contact n'a pas pu être supprimé..."
-                            );
-                        });
-                    }
+        $scope.disableSelectedProject = function () {
+            var number = ProjectService.selectedProject.number;
+            ConfirmModalService.showConfirmModal(
+                "Confirmer la désactivation",
+                "Voulez-vous vraiment mettre l'étude " + number + " en stand-by ?",
+                "remove",
+                function () {
+                    ProjectService.disableProject(ProjectService.selectedProject).success(function (data) {
+                        MessageBoxService.showSuccess(
+                            "Désactivation réussie !",
+                            "L'étude " + number + " a été mise en stand-by."
+                        );
+                    }).error(function (data) {
+                        MessageBoxService.showError(
+                            "Echec de la désactivation...",
+                            "L'étude n'a pas pu être mise en stand-by..."
+                        );
+                    });
+
+                }
+            );
+        };
+
+        $scope.enableSelectedProject = function () {
+            var number = ProjectService.selectedProject.number;
+            ConfirmModalService.showConfirmModal(
+                "Confirmer la réactivation",
+                "Voulez-vous vraiment réactiver l'étude " + number + " ?",
+                "remove",
+                function () {
+                    ProjectService.enableProject(ProjectService.selectedProject).success(function (data) {
+                        MessageBoxService.showSuccess(
+                            "Réactivation réussie !",
+                            "L'étude " + number + " a été réactivée."
+                        );
+                    }).error(function (data) {
+                        MessageBoxService.showError(
+                            "Echec de la réactivation...",
+                            "L'étude n'a pas pu être réactivée..."
+                        );
+                    });
+
                 }
             );
         };

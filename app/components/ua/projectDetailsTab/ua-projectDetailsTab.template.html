@@ -9,8 +9,11 @@
                 <div class="ui olive button" ng-click="loadProject()">
                     Actualiser les détails
                 </div>
-                <div ng-if="uaService.rightLevel >= 4" class="ui orange button" ng-click="disableSelectedProject()">
+                <div ng-if="uaService.rightLevel >= 4 && !projectService.selectedProject.disabled" class="ui orange button" ng-click="disableSelectedProject()">
                     Mettre l'étude en stand-by
+                </div>
+                <div ng-if="uaService.rightLevel >= 4 && projectService.selectedProject.disabled" class="ui yellow button" ng-click="enableSelectedProject()">
+                    Réactiver l'étude
                 </div>
             </div>
         </div>

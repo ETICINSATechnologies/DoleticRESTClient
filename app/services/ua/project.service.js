@@ -145,6 +145,9 @@
             }
             return $http.post(server + urlBase + "/" + project.id, project).success(function (data) {
                 projectFactory[list][data.project.id] = data.project;
+                if (projectFactory.selectedProject && projectFactory.selectedProject.id == data.project.id) {
+                    projectFactory.selectedProject = data.project;
+                }
             }).error(function (error) {
                 console.log(error);
             });
@@ -223,7 +226,9 @@
                         {} : projectFactory.disabledProjects;
                     projectFactory.disabledProjects[data.project.id] = data.project;
                 }
-                delete projectFactory[list][data.project.id];
+                if (projectFactory[list]) {
+                    delete projectFactory[list][data.project.id];
+                }
             }).error(function (error) {
                 console.log(error);
             });
@@ -240,7 +245,9 @@
                         {} : projectFactory[list];
                     projectFactory[list][data.project.id] = data.project;
                 }
-                delete projectFactory.disabledProjects[data.project.id];
+                if (projectFactory.disabledProjects) {
+                    delete projectFactory.disabledProjects[data.project.id];
+                }
             }).error(function (error) {
                 console.log(error);
             })
