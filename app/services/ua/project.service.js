@@ -98,6 +98,12 @@
                     TaskService.currentProjectTasks[data.project.tasks[task].number] = data.project.tasks[task];
                 }
                 TaskService.currentProjectId = data.project.id;
+                AmendmentService.currentProjectAmendments = {};
+                var amendment;
+                for (amendment in data.project.amendments) {
+                    AmendmentService.currentProjectAmendments[data.project.amendments[amendment].id] = data.project.amendments[amendment];
+                }
+                AmendmentService.currentProjectId = data.project.id;
             }).error(function (data) {
                 console.log(data);
             });

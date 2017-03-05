@@ -91,6 +91,22 @@
             });
         };
 
+        $scope.showAmendmentForm = function (task) {
+            ModalService.showModal({
+                templateUrl: "app/components/ua/projectDetailsTab/amendment-form/amendment-form.template.html",
+                controller: "uaAmendmentFormController",
+                inputs: {
+                    editMode: false,
+                    amendment: {}
+                }
+            }).then(function (modal) {
+                modal.element.modal('show');
+            }).catch(function (error) {
+                // error contains a detailed error message.
+                console.log(error);
+            });
+        };
+
         UserService.getAllUsers(true);
     }
 })();

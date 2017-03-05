@@ -8,7 +8,7 @@
     uaAmendmentTableController.$inject = ['$scope', '$state', 'AmendmentService', 'ConfirmModalService', 'MessageBoxService', 'ModalService'];
 
     function uaAmendmentTableController($scope, $state, AmendmentService, ConfirmModalService, MessageBoxService, ModalService) {
-        $scope.contactAmendmentService = AmendmentService;
+        $scope.amendmentService = AmendmentService;
 
         $scope.showAmendmentForm = function (amendment) {
             ModalService.showModal({
@@ -46,7 +46,5 @@
                 }
             );
         };
-
-        AmendmentService.getAllAmendmentsByProject($state.params.id, true);
     }
 })();
