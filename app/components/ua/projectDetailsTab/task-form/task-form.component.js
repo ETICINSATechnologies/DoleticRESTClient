@@ -8,7 +8,7 @@
     function uaTaskFormComponent() {
         return {
             bindings: {},
-            controller: "uaActionFormController",
+            controller: "uaTaskFormController",
             templateUrl: "app/components/ua/contactDetailsTab/task-form/task-form.template.html"
         }
     }

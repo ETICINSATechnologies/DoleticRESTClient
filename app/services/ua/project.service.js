@@ -145,6 +145,61 @@
             }
             return $http.post(server + urlBase + "/" + project.id, project).success(function (data) {
                 projectFactory[list][data.project.id] = data.project;
+                if (projectFactory.selectedProject && projectFactory.selectedProject.id == data.project.id) {
+                    projectFactory.selectedProject = data.project;
+                }
+            }).error(function (error) {
+                console.log(error);
+            });
+        };
+
+        projectFactory.signProject = function (project) {
+            return $http.post(server + urlBase + "/" + project.id + "/sign", project).success(function (data) {
+                if (projectFactory.currentProjects) {
+                    projectFactory.currentProjects[data.project.id] = data.project;
+                }
+                if (projectFactory.unsignedProjects) {
+                    delete projectFactory.unsignedProjects[data.project.id];
+                }
+                if (projectFactory.selectedProject && projectFactory.selectedProject.id == data.project.id) {
+                    projectFactory.selectedProject = data.project;
+                }
+            }).error(function (error) {
+                console.log(error);
+            });
+        };
+
+        projectFactory.endProject = function (project) {
+            return $http.post(server + urlBase + "/" + project.id + "/end", project).success(function (data) {
+                if (projectFactory.selectedProject && projectFactory.selectedProject.id == data.project.id) {
+                    projectFactory.selectedProject = data.project;
+                }
+            }).error(function (error) {
+                console.log(error);
+            });
+        };
+
+        projectFactory.unsignProject = function (project) {
+            return $http.post(server + urlBase + "/" + project.id + "/unsign", {}).success(function (data) {
+                if (projectFactory.unsignedProjects) {
+                    projectFactory.unsignedProjects[data.project.id] = data.project;
+                }
+                if (projectFactory.currentProjects) {
+                    delete projectFactory.currentProjects[data.project.id];
+                }
+                if (projectFactory.selectedProject && projectFactory.selectedProject.id == data.project.id) {
+                    projectFactory.selectedProject = data.project;
+                }
+            }).error(function (error) {
+                console.log(error);
+            });
+        };
+
+        projectFactory.unendProject = function (project) {
+            return $http.post(server + urlBase + "/" + project.id + "/unend", {}).success(function (data) {
+                if (projectFactory.selectedProject && projectFactory.selectedProject.id == data.project.id) {
+                    projectFactory.selectedProject = data.project;
+                }
             }).error(function (error) {
                 console.log(error);
             });
@@ -223,7 +278,12 @@
                         {} : projectFactory.disabledProjects;
                     projectFactory.disabledProjects[data.project.id] = data.project;
                 }
-                delete projectFactory[list][data.project.id];
+                if (projectFactory[list]) {
+                    delete projectFactory[list][data.project.id];
+                }
+                if (projectFactory.selectedProject && projectFactory.selectedProject.id == data.project.id) {
+                    projectFactory.selectedProject = data.project;
+                }
             }).error(function (error) {
                 console.log(error);
             });
@@ -240,7 +300,12 @@
                         {} : projectFactory[list];
                     projectFactory[list][data.project.id] = data.project;
                 }
-                delete projectFactory.disabledProjects[data.project.id];
+                if (projectFactory.disabledProjects) {
+                    delete projectFactory.disabledProjects[data.project.id];
+                }
+                if (projectFactory.selectedProject && projectFactory.selectedProject.id == data.project.id) {
+                    projectFactory.selectedProject = data.project;
+                }
             }).error(function (error) {
                 console.log(error);
             })
