@@ -9,10 +9,12 @@
                 <div class="ui olive button" ng-click="loadProject()">
                     Actualiser les détails
                 </div>
-                <div ng-if="uaService.rightLevel >= 4 && !projectService.selectedProject.disabled" class="ui orange button" ng-click="disableSelectedProject()">
+                <div ng-if="uaService.rightLevel >= 4 && !projectService.selectedProject.disabled"
+                     class="ui orange button" ng-click="showDisableForm()">
                     Mettre l'étude en stand-by
                 </div>
-                <div ng-if="uaService.rightLevel >= 4 && projectService.selectedProject.disabled" class="ui yellow button" ng-click="enableSelectedProject()">
+                <div ng-if="uaService.rightLevel >= 4 && projectService.selectedProject.disabled"
+                     class="ui yellow button" ng-click="enableSelectedProject()">
                     Réactiver l'étude
                 </div>
             </div>
@@ -85,6 +87,51 @@
                     <div class="content">
                         <div class="header">Acompte</div>
                         <div class="description">{{projectService.selectedProject.advance}}€</div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui horizontal divider">Signature/Clôture</div>
+            <div class="ui relaxed divided list">
+                <div class="item">
+                    <div class="content">
+                        <div class="header">Date de signature</div>
+                        <div class="description">
+                            <span ng-if="uaService.rightLevel < 4 || projectService.selectedProject.archived || projectService.selectedProject.disabled || projectService.selectedProject.endDate">
+                                {{projectService.selectedProject.signDate ? (projectService.selectedProject.signDate|date:"dd/MM/y") : "Etude non signée" }}
+                            </span>
+                            <div class="ui green button"
+                                 ng-if="uaService.rightLevel >= 4 && !projectService.selectedProject.archived && !projectService.selectedProject.disabled && !projectService.selectedProject.signDate && !projectService.selectedProject.endDate"
+                                 ng-click="showSignForm()">
+                                Signer l'étude
+                            </div>
+                            <div class="ui red button"
+                                 data-tooltip="Annuler la signature"
+                                 ng-if="uaService.rightLevel >= 4 && !projectService.selectedProject.archived && !projectService.selectedProject.disabled && projectService.selectedProject.signDate && !projectService.selectedProject.endDate"
+                                 ng-click="unsignSelectedProject()">
+                                {{projectService.selectedProject.signDate|date:"dd/MM/y"}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        <div class="header">Date de clôture</div>
+                        <div class="description">
+                            <span ng-if="uaService.rightLevel < 4 || projectService.selectedProject.archived || projectService.selectedProject.disabled || !projectService.selectedProject.signDate">
+                                {{projectService.selectedProject.endDate ? (projectService.selectedProject.endDate|date:"dd/MM/y") : "Etude non clôturée" }}
+                            </span>
+                            <div class="ui green button"
+                                 ng-if="uaService.rightLevel >= 4 && !projectService.selectedProject.archived && !projectService.selectedProject.disabled && projectService.selectedProject.signDate && !projectService.selectedProject.endDate"
+                                 ng-click="showEndForm()">
+                                Clôturer l'étude
+                            </div>
+                            <div class="ui red button"
+                                 data-tooltip="Annuler la clôture"
+                                 ng-if="uaService.rightLevel >= 4 && !projectService.selectedProject.archived && !projectService.selectedProject.disabled && projectService.selectedProject.signDate && projectService.selectedProject.endDate"
+                                 ng-click="unendSelectedProject()">
+                                {{projectService.selectedProject.endDate|date:"dd/MM/y"}}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

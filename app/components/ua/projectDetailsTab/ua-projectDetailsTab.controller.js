@@ -39,27 +39,19 @@
             });
         };
 
-        $scope.disableSelectedProject = function () {
-            var number = ProjectService.selectedProject.number;
-            ConfirmModalService.showConfirmModal(
-                "Confirmer la désactivation",
-                "Voulez-vous vraiment mettre l'étude " + number + " en stand-by ?",
-                "remove",
-                function () {
-                    ProjectService.disableProject(ProjectService.selectedProject).success(function (data) {
-                        MessageBoxService.showSuccess(
-                            "Désactivation réussie !",
-                            "L'étude " + number + " a été mise en stand-by."
-                        );
-                    }).error(function (data) {
-                        MessageBoxService.showError(
-                            "Echec de la désactivation...",
-                            "L'étude n'a pas pu être mise en stand-by..."
-                        );
-                    });
-
+        $scope.showDisableForm = function () {
+            ModalService.showModal({
+                templateUrl: "app/components/ua/unsignedTab/disable-form/disable-form.template.html",
+                controller: "uaDisableFormController",
+                inputs: {
+                    project: angular.copy(ProjectService.selectedProject)
                 }
-            );
+            }).then(function (modal) {
+                modal.element.modal('show');
+            }).catch(function (error) {
+                // error contains a detailed error message.
+                console.log(error);
+            });
         };
 
         $scope.enableSelectedProject = function () {
@@ -69,7 +61,7 @@
                 "Voulez-vous vraiment réactiver l'étude " + number + " ?",
                 "remove",
                 function () {
-                    ProjectService.enableProject(ProjectService.selectedProject).success(function (data) {
+                    ProjectService.enableProject(angular.copy(ProjectService.selectedProject)).success(function (data) {
                         MessageBoxService.showSuccess(
                             "Réactivation réussie !",
                             "L'étude " + number + " a été réactivée."
@@ -85,7 +77,7 @@
             );
         };
 
-        $scope.showTaskForm = function (task) {
+        $scope.showTaskForm = function () {
             ModalService.showModal({
                 templateUrl: "app/components/ua/projectDetailsTab/task-form/task-form.template.html",
                 controller: "uaTaskFormController",
@@ -101,7 +93,7 @@
             });
         };
 
-        $scope.showAmendmentForm = function (task) {
+        $scope.showAmendmentForm = function () {
             ModalService.showModal({
                 templateUrl: "app/components/ua/projectDetailsTab/amendment-form/amendment-form.template.html",
                 controller: "uaAmendmentFormController",
@@ -115,6 +107,82 @@
                 // error contains a detailed error message.
                 console.log(error);
             });
+        };
+
+        $scope.showSignForm = function () {
+            ModalService.showModal({
+                templateUrl: "app/components/ua/projectDetailsTab/sign-form/sign-form.template.html",
+                controller: "uaSignFormController",
+                inputs: {
+                    project: angular.copy(ProjectService.selectedProject)
+                }
+            }).then(function (modal) {
+                modal.element.modal('show');
+            }).catch(function (error) {
+                // error contains a detailed error message.
+                console.log(error);
+            });
+        };
+
+        $scope.showEndForm = function () {
+            ModalService.showModal({
+                templateUrl: "app/components/ua/projectDetailsTab/end-form/end-form.template.html",
+                controller: "uaEndFormController",
+                inputs: {
+                    project: angular.copy(ProjectService.selectedProject)
+                }
+            }).then(function (modal) {
+                modal.element.modal('show');
+            }).catch(function (error) {
+                // error contains a detailed error message.
+                console.log(error);
+            });
+        };
+
+        $scope.unsignSelectedProject = function () {
+            var number = ProjectService.selectedProject.number;
+            ConfirmModalService.showConfirmModal(
+                "Confirmer l'annulation",
+                "Voulez-vous vraiment annuler la signature de l'étude " + number + " ?",
+                "remove",
+                function () {
+                    ProjectService.unsignProject(angular.copy(ProjectService.selectedProject)).success(function (data) {
+                        MessageBoxService.showSuccess(
+                            "Annulation réussie !",
+                            "La signature de l'étude " + number + " a été annulée."
+                        );
+                    }).error(function (data) {
+                        MessageBoxService.showError(
+                            "Echec de l'annulation...",
+                            "La signature de l'étude n'a pas pu être annulée..."
+                        );
+                    });
+
+                }
+            );
+        };
+
+        $scope.unendSelectedProject = function () {
+            var number = ProjectService.selectedProject.number;
+            ConfirmModalService.showConfirmModal(
+                "Confirmer l'annulation",
+                "Voulez-vous vraiment annuler la clôture de l'étude " + number + " ?",
+                "remove",
+                function () {
+                    ProjectService.unendProject(angular.copy(ProjectService.selectedProject)).success(function (data) {
+                        MessageBoxService.showSuccess(
+                            "Annulation réussie !",
+                            "La clôture de l'étude " + number + " a été annulée."
+                        );
+                    }).error(function (data) {
+                        MessageBoxService.showError(
+                            "Echec de l'annulation...",
+                            "La clôture de l'étude n'a pas pu être annulée..."
+                        );
+                    });
+
+                }
+            );
         };
 
         UserService.getAllUsers(true);
