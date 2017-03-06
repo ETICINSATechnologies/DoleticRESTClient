@@ -5,9 +5,9 @@
         .module('doleticApp')
         .factory('ProjectService', ProjectService);
 
-    ProjectService.$inject = ['$http', 'SERVER_CONFIG', 'ConsultantService', 'ProjectManagerService', 'ProjectContactService', 'TaskService', 'AmendmentService'];
+    ProjectService.$inject = ['$http', 'SERVER_CONFIG', 'ConsultantService', 'ProjectManagerService', 'ProjectContactService', 'TaskService', 'AmendmentService', 'DeliveryService'];
 
-    function ProjectService($http, SERVER_CONFIG, ConsultantService, ProjectManagerService, ProjectContactService, TaskService, AmendmentService) {
+    function ProjectService($http, SERVER_CONFIG, ConsultantService, ProjectManagerService, ProjectContactService, TaskService, AmendmentService, DeliveryService) {
         var server = SERVER_CONFIG.url;
         var urlBase = '/api/ua/project';
         var projectFactory = {};
@@ -93,9 +93,14 @@
                 }
                 ConsultantService.currentProjectId = data.project.id;
                 TaskService.currentProjectTasks = [];
+                DeliveryService.currentProjectDeliveries = {};
                 var task;
                 for (task in data.project.tasks) {
                     TaskService.currentProjectTasks[data.project.tasks[task].number] = data.project.tasks[task];
+                    for (var delivery in data.project.tasks[task].deliveries) {
+                        DeliveryService.currentProjectDeliveries[data.project.tasks[task].deliveries[delivery].id] = data.project.tasks[task].deliveries[delivery];
+                        DeliveryService.currentProjectDeliveries[data.project.tasks[task].deliveries[delivery].id].task = data.project.tasks[task];
+                    }
                 }
                 TaskService.currentProjectId = data.project.id;
                 AmendmentService.currentProjectAmendments = {};

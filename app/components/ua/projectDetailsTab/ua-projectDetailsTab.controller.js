@@ -93,6 +93,22 @@
             });
         };
 
+        $scope.showDeliveryForm = function () {
+            ModalService.showModal({
+                templateUrl: "app/components/ua/projectDetailsTab/delivery-form/delivery-form.template.html",
+                controller: "uaDeliveryFormController",
+                inputs: {
+                    editMode: false,
+                    delivery: {}
+                }
+            }).then(function (modal) {
+                modal.element.modal('show');
+            }).catch(function (error) {
+                // error contains a detailed error message.
+                console.log(error);
+            });
+        };
+
         $scope.showAmendmentForm = function () {
             ModalService.showModal({
                 templateUrl: "app/components/ua/projectDetailsTab/amendment-form/amendment-form.template.html",

@@ -8,7 +8,6 @@
         <th>Début</th>
         <th>Fin</th>
         <th>Terminée ?</th>
-        <th>Livrables</th>
         <th>Actions</th>
     </tr>
     </thead>
@@ -35,11 +34,6 @@
         <td>{{task.startDate|date:"dd/MM/y"}}</td>
         <td>{{task.endDate|date:"dd/MM/y"}}</td>
         <td>{{task.ended ? 'Oui' : 'Non'}}</td>
-        <td>
-            <button class="ui teal button" ng-click="">
-                Gérer
-            </button>
-        </td>
         <td>
             <div class="ui icon buttons">
                 <button class="ui blue icon button" data-tooltip="Modifier" ng-click="showTaskForm(task)">
