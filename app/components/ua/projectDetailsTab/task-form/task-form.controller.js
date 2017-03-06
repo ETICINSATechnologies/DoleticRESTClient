@@ -67,7 +67,6 @@
         };
 
         function formatTask() {
-            console.log(task);
             if (task.startDate) task.startDate = $filter('date')(task.startDate, "dd/MM/y");
             if (task.endDate) task.endDate = $filter('date')(task.endDate, "dd/MM/y");
         }

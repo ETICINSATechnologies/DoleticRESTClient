@@ -1,0 +1,25 @@
+<div class="ui modal" id="deliver_form_modal">
+    <div class="ui segment">
+        <form name="deliverForm" class="ui form vertical segment"
+              ng-submit="deliverForm.$valid && deliverDelivery()"
+              novalidate>
+            <div class="ui message" ng-show="deliverForm.$dirty"
+                 ng-class="{'positive' : deliverForm.$valid, 'negative' : deliverForm.$invalid}">
+                Le formulaire est {{ deliverForm.$valid ? "valide" : "invalide" }}
+            </div>
+            <h2 class="ui dividing header">Livraison d'un livrable</h2>
+            <div class="sixteen wide required field">
+                <label>Date de livraison</label>
+                <input placeholder="JJ/MM/AAAA" type="text"
+                       ng-pattern="/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/"
+                       ng-model="delivery.deliveryDate" required/>
+            </div>
+            <div class="ui small buttons">
+                <input type="reset" value="Annuler" class="ui button"/>
+                <div class="or" data-text="ou"></div>
+                <input type="submit" value="Confirmer" class="ui green button"
+                       ng-class="{ 'disabled': deliverForm.$invalid }"/>
+            </div>
+        </form>
+    </div>
+</div>
