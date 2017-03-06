@@ -63,6 +63,46 @@
             });
         };
 
+        deliveryFactory.deliverDelivery = function (delivery) {
+            return $http.post(server + urlBase + "/" + delivery.id + "/deliver", delivery).success(function (data) {
+                deliveryFactory.currentProjectDeliveries = angular.equals(deliveryFactory.currentProjectDeliveries, []) ?
+                    {} : deliveryFactory.currentProjectDeliveries;
+                deliveryFactory.currentProjectDeliveries[data.delivery.id] = data.delivery;
+            }).error(function (error) {
+                console.log(error);
+            });
+        };
+
+        deliveryFactory.payDelivery = function (delivery) {
+            return $http.post(server + urlBase + "/" + delivery.id + "/pay", delivery).success(function (data) {
+                deliveryFactory.currentProjectDeliveries = angular.equals(deliveryFactory.currentProjectDeliveries, []) ?
+                    {} : deliveryFactory.currentProjectDeliveries;
+                deliveryFactory.currentProjectDeliveries[data.delivery.id] = data.delivery;
+            }).error(function (error) {
+                console.log(error);
+            });
+        };
+
+        deliveryFactory.undeliverDelivery = function (delivery) {
+            return $http.post(server + urlBase + "/" + delivery.id + "/undeliver", {}).success(function (data) {
+                deliveryFactory.currentProjectDeliveries = angular.equals(deliveryFactory.currentProjectDeliveries, []) ?
+                    {} : deliveryFactory.currentProjectDeliveries;
+                deliveryFactory.currentProjectDeliveries[data.delivery.id] = data.delivery;
+            }).error(function (error) {
+                console.log(error);
+            });
+        };
+
+        deliveryFactory.unpayDelivery = function (delivery) {
+            return $http.post(server + urlBase + "/" + delivery.id + "/unpay", {}).success(function (data) {
+                deliveryFactory.currentProjectDeliveries = angular.equals(deliveryFactory.currentProjectDeliveries, []) ?
+                    {} : deliveryFactory.currentProjectDeliveries;
+                deliveryFactory.currentProjectDeliveries[data.delivery.id] = data.delivery;
+            }).error(function (error) {
+                console.log(error);
+            });
+        };
+
         // DELETE
         deliveryFactory.deleteDelivery = function (id) {
             return $http.delete(server + urlBase + "/" + id).success(function (data) {

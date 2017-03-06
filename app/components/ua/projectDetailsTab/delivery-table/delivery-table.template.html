@@ -23,7 +23,7 @@
                 Non
             </div>
             <div class="ui orange button" ng-if="delivery.delivered && projectService.selectedProject.userHasRights"
-                 ng-click="cancelDelivery(delivery)" data-tooltip="Annuler la livraison">
+                 ng-click="undeliverDelivery(delivery)" data-tooltip="Annuler la livraison">
                 {{delivery.deliveryDate|date:"dd/MM/y"}}
             </div>
             <span ng-if="!delivery.delivered && !projectService.selectedProject.userHasRights">
@@ -39,7 +39,7 @@
                 Non
             </div>
             <div class="ui orange button" ng-if="delivery.paid && projectService.selectedProject.userHasRights"
-                 ng-click="cancelPayment(delivery)" data-tooltip="Annuler le paiement">
+                 ng-click="unpayDelivery(delivery)" data-tooltip="Annuler le paiement">
                 {{delivery.paymentDate|date:"dd/MM/y"}}
             </div>
             <span ng-if="!delivery.paid && !projectService.selectedProject.userHasRights">
