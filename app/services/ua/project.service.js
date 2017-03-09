@@ -5,9 +5,9 @@
         .module('doleticApp')
         .factory('ProjectService', ProjectService);
 
-    ProjectService.$inject = ['$http', 'SERVER_CONFIG'];
+    ProjectService.$inject = ['$http', 'SERVER_CONFIG', 'ConsultantService', 'ProjectManagerService', 'ProjectContactService', 'TaskService', 'AmendmentService', 'DeliveryService'];
 
-    function ProjectService($http, SERVER_CONFIG) {
+    function ProjectService($http, SERVER_CONFIG, ConsultantService, ProjectManagerService, ProjectContactService, TaskService, AmendmentService, DeliveryService) {
         var server = SERVER_CONFIG.url;
         var urlBase = '/api/ua/project';
         var projectFactory = {};
@@ -66,6 +66,54 @@
             });
         };
 
+        projectFactory.getProjectDetails = function (id, cache) {
+            if (!cache) {
+                delete projectFactory.selectedProject;
+            } else if (projectFactory.selectedProject && projectFactory.selectedProject.id === id) {
+                return;
+            }
+            return $http.get(server + urlBase + "/" + id).success(function (data) {
+                projectFactory.selectedProject = data.project;
+                ProjectManagerService.currentProjectManagers = {};
+                var manager;
+                for (manager in data.project.managers) {
+                    ProjectManagerService.currentProjectManagers[data.project.managers[manager].id] = data.project.managers[manager];
+                }
+                ProjectManagerService.currentProjectId = data.project.id;
+                ProjectContactService.currentProjectContacts = {};
+                var contact;
+                for (contact in data.project.contacts) {
+                    ProjectContactService.currentProjectContacts[data.project.contacts[contact].id] = data.project.contacts[contact];
+                }
+                ProjectContactService.currentProjectId = data.project.id;
+                ConsultantService.currentProjectConsultants = {};
+                var consultant;
+                for (consultant in data.project.consultants) {
+                    ConsultantService.currentProjectConsultants[data.project.consultants[consultant].id] = data.project.consultants[consultant];
+                }
+                ConsultantService.currentProjectId = data.project.id;
+                TaskService.currentProjectTasks = [];
+                DeliveryService.currentProjectDeliveries = {};
+                var task;
+                for (task in data.project.tasks) {
+                    TaskService.currentProjectTasks[data.project.tasks[task].number] = data.project.tasks[task];
+                    for (var delivery in data.project.tasks[task].deliveries) {
+                        DeliveryService.currentProjectDeliveries[data.project.tasks[task].deliveries[delivery].id] = data.project.tasks[task].deliveries[delivery];
+                        DeliveryService.currentProjectDeliveries[data.project.tasks[task].deliveries[delivery].id].task = data.project.tasks[task];
+                    }
+                }
+                TaskService.currentProjectId = data.project.id;
+                AmendmentService.currentProjectAmendments = {};
+                var amendment;
+                for (amendment in data.project.amendments) {
+                    AmendmentService.currentProjectAmendments[data.project.amendments[amendment].id] = data.project.amendments[amendment];
+                }
+                AmendmentService.currentProjectId = data.project.id;
+            }).error(function (data) {
+                console.log(data);
+            });
+        };
+
         projectFactory.getProjectByManagerId = function (id) {
             return $http.get(server + urlBase + "s/manager/" + id);
         };
@@ -102,6 +150,80 @@
             }
             return $http.post(server + urlBase + "/" + project.id, project).success(function (data) {
                 projectFactory[list][data.project.id] = data.project;
+                if (projectFactory.selectedProject && projectFactory.selectedProject.id == data.project.id) {
+                    projectFactory.selectedProject = data.project;
+                }
+            }).error(function (error) {
+                console.log(error);
+            });
+        };
+
+        projectFactory.signProject = function (project) {
+            return $http.post(server + urlBase + "/" + project.id + "/sign", project).success(function (data) {
+                if (projectFactory.currentProjects) {
+                    projectFactory.currentProjects[data.project.id] = data.project;
+                }
+                if (projectFactory.unsignedProjects) {
+                    delete projectFactory.unsignedProjects[data.project.id];
+                }
+                if (projectFactory.selectedProject && projectFactory.selectedProject.id == data.project.id) {
+                    projectFactory.selectedProject = data.project;
+                }
+            }).error(function (error) {
+                console.log(error);
+            });
+        };
+
+        projectFactory.endProject = function (project) {
+            return $http.post(server + urlBase + "/" + project.id + "/end", project).success(function (data) {
+                if (projectFactory.selectedProject && projectFactory.selectedProject.id == data.project.id) {
+                    projectFactory.selectedProject = data.project;
+                }
+            }).error(function (error) {
+                console.log(error);
+            });
+        };
+
+        projectFactory.unsignProject = function (project) {
+            return $http.post(server + urlBase + "/" + project.id + "/unsign", {}).success(function (data) {
+                if (projectFactory.unsignedProjects) {
+                    projectFactory.unsignedProjects[data.project.id] = data.project;
+                }
+                if (projectFactory.currentProjects) {
+                    delete projectFactory.currentProjects[data.project.id];
+                }
+                if (projectFactory.selectedProject && projectFactory.selectedProject.id == data.project.id) {
+                    projectFactory.selectedProject = data.project;
+                }
+            }).error(function (error) {
+                console.log(error);
+            });
+        };
+
+        projectFactory.unendProject = function (project) {
+            return $http.post(server + urlBase + "/" + project.id + "/unend", {}).success(function (data) {
+                if (projectFactory.selectedProject && projectFactory.selectedProject.id == data.project.id) {
+                    projectFactory.selectedProject = data.project;
+                }
+            }).error(function (error) {
+                console.log(error);
+            });
+        };
+
+        projectFactory.setProjectAuditor = function (project) {
+            var list = 'unsignedProjects';
+            if (project.disabled) {
+                list = 'disabledProjects';
+            } else if (project.archived) {
+                list = 'archivedProjects';
+            } else if (project.signDate) {
+                list = 'currentProjects';
+            }
+            return $http.post(server + urlBase + "/" + project.id + "/auditor", project).success(function (data) {
+                projectFactory[list][data.project.id] = data.project;
+                if (projectFactory.selectedProject && projectFactory.selectedProject.id == project.id) {
+                    projectFactory.selectedProject = data.project;
+                }
             }).error(function (error) {
                 console.log(error);
             });
@@ -161,7 +283,12 @@
                         {} : projectFactory.disabledProjects;
                     projectFactory.disabledProjects[data.project.id] = data.project;
                 }
-                delete projectFactory[list][data.project.id];
+                if (projectFactory[list]) {
+                    delete projectFactory[list][data.project.id];
+                }
+                if (projectFactory.selectedProject && projectFactory.selectedProject.id == data.project.id) {
+                    projectFactory.selectedProject = data.project;
+                }
             }).error(function (error) {
                 console.log(error);
             });
@@ -178,7 +305,12 @@
                         {} : projectFactory[list];
                     projectFactory[list][data.project.id] = data.project;
                 }
-                delete projectFactory.disabledProjects[data.project.id];
+                if (projectFactory.disabledProjects) {
+                    delete projectFactory.disabledProjects[data.project.id];
+                }
+                if (projectFactory.selectedProject && projectFactory.selectedProject.id == data.project.id) {
+                    projectFactory.selectedProject = data.project;
+                }
             }).error(function (error) {
                 console.log(error);
             })

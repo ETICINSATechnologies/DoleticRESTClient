@@ -9,7 +9,7 @@
 
     function GenderService($http, SERVER_CONFIG) {
         var server = SERVER_CONFIG.url;
-        var urlBase = '/api/kernel/gender';
+        var urlBase = '/api/kernel/genders/enabled';
         var genderFactory = {};
 
         genderFactory.getAllGenders = function (cache) {
@@ -18,7 +18,7 @@
             } else if (genderFactory.genders) {
                 return;
             }
-            return $http.get(server + urlBase + "s").success(function (data) {
+            return $http.get(server + urlBase ).success(function (data) {
                 genderFactory.genders = data.genders;
             }).error(function (data) {
                 console.log(data);

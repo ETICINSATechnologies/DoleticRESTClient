@@ -5,17 +5,10 @@
         .module('doleticApp')
         .controller('uaAmendmentTableController', uaAmendmentTableController);
 
-    uaAmendmentTableController.$inject = ['$scope', '$state', 'AmendmentService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'ConfirmModalService', 'MessageBoxService', 'ModalService'];
+    uaAmendmentTableController.$inject = ['$scope', '$state', 'AmendmentService', 'ConfirmModalService', 'MessageBoxService', 'ModalService'];
 
-    function uaAmendmentTableController($scope, $state, AmendmentService, DTOptionsBuilder, DTColumnDefBuilder, ConfirmModalService, MessageBoxService, ModalService) {
-        $scope.contactAmendmentService = AmendmentService;
-
-        $scope.dtOptions = DTOptionsBuilder
-            .newOptions()
-            .withPaginationType('full_numbers')
-            .withDisplayLength(25)
-            .withOption('stateSave', true);
-        $scope.dtColumnDefs = [];
+    function uaAmendmentTableController($scope, $state, AmendmentService, ConfirmModalService, MessageBoxService, ModalService) {
+        $scope.amendmentService = AmendmentService;
 
         $scope.showAmendmentForm = function (amendment) {
             ModalService.showModal({
@@ -53,7 +46,5 @@
                 }
             );
         };
-
-        AmendmentService.getAmendmentsByProject($state.params.id, true);
     }
 })();

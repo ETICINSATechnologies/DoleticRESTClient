@@ -5,11 +5,12 @@
         .module('doleticApp')
         .controller('uaProjectDetailsTabController', uaProjectDetailsTabController);
 
-    uaProjectDetailsTabController.$inject = ['$scope', '$state', 'MessageBoxService', 'ProjectService', 'ConfirmModalService', 'ProjectActionService', 'ModalService'];
+    uaProjectDetailsTabController.$inject = ['$scope', '$state', 'MessageBoxService', 'ProjectService', 'ConfirmModalService', 'ModalService', 'UserService'];
 
-    function uaProjectDetailsTabController($scope, $state, MessageBoxService, ProjectService, ConfirmModalService, ProjectActionService, ModalService) {
+    function uaProjectDetailsTabController($scope, $state, MessageBoxService, ProjectService, ConfirmModalService, ModalService, UserService) {
 
         $scope.projectService = ProjectService;
+        $scope.userService = UserService;
 
         $scope.loadProject = function () {
             ProjectService.getProjectDetails($state.params.id, true).success(function (data) {
@@ -22,122 +23,13 @@
             });
         };
 
-        $scope.deleteCurrentProject = function () {
-            var service = null;
-            var name = ProjectService.selectedProject.fullName;
-            ConfirmModalService.showConfirmModal(
-                "Confirmer la suppression",
-                "Voulez-vous vraiment supprimer le prospect " + name + " ?",
-                "remove user",
-                function () {
-                    var redirect = 'firmTab';
-
-                    switch (ProjectService.selectedProject.type.id) {
-                        case 1:
-                            service = ProjectService.deleteProspect;
-                            redirect = 'prospectTab';
-                            break;
-                        case 2:
-                            service = ProjectService.deleteProjectedProspect;
-                            redirect = 'contactedProspectTab';
-                            break;
-                        case 3:
-                            service = ProjectService.deleteClient;
-                            redirect = 'clientTab';
-                            break;
-                        case 4:
-                            service = ProjectService.deleteOldClient;
-                            redirect = 'oldClientTab';
-                            break;
-                        default:
-                            MessageBoxService.showError(
-                                "Erreur !",
-                                "Le type du contact est inconnu."
-                            );
-                            break;
-                    }
-                    if (service) {
-                        service(ProjectService.selectedProject.id).success(function (data) {
-                            MessageBoxService.showSuccess(
-                                "Suppression réussie !",
-                                "Le contact " + name + " a été supprimé."
-                            );
-                            $state.go('ua.' + redirect);
-                        }).error(function (data) {
-                            MessageBoxService.showError(
-                                "Echec de la suppression...",
-                                "Le contact n'a pas pu être supprimé..."
-                            );
-                        });
-                    }
-                }
-            );
-        };
-
-        $scope.updateHistory = function () {
-            ProjectActionService.getProjectActionsByProject($state.params.id, false);
-        };
-
         $scope.showProjectForm = function () {
-            if (ProjectService.selectedProject.type) {
-                var args = {
-                    templateUrl: "app/components/ua/prospectTab/prospect-form/prospect-form.template.html",
-                    controller: "uaProspectFormController",
-                    inputs: {
-                        editMode: true,
-                        prospect: ProjectService.selectedProject
-                    }
-                };
-                switch (ProjectService.selectedProject.type.id) {
-                    case 1:
-                        break;
-                    case 2:
-                        args.templateUrl = "app/components/ua/contactedProspectTab/contactedProspect-form/contactedProspect-form.template.html";
-                        args.controller = "uaProjectedProspectFormController";
-                        delete args.inputs.prospect;
-                        args.inputs.contactedProspect = ProjectService.selectedProject;
-                        break;
-                    case 3:
-                        args.templateUrl = "app/components/ua/clientTab/client-form/client-form.template.html";
-                        args.controller = "uaClientFormController";
-                        delete args.inputs.prospect;
-                        args.inputs.client = ProjectService.selectedProject;
-                        break;
-                    case 4:
-                        args.templateUrl = "app/components/ua/oldClientTab/oldClient-form/oldClient-form.template.html";
-                        args.controller = "uaOldClientFormController";
-                        delete args.inputs.prospect;
-                        args.inputs.oldClient = ProjectService.selectedProject;
-                        break;
-                    default:
-                        MessageBoxService.showError(
-                            "Erreur !",
-                            "Le type du contact est inconnu."
-                        );
-                        return;
-                        break;
-                }
-                ModalService.showModal(args).then(function (modal) {
-                    modal.element.modal('show');
-                }).catch(function (error) {
-                    // error contains a detailed error message.
-                    console.log(error);
-                });
-            } else {
-                MessageBoxService.showError(
-                    "Erreur !",
-                    "Le type du contact n'est pas défini."
-                );
-            }
-        };
-
-        $scope.showProjectActionForm = function () {
             ModalService.showModal({
-                templateUrl: "app/components/ua/contactDetailsTab/action-form/action-form.template.html",
-                controller: "uaActionFormController",
+                templateUrl: "app/components/ua/unsignedTab/project-form/project-form.template.html",
+                controller: "uaProjectFormController",
                 inputs: {
-                    editMode: false,
-                    action: {}
+                    editMode: true,
+                    project: ProjectService.selectedProject
                 }
             }).then(function (modal) {
                 modal.element.modal('show');
@@ -146,5 +38,169 @@
                 console.log(error);
             });
         };
+
+        $scope.showDisableForm = function () {
+            ModalService.showModal({
+                templateUrl: "app/components/ua/unsignedTab/disable-form/disable-form.template.html",
+                controller: "uaDisableFormController",
+                inputs: {
+                    project: angular.copy(ProjectService.selectedProject)
+                }
+            }).then(function (modal) {
+                modal.element.modal('show');
+            }).catch(function (error) {
+                // error contains a detailed error message.
+                console.log(error);
+            });
+        };
+
+        $scope.enableSelectedProject = function () {
+            var number = ProjectService.selectedProject.number;
+            ConfirmModalService.showConfirmModal(
+                "Confirmer la réactivation",
+                "Voulez-vous vraiment réactiver l'étude " + number + " ?",
+                "remove",
+                function () {
+                    ProjectService.enableProject(angular.copy(ProjectService.selectedProject)).success(function (data) {
+                        MessageBoxService.showSuccess(
+                            "Réactivation réussie !",
+                            "L'étude " + number + " a été réactivée."
+                        );
+                    }).error(function (data) {
+                        MessageBoxService.showError(
+                            "Echec de la réactivation...",
+                            "L'étude n'a pas pu être réactivée..."
+                        );
+                    });
+
+                }
+            );
+        };
+
+        $scope.showTaskForm = function () {
+            ModalService.showModal({
+                templateUrl: "app/components/ua/projectDetailsTab/task-form/task-form.template.html",
+                controller: "uaTaskFormController",
+                inputs: {
+                    editMode: false,
+                    task: {}
+                }
+            }).then(function (modal) {
+                modal.element.modal('show');
+            }).catch(function (error) {
+                // error contains a detailed error message.
+                console.log(error);
+            });
+        };
+
+        $scope.showDeliveryForm = function () {
+            ModalService.showModal({
+                templateUrl: "app/components/ua/projectDetailsTab/delivery-form/delivery-form.template.html",
+                controller: "uaDeliveryFormController",
+                inputs: {
+                    editMode: false,
+                    delivery: {}
+                }
+            }).then(function (modal) {
+                modal.element.modal('show');
+            }).catch(function (error) {
+                // error contains a detailed error message.
+                console.log(error);
+            });
+        };
+
+        $scope.showAmendmentForm = function () {
+            ModalService.showModal({
+                templateUrl: "app/components/ua/projectDetailsTab/amendment-form/amendment-form.template.html",
+                controller: "uaAmendmentFormController",
+                inputs: {
+                    editMode: false,
+                    amendment: {}
+                }
+            }).then(function (modal) {
+                modal.element.modal('show');
+            }).catch(function (error) {
+                // error contains a detailed error message.
+                console.log(error);
+            });
+        };
+
+        $scope.showSignForm = function () {
+            ModalService.showModal({
+                templateUrl: "app/components/ua/projectDetailsTab/sign-form/sign-form.template.html",
+                controller: "uaSignFormController",
+                inputs: {
+                    project: angular.copy(ProjectService.selectedProject)
+                }
+            }).then(function (modal) {
+                modal.element.modal('show');
+            }).catch(function (error) {
+                // error contains a detailed error message.
+                console.log(error);
+            });
+        };
+
+        $scope.showEndForm = function () {
+            ModalService.showModal({
+                templateUrl: "app/components/ua/projectDetailsTab/end-form/end-form.template.html",
+                controller: "uaEndFormController",
+                inputs: {
+                    project: angular.copy(ProjectService.selectedProject)
+                }
+            }).then(function (modal) {
+                modal.element.modal('show');
+            }).catch(function (error) {
+                // error contains a detailed error message.
+                console.log(error);
+            });
+        };
+
+        $scope.unsignSelectedProject = function () {
+            var number = ProjectService.selectedProject.number;
+            ConfirmModalService.showConfirmModal(
+                "Confirmer l'annulation",
+                "Voulez-vous vraiment annuler la signature de l'étude " + number + " ?",
+                "remove",
+                function () {
+                    ProjectService.unsignProject(angular.copy(ProjectService.selectedProject)).success(function (data) {
+                        MessageBoxService.showSuccess(
+                            "Annulation réussie !",
+                            "La signature de l'étude " + number + " a été annulée."
+                        );
+                    }).error(function (data) {
+                        MessageBoxService.showError(
+                            "Echec de l'annulation...",
+                            "La signature de l'étude n'a pas pu être annulée..."
+                        );
+                    });
+
+                }
+            );
+        };
+
+        $scope.unendSelectedProject = function () {
+            var number = ProjectService.selectedProject.number;
+            ConfirmModalService.showConfirmModal(
+                "Confirmer l'annulation",
+                "Voulez-vous vraiment annuler la clôture de l'étude " + number + " ?",
+                "remove",
+                function () {
+                    ProjectService.unendProject(angular.copy(ProjectService.selectedProject)).success(function (data) {
+                        MessageBoxService.showSuccess(
+                            "Annulation réussie !",
+                            "La clôture de l'étude " + number + " a été annulée."
+                        );
+                    }).error(function (data) {
+                        MessageBoxService.showError(
+                            "Echec de l'annulation...",
+                            "La clôture de l'étude n'a pas pu être annulée..."
+                        );
+                    });
+
+                }
+            );
+        };
+
+        UserService.getAllUsers(true);
     }
 })();

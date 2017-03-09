@@ -55,7 +55,7 @@
     position: fixed;
     top: 60px;
     opacity: 1;
-    z-index: 1000;
+    z-index: 10000;
     width: 100% !important;
 }
 
@@ -95,4 +95,10 @@
 .form .ui.message {
     margin-left: 3em !important;
     margin-right: 3em !important;
+}
+
+.search.dropdown {
+    display: block;
+    width: 100%;
+    min-width: 0;
 }

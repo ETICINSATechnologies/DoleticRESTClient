@@ -5,9 +5,9 @@
         .module('doleticApp')
         .controller('ProfileFormController', ProfileFormController);
 
-    ProfileFormController.$inject = ['$scope', 'close', '$state', 'SharedVariables', 'MessageBoxService', 'UserService', 'CountryService', 'GenderService', 'YearService', 'DepartmentService', 'editMode', 'profile'];
+    ProfileFormController.$inject = ['$scope', 'close', '$filter', '$state', 'SharedVariables', 'MessageBoxService', 'UserService', 'CountryService', 'GenderService', 'YearService', 'DepartmentService', 'profile'];
 
-    function ProfileFormController($scope, close, $state, SharedVariables, MessageBoxService, UserService, CountryService, GenderService, YearService, DepartmentService, editMode, profile) {
+    function ProfileFormController($scope, close, $filter, $state, SharedVariables, MessageBoxService, UserService, CountryService, GenderService, YearService, DepartmentService, profile) {
 
         $scope.$state = $state;
         $scope.sharedVariables = SharedVariables;
@@ -20,12 +20,10 @@
         $scope.DepartmentService = DepartmentService;
         if(profile!={})formatProfile();
         $scope.profile = profile;
-        $scope.editMode = editMode?editMode:false;
 
         $scope.resetForm = function () {
             $scope.profile = {};
             $scope.profileForm.$setPristine();
-            $scope.editMode = false;
         };
 
         function updateProfile() {
@@ -55,10 +53,12 @@
         function formatProfile() {
             if(profile.country)profile.country = profile.country.id;
             if(profile.gender)profile.gender = profile.gender.id;
-            if(profile.year)profile.year = profile.year.id;
+            if(profile.schoolYear)profile.schoolYear = profile.schoolYear.id;
             if(profile.department)profile.department = profile.department.id;
+            if (profile.birthDate) profile.birthDate = $filter('date')(profile.birthDate, "dd/MM/y");
+            if(profile.recruitmentEvent) profile.recruitmentEvent = profile.recruitmentEvent.id;
         }
 
     }
 
-})
+})();

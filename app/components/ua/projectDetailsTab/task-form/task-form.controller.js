@@ -3,78 +3,73 @@
 
     angular
         .module('doleticApp')
-        .controller('grcActionFormController', grcActionFormController);
+        .controller('uaTaskFormController', uaTaskFormController);
 
-    grcActionFormController.$inject = ['$scope', 'close', '$state', '$filter', 'ContactActionService', 'ContactActionTypeService', 'MessageBoxService', 'UserService', 'editMode', 'action'];
+    uaTaskFormController.$inject = ['$scope', 'close', '$state', '$filter', 'TaskService', 'ProjectService', 'MessageBoxService', 'editMode', 'task'];
 
-    function grcActionFormController($scope, close, $state, $filter, ContactActionService, ContactActionTypeService, MessageBoxService, UserService, editMode, action) {
+    function uaTaskFormController($scope, close, $state, $filter, TaskService, ProjectService, MessageBoxService, editMode, task) {
 
-        if (action != {}) formatAction();
-        $scope.action = action;
+        if (task != {}) formatTask();
+        $scope.task = task;
         $scope.editMode = editMode ? editMode : false;
-        $scope.contactActionTypeService = ContactActionTypeService;
-        $scope.ContactActionService = ContactActionService;
-        $scope.userService = UserService;
+        $scope.TaskService = TaskService;
 
         $scope.resetForm = function () {
-            $scope.action = {};
-            $scope.actionForm.$setPristine();
+            $scope.task = {};
+            $scope.taskForm.$setPristine();
             $scope.editMode = false;
         };
 
-        $scope.addAction = function () {
-            $scope.action.contact = $state.params.id;
-            ContactActionService.postContactAction($scope.action)
+        $scope.addTask = function () {
+            $scope.task.project = $state.params.id;
+            TaskService.postTask($scope.task)
                 .success(
                     function (data) {
-                        $('#action_form_modal').modal('hide');
+                        $('#task_form_modal').modal('hide');
                         $scope.resetForm();
                         MessageBoxService.showSuccess(
                             "Opération réussie !",
-                            "La prise de contact a été ajoutée."
+                            "La phase a été ajoutée."
                         );
                         close();
                     }
                 )
                 .error(
                     function (data) {
-                        $('#action_form_modal').modal('hide');
+                        $('#task_form_modal').modal('hide');
                         MessageBoxService.showError(
                             "Echec de l'ajout...",
-                            "La prise de contact n'a pas pu être ajoutée."
+                            "La phase n'a pas pu être ajoutée."
                         );
+                        close();
                     }
                 )
         };
 
-        $scope.editAction = function () {
-            ContactActionService.putContactAction($scope.action)
+        $scope.editTask = function () {
+            $scope.task.project = $state.params.id;
+            TaskService.putTask($scope.task)
                 .success(function (data) {
-                    $('#action_form_modal').modal('hide');
+                    $('#task_form_modal').modal('hide');
                     $scope.resetForm();
                     MessageBoxService.showSuccess(
                         "Opération réussie !",
-                        "L'action  a été modifiée !"
+                        "La phase  a été modifiée !"
                     );
                     close();
                 }).error(function (data) {
-                    $('#action_form_modal').modal('hide');
+                    $('#task_form_modal').modal('hide');
                     MessageBoxService.showError(
                         "Echec de la modification...",
-                        "L'action n'a pas pu être modifiée.");
+                        "La phase n'a pas pu être modifiée.");
                 }
             );
         };
 
-        function formatAction() {
-            if (action.type) action.type = action.type.id;
-            if (action.prospector) action.prospector = action.prospector.id;
-            if (action.contact) action.contact = action.contact.id;
-            if (action.date) action.date = $filter('date')(action.date, "dd/MM/y");
+        function formatTask() {
+            if (task.startDate) task.startDate = $filter('date')(task.startDate, "dd/MM/y");
+            if (task.endDate) task.endDate = $filter('date')(task.endDate, "dd/MM/y");
         }
-
-        ContactActionTypeService.getAllContactActionTypes(true);
-        UserService.getAllUsers(true);
     }
 
 })();
