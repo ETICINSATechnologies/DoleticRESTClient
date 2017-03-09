@@ -5,13 +5,13 @@
         .module('doleticApp')
         .controller('grcFirmFormController', grcFirmFormController);
 
-    grcFirmFormController.$inject = ['$scope', 'FirmService', 'FirmTypeService', 'CountryService', 'MessageBoxService', 'editMode', 'firm'];
+    grcFirmFormController.$inject = ['$scope', 'FirmService', 'FirmTypeService', 'CountryService', 'MessageBoxService', 'editMode', 'firm', 'close'];
 
-    function grcFirmFormController($scope, FirmService, FirmTypeService, CountryService, MessageBoxService, editMode, firm) {
+    function grcFirmFormController($scope, FirmService, FirmTypeService, CountryService, MessageBoxService, editMode, firm, close) {
 
-        if(firm!={})formatFirm();
+        if (firm != {}) formatFirm();
         $scope.firm = firm;
-        $scope.editMode = editMode?editMode:false;
+        $scope.editMode = editMode ? editMode : false;
         $scope.firmTypeService = FirmTypeService;
         $scope.countryService = CountryService;
 
@@ -30,6 +30,7 @@
                         "Opération réussie !",
                         "La société a été ajoutée."
                     );
+                    close();
                 }).error(function (data) {
                     $('#firm_form_modal').modal('hide');
                     MessageBoxService.showError(
@@ -50,6 +51,7 @@
                         "Opération réussie !",
                         "La société " + name + " a été modifiée !"
                     );
+                    close();
                 }).error(function (data) {
                     $('#firm_form_modal').modal('hide');
                     MessageBoxService.showError(
@@ -58,12 +60,13 @@
                 }
             );
         };
+
         FirmTypeService.getAllFirmTypes(true);
         CountryService.getAllCountries(true);
-        
+
         function formatFirm() {
-            if(firm.country)firm.country = firm.country.id;
-            if(firm.type)firm.type = firm.type.id;
+            if (firm.country) firm.country = firm.country.id;
+            if (firm.type) firm.type = firm.type.id;
         }
     }
 

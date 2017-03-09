@@ -5,10 +5,12 @@
         .module('doleticApp')
         .controller('grcContactedProspectTableController', grcContactedProspectTableController);
 
-    grcContactedProspectTableController.$inject = ['$scope', '$state', 'ContactService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'ConfirmModalService', 'MessageBoxService'];
+    grcContactedProspectTableController.$inject = ['$scope', '$state', 'ContactService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'ConfirmModalService', 'MessageBoxService', 'ModalService', 'GRCService', 'UserService'];
 
-    function grcContactedProspectTableController($scope, $state, ContactService, DTOptionsBuilder, DTColumnDefBuilder, ConfirmModalService, MessageBoxService) {
+    function grcContactedProspectTableController($scope, $state, ContactService, DTOptionsBuilder, DTColumnDefBuilder, ConfirmModalService, MessageBoxService, ModalService, GRCService, UserService) {
         $scope.contactService = ContactService;
+        $scope.grcService = GRCService;
+        $scope.userService = UserService;
 
         $scope.dtOptions = DTOptionsBuilder
             .newOptions()
@@ -38,6 +40,66 @@
                     });
                 }
             )
+        };
+
+        $scope.showContactedProspectForm = function (contactedProspect) {
+            ModalService.showModal({
+                templateUrl: "app/components/grc/contactedProspectTab/contactedProspect-form/contactedProspect-form.template.html",
+                controller: "grcContactedProspectFormController",
+                inputs: {
+                    editMode: true,
+                    contactedProspect: angular.copy(contactedProspect)
+                }
+            }).then(function (modal) {
+                modal.element.modal('show');
+            }).catch(function (error) {
+                // error contains a detailed error message.
+                console.log(error);
+            });
+        };
+
+        $scope.toProspect = function (contactedProspect) {
+            var name = contactedProspect.fullName;
+            ConfirmModalService.showConfirmModal(
+                "Confirmer la modification",
+                "Voulez-vous vraiment demander une nouvelle prospection pour " + name + " ?",
+                "reply",
+                function () {
+                    ContactService.contactedProspectToProspect(contactedProspect).success(function (data) {
+                        MessageBoxService.showSuccess(
+                            "Modification réussie !",
+                            "Le prospect " + name + " a été marqué comme à prospecter."
+                        );
+                    }).error(function (data) {
+                        MessageBoxService.showError(
+                            "Echec de la modification...",
+                            "Le prospect " + name + " n'a pas pu être marqué comme à prospecter."
+                        );
+                    });
+                }
+            );
+        };
+
+        $scope.toClient = function (contactedProspect) {
+            var name = contactedProspect.fullName;
+            ConfirmModalService.showConfirmModal(
+                "Confirmer la modification",
+                "Voulez-vous vraiment marquer " + name + " comme client actuel ?",
+                "suitcase",
+                function () {
+                    ContactService.contactedProspectToClient(contactedProspect).success(function (data) {
+                        MessageBoxService.showSuccess(
+                            "Modification réussie !",
+                            "Le prospect " + name + " a été marqué comme client actuel."
+                        );
+                    }).error(function (data) {
+                        MessageBoxService.showError(
+                            "Echec de la modification...",
+                            "Le prospect " + name + " n'a pas pu être marqué comme client actuel."
+                        );
+                    });
+                }
+            );
         };
 
         ContactService.getAllContactedProspects(true);

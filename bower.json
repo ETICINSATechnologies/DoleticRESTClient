@@ -28,7 +28,8 @@
     "angular-datatables": "^0.5.5",
     "ng-dropdown": "semanticUI.ngDropdown#^1.0.4",
     "dataTables.semanticui.min": "https://cdn.datatables.net/1.10.13/js/dataTables.semanticui.min.js",
-    "angular-semantic-ui": "^0.0.3"
+    "angular-semantic-ui": "^0.0.3",
+    "jquery-datatables-columnfilter": "jquery-datatables-column-filter#*"
   },
   "resolutions": {
     "angular": "1.5.8"

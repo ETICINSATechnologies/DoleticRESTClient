@@ -1,0 +1,73 @@
+<table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="ui very basic celled table">
+    <thead>
+    <tr>
+        <th>Numéro</th>
+        <th>Nom</th>
+        <th>Domaine</th>
+        <th>Société</th>
+        <th>Chargés d'affaires</th>
+        <th>Consultants</th>
+        <th>Corresp. Qualité</th>
+        <th>Statut</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tfoot>
+    <tr>
+        <th>Numéro</th>
+        <th>Nom</th>
+        <th>Domaine</th>
+        <th>Société</th>
+        <th>Chargés d'affaires</th>
+        <th>Consultants</th>
+        <th>Corresp. Qualité</th>
+        <th>Statut</th>
+        <th></th>
+    </tr>
+    </tfoot>
+    <tbody>
+    <tr ng-repeat="project in projectService.archivedProjects">
+        <td>
+            <a class="ui teal button"
+               data-tooltip="Détails de l'étude {{project.number}}"
+               data-content="Cliquez ici pour afficher plus d'informations"
+               ui-sref="ua.projectDetailsTab({id : project.id})">
+                {{project.number}}
+            </a>
+        </td>
+        <td>{{project.name}}</td>
+        <td>{{project.field.label}}</td>
+        <td>{{project.firm.name}}</td>
+        <td>
+            <a ng-repeat="manager in project.managers" ui-sref="rh.userDetailsTab({id : manager.manager.id})">
+                {{manager.manager.fullName}}<br>
+            </a>
+        </td>
+        <td>
+            <a ng-repeat="consultant in project.consultants" ui-sref="rh.userDetailsTab({id : consultant.user.id})">
+                {{consultant.user.fullName}}<br>
+            </a>
+        </td>
+        <td>
+            <a ui-sref="rh.userDetailsTab({id : project.auditor.id})">
+                {{project.auditor.fullName}}
+            </a>
+        </td>
+        <td>{{project.status.label}}</td>
+        <td>
+            <div class="ui icon buttons">
+                <button class="ui yellow icon button" ng-if="uaService.rightLevel >= 4"
+                        data-tooltip="Restaurer" ng-click="restoreProject(project)">
+                    <i class="reply icon"></i>
+                </button>
+                <button class="ui red icon button"
+                        ng-if="uaService.rightLevel >= 4"
+                        data-tooltip="Supprimer"
+                        ng-click="deleteArchivedProject(project.id)">
+                    <i class="remove icon"></i>
+                </button>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>

@@ -1,0 +1,44 @@
+<div class="ui modal" id="amendment_form_modal">
+    <div class="ui segment">
+        <form name="amendmentForm" class="ui form vertical segment"
+              ng-submit="amendmentForm.$valid && editMode?editAmendment():addAmendment()"
+              novalidate>
+            <div class="ui message" ng-show="amendmentForm.$dirty"
+                 ng-class="{'positive' : amendmentForm.$valid, 'negative' : amendmentForm.$invalid}">
+                Le formulaire est {{ amendmentForm.$valid ? "valide" : "invalide" }}
+            </div>
+            <h2 ng-if="!editMode" class="ui dividing header">Ajout d'un avenant</h2>
+            <h2 ng-if="editMode" class="ui dividing header">Modification d'un avenant</h2>
+            <div class="sixteen wide required field">
+                <label>Date</label>
+                <input placeholder="JJ/MM/AAAA" type="text"
+                       ng-pattern="/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/"
+                       ng-model="amendment.date" required/>
+            </div>
+            <div class="fields">
+                <div class="eight wide required field">
+                    <label>Types d'avenant</label>
+                    <ng-dropdown data-label="label" ng-option="amendmentTypeService.amendmentTypes"
+                                 data-value="id" ng-multiple="true"
+                                 ng-model="amendment.types" required="true"></ng-dropdown>
+                </div>
+                <div class="eight wide field">
+                    <label>Imputable à la J.E. ?</label>
+                    <checkbox type="toggle" ng-model="amendment.attributable"></checkbox>
+                </div>
+            </div>
+            <div class="sixteen wide required field">
+                <label>Contenu</label>
+                <textarea ng-model="amendment.content" placeholder="Contenu..." required></textarea>
+            </div>
+            <div class="ui small buttons">
+                <input type="reset" value="Annuler" class="ui button"/>
+                <div class="or" data-text="ou"></div>
+                <input ng-if="!editMode" type="submit" value="Ajouter" class="ui green button"
+                       ng-class="{ 'disabled': amendmentForm.$invalid }"/>
+                <input ng-if="editMode" type="submit" value="Modifier" class="ui green button"
+                       ng-class="{ 'disabled': amendmentForm.$invalid }"/>
+            </div>
+        </form>
+    </div>
+</div>

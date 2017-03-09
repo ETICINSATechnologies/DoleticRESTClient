@@ -2,8 +2,11 @@
     <div class="row">
         <div class="sixteen wide column">
             <div class="ui buttons">
-                <div class="ui green button" ng-click="">
+                <div class="ui green button" ng-click="showContactForm()">
                     Modifier le contact
+                </div>
+                <div class="ui olive button" ng-click="updateHistory()">
+                    Actualiser l'historique
                 </div>
                 <div class="ui red button" ng-click="deleteCurrentContact()">
                     Supprimer le contact
@@ -110,7 +113,7 @@
             <div class="row">
                 <grc-action-table-component></grc-action-table-component>
             </div>
-            <div class="ui green fluid button" ng-click="">
+            <div class="ui green fluid button" ng-click="showContactActionForm()">
                 Ajouter une prise de contact
             </div>
         </div>

@@ -55,7 +55,7 @@
     position: fixed;
     top: 60px;
     opacity: 1;
-    z-index: 1000;
+    z-index: 10000;
     width: 100% !important;
 }
 
@@ -67,7 +67,38 @@
     background-color: #FFF6F6 !important;
     color: #9F3A38 !important;
 }
+
 .ng-valid.ng-dirty:not(form) {
     background-color: #FCFFF5 !important;
     color: #2C662D !important;
+}
+
+.modal .form.segment {
+    padding-top: 0 !important;
+}
+
+.field {
+    margin-bottom: 0.4em !important;
+}
+
+.fields {
+    margin-bottom: 0 !important;
+}
+
+.form_refresh.button {
+    position: absolute;
+    top: 6px;
+    right: 5px;
+    z-index: 1002;
+}
+
+.form .ui.message {
+    margin-left: 3em !important;
+    margin-right: 3em !important;
+}
+
+.search.dropdown {
+    display: block;
+    width: 100%;
+    min-width: 0;
 }

@@ -5,16 +5,37 @@
         .module('doleticApp')
         .controller('grcFirmTableController', grcFirmTableController);
 
-    grcFirmTableController.$inject = ['$scope', '$state', 'FirmService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'ConfirmModalService', 'MessageBoxService', 'ModalService'];
+    grcFirmTableController.$inject = ['$scope', '$state', 'FirmService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'ConfirmModalService', 'MessageBoxService', 'ModalService', 'GRCService'];
 
-    function grcFirmTableController($scope, $state, FirmService, DTOptionsBuilder, DTColumnDefBuilder, ConfirmModalService, MessageBoxService, ModalService) {
+    function grcFirmTableController($scope, $state, FirmService, DTOptionsBuilder, DTColumnDefBuilder, ConfirmModalService, MessageBoxService, ModalService, GRCService) {
         $scope.firmService = FirmService;
+        $scope.grcService = GRCService;
 
         $scope.dtOptions = DTOptionsBuilder
             .newOptions()
             .withPaginationType('full_numbers')
             .withDisplayLength(25)
-            .withOption('stateSave', true);
+            .withOption('stateSave', true)
+            .withColumnFilter({
+                aoColumns:[
+                    {type: "text"},
+                    {type: "text"},
+                    {
+                        type: "semantic-dropdown",
+                        values:['Autres', 'test'],
+                        id:"company_table_Type"
+                    },
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "text"},
+                    {
+                        type: "semantic-dropdown",
+                        values:['France','Allemagne', 'Belgique'],
+                        id:"company_table_country"
+                    },
+                    {type: "reset-button"}
+                ]
+            });
         $scope.dtColumnDefs = [];
 
         $scope.deleteFirm = function (id) {
@@ -43,9 +64,9 @@
             ModalService.showModal({
                 templateUrl: "app/components/grc/firmTab/firm-form/firm-form.template.html",
                 controller: "grcFirmFormController",
-                inputs:{
-                    editMode:true,
-                    firm:angular.copy(firm)
+                inputs: {
+                    editMode: true,
+                    firm: angular.copy(firm)
                 }
             }).then(function (modal) {
                 modal.element.modal('show');

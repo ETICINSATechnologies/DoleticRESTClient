@@ -1,66 +1,76 @@
 <table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="ui very basic celled table">
     <thead>
-        <tr>
-            <th></th>
-            <th>Nom/Email</th>
-            <th>Téléphone</th>
-            <th>Mobile</th>
-            <th>Société</th>
-            <th>Rôle</th>
-            <th>Assigné à</th>
-            <th>Actions</th>
-        </tr>
+    <tr>
+        <th></th>
+        <th>Nom/Email</th>
+        <th>Téléphone</th>
+        <th>Mobile</th>
+        <th>Société</th>
+        <th>Rôle</th>
+        <th>Assigné à</th>
+        <th>Actions</th>
+    </tr>
     </thead>
     <tfoot>
-        <tr>
-            <th></th>
-            <th>Nom/Email</th>
-            <th>Téléphone</th>
-            <th>Mobile</th>
-            <th>Société</th>
-            <th>Rôle</th>
-            <th>Assigné à</th>
-            <th></th>
-        </tr>
+    <tr>
+        <th></th>
+        <th>Nom/Email</th>
+        <th>Téléphone</th>
+        <th>Mobile</th>
+        <th>Société</th>
+        <th>Rôle</th>
+        <th>Assigné à</th>
+        <th></th>
+    </tr>
     </tfoot>
     <tbody>
-        <tr ng-repeat="oldClient in contactService.oldClients">
-            <td>
-                <a class="ui teal icon button"
-                   data-tooltip="Détails de {{oldClient.fullName}}"
-                   data-content="Cliquez ici pour afficher plus d'informations"
-                   ui-sref="grc.contactDetailsTab({id : oldClient.id})">
-                    <i class="user icon"></i>
-                </a>
-            </td>
-            <td>
-                <div class="ui small header">
-                    <div class="content">
-                        {{oldClient.fullName}}
-                        <div class="sub header">
-                            <a href="mailto:{{oldClient.email}}" target="_blank">{{oldClient.email}}</a>
-                        </div>
+    <tr ng-repeat="oldClient in contactService.oldClients">
+        <td>
+            <a class="ui teal icon button"
+               data-tooltip="Détails de {{oldClient.fullName}}"
+               data-content="Cliquez ici pour afficher plus d'informations"
+               ui-sref="grc.contactDetailsTab({id : oldClient.id})">
+                <i class="user icon"></i>
+            </a>
+        </td>
+        <td>
+            <div class="ui small header">
+                <div class="content">
+                    {{oldClient.fullName}}
+                    <div class="sub header">
+                        <a href="mailto:{{oldClient.email}}" target="_blank">{{oldClient.email}}</a>
                     </div>
                 </div>
-            </td>
-            <td>0{{oldClient.phone}}</td>
-            <td>0{{oldClient.cellPhone}}</td>
-            <td>{{oldClient.firm.name}}</td>
-            <td>{{oldClient.role}}</td>
-            <td>{{oldClient.prospector.fullName}}</td>
-            <td>
-                <div class="ui icon buttons">
-                    <button class="ui blue icon button" data-tooltip="Modifier" ng-click="">
-                        <i class="write icon"></i>
-                    </button>
-                    <button class="ui yellow icon button" data-tooltip="Marquer comme à prospecter" ng-click="">
-                        <i class="call icon"></i>
-                    </button>
-                    <button class="ui red icon button" data-tooltip="Supprimer" ng-click="deleteOldClient(oldClient.id)">
-                        <i class="remove icon"></i>
-                    </button>
-                </div>
-            </td>
-        </tr>
+            </div>
+        </td>
+        <td>0{{oldClient.phone}}</td>
+        <td>0{{oldClient.cellPhone}}</td>
+        <td>{{oldClient.firm.name}}</td>
+        <td>{{oldClient.role}}</td>
+        <td>{{oldClient.prospector.fullName}}</td>
+        <td>
+            <div class="ui icon buttons">
+                <button class="ui blue icon button" ng-if="grcService.rightLevel >= 3" data-tooltip="Modifier"
+                        ng-click="showOldClientForm(oldClient)">
+                    <i class="write icon"></i>
+                </button>
+                <button class="ui orange icon button" ng-if="grcService.rightLevel >= 3"
+                        data-tooltip="Demander une prospection"
+                        ng-click="toProspect(oldClient)">
+                    <i class="reply all icon"></i>
+                </button>
+                <button class="ui yellow icon button" ng-if="grcService.rightLevel >= 3"
+                        data-tooltip="Rétablir en tant que client"
+                        ng-click="toClient(oldClient)">
+                    <i class="reply icon"></i>
+                </button>
+                <button class="ui red icon button"
+                        ng-if="grcService.rightLevel >= 4 || oldClient.creator.id == userService.getCurrentUser().id"
+                        data-tooltip="Supprimer" ng-click="deleteOldClient(oldClient.id)">
+                    <i class="remove icon"></i>
+                </button>
+            </div>
+        </td>
+    </tr>
     </tbody>
 </table>

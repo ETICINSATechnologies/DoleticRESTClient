@@ -1,0 +1,46 @@
+<table class="ui very basic celled table">
+    <thead>
+    <tr>
+        <th>Nom complet</th>
+        <th>Téléphone</th>
+        <th>Adresse mail</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tfoot ng-if="projectService.selectedProject.userHasRights">
+    <tr>
+        <th colspan="4">
+            <form name="projectContactForm" ng-submit="projectContactForm.$valid && addProjectContact()" novalidate>
+                <div class="ui centered grid">
+                    <div class="thirteen wide column">
+                        <ng-dropdown data-label="fullName" ng-option="contactService.firmContacts" data-value="id"
+                                     ng-model="projectContact.contact" required="true"></ng-dropdown>
+                    </div>
+                    <div class="three wide column">
+                        <input type="submit" value="Ajouter" class="ui green button"
+                               ng-class="{ 'disabled': projectContactForm.$invalid }"/>
+                    </div>
+                </div>
+            </form>
+        </th>
+    </tr>
+    </tfoot>
+    <tbody>
+    <tr ng-repeat="contact in projectContactService.currentProjectContacts">
+        <td>
+            <a ui-sref="grc.contactDetailsTab({id : contact.contact.id})">
+                {{contact.contact.fullName}}<br>
+            </a>
+        </td>
+        <td>{{contact.contact.phone}}</td>
+        <td>{{contact.contact.email}}</td>
+        <td>
+            <div ng-if="projectService.selectedProject.userHasRights" class="ui icon buttons">
+                <button class="ui red icon button" data-tooltip="Supprimer" ng-click="deleteProjectContact(contact.id)">
+                    <i class="remove icon"></i>
+                </button>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>

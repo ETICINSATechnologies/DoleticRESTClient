@@ -1,0 +1,24 @@
+<div class="ui two column grid container">
+    <div class="row">
+        <div class="sixteen wide column">
+            <div class="ui buttons">
+                <div class="ui green button" ng-if="uaService.rightLevel >= 3" ng-click="showProjectForm()">
+                    Ajouter une sollicitation
+                </div>
+                <div class="ui olive button" ng-click="projectService.getAllUnsignedProjects(false);">
+                    Actualiser la liste
+                </div>
+                <div class="ui yellow button" ng-click="alert('Fonction non implémentée...')">
+                    Exporter au format Excel
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="sixteen wide column">
+            <ua-unsigned-table-component></ua-unsigned-table-component>
+        </div>
+    </div>
+    <div class="row">
+    </div>
+</div>

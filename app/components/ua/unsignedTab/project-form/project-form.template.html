@@ -1,0 +1,81 @@
+<div class="ui modal" id="project_form_modal">
+    <form class="ui form segment" name="projectForm"
+          ng-submit="projectForm.$valid && editMode?editProject():addProject()" novalidate>
+        <fix-modal-component></fix-modal-component>
+        <div class="ui message" ng-show="projectForm.$dirty"
+             ng-class="{'positive' : projectForm.$valid, 'negative' : projectForm.$invalid}">
+            Le formulaire est {{ projectForm.$valid ? "valide" : "invalide" }}
+        </div>
+        <h4 ng-if="!editMode" class="ui dividing header">Ajout d'une sollicitation</h4>
+        <h4 ng-if="editMode" class="ui dividing header">Modification d'une étude</h4>
+        <div class="sixteen wide required field">
+            <label>Nom de l'étude</label>
+            <input name="name" placeholder="Nom..." type="text" ng-model="project.name" required/>
+        </div>
+        <div class="sixteen wide required field">
+            <label>Description</label>
+            <textarea ng-model="project.description" placeholder="Description..." required></textarea>
+        </div>
+        <div class="ui fields">
+            <div class="eight wide required field">
+                <label>Origine de la sollicitation</label>
+                <ng-dropdown data-label="label" ng-option="projectOriginService.projectOrigins" data-value="id"
+                             ng-model="project.origin" required="true"></ng-dropdown>
+            </div>
+            <div class="eight wide required field">
+                <label>Domaine principal</label>
+                <ng-dropdown data-label="label" ng-option="projectFieldService.projectFields" data-value="id"
+                             ng-model="project.field" required="true"></ng-dropdown>
+            </div>
+        </div>
+        <div class="ui fields">
+            <div class="eight wide field">
+                <label>Société</label>
+                <ng-dropdown data-label="name" ng-option="firmService.firms" data-value="id" ng-model="project.firm"
+                             required="true"></ng-dropdown>
+            </div>
+            <div class="eight wide field" ng-hide="editMode">
+                <label>Je suis chargé d'affaires</label>
+                <checkbox type="toggle" ng-model="project.currentAsManager"></checkbox>
+            </div>
+        </div>
+        <div ng-show="editMode" class="fields">
+            <div class="eight wide field">
+                <label>Frais de gestion</label>
+                <input type="number" ng-model="project.managementFee" name="managementFee" placeholder="0"/>
+            </div>
+            <div class="eight wide field">
+                <label>Frais de dossier</label>
+                <input type="number" ng-model="project.applicationFee" name="applicationFee" placeholder="0"/>
+            </div>
+        </div>
+        <div ng-show="editMode" class="fields">
+            <div class="eight wide field">
+                <label>Frais refacturés</label>
+                <input type="number" ng-model="project.rebilledFee" name="rebilledFee" placeholder="0"/>
+            </div>
+            <div class="eight wide field">
+                <label>Acompte</label>
+                <input type="number" ng-model="project.advance" name="advance" placeholder="0"/>
+            </div>
+        </div>
+        <div class="fields">
+            <div class="eight wide field">
+                <label>Etude confidentielle ?</label>
+                <checkbox type="toggle" ng-model="prospect.secret"></checkbox>
+            </div>
+            <div class="eight wide field">
+                <label>Etude critique ?</label>
+                <checkbox type="toggle" ng-model="prospect.critical"></checkbox>
+            </div>
+        </div>
+        <div class="ui hr_center small buttons">
+            <input type="reset" value="Annuler" class="ui button"/>
+            <div class="or" data-text="ou"></div>
+            <input ng-if="!editMode" type="submit" value="Ajouter" class="ui green button"
+                   ng-class="{ 'disabled': projectForm.$invalid }"/>
+            <input ng-if="editMode" type="submit" value="Modifier" class="ui green button"
+                   ng-class="{ 'disabled': projectForm.$invalid }"/>
+        </div>
+    </form>
+</div>
