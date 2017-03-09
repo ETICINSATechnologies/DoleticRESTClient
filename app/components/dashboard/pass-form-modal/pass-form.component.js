@@ -3,9 +3,9 @@
 
     angular
         .module('doleticApp')
-        .component('PassFormComponent', PassFormComponent());
+        .component('passFormComponent', passFormComponent());
 
-    function PassFormComponent() {
+    function passFormComponent() {
         return {
             bindings: {},
             controller: "PassFormController",
