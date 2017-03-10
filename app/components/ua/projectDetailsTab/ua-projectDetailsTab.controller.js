@@ -5,11 +5,14 @@
         .module('doleticApp')
         .controller('uaProjectDetailsTabController', uaProjectDetailsTabController);
 
-    uaProjectDetailsTabController.$inject = ['$scope', '$state', 'MessageBoxService', 'ProjectService', 'ConfirmModalService', 'ModalService', 'UserService'];
+    uaProjectDetailsTabController.$inject = ['$scope', '$state', 'MessageBoxService', 'ProjectManagerService', 'ProjectContactService', 'ConsultantService', 'ProjectService', 'ConfirmModalService', 'ModalService', 'UserService'];
 
-    function uaProjectDetailsTabController($scope, $state, MessageBoxService, ProjectService, ConfirmModalService, ModalService, UserService) {
+    function uaProjectDetailsTabController($scope, $state, MessageBoxService, ProjectManagerService, ProjectContactService, ConsultantService, ProjectService, ConfirmModalService, ModalService, UserService) {
 
         $scope.projectService = ProjectService;
+        $scope.projectManagerService = ProjectManagerService;
+        $scope.projectContactService = ProjectContactService;
+        $scope.consultantService = ConsultantService;
         $scope.userService = UserService;
 
         $scope.loadProject = function () {
