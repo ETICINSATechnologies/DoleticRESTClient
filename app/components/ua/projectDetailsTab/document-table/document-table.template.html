@@ -7,19 +7,19 @@
         <div class="fields">
             <div class="five wide required field">
                 <label>Contact</label>
-                <ng-dropdown data-label="id" ng-option="projectService.selectedProject.contacts"
+                <ng-dropdown data-label="contactFullName" ng-option="projectService.selectedProject.contacts"
                              data-value="id"
                              ng-model="publish.contact" required="true"></ng-dropdown>
             </div>
             <div class="six wide required field">
-                <label>Contact</label>
-                <ng-dropdown data-label="id" ng-option="projectService.selectedProject.managers"
+                <label>Chargé d'affaires</label>
+                <ng-dropdown data-label="managerFullName" ng-option="projectService.selectedProject.managers"
                              data-value="id"
                              ng-model="publish.manager" required="true"></ng-dropdown>
             </div>
             <div class="five wide field">
                 <label>Consultant</label>
-                <ng-dropdown data-label="id" ng-option="projectService.selectedProject.consultants"
+                <ng-dropdown data-label="consultantFullName" ng-option="projectService.selectedProject.consultants"
                              data-value="id"
                              ng-model="publish.consultant"></ng-dropdown>
             </div>
@@ -48,7 +48,7 @@
                 <div class="ui buttons">
                     <div class="ui yellow icon button"
                          data-tooltip="Uploader une nouvelle version"
-                         ng-click="replaceDocument(projectDocumentService.currentProjectDocuments[template.id])">
+                         ng-click="triggerUpload($event)">
                         <i class="upload icon"></i>
                     </div>
                     <div class="ui blue icon button"
@@ -56,12 +56,20 @@
                          ng-click="downloadDocument(projectDocumentService.currentProjectDocuments[template.id].id, template)">
                         <i class="download icon"></i>
                     </div>
+                    <input style="display: none;" type="file"
+                           accept="application/pdf"
+                           onchange="angular.element(this).scope().replaceDocument(this, angular.element(this).scope().projectDocumentService.currentProjectDocuments[angular.element(this).scope().template.id])"/>
                 </div>
             </td>
             <td ng-if="!projectDocumentService.currentProjectDocuments[template.id]">
-                <div class="ui buttons">
-                    <input type="file" ng-file-select="uploadDocument($files, template.id)"/>
+                <div class="ui yellow icon button"
+                     data-tooltip="Uploader le document"
+                     ng-click="triggerUpload($event)">
+                    <i class="upload icon"></i>
                 </div>
+                <input style="display: none;" type="file"
+                       accept="application/pdf"
+                       onchange="angular.element(this).scope().uploadDocument(this, angular.element(this).scope().template)"/>
             </td>
             <td ng-if="projectDocumentService.currentProjectDocuments[template.id]">
                 <div ng-if="uaService.rightLevel >= 4">

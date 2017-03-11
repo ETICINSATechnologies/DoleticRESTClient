@@ -32,14 +32,40 @@
             ProjectDocumentService.downloadProjectDocument(id, template.label, ProjectService.selectedProject.number);
         };
 
-        $scope.uploadDocument = function (file, template) {
+        $scope.replaceDocument = function (e, document) {
+            var documentData = angular.copy(document);
+            if (documentData.template) documentData.template = documentData.template.id;
+            documentData.project = $state.params.id;
+            documentData.file = e.files[0];
+
+            ProjectDocumentService.putProjectDocument(documentData).success(function (data) {
+                MessageBoxService.showSuccess(
+                    "Upload réussi !",
+                    "Le nouveau fichier a été uploadé !"
+                );
+            }).error(function (data) {
+                MessageBoxService.showError(
+                    "Echec de l'upload !",
+                    "Impossible d'uploader le document. Vérifiez qu'il est bien au format PDF."
+                );
+            });
+        };
+
+        $scope.triggerUpload = function (event) {
+            angular.element(event.target).siblings('input').trigger('click');
+        };
+
+        $scope.uploadDocument = function (e, template) {
             ProjectDocumentService.postProjectDocument({
+                file: e.files[0],
                 project: $state.params.id,
                 template: template.id,
-                valid: false,
-                file: file
+                valid: false
             }).success(function (data) {
-
+                MessageBoxService.showSuccess(
+                    "Upload réussi !",
+                    "Le fichier a été uploadé !"
+                );
             }).error(function (data) {
                 MessageBoxService.showError(
                     "Echec de l'upload !",

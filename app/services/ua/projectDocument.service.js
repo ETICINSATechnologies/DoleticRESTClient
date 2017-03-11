@@ -5,9 +5,9 @@
         .module('doleticApp')
         .factory('ProjectDocumentService', ProjectDocumentService);
 
-    ProjectDocumentService.$inject = ['$http', 'SERVER_CONFIG'];
+    ProjectDocumentService.$inject = ['$http', 'SERVER_CONFIG', 'Upload'];
 
-    function ProjectDocumentService($http, SERVER_CONFIG) {
+    function ProjectDocumentService($http, SERVER_CONFIG, Upload) {
         var server = SERVER_CONFIG.url;
         var urlBase = '/api/ua/project_document';
         var projectDocumentFactory = {};
@@ -50,8 +50,21 @@
 
         // POST
         projectDocumentFactory.postProjectDocument = function (document) {
-            return $http.post(server + urlBase, document).success(function (data) {
+            return Upload.upload({url: server + urlBase, data: document}).success(function (data) {
+                projectDocumentFactory.currentProjectDocuments = angular.equals(projectDocumentFactory.currentProjectDocuments, []) ?
+                    {} : projectDocumentFactory.currentProjectDocuments;
+                projectDocumentFactory.currentProjectDocuments[data.project_document.template.id] = data.project_document;
+            }).error(function (error) {
+                console.log(error);
+            });
+        };
 
+        // PUT
+        projectDocumentFactory.putProjectDocument = function (document) {
+            return Upload.upload({url: server + urlBase + "/" + document.id, data: document}).success(function (data) {
+                projectDocumentFactory.projectDocuments = angular.equals(projectDocumentFactory.projectDocuments, []) ?
+                    {} : projectDocumentFactory.projectDocuments;
+                projectDocumentFactory.projectDocuments[data.project_document.template.id] = data.project_document;
             }).error(function (error) {
                 console.log(error);
             });
