@@ -12,7 +12,8 @@
             'datatables.columnfilter',
             'ngDropdown',
             'angularify.semantic',
-            'ngFileSaver'
+            'ngFileSaver',
+            'ngFileUpload'
         ])
         .run(run)
         .config(config);

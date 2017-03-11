@@ -36,6 +36,27 @@
             return $http.get(server + urlBase + 's/template/' + id);
         };
 
+        projectDocumentFactory.downloadProjectDocument = function (id, label, number) {
+            // ResponseType is mandatory, or else the downloaded PDF will be blank
+            return $http.get(server + urlBase + "/" + id + "/download", {responseType: "arraybuffer"}).success(function (data) {
+                var blob = new Blob([data], {
+                    type: 'application/pdf'
+                });
+                saveAs(blob, number + "-" + label);
+            }).error = function (error) {
+                console.log(error);
+            };
+        };
+
+        // POST
+        projectDocumentFactory.postProjectDocument = function (document) {
+            return $http.post(server + urlBase, document).success(function (data) {
+
+            }).error(function (error) {
+                console.log(error);
+            });
+        };
+
         return projectDocumentFactory;
     }
 

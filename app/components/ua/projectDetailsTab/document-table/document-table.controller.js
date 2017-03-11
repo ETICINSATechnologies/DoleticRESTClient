@@ -28,6 +28,26 @@
             $scope.publish = {project: $state.params.id};
         };
 
+        $scope.downloadDocument = function (id, template) {
+            ProjectDocumentService.downloadProjectDocument(id, template.label, ProjectService.selectedProject.number);
+        };
+
+        $scope.uploadDocument = function (file, template) {
+            ProjectDocumentService.postProjectDocument({
+                project: $state.params.id,
+                template: template.id,
+                valid: false,
+                file: file
+            }).success(function (data) {
+
+            }).error(function (data) {
+                MessageBoxService.showError(
+                    "Echec de l'upload !",
+                    "Impossible d'uploader le document. Vérifiez qu'il est bien au format PDF."
+                );
+            });
+        };
+
         $scope.publishDocument = function (template) {
             $scope.publish.template = template.id;
             if ($scope.publishForm.$valid) {

@@ -53,18 +53,14 @@
                     </div>
                     <div class="ui blue icon button"
                          data-tooltip="Télécharger le document"
-                         ng-click="downloadDocument(projectDocumentService.currentProjectDocuments[template.id])">
+                         ng-click="downloadDocument(projectDocumentService.currentProjectDocuments[template.id].id, template)">
                         <i class="download icon"></i>
                     </div>
                 </div>
             </td>
             <td ng-if="!projectDocumentService.currentProjectDocuments[template.id]">
                 <div class="ui buttons">
-                    <div class="ui green icon button"
-                         data-tooltip="Uploader le document"
-                         ng-click="uploadDocument(template)">
-                        <i class="upload icon"></i>
-                    </div>
+                    <input type="file" ng-file-select="uploadDocument($files, template.id)"/>
                 </div>
             </td>
             <td ng-if="projectDocumentService.currentProjectDocuments[template.id]">
