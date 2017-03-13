@@ -5,9 +5,9 @@
         .module('doleticApp')
         .service('APIInterceptorService', APIInterceptorService);
 
-    APIInterceptorService.$inject = ['$rootScope', '$q', 'AuthService', 'store'];
+    APIInterceptorService.$inject = ['$rootScope', '$q', 'AuthService', '$injector', 'MessageBoxService'];
 
-    function APIInterceptorService($rootScope, $q, AuthService) {
+    function APIInterceptorService($rootScope, $q, AuthService, $injector, MessageBoxService) {
         var service = this;
         service.request = function (config) {
             var access_token = AuthService.getAccessToken();
@@ -17,13 +17,24 @@
             }
             return config;
         };
-        service.responseError = function (rejection) {
-            return $q.reject(rejection);
+        service.responseError = function(response) {
+            if (response.status == 401){
+                MessageBoxService.showError('Erreur 401',response.statusText);
+                logout();
+            }
+            return $q.reject(response);
         };
         service.requestError = function (rejection) {
             //SharedVariables.messageBox.show = true;
             return $q.reject(rejection);
         };
+
+        function logout() {
+            AuthService.setLogged(false);
+            AuthService.setAccessToken(null);
+            $injector.get('$state').go('login');
+            // event.preventDefault();
+        }
     }
 
 })();
