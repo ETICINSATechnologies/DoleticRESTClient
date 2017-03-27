@@ -15,8 +15,8 @@
         $scope.consultantService = ConsultantService;
         $scope.userService = UserService;
 
-        $scope.loadProject = function () {
-            ProjectService.getProjectDetails($state.params.id, true).success(function (data) {
+        $scope.loadProject = function (cache) {
+            ProjectService.getProjectDetails($state.params.id, cache).success(function (data) {
 
             }).error(function (data) {
                 MessageBoxService.showError(

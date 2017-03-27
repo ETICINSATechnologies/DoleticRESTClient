@@ -5,9 +5,9 @@
         .module('doleticApp')
         .factory('ProjectService', ProjectService);
 
-    ProjectService.$inject = ['$http', 'SERVER_CONFIG', 'ConsultantService', 'ProjectManagerService', 'ProjectContactService', 'TaskService', 'AmendmentService', 'DeliveryService', 'ProjectDocumentService'];
+    ProjectService.$inject = ['$http', 'SERVER_CONFIG', 'UserService', 'ConsultantService', 'ProjectManagerService', 'ProjectContactService', 'TaskService', 'AmendmentService', 'DeliveryService', 'ProjectDocumentService'];
 
-    function ProjectService($http, SERVER_CONFIG, ConsultantService, ProjectManagerService, ProjectContactService, TaskService, AmendmentService, DeliveryService, ProjectDocumentService) {
+    function ProjectService($http, SERVER_CONFIG, UserService, ConsultantService, ProjectManagerService, ProjectContactService, TaskService, AmendmentService, DeliveryService, ProjectDocumentService) {
         var server = SERVER_CONFIG.url;
         var urlBase = '/api/ua/project';
         var projectFactory = {};
@@ -133,16 +133,46 @@
             });
         };
 
-        projectFactory.getProjectByManagerId = function (id) {
-            return $http.get(server + urlBase + "s/manager/" + id);
-        };
-
-        projectFactory.getProjectByAuditorId = function (id) {
-            return $http.get(server + urlBase + "s/auditor/" + id);
-        };
-
-        projectFactory.getProjectByConsultantId = function (id) {
-            return $http.get(server + urlBase + "s/consultant/" + id);
+        projectFactory.getCurrentUserProjects = function (cache) {
+            if (!cache) {
+                delete projectFactory.currentUserProjects;
+            } else if (projectFactory.currentUserProjects) {
+                return;
+            }
+            var currentUser = UserService.getCurrentUser();
+            return $http.get(server + urlBase + "s/manager/" + currentUser.id).success(function (managerData) {
+                projectFactory.currentUserProjects = {};
+                for(var id in managerData.projects) {
+                    managerData.projects[id].role = "Chargé d'affaires";
+                    projectFactory.currentUserProjects[id] = managerData.projects[id];
+                }
+                $http.get(server + urlBase + "s/consultant/" + currentUser.id).success(function (consultantData) {
+                    for(var id in consultantData.projects) {
+                        if(projectFactory.currentUserProjects[id]) {
+                            projectFactory.currentUserProjects[id].role += ", Consultant";
+                        } else {
+                            consultantData.projects[id].role = "Consultant";
+                            projectFactory.currentUserProjects[id] = consultantData.projects[id];
+                        }
+                    }
+                    $http.get(server + urlBase + "s/auditor/" + currentUser.id).success(function (auditorData) {
+                        for(var id in auditorData.projects) {
+                            if(projectFactory.currentUserProjects[id]) {
+                                projectFactory.currentUserProjects[id].role += ", Correspondant Qualité";
+                            } else {
+                                auditorData.projects[id].role = "Correspondant Qualité";
+                                projectFactory.currentUserProjects[id] = auditorData.projects[id];
+                            }
+                        }
+                    }).error(function (data) {
+                        console.log(data);
+                    });
+                }).error(function (data) {
+                    console.log(data);
+                });
+            }).error(function (data) {
+                console.log(data);
+            });
         };
 
         // POST
@@ -240,7 +270,7 @@
             }
             return $http.post(server + urlBase + "/" + project.id + "/auditor", project).success(function (data) {
                 projectFactory[list][data.project.id] = data.project;
-                if (projectFactory.selectedProject && projectFactory.selectedProject.id == project.id) {
+                if (projectFactory.selectedProject && projectFactory.selectedProject.id == data.project.id) {
                     projectFactory.selectedProject = data.project;
                 }
             }).error(function (error) {
