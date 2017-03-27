@@ -5,9 +5,9 @@
         .module('doleticApp')
         .factory('ProjectService', ProjectService);
 
-    ProjectService.$inject = ['$http', 'SERVER_CONFIG', 'ConsultantService', 'ProjectManagerService', 'ProjectContactService', 'TaskService', 'AmendmentService', 'DeliveryService'];
+    ProjectService.$inject = ['$http', 'SERVER_CONFIG', 'ConsultantService', 'ProjectManagerService', 'ProjectContactService', 'TaskService', 'AmendmentService', 'DeliveryService', 'ProjectDocumentService'];
 
-    function ProjectService($http, SERVER_CONFIG, ConsultantService, ProjectManagerService, ProjectContactService, TaskService, AmendmentService, DeliveryService) {
+    function ProjectService($http, SERVER_CONFIG, ConsultantService, ProjectManagerService, ProjectContactService, TaskService, AmendmentService, DeliveryService, ProjectDocumentService) {
         var server = SERVER_CONFIG.url;
         var urlBase = '/api/ua/project';
         var projectFactory = {};
@@ -74,24 +74,32 @@
             }
             return $http.get(server + urlBase + "/" + id).success(function (data) {
                 projectFactory.selectedProject = data.project;
+
+                // Managers
                 ProjectManagerService.currentProjectManagers = {};
                 var manager;
                 for (manager in data.project.managers) {
                     ProjectManagerService.currentProjectManagers[data.project.managers[manager].id] = data.project.managers[manager];
                 }
                 ProjectManagerService.currentProjectId = data.project.id;
+
+                // Project contacts
                 ProjectContactService.currentProjectContacts = {};
                 var contact;
                 for (contact in data.project.contacts) {
                     ProjectContactService.currentProjectContacts[data.project.contacts[contact].id] = data.project.contacts[contact];
                 }
                 ProjectContactService.currentProjectId = data.project.id;
+
+                // Consultants
                 ConsultantService.currentProjectConsultants = {};
                 var consultant;
                 for (consultant in data.project.consultants) {
                     ConsultantService.currentProjectConsultants[data.project.consultants[consultant].id] = data.project.consultants[consultant];
                 }
                 ConsultantService.currentProjectId = data.project.id;
+
+                // Tasks and Deliveries
                 TaskService.currentProjectTasks = [];
                 DeliveryService.currentProjectDeliveries = {};
                 var task;
@@ -103,12 +111,23 @@
                     }
                 }
                 TaskService.currentProjectId = data.project.id;
+
+                // Amendments
                 AmendmentService.currentProjectAmendments = {};
                 var amendment;
                 for (amendment in data.project.amendments) {
                     AmendmentService.currentProjectAmendments[data.project.amendments[amendment].id] = data.project.amendments[amendment];
                 }
                 AmendmentService.currentProjectId = data.project.id;
+
+                // Project documents
+                ProjectDocumentService.currentProjectDocuments = {};
+                var document;
+                for (document in data.project.documents) {
+                    ProjectDocumentService.currentProjectDocuments[data.project.documents[document].template.id] = data.project.documents[document];
+                }
+                ProjectDocumentService.currentProjectId = data.project.id;
+
             }).error(function (data) {
                 console.log(data);
             });
