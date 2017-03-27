@@ -16,13 +16,13 @@
         </tr>
     </tfoot>
     <tbody id="project_body">
-        <tr ng-repeat="project in projects">
+        <tr ng-repeat="project in projectService.currentUserProjects">
             <td>
-                <button ng-click="" class="ui teal button" data-tooltip="Détails de l'étude {{project.number}}">{{project.number}}</button>
+                <button ui-sref="ua.projectDetailsTab({id:project.id})" class="ui teal button" data-tooltip="Détails de l'étude {{project.number}}">{{project.number}}</button>
             </td>
             <td>{{project.name}}</td>
-            <td>{{project.userType}}</td>
-            <td>{{project.status}}</td>
+            <td>{{project.role}}</td>
+            <td>{{project.status.label}}</td>
         </tr>
     </tbody>
 </table>

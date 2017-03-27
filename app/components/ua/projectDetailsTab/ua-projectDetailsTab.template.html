@@ -1,4 +1,4 @@
-<div class="ui grid container" ng-init="loadProject()">
+<div class="ui grid container" ng-init="loadProject(true)">
     <div class="row">
         <div class="sixteen wide column">
             <div class="ui buttons">
@@ -6,7 +6,7 @@
                      ng-click="showProjectForm()">
                     Modifier l'étude
                 </div>
-                <div class="ui olive button" ng-click="loadProject()">
+                <div class="ui olive button" ng-click="loadProject(false)">
                     Actualiser les détails
                 </div>
                 <div ng-if="uaService.rightLevel >= 4 && !projectService.selectedProject.disabled"
