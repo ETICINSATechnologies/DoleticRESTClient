@@ -26,7 +26,7 @@
         </tr>
     </tfoot>
     <tbody id="user_body">
-        <tr ng-repeat="user in users">
+        <tr ng-repeat="user in userService.users">
             <td ng-class="{
                 error: (user.admm_status == 'Invalide')
                     || (user.intm_status == 'Invalide')
