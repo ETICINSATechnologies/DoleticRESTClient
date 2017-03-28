@@ -70,7 +70,6 @@
             if (project.firm) project.firm = project.firm.id;
             if (project.field) project.field = project.field.id;
             if (project.origin) project.origin = project.origin.id;
-            if (project.status) project.status = project.status.id;
         }
     }
 

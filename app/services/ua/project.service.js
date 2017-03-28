@@ -107,7 +107,7 @@
                     TaskService.currentProjectTasks[data.project.tasks[task].number] = data.project.tasks[task];
                     for (var delivery in data.project.tasks[task].deliveries) {
                         DeliveryService.currentProjectDeliveries[data.project.tasks[task].deliveries[delivery].id] = data.project.tasks[task].deliveries[delivery];
-                        DeliveryService.currentProjectDeliveries[data.project.tasks[task].deliveries[delivery].id].task = data.project.tasks[task];
+                        DeliveryService.currentProjectDeliveries[data.project.tasks[task].deliveries[delivery].id].task = data.project.tasks[task].number;
                     }
                 }
                 TaskService.currentProjectId = data.project.id;
@@ -177,7 +177,6 @@
 
         // POST
         projectFactory.postProject = function (project) {
-            project.status = 1;
             return $http.post(server + urlBase, project).success(function (data) {
                 projectFactory.unsignedProjects = angular.equals(projectFactory.unsignedProjects, []) ?
                     {} : projectFactory.unsignedProjects;
@@ -208,6 +207,29 @@
         };
 
         projectFactory.signProject = function (project) {
+            isCyclic(project);
+
+            function isCyclic (obj) {
+                var seenObjects = [];
+
+                function detect (obj) {
+                    if (obj && typeof obj === 'object') {
+                        if (seenObjects.indexOf(obj) !== -1) {
+                            return true;
+                        }
+                        seenObjects.push(obj);
+                        for (var key in obj) {
+                            if (obj.hasOwnProperty(key) && detect(obj[key])) {
+                                console.log(obj, 'cycle at ' + key);
+                                return true;
+                            }
+                        }
+                    }
+                    return false;
+                }
+
+                return detect(obj);
+            }
             return $http.post(server + urlBase + "/" + project.id + "/sign", project).success(function (data) {
                 if (projectFactory.currentProjects) {
                     projectFactory.currentProjects[data.project.id] = data.project;
