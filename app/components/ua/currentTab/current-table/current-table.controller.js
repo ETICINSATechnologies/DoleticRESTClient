@@ -26,7 +26,7 @@
                 "Voulez-vous vraiment archiver l'étude " + number + " ?",
                 "archive",
                 function () {
-                    ProjectService.archiveCurrentProject(id).success(function (data) {
+                    ProjectService.archiveCurrentProject(project).success(function (data) {
                         MessageBoxService.showSuccess(
                             "Archivage réussi !",
                             "L'étude " + number + " a été archivée."

@@ -34,7 +34,7 @@
                     function (data) {
                         $('#end_form_modal').modal('hide');
                         MessageBoxService.showError(
-                            "Echec de la endature...",
+                            "Echec de la clôture...",
                             "L'étude n'a pas pu être endée."
                         );
                         close();
