@@ -35,19 +35,19 @@
                 </button>
             </td>
             <td>
-                <h4 class="ui header">
+                <div class="ui small header">
                     <div class="content">
                         {{user.fullName}}
                         <div class="sub header">
                             <a href="mailto:{{user.email}}" target="_blank">{{user.email}}</a>
                         </div>
                     </div>
-                </h4>
+                </div>
             </td>
             <td>{{user.mainPosition.label}}</td>
             <td>{{user.mainPosition.division.label}}</td>
             <td>0{{user.tel}}</td>
-            <td>{{user.school_year.year}}{{user.department.label}}</td>
+            <td>{{user.schoolYear.year}}{{user.department.label}}</td>
             <td>{{isUserAdministrator(user)}}</td>
             <td>{{isUserConsultant(user)}}</td>
             <td>

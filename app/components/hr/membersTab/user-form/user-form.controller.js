@@ -27,14 +27,14 @@
         };
 
         $scope.addUser = function () {
-            ContactService.postUser($scope.user)
+            UserService.postUser($scope.user)
                 .success(
                     function (data) {
                         $('#user_form_modal').modal('hide');
                         $scope.resetForm();
                         MessageBoxService.showSuccess(
                             "Opération réussie !",
-                            "L(utilisateur a été ajouté."
+                            "L'utilisateur a été ajouté."
                         );
                         close();
                     }
@@ -52,7 +52,7 @@
 
         $scope.editUser = function () {
             var name = $scope.user.fullName;
-            ContactService.putUser($scope.user)
+            UserService.putUser($scope.user)
                 .success(function (data) {
                     $('#user_form_modal').modal('hide');
                     $scope.resetForm();
@@ -70,19 +70,21 @@
             );
         };
 
+        GenderService.getAllGenders(true);
+        DepartmentService.getAllDepartments(true);
+        SchoolYearService.getAllSchoolYears(true);
+        CountryService.getAllCountries(true);
+        PositionService.getAllPositions(true);
+        RecruitmentEventService.getAllRecruitmentEvents(true);
+
         function formatUser() {
             if (user.gender) user.gender = user.gender.id;
-            if (user.schoolYear) user.schoolYear = user.schoo+lYear.id;
+            if (user.schoolYear) user.schoolYear = user.schoolYear.id;
             if (user.department) user.department = user.department.id;
             if (user.country) user.country = user.country.id;
             if (user.recruitmentEvent) user.recruitmentEvent = user.recruitmentEvent.id;
             if (user.birthDate) user.birthDate = $filter('date')(user.birthDate, "dd/MM/y");
         }
-
-        GenderService.getAllGenders(true);
-        DepartmentService.getAllDepartments(true);
-        SchoolYearService.getSchoolYears(true);
-        UserService.getAllUsers(true);
     }
 
 })();

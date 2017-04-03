@@ -111,6 +111,21 @@
             return $http.get(server + urlBase + "/" + id);
         };
 
+        // POST
+        userFactory.postUser = function (user) {
+            return $http.post(server + urlBase, user).success(function (data) {
+                var list = 'currentUsers';
+                if(data.user.mainPosition.old) {
+                    list = 'oldUsers';
+                }
+                userFactory[list] = angular.equals(userFactory[list], []) ?
+                    {} : userFactory[list];
+                userFactory[list][data.user.id] = data.user;
+            }).error(function (data) {
+                console.log(data);
+            });
+        };
+
         // PUT
         userFactory.disableCurrentUser = function(user) {
             return $http.post(server + urlBase + "/" + user.id + "/disable").success(function(data) {

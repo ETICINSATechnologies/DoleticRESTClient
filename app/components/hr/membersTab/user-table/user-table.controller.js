@@ -5,9 +5,9 @@
         .module('doleticApp')
         .controller('hrUserTableController', hrUserTableController);
 
-    hrUserTableController.$inject = ['$scope', '$state', 'UserService', 'SharedVariables', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'ConfirmModalService', 'MessageBoxService'];
+    hrUserTableController.$inject = ['$scope', '$state', 'UserService', 'SharedVariables', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'ConfirmModalService', 'MessageBoxService', 'ModalService'];
 
-    function hrUserTableController($scope, $state, UserService, SharedVariables, DTOptionsBuilder, DTColumnDefBuilder, ConfirmModalService, MessageBoxService) {
+    function hrUserTableController($scope, $state, UserService, SharedVariables, DTOptionsBuilder, DTColumnDefBuilder, ConfirmModalService, MessageBoxService, ModalService) {
         $scope.userService = UserService;
         $scope.dtOptions = DTOptionsBuilder
             .newOptions()

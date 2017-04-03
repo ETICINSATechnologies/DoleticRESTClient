@@ -3,13 +3,13 @@
 
     angular
         .module('doleticApp')
-        .controller('hrUserFormController', hrUserFormController);
+        .controller('hrTeamFormController', hrTeamFormController);
 
-    hrUserFormController.$inject = ['$scope', 'close', '$filter', 'GenderService', 'DepartmentService', 'SchoolYearService', 'CountryService', 'RecruitmentEventService', 'PositionService', 'MessageBoxService', 'UserService', 'editMode', 'user'];
+    hrTeamFormController.$inject = ['$scope', 'close', '$filter', 'GenderService', 'DepartmentService', 'SchoolYearService', 'CountryService', 'RecruitmentEventService', 'PositionService', 'MessageBoxService', 'TeamService', 'editMode', 'user'];
 
-    function hrUserFormController($scope, close, $filter, GenderService, DepartmentService, SchoolYearService, CountryService, RecruitmentEventService, PositionService, MessageBoxService, UserService, editMode, user) {
+    function hrTeamFormController($scope, close, $filter, GenderService, DepartmentService, SchoolYearService, CountryService, RecruitmentEventService, PositionService, MessageBoxService, TeamService, editMode, user) {
 
-        if (user != {}) formatUser();
+        if (user != {}) formatTeam();
         $scope.user = user;
         $scope.editMode = editMode ? editMode : false;
         $scope.genderService = GenderService;
@@ -18,7 +18,7 @@
         $scope.countryService = CountryService;
         $scope.recruitmentEventService = RecruitmentEventService;
         $scope.positionService = PositionService;
-        $scope.userService = UserService;
+        $scope.userService = TeamService;
 
         $scope.resetForm = function () {
             $scope.user = {};
@@ -26,8 +26,8 @@
             $scope.editMode = false;
         };
 
-        $scope.addUser = function () {
-            ContactService.postUser($scope.user)
+        $scope.addTeam = function () {
+            ContactService.postTeam($scope.user)
                 .success(
                     function (data) {
                         $('#user_form_modal').modal('hide');
@@ -50,9 +50,9 @@
                 )
         };
 
-        $scope.editUser = function () {
+        $scope.editTeam = function () {
             var name = $scope.user.fullName;
-            ContactService.putUser($scope.user)
+            ContactService.putTeam($scope.user)
                 .success(function (data) {
                     $('#user_form_modal').modal('hide');
                     $scope.resetForm();
@@ -70,7 +70,7 @@
             );
         };
 
-        function formatUser() {
+        function formatTeam() {
             if (user.gender) user.gender = user.gender.id;
             if (user.schoolYear) user.schoolYear = user.schoo+lYear.id;
             if (user.department) user.department = user.department.id;
@@ -81,8 +81,8 @@
 
         GenderService.getAllGenders(true);
         DepartmentService.getAllDepartments(true);
-        SchoolYearService.getSchoolYears(true);
-        UserService.getAllUsers(true);
+        SchoolYearService.getAllSchoolYears(true);
+        TeamService.getAllTeams(true);
     }
 
 })();

@@ -9,11 +9,16 @@
 
     function DepartmentService($http, SERVER_CONFIG){
         var server = SERVER_CONFIG.url;
-        var urlBase = '/api/rh/departments/enabled';
-        var departmentFactory = {departments : {}};
+        var urlBase = '/api/rh/department';
+        var departmentFactory = {};
 
         departmentFactory.getAllDepartments = function (cache) {
-            return $http.get(server + urlBase, { cache: cache}).success(function (data) {
+            if (!cache) {
+                delete departmentFactory.departments;
+            } else if (departmentFactory.departments) {
+                return;
+            }
+            return $http.get(server + urlBase + "s").success(function (data) {
                 departmentFactory.departments = data.departments;
             }).error(function (data) {
                 console.log(data);
