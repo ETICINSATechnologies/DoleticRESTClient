@@ -15,27 +15,7 @@
             .newOptions()
             .withPaginationType('full_numbers')
             .withDisplayLength(25)
-            .withOption('stateSave', true)
-            .withColumnFilter({
-                aoColumns:[
-                    {type: "text"},
-                    {type: "text"},
-                    {
-                        type: "semantic-dropdown",
-                        values:['Autres', 'test'],
-                        id:"company_table_Type"
-                    },
-                    {type: "text"},
-                    {type: "text"},
-                    {type: "text"},
-                    {
-                        type: "semantic-dropdown",
-                        values:['France','Allemagne', 'Belgique'],
-                        id:"company_table_country"
-                    },
-                    {type: "reset-button"}
-                ]
-            });
+            .withOption('stateSave', true);
         $scope.dtColumnDefs = [];
 
         $scope.deleteFirm = function (id) {
@@ -76,6 +56,29 @@
             });
         };
 
-        FirmService.getAllFirms(true);
+        FirmService.getAllFirms(true).success(function (data) {
+            $scope.firmsTypeLabels = _.uniq(_.map(data.firms,'type.label'));
+            $scope.firmsCountryLabels = _.uniq(_.map(data.firms,'country.label'));
+            $scope.dtOptions.withColumnFilter({
+                aoColumns:[
+                    {type: "text"},
+                    {type: "text"},
+                    {
+                        type: "semantic-dropdown",
+                        values:$scope.firmsTypeLabels,
+                        id:"company_table_Type"
+                    },
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "text"},
+                    {
+                        type: "semantic-dropdown",
+                        values:$scope.firmsCountryLabels,
+                        id:"company_table_country"
+                    },
+                    {type: "reset-button"}
+                ]
+            });
+        });
     }
 })();
