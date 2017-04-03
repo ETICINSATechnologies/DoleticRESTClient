@@ -5,9 +5,10 @@
         .module('doleticApp')
         .controller('hrDisabledMembersTabController', hrDisabledMembersTabController);
 
-    hrDisabledMembersTabController.$inject = ['$scope', 'UserService'];
+    hrDisabledMembersTabController.$inject = ['$scope', 'UserService', 'KernelService'];
 
-    function hrDisabledMembersTabController($scope, UserService) {
+    function hrDisabledMembersTabController($scope, UserService, KernelService) {
         $scope.userService = UserService;
+        $scope.kernelService = KernelService;
     }
 })();
