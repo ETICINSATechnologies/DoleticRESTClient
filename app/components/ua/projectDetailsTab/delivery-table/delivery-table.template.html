@@ -14,7 +14,7 @@
     <tbody>
     <tr ng-repeat="delivery in deliveryService.currentProjectDeliveries">
         <td>{{delivery.number}}</td>
-        <td>{{delivery.task.number}}</td>
+        <td>{{delivery.task}}</td>
         <td>{{delivery.content}}</td>
         <td>{{delivery.billed ? 'Oui' : 'Non'}}</td>
         <td>
