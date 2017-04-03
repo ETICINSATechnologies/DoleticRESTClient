@@ -18,7 +18,7 @@
                 'ERR_MISSING_SERVICE',
                 'ERR_SERVICE_FAILED',
                 'ERR_INSUFFICIENT_RIGHTS'
-            ]
+            ];
 
         service.title = null;
         service.content = null;
