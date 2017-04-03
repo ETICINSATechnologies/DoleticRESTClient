@@ -49,14 +49,11 @@
                     <button class="ui blue icon button" data-tooltip="Modifier" ng-click="showUserForm(user)">
                         <i class="write icon"></i>
                     </button>
-                    <button ng-if="user.old" class="ui yellow icon button" data-tooltip="Marquer comme membre actuel" ng-click="">
-                        <i class="add user icon"></i>
+                    <button class="ui yellow icon button" data-tooltip="Réactiver" ng-click="enableUser(user)">
+                        <i class="reply icon"></i>
                     </button>
-                    <button ng-if="!user.old" class="ui yellow icon button" data-tooltip="Marquer comme ancien membre" ng-click="">
-                        <i class="student icon"></i>
-                    </button>
-                    <button class="ui orange icon button" data-tooltip="Désactiver" ng-click="disableUser(user)">
-                        <i class="remove user icon"></i>
+                    <button class="ui red icon button" data-tooltip="Supprimer" ng-click="deleteUser(user)">
+                        <i class="remove icon"></i>
                     </button>
                 </div>
             </td>

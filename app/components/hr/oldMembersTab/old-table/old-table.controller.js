@@ -5,9 +5,9 @@
         .module('doleticApp')
         .controller('hrOldTableController', hrOldTableController);
 
-    hrOldTableController.$inject = ['$scope', '$state', 'UserService', 'SharedVariables', 'DTOptionsBuilder', 'DTColumnDefBuilder'];
+    hrOldTableController.$inject = ['$scope', '$state', 'UserService', 'SharedVariables', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'ConfirmModalService', 'MessageBoxService'];
 
-    function hrOldTableController($scope, $state, UserService, SharedVariables, DTOptionsBuilder, DTColumnDefBuilder) {
+    function hrOldTableController($scope, $state, UserService, SharedVariables, DTOptionsBuilder, DTColumnDefBuilder, ConfirmModalService, MessageBoxService) {
         $scope.userService = UserService;
         $scope.dtOptions = DTOptionsBuilder
             .newOptions()
@@ -22,7 +22,7 @@
                 "Voulez-vous vraiment désactiver l'utilisateur " + name + " ?",
                 "delete user",
                 function () {
-                    UserService.disableUser(user).success(function (data) {
+                    UserService.disableOldUser(user).success(function (data) {
                         MessageBoxService.showSuccess(
                             "Désactivation réussie !",
                             "L'utilisateur " + name + " a été désactivé."

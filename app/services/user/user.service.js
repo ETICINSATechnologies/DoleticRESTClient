@@ -111,6 +111,65 @@
             return $http.get(server + urlBase + "/" + id);
         };
 
+        // PUT
+        userFactory.disableCurrentUser = function(user) {
+            return $http.post(server + urlBase + "/" + user.id + "/disable").success(function(data) {
+                if (userFactory.disabledUsers) {
+                    userFactory.disabledUsers = angular.equals(userFactory.disabledUsers, []) ?
+                        {} : userFactory.disabledUsers;
+                    userFactory.disabledUsers[data.user.id] = data.user;
+                }
+                if (userFactory.currentUsers) {
+                    delete userFactory.currentUsers[data.user.id];
+                }
+                if (userFactory.selectedUser && userFactory.selectedUser.id == data.user.id) {
+                    userFactory.selectedUser = data.user;
+                }
+            }).error(function(data) {
+                console.log(data);
+            });
+        };
+
+        userFactory.disableOldUser = function(user) {
+            return $http.post(server + urlBase + "/" + user.id + "/disable").success(function(data) {
+                if (userFactory.disabledUsers) {
+                    userFactory.disabledUsers = angular.equals(userFactory.disabledUsers, []) ?
+                        {} : userFactory.disabledUsers;
+                    userFactory.disabledUsers[data.user.id] = data.user;
+                }
+                if (userFactory.oldUsers) {
+                    delete userFactory.oldUsers[data.user.id];
+                }
+                if (userFactory.selectedUser && userFactory.selectedUser.id == data.user.id) {
+                    userFactory.selectedUser = data.user;
+                }
+            }).error(function(data) {
+                console.log(data);
+            });
+        };
+
+        userFactory.enableUser = function(user) {
+            var list = 'currentUsers';
+            if(user.mainPosition.old) {
+                list = 'oldUsers';
+            }
+            return $http.post(server + urlBase + "/" + user.id + "/enable").success(function(data) {
+                if (userFactory[list]) {
+                    userFactory[list] = angular.equals(userFactory[list], []) ?
+                        {} : userFactory[list];
+                    userFactory[list][data.user.id] = data.user;
+                }
+                if (userFactory.disabledUsers) {
+                    delete userFactory.disabledUsers[data.user.id];
+                }
+                if (userFactory.selectedUser && userFactory.selectedUser.id == data.user.id) {
+                    userFactory.selectedUser = data.user;
+                }
+            }).error(function(data) {
+                console.log(data);
+            });
+        };
+
         return userFactory;
     }
 

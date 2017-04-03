@@ -5,9 +5,9 @@
         .module('doleticApp')
         .controller('hrDisabledTableController', hrDisabledTableController);
 
-    hrDisabledTableController.$inject = ['$scope', '$state', 'UserService', 'DTOptionsBuilder', 'DTColumnDefBuilder'];
+    hrDisabledTableController.$inject = ['$scope', '$state', 'UserService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'ConfirmModalService', 'MessageBoxService'];
 
-    function hrDisabledTableController($scope, $state, UserService, DTOptionsBuilder, DTColumnDefBuilder) {
+    function hrDisabledTableController($scope, $state, UserService, DTOptionsBuilder, DTColumnDefBuilder, ConfirmModalService, MessageBoxService) {
         $scope.userService = UserService;
         $scope.dtOptions = DTOptionsBuilder
             .newOptions()
@@ -15,22 +15,22 @@
             .withDisplayLength(20);
         $scope.dtColumnDefs = [];
 
-        $scope.disableUser = function (user) {
+        $scope.enableUser = function (user) {
             var name = user.fullName;
             ConfirmModalService.showConfirmModal(
-                "Confirmer la désactivation",
-                "Voulez-vous vraiment désactiver l'utilisateur " + name + " ?",
-                "delete user",
+                "Confirmer la réactivation",
+                "Voulez-vous vraiment réactiver l'utilisateur " + name + " ?",
+                "reply",
                 function () {
-                    UserService.disableUser(user).success(function (data) {
+                    UserService.enableUser(user).success(function (data) {
                         MessageBoxService.showSuccess(
-                            "Désactivation réussie !",
-                            "L'utilisateur " + name + " a été désactivé."
+                            "Réactivation réussie !",
+                            "L'utilisateur " + name + " a été réactivé."
                         );
                     }).error(function (data) {
                         MessageBoxService.showError(
-                            "Echec de la désactivation...",
-                            "L'utilisateur " + name + " n'a pas pu être désactivé."
+                            "Echec de la réactivation...",
+                            "L'utilisateur " + name + " n'a pas pu être réactivé."
                         );
                     });
                 }
