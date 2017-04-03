@@ -3,11 +3,11 @@
 
     angular
         .module('doleticApp')
-        .controller('hrUserTableController', hrUserTableController);
+        .controller('hrOldTableController', hrOldTableController);
 
-    hrUserTableController.$inject = ['$scope', '$state', 'UserService', 'SharedVariables', 'DTOptionsBuilder', 'DTColumnDefBuilder'];
+    hrOldTableController.$inject = ['$scope', '$state', 'UserService', 'SharedVariables', 'DTOptionsBuilder', 'DTColumnDefBuilder'];
 
-    function hrUserTableController($scope, $state, UserService, SharedVariables, DTOptionsBuilder, DTColumnDefBuilder) {
+    function hrOldTableController($scope, $state, UserService, SharedVariables, DTOptionsBuilder, DTColumnDefBuilder) {
         $scope.userService = UserService;
         $scope.dtOptions = DTOptionsBuilder
             .newOptions()
@@ -53,28 +53,6 @@
             });
         };
 
-        $scope.isUserAdministrator = function(user) {
-            if(user.administrator == 2) {
-                return "Oui";
-            } else if(user.administrator == 1) {
-                return "Invalide";
-            }
-            return "Non";
-        };
-
-        $scope.isUserConsultant = function(user) {
-            if(user.consultant == 2) {
-                return "Oui";
-            } else if(user.consultant == 1) {
-                return "Invalide";
-            }
-            return "Non";
-        };
-
-        $scope.isUserInvalid = function(user) {
-            return user.consultant == 1 || user.administrator == 1;
-        };
-
-        UserService.getAllCurrentUsers(true);
+        UserService.getAllOldUsers(true);
     }
 })();

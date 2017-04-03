@@ -60,6 +60,45 @@
             });
         };
 
+        userFactory.getAllCurrentUsers = function (cache) {
+            if (!cache) {
+                delete userFactory.currentUsers;
+            } else if (userFactory.currentUsers) {
+                return;
+            }
+            return $http.get(server + urlBase + 's/current').success(function (data) {
+                userFactory.currentUsers = data.users;
+            }).error(function (data) {
+                console.log(data);
+            });
+        };
+
+        userFactory.getAllOldUsers = function (cache) {
+            if (!cache) {
+                delete userFactory.oldUsers;
+            } else if (userFactory.oldUsers) {
+                return;
+            }
+            return $http.get(server + urlBase + 's/old').success(function (data) {
+                userFactory.oldUsers = data.users;
+            }).error(function (data) {
+                console.log(data);
+            });
+        };
+
+        userFactory.getAllDisabledUsers = function (cache) {
+            if (!cache) {
+                delete userFactory.disabledUsers;
+            } else if (userFactory.disabledUsers) {
+                return;
+            }
+            return $http.get(server + urlBase + 's/disabled').success(function (data) {
+                userFactory.disabledUsers = data.users;
+            }).error(function (data) {
+                console.log(data);
+            });
+        };
+
         userFactory.getUserByUsername = function(user){
             return $http.get(server + urlBase + "/" + user);
         };

@@ -2,11 +2,7 @@
     <div class="row">
         <div class="sixteen wide column">
             <div class="ui buttons">
-                <div class="ui green button" ng-click="">Ajouter
-                    un
-                    membre
-                </div>
-                <div class="ui olive button" ng-click="">Actualiser
+                <div class="ui olive button" ng-click="userService.getAllDisabledUsers(false)">Actualiser
                     la
                     liste
                 </div>
@@ -19,7 +15,7 @@
     </div>
     <div class="row">
         <div class="sixteen wide column">
-            <hr-user-table-component></hr-user-table-component>
+            <hr-disabled-table-component></hr-disabled-table-component>
         </div>
     </div>
     <div class="row">

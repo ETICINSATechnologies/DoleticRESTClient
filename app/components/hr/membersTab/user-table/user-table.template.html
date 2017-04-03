@@ -26,17 +26,11 @@
         </tr>
     </tfoot>
     <tbody id="user_body">
-        <tr ng-repeat="user in userService.users">
-            <td ng-class="{
-                error: (user.admm_status == 'Invalide')
-                    || (user.intm_status == 'Invalide')
-                    || (user.admm_status == 'Non')
-                    && (user.intm_status == 'Non')
-                }">
+        <tr ng-repeat="user in userService.currentUsers" ng-class="{error:isUserInvalid(user)}">
+            <td>
                 <button class="ui teal icon button"
                         data-tooltip="Détails de {{user.fullName}}"
-                        data-content="Cliquez ici pour afficher plus d'informations"
-                        ng-click="goToUserDetailsTab(user)">
+                        data-content="Cliquez ici pour afficher plus d'informations">
                     <i class="user icon"></i>
                 </button>
             </td>
@@ -54,11 +48,11 @@
             <td>{{user.mainPosition.division.label}}</td>
             <td>0{{user.tel}}</td>
             <td>{{user.school_year.year}}{{user.department.label}}</td>
-            <td>{{}}</td>
-            <td>{{}}</td>
+            <td>{{isUserAdministrator(user)}}</td>
+            <td>{{isUserConsultant(user)}}</td>
             <td>
                 <div class="ui icon buttons">
-                    <button class="ui blue icon button" data-tooltip="Modifier" ng-click="">
+                    <button class="ui blue icon button" data-tooltip="Modifier" ng-click="showUserForm(user)">
                         <i class="write icon"></i>
                     </button>
                     <button ng-if="user.old" class="ui yellow icon button" data-tooltip="Marquer comme membre actuel" ng-click="">
@@ -67,7 +61,7 @@
                     <button ng-if="!user.old" class="ui yellow icon button" data-tooltip="Marquer comme ancien membre" ng-click="">
                         <i class="student icon"></i>
                     </button>
-                    <button class="ui orange icon button" data-tooltip="Désactiver" ng-click="">
+                    <button class="ui orange icon button" data-tooltip="Désactiver" ng-click="disableUser(user)">
                         <i class="remove user icon"></i>
                     </button>
                 </div>
