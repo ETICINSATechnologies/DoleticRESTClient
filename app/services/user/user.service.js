@@ -27,7 +27,7 @@
                 });
         };
 
-        userFactory.updateProfile = function (profile){
+        userFactory.updateProfile = function (profile) {
             return $http.post(server + urlBase + "/current", profile).success(function (data) {
                 userFactory.currentUser = data.user;
             }).error(function (error) {
@@ -99,11 +99,11 @@
             });
         };
 
-        userFactory.getUserByUsername = function(user){
+        userFactory.getUserByUsername = function (user) {
             return $http.get(server + urlBase + "/" + user);
         };
 
-        userFactory.getUserByMail = function(mail){
+        userFactory.getUserByMail = function (mail) {
             return $http.get(server + urlBase + "/" + mail);
         };
 
@@ -115,7 +115,7 @@
         userFactory.postUser = function (user) {
             return $http.post(server + urlBase, user).success(function (data) {
                 var list = 'currentUsers';
-                if(data.user.mainPosition.old) {
+                if (data.user.mainPosition.old) {
                     list = 'oldUsers';
                 }
                 userFactory[list] = angular.equals(userFactory[list], []) ?
@@ -127,8 +127,22 @@
         };
 
         // PUT
-        userFactory.disableCurrentUser = function(user) {
-            return $http.post(server + urlBase + "/" + user.id + "/disable").success(function(data) {
+        userFactory.putUser = function (user) {
+            return $http.post(server + urlBase + "/" + user.id, user).success(function (data) {
+                var list = 'currentUsers';
+                if (!data.user.enabled) {
+                    list = 'disabledUsers';
+                } else if (data.user.mainPosition.old) {
+                    list = 'oldUsers';
+                }
+                userFactory[list][data.user.id] = data.user;
+            }).error(function (data) {
+                console.log(data);
+            });
+        };
+
+        userFactory.disableCurrentUser = function (user) {
+            return $http.post(server + urlBase + "/" + user.id + "/disable").success(function (data) {
                 if (userFactory.disabledUsers) {
                     userFactory.disabledUsers = angular.equals(userFactory.disabledUsers, []) ?
                         {} : userFactory.disabledUsers;
@@ -140,13 +154,13 @@
                 if (userFactory.selectedUser && userFactory.selectedUser.id == data.user.id) {
                     userFactory.selectedUser = data.user;
                 }
-            }).error(function(data) {
+            }).error(function (data) {
                 console.log(data);
             });
         };
 
-        userFactory.disableOldUser = function(user) {
-            return $http.post(server + urlBase + "/" + user.id + "/disable").success(function(data) {
+        userFactory.disableOldUser = function (user) {
+            return $http.post(server + urlBase + "/" + user.id + "/disable").success(function (data) {
                 if (userFactory.disabledUsers) {
                     userFactory.disabledUsers = angular.equals(userFactory.disabledUsers, []) ?
                         {} : userFactory.disabledUsers;
@@ -158,17 +172,17 @@
                 if (userFactory.selectedUser && userFactory.selectedUser.id == data.user.id) {
                     userFactory.selectedUser = data.user;
                 }
-            }).error(function(data) {
+            }).error(function (data) {
                 console.log(data);
             });
         };
 
-        userFactory.enableUser = function(user) {
+        userFactory.enableUser = function (user) {
             var list = 'currentUsers';
-            if(user.mainPosition.old) {
+            if (user.mainPosition.old) {
                 list = 'oldUsers';
             }
-            return $http.post(server + urlBase + "/" + user.id + "/enable").success(function(data) {
+            return $http.post(server + urlBase + "/" + user.id + "/enable").success(function (data) {
                 if (userFactory[list]) {
                     userFactory[list] = angular.equals(userFactory[list], []) ?
                         {} : userFactory[list];
@@ -180,7 +194,7 @@
                 if (userFactory.selectedUser && userFactory.selectedUser.id == data.user.id) {
                     userFactory.selectedUser = data.user;
                 }
-            }).error(function(data) {
+            }).error(function (data) {
                 console.log(data);
             });
         };
