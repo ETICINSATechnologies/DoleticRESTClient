@@ -111,6 +111,19 @@
             return $http.get(server + urlBase + "/" + id);
         };
 
+        userFactory.getUserDetails = function (id, cache) {
+            if (!cache) {
+                delete userFactory.selectedUser;
+            } else if (userFactory.selectedUser && userFactory.selectedUser.id === id) {
+                return;
+            }
+            return $http.get(server + urlBase + "/" + id).success(function (data) {
+                userFactory.selectedUser = data.user;
+            }).error(function (data) {
+                console.log(data);
+            });
+        };
+
         // POST
         userFactory.postUser = function (user) {
             return $http.post(server + urlBase, user).success(function (data) {
