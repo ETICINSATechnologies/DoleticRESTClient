@@ -10,5 +10,7 @@
     function hrOldMembersTabController($scope, UserService, KernelService) {
         $scope.userService = UserService;
         $scope.kernelService = KernelService;
+
+        KernelService.getUserRights(true);
     }
 })();
