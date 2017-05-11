@@ -2,14 +2,19 @@
     <div class="row">
         <div class="sixteen wide column">
             <div class="ui buttons">
-                <div class="ui green button" ng-click="" ng-if="kernelService.rightLevel >= 4">
+                <div class="ui green button" ng-click="showUserForm()" ng-if="kernelService.rightLevel >= 4">
                     Modifier l'utilisateur
                 </div>
-                <div class="ui yellow button" ng-click="" ng-if="kernelService.rightLevel >= 4">
-                    Marquer comme ancien membre
+                <div class="ui button"
+                     ng-class="{olive: UserService.selectedUser.mainPosition.old, yellow: !UserService.selectedUser.mainPosition.old}"
+                     ng-click="" ng-if="kernelService.rightLevel >= 4">
+                    {{UserService.selectedUser.mainPosition.old ? 'Marquer comme membre actuel' : 'Marquer comme ancien membre'}}
                 </div>
-                <div class="ui orange button" ng-click="" ng-if="kernelService.rightLevel >= 4">
+                <div class="ui orange button" ng-if="UserService.selectedUser.enabled && kernelService.rightLevel >= 4" ng-click="disableUser()">
                     Désactiver l'utilisateur
+                </div>
+                <div class="ui olive button" ng-if="!UserService.selectedUser.enabled && kernelService.rightLevel >= 4" ng-click="enableUser()">
+                    Réactiver l'utilisateur
                 </div>
             </div>
         </div>
@@ -38,7 +43,9 @@
                 <div class="item">
                     <div class="content">
                         <div class="header">Année</div>
-                        <div class="description" id="det_year">{{userService.selectedUser.schoolYear.year}}{{userService.selectedUser.department.label}}</div>
+                        <div class="description" id="det_year">
+                            {{userService.selectedUser.schoolYear.year}}{{userService.selectedUser.department.label}}
+                        </div>
                     </div>
                 </div>
                 <div class="item">
@@ -87,6 +94,11 @@
         </div>
         <div class="twelve wide column">
             <div class="ui horizontal divider">
+                {{kernelService.rightLevel >= 4 ? "Gestion" : "Historique"}} des postes
+            </div>
+            <div class="row">
+            </div>
+            <div class="ui horizontal divider">
                 Adhésions administrateur
             </div>
             <div class="row" id="admm_table_container">
@@ -96,11 +108,7 @@
             </div>
             <div class="row" id="intm_table_container">
             </div>
-            <div class="ui horizontal divider">
-                Historique des postes
-            </div>
-            <div class="row" id="positions_history">
-            </div>
+
         </div>
     </div>
 </div>

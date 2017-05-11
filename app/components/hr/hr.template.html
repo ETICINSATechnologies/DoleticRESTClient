@@ -8,7 +8,7 @@
                 <a ng-class="{active: $state.current.activetab == 'oldMembers'}" class="item" id="oldlist" data-tab="oldMembers" ui-sref="hr.oldMembersTab">Anciens membres</a>
                 <a ng-class="{active: $state.current.activetab == 'disabledMembers'}" class="item" id="dislist" data-tab="disabledMembers" ui-sref="hr.disabledMembersTab" ng-if="kernelService.rightLevel >= 4">Membres désactivés</a>
                 <a ng-class="{active: $state.current.activetab == 'teams'}" class="item" data-tab="teams" ui-sref="hr.teamsTab">Liste des équipes</a>
-                <a ng-if="userService.selectedUser" ng-class="{active: $state.current.activetab == 'userDetails'}" class="item" id="det" data-tab="userDetails" ui-sref="hr.userDetailsTab({id:userService.selectedUser.id})">Détails de {{sharedVariables.rh.selectedUser.fullName}}</a>
+                <a ng-if="userService.selectedUser" ng-class="{active: $state.current.activetab == 'userDetails'}" class="item" id="det" data-tab="userDetails" ui-sref="hr.userDetailsTab({id:userService.selectedUser.id})">Détails de {{userService.selectedUser.fullName}}</a>
             </div>
             <div class="ui bottom attached tab segment active" data-tab="{{$state.current.activetab}}">
                 <div ui-view></div>
