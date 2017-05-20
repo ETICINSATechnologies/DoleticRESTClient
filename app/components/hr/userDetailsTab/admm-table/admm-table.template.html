@@ -1,0 +1,29 @@
+<table class="ui very basic celled table">
+    <thead>
+    <tr>
+        <th>Date de début</th>
+        <th>Date de fin</th>
+        <th>Cotis.</th>
+        <th>Fiche</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="administratorMembership in administratorMembershipService.currentUserMemberships" ng-class="{error: !administratorMembership.valid}">
+        <td>{{administratorMembership.startDate|date:"dd/MM/y"}}</td>
+        <td>{{administratorMembership.endDate|date:"dd/MM/y"}}</td>
+        <td>{{administratorMembership.feePaid ? 'Oui' : 'Non'}}</td>
+        <td>{{administratorMembership.formFilled ? 'Oui' : 'Non'}}</td>
+        <td>
+            <div class="ui icon buttons">
+                <button class="ui blue icon button" data-tooltip="Modifier" ng-click="showAdmmForm(administratorMembership)">
+                    <i class="write icon"></i>
+                </button>
+                <button class="ui red icon button" data-tooltip="Supprimer" ng-click="deleteAdmm(administratorMembership)">
+                    <i class="remove icon"></i>
+                </button>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>

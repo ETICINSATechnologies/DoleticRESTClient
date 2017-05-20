@@ -5,9 +5,9 @@
         .module('doleticApp')
         .factory('UserService', userService);
 
-    userService.$inject = ['store', 'SERVER_CONFIG', '$http'];
+    userService.$inject = ['store', 'SERVER_CONFIG', '$http', 'AdministratorMembershipService', 'UserPositionService', 'ConsultantMembershipService'];
 
-    function userService(store, SERVER_CONFIG, $http) {
+    function userService(store, SERVER_CONFIG, $http, AdministratorMembershipService, UserPositionService, ConsultantMembershipService) {
         var userFactory = {};
 
         var server = SERVER_CONFIG.url;
@@ -119,6 +119,30 @@
             }
             return $http.get(server + urlBase + "/" + id).success(function (data) {
                 userFactory.selectedUser = data.user;
+
+                // Administrator Memberships
+                AdministratorMembershipService.currentUserMemberships = {};
+                console.log(data.user.administratorMemberships);
+                var administratorMembership;
+                for (administratorMembership in data.user.administratorMemberships) {
+                    AdministratorMembershipService.currentUserMemberships[data.user.administratorMemberships[administratorMembership].id]
+                        = data.user.administratorMemberships[administratorMembership];
+                }
+                AdministratorMembershipService.currentUserId = data.user.id;
+
+                // Consultant Membership
+                ConsultantMembershipService.currentUserMembership = data.user.consultantMembership;
+                ConsultantMembershipService.currentUserId = data.user.id;
+
+                // UserPositions
+                UserPositionService.currentUserPositions = {};
+                var userPosition;
+                for (userPosition in data.user.positions) {
+                    UserPositionService.currentUserPositions[data.user.positions[userPosition].id]
+                        = data.user.positions[userPosition];
+                }
+                UserPositionService.currentUserId = data.user.id;
+
             }).error(function (data) {
                 console.log(data);
             });

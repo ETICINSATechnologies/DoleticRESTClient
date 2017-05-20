@@ -80,16 +80,6 @@
                         <div class="description">{{userService.selectedUser.recruitmentEvent.date|date:"dd/MM/y"}}</div>
                     </div>
                 </div>
-                <div class="item">
-                    <div class="ui green icon button"
-                         ng-click="">Nouvelle adhésion administrateur
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="ui green button"
-                         ng-click="">Nouvelle adhésion consultant
-                    </div>
-                </div>
             </div>
         </div>
         <div class="twelve wide column">
@@ -101,14 +91,15 @@
             <div class="ui horizontal divider">
                 Adhésions administrateur
             </div>
-            <div class="row" id="admm_table_container">
+            <div class="row">
+                <hr-admm-table-component></hr-admm-table-component>
             </div>
             <div class="ui horizontal divider">
-                Adhésions consultant
+                Adhésion consultant
             </div>
-            <div class="row" id="intm_table_container">
+            <div class="row">
+                <hr-intm-table-component></hr-intm-table-component>
             </div>
-
         </div>
     </div>
 </div>

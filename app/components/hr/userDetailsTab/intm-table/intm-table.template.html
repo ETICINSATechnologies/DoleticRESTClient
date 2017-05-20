@@ -1,0 +1,41 @@
+<table class="ui very basic celled table">
+    <thead>
+    <tr>
+        <th>Date de début</th>
+        <th>Cotis.</th>
+        <th>Fiche</th>
+        <th>Certif.</th>
+        <th>RIB</th>
+        <th>Pièce Id.</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-if="consultantMembershipService.currentUserMembership" ng-class="{error: !consultantMembershipService.currentUserMembership.valid}">
+        <td>{{consultantMembershipService.currentUserMembership.startDate|date:"dd/MM/y"}}</td>
+        <td>{{consultantMembership.socialNumber}}</td>
+        <td>{{consultantMembership.feePaid ? 'Oui' : 'Non'}}</td>
+        <td>{{consultantMembership.formFilled ? 'Oui' : 'Non'}}</td>
+        <td>{{consultantMembership.certificateGiven ? 'Oui' : 'Non'}}</td>
+        <td>{{consultantMembership.ribGiven ? 'Oui' : 'Non'}}</td>
+        <td>{{consultantMembership.idGiven ? 'Oui' : 'Non'}}</td>
+        <td>
+            <div class="ui icon buttons">
+                <button class="ui blue icon button" data-tooltip="Modifier" ng-click="showAdmmForm(consultantMembership)">
+                    <i class="write icon"></i>
+                </button>
+                <button class="ui red icon button" data-tooltip="Supprimer" ng-click="deleteAdmm(consultantMembership)">
+                    <i class="remove icon"></i>
+                </button>
+            </div>
+        </td>
+    </tr>
+    <tr ng-if="!consultantMembershipService.currentUserMembership">
+        <td rowspan="7">
+            <button class="ui green button" ng-click="">
+                Ajouter une nouvelle adhésion consultant
+            </button>
+        </td>
+    </tr>
+    </tbody>
+</table>
