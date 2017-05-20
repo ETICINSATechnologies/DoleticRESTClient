@@ -87,17 +87,18 @@
                 {{kernelService.rightLevel >= 4 ? "Gestion" : "Historique"}} des postes
             </div>
             <div class="row">
+                <hr-position-table-component></hr-position-table-component>
             </div>
-            <div class="ui horizontal divider">
+            <div class="ui horizontal divider" ng-if="rhService.rightLevel >= 3">
                 Adhésions administrateur
             </div>
-            <div class="row">
+            <div class="row" ng-if="rhService.rightLevel >= 3">
                 <hr-admm-table-component></hr-admm-table-component>
             </div>
-            <div class="ui horizontal divider">
+            <div class="ui horizontal divider" ng-if="rhService.rightLevel >= 3">
                 Adhésion consultant
             </div>
-            <div class="row">
+            <div class="row" ng-if="rhService.rightLevel >= 3">
                 <hr-intm-table-component></hr-intm-table-component>
             </div>
         </div>

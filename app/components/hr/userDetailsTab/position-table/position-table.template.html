@@ -1,0 +1,29 @@
+<table class="ui very basic celled table">
+    <thead>
+    <tr>
+        <th>Poste</th>
+        <th>Date de début</th>
+        <th>Date de fin</th>
+        <th>Principal ?</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="userPosition in userPositionService.currentUserPositions" ng-class="{positive: userPosition.main}">
+        <td>{{userPosition.position.label}}</td>
+        <td>{{userPosition.startDate|date:"dd/MM/y"}}</td>
+        <td>{{userPosition.active ? 'Active' : userPosition.endDate|date:"dd/MM/y"}}</td>
+        <td>{{userPosition.main ? 'Oui' : 'Non'}}</td>
+        <td>
+            <div class="ui icon buttons">
+                <button class="ui blue icon button" data-tooltip="Modifier" ng-click="showAdmmForm(administratorMembership)">
+                    <i class="write icon"></i>
+                </button>
+                <button class="ui red icon button" data-tooltip="Supprimer" ng-click="deleteAdmm(administratorMembership)">
+                    <i class="remove icon"></i>
+                </button>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>

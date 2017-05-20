@@ -122,7 +122,6 @@
 
                 // Administrator Memberships
                 AdministratorMembershipService.currentUserMemberships = {};
-                console.log(data.user.administratorMemberships);
                 var administratorMembership;
                 for (administratorMembership in data.user.administratorMemberships) {
                     AdministratorMembershipService.currentUserMemberships[data.user.administratorMemberships[administratorMembership].id]
