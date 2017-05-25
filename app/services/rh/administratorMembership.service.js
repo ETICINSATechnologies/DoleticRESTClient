@@ -12,14 +12,6 @@
         var urlBase = '/api/rh/administrator_membership';
         var administratorMembershipFactory = {};
 
-        administratorMembershipFactory.getAllAdministratorMemberships = function () {
-            return $http.get(server + urlBase + 's');
-        };
-
-        administratorMembershipFactory.getAdministratorMembership = function (id) {
-            return $http.get(server + urlBase + "/" + id);
-        };
-
         // POST
         administratorMembershipFactory.postMembership = function (administratorMembership) {
             return $http.post(server + urlBase, administratorMembership).success(function (data) {
@@ -33,7 +25,6 @@
 
         // PUT
         administratorMembershipFactory.putMembership = function (administratorMembership) {
-            console.log(administratorMembership);
             return $http.post(server + urlBase + "/" + administratorMembership.id, administratorMembership).success(function (data) {
                 administratorMembershipFactory.currentUserMemberships = angular.equals(administratorMembershipFactory.currentUserMemberships, []) ?
                     {} : administratorMembershipFactory.currentUserMemberships;
@@ -44,9 +35,9 @@
         };
 
         // DELETE
-        administratorMembershipFactory.deleteMembership = function (adminstratorMembership) {
-            return $http.delete(server + urlBase + "/" + adminstratorMembership.id).success(function (data) {
-                delete administratorMembershipFactory.currentUserMemberships[adminstratorMembership.id];
+        administratorMembershipFactory.deleteMembership = function (administratorMembership) {
+            return $http.delete(server + urlBase + "/" + administratorMembership.id).success(function (data) {
+                delete administratorMembershipFactory.currentUserMemberships[administratorMembership.id];
             }).error(function (error) {
                 console.log(error);
             });

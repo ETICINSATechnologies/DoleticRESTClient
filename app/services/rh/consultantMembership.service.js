@@ -9,18 +9,37 @@
 
     function ConsultantMembershipService($http, SERVER_CONFIG) {
         var server = SERVER_CONFIG.url;
-        var urlBase = '/api/rh/administrator_membership';
-        var administratorMembershipService = {};
+        var urlBase = '/api/rh/consultant_membership';
+        var consultantMembershipFactory = {};
 
-        administratorMembershipService.getAllConsultantMemberships = function () {
-            return $http.get(server + urlBase + 's');
+        // POST
+        consultantMembershipFactory.postMembership = function (consultantMembership) {
+            return $http.post(server + urlBase, consultantMembership).success(function (data) {
+                consultantMembershipFactory.currentUserMembership = data.consultant_membership;
+            }).error(function (error) {
+                console.log(error);
+            });
         };
 
-        administratorMembershipService.getConsultantMembership = function (id) {
-            return $http.get(server + urlBase + "/" + id);
+        // PUT
+        consultantMembershipFactory.putMembership = function (consultantMembership) {
+            return $http.post(server + urlBase + "/" + consultantMembership.id, consultantMembership).success(function (data) {
+                consultantMembershipFactory.currentUserMembership = data.consultant_membership;
+            }).error(function (error) {
+                console.log(error);
+            });
         };
 
-        return administratorMembershipService;
+        // DELETE
+        consultantMembershipFactory.deleteMembership = function (consultantMembership) {
+            return $http.delete(server + urlBase + "/" + consultantMembership.id).success(function (data) {
+                delete consultantMembershipFactory.currentUserMembership;
+            }).error(function (error) {
+                console.log(error);
+            });
+        };
+
+        return consultantMembershipFactory;
     }
 
 })();

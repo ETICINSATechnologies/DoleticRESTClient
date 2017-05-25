@@ -8,12 +8,15 @@
                 <div class="ui button"
                      ng-class="{olive: UserService.selectedUser.mainPosition.old, yellow: !UserService.selectedUser.mainPosition.old}"
                      ng-click="" ng-if="kernelService.rightLevel >= 4">
-                    {{UserService.selectedUser.mainPosition.old ? 'Marquer comme membre actuel' : 'Marquer comme ancien membre'}}
+                    {{UserService.selectedUser.mainPosition.old ? 'Marquer comme membre actuel' : 'Marquer comme ancien
+                    membre'}}
                 </div>
-                <div class="ui orange button" ng-if="UserService.selectedUser.enabled && kernelService.rightLevel >= 4" ng-click="disableUser()">
+                <div class="ui orange button" ng-if="UserService.selectedUser.enabled && kernelService.rightLevel >= 4"
+                     ng-click="disableUser()">
                     Désactiver l'utilisateur
                 </div>
-                <div class="ui olive button" ng-if="!UserService.selectedUser.enabled && kernelService.rightLevel >= 4" ng-click="enableUser()">
+                <div class="ui olive button" ng-if="!UserService.selectedUser.enabled && kernelService.rightLevel >= 4"
+                     ng-click="enableUser()">
                     Réactiver l'utilisateur
                 </div>
             </div>
@@ -95,6 +98,10 @@
             <div class="row" ng-if="rhService.rightLevel >= 3">
                 <hr-admm-table-component></hr-admm-table-component>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="sixteen wide column">
             <div class="ui horizontal divider" ng-if="rhService.rightLevel >= 3">
                 Adhésion consultant
             </div>

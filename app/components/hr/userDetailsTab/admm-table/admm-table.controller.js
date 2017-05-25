@@ -25,7 +25,7 @@
             $scope.editMode = false;
         };
 
-        $scope.addMembership = function() {
+        $scope.addAdministratorMembership = function() {
             $scope.administratorMembership.user =  $state.params.id;
             AdministratorMembershipService.postMembership($scope.administratorMembership).success(function(data) {
                 MessageBoxService.showSuccess(
@@ -41,7 +41,7 @@
             });
         };
 
-        $scope.updateMembership = function() {
+        $scope.updateAdministratorMembership = function() {
             $scope.administratorMembership.user =  $state.params.id;
             AdministratorMembershipService.putMembership($scope.administratorMembership).success(function(data) {
                 MessageBoxService.showSuccess(
@@ -58,13 +58,13 @@
             });
         };
 
-        $scope.deleteMembership = function (task) {
+        $scope.deleteMembership = function (membership) {
             ConfirmModalService.showConfirmModal(
                 "Confirmer la suppression",
                 "Voulez-vous vraiment supprimer l'adhésion ?",
                 "remove",
                 function () {
-                    AdministratorMembershipService.deleteMembership(task).success(function (data) {
+                    AdministratorMembershipService.deleteMembership(membership).success(function (data) {
                         MessageBoxService.showSuccess(
                             "Suppression réussie !",
                             "L'adhésion a été supprimée."

@@ -11,18 +11,18 @@
     <tfoot ng-if="rhService.rightLevel >= 4">
     <tr ng-if="administratorMembership">
         <td colspan="5">
-            <form name="administratorMembershipForm" ng-submit="administratorMembershipForm.$valid && editmode?addMembership():updateMembership()"
+            <form name="administratorMembershipForm" ng-submit="administratorMembershipForm.$valid && (editMode?updateAdministratorMembership():addAdministratorMembership())"
                   novalidate>
                 <div class="ui center aligned grid">
                     <div class="four wide column">
-                        <div class="ui input">
+                        <div class="ui fluid input">
                             <input placeholder="JJ/MM/AAAA" type="text" required
                                    ng-pattern="/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/"
                                    name="startDate" ng-model="administratorMembership.startDate"/>
                         </div>
                     </div>
                     <div class="four wide column">
-                        <div class="ui input">
+                        <div class="ui fluid input">
                             <input placeholder="JJ/MM/AAAA" type="text" required
                                    ng-pattern="/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/"
                                    name="endDate" ng-model="administratorMembership.endDate"/>
