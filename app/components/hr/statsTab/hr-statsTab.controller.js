@@ -5,9 +5,9 @@
         .module('doleticApp')
         .controller('hrStatsTabController', hrStatsTabController);
 
-    hrStatsTabController.$inject = ['$scope'];
+    hrStatsTabController.$inject = ['$scope', 'RHService'];
 
-    function hrStatsTabController($scope) {
+    function hrStatsTabController($scope, RHService) {
 
     }
 })();

@@ -20,11 +20,39 @@
             }
             return $http.get(server + urlBase + "s").success(function (data) {
                 recruitmentEventFactory.recruitmentEvents = data.recruitment_events;
-                for (var id in recruitmentEventFactory.recruitmentEvents) {
-                    recruitmentEventFactory.recruitmentEvents[id].date = $filter('date')(recruitmentEventFactory.recruitmentEvents[id].date, "dd/MM/y");
-                }
             }).error(function (data) {
                 console.log(data);
+            });
+        };
+
+        // POST
+        recruitmentEventFactory.postRecruitmentEvent = function (recruitmentEvent) {
+            return $http.post(server + urlBase, recruitmentEvent).success(function (data) {
+                recruitmentEventFactory.recruitmentEvents = angular.equals(recruitmentEventFactory.recruitmentEvents, []) ?
+                    {} : recruitmentEventFactory.recruitmentEvents;
+                recruitmentEventFactory.recruitmentEvents[data.recruitment_event.id] = data.recruitment_event;
+            }).error(function (error) {
+                console.log(error);
+            });
+        };
+
+        // PUT
+        recruitmentEventFactory.putRecruitmentEvent = function (recruitmentEvent) {
+            return $http.post(server + urlBase + "/" + recruitmentEvent.id, recruitmentEvent).success(function (data) {
+                recruitmentEventFactory.recruitmentEvents = angular.equals(recruitmentEventFactory.recruitmentEvents, []) ?
+                    {} : recruitmentEventFactory.recruitmentEvents;
+                recruitmentEventFactory.recruitmentEvents[data.recruitment_event.id] = data.recruitment_event;
+            }).error(function (error) {
+                console.log(error);
+            });
+        };
+
+        // DELETE
+        recruitmentEventFactory.deleteRecruitmentEvent = function (recruitmentEvent) {
+            return $http.delete(server + urlBase + "/" + recruitmentEvent.id).success(function (data) {
+                delete recruitmentEventFactory.recruitmentEvents[recruitmentEvent.id];
+            }).error(function (error) {
+                console.log(error);
             });
         };
 
