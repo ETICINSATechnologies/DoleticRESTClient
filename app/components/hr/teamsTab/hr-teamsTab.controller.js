@@ -5,9 +5,10 @@
         .module('doleticApp')
         .controller('hrTeamsTabController', hrTeamsTabController);
 
-    hrTeamsTabController.$inject = ['$scope'];
+    hrTeamsTabController.$inject = ['$scope', 'RHService', 'TeamService'];
 
-    function hrTeamsTabController($scope) {
-
+    function hrTeamsTabController($scope, RHService, TeamService) {
+        $scope.rhService = RHService;
+        $scope.teamService = TeamService;
     }
 })();

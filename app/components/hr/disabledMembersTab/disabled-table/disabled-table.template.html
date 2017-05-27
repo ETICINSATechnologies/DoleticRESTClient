@@ -1,4 +1,4 @@
-<table class="ui very basic celled table" id="disabled_table">
+<table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="ui very basic celled table">
     <thead>
         <tr>
             <th></th>
@@ -21,41 +21,39 @@
             <th></th>
         </tr>
     </tfoot>
-    <tbody id="disabled_body">"
-        <tr ng-repeat="disabledUser in disabledUsers">
+    <tbody>
+        <tr ng-repeat="user in userService.disabledUsers">
             <td>
                 <button class="ui teal icon button"
-                        data-tooltip="Détails de {{data.object[i].firstname}} {{data.object[i].lastname}}"
+                        data-tooltip="Détails de {{user.fullName}}"
                         data-content="Cliquez ici pour afficher plus d'informations"
-                        ng-click="">
+                        ui-sref="hr.userDetailsTab({id : user.id})">
                     <i class="user icon"></i>
                 </button>
             </td>
             <td>
                 <h4 class="ui header">
-                    <div class="content">{{data.object[i].firstname}} {{data.object[i].lastname}}
+                    <div class="content">
+                        {{user.fullName}}
                         <div class="sub header">
-                            <a href="mailto:{{data.object[i].email}}" target="_blank">{{data.object[i].email}}</a>
+                            <a href="mailto:{{user.email}}" target="_blank">{{user.email}}</a>
                         </div>
                     </div>
                 </h4>
             </td>
-            <td>{{data.object[i].position[0].label}}</td>
-            <td>{{data.object[i].position[0].division}}</td>
-            <td>{{data.object[i].tel}}</td>
-            <td>{{data.object[i].school_year}} {{data.object[i].insa_dept}}</td>
+            <td>{{user.mainPosition.label}}</td>
+            <td>{{user.mainPosition.division.label}}</td>
+            <td>0{{user.tel}}</td>
+            <td>{{user.school_year.year}}{{user.department.label}}</td>
             <td>
                 <div class="ui icon buttons">
-                    <button class="ui olive icon button" data-tooltip="Réactiver" ng-click="">
-                        <i class="refresh icon"></i>
+                    <button class="ui blue icon button" data-tooltip="Modifier" ng-click="showUserForm(user)">
+                        <i class="write icon"></i>
                     </button>
-                    <button ng-if="data.object[i].old" class="ui yellow icon button" data-tooltip="Marquer comme membre actuel" ng-click="">
-                        <i class="add user icon"></i>
+                    <button class="ui yellow icon button" data-tooltip="Réactiver" ng-click="enableUser(user)">
+                        <i class="reply icon"></i>
                     </button>
-                    <button ng-if="!data.object[i].old" class="ui yellow icon button" data-tooltip="Marquer comme ancien membre" ng-click="">
-                        <i class="student icon"></i>
-                    </button>
-                    <button class="ui red icon button" data-tooltip="Supprimer" ng-click="">
+                    <button class="ui red icon button" data-tooltip="Supprimer" ng-click="deleteUser(user)">
                         <i class="remove icon"></i>
                     </button>
                 </div>
