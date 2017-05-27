@@ -83,6 +83,5 @@
             if ($scope.administratorMembership.startDate) $scope.administratorMembership.startDate = $filter('date')($scope.administratorMembership.startDate, "dd/MM/y");
             if ($scope.administratorMembership.endDate) $scope.administratorMembership.endDate = $filter('date')($scope.administratorMembership.endDate, "dd/MM/y");
         }
-
     }
 })();

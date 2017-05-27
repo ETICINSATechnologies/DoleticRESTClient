@@ -5,47 +5,80 @@
         .module('doleticApp')
         .controller('hrPositionTableController', hrPositionTableController);
 
-    hrPositionTableController.$inject = ['$scope', '$state', 'UserPositionService', 'ConfirmModalService', 'MessageBoxService', 'ModalService'];
+    hrPositionTableController.$inject = ['$scope', '$state', '$filter', 'UserPositionService', 'ConfirmModalService', 'MessageBoxService', 'KernelService', 'PositionService'];
 
-    function hrPositionTableController($scope, $state, UserPositionService, ConfirmModalService, MessageBoxService, ModalService) {
+    function hrPositionTableController($scope, $state, $filter, UserPositionService, ConfirmModalService, MessageBoxService, KernelService, PositionService) {
         $scope.userPositionService = UserPositionService;
+        $scope.kernelService = KernelService;
+        $scope.positionService = PositionService;
+        $scope.editMode = false;
 
-        $scope.showPositionForm = function (task) {
-            ModalService.showModal({
-                templateUrl: "app/components/hr/userDetailsTab/position-form/task-form.template.html",
-                controller: "hrPositionFormController",
-                inputs: {
-                    editMode: true,
-                    userPosition: angular.copy(task)
-                }
-            }).then(function (modal) {
-                modal.element.modal('show');
-            }).catch(function (error) {
-                // error contains a detailed error message.
-                console.log(error);
+        $scope.showUserPositionForm = function() {
+            $scope.position = {};
+        };
+
+        $scope.cancelUserPositionForm = function() {
+            delete $scope.position;
+        };
+
+        $scope.addUserPosition = function() {
+            $scope.position.user =  $state.params.id;
+            UserPositionService.postUserPosition($scope.position).success(function(data) {
+                MessageBoxService.showSuccess(
+                    "Ajout réussi !",
+                    "Le poste a été ajouté."
+                );
+                delete $scope.position;
+            }).error(function(data) {
+                MessageBoxService.showError(
+                    "Echec de l'ajout...",
+                    "Le poste n'a pas pu être ajouté."
+                );
             });
         };
 
-        $scope.deletePosition = function (task) {
+        $scope.setAsMainPosition = function(position) {
             ConfirmModalService.showConfirmModal(
-                "Confirmer la suppression",
-                "Voulez-vous vraiment supprimer l'adhésion ?",
-                "remove",
+                "Confirmer l'opération",
+                "Voulez-vous vraiment faire de ce poste le poste principal de l'utilisateur ?",
+                "power",
                 function () {
-                    UserPositionService.deletePosition(task).success(function (data) {
+                    UserPositionService.setUserPositionAsMain(position).success(function (data) {
                         MessageBoxService.showSuccess(
-                            "Suppression réussie !",
-                            "L'adhésion a été supprimée."
+                            "Opération réussie !",
+                            "Le poste est maintenant le poste principal de l'utilisateur."
                         );
                     }).error(function (data) {
                         MessageBoxService.showError(
-                            "Echec de la suppression...",
-                            "L'adhésion n'a pas pu être supprimée."
+                            "Echec de la désactivation...",
+                            "Le poste n'a pas pu être marqué comme principal."
                         );
                     });
                 }
             );
         };
 
+        $scope.disableUserPosition = function (position) {
+            ConfirmModalService.showConfirmModal(
+                "Confirmer la désactivation",
+                "Voulez-vous vraiment désactiver ce poste ?",
+                "remove",
+                function () {
+                    UserPositionService.disableUserPosition(position).success(function (data) {
+                        MessageBoxService.showSuccess(
+                            "Désactivation réussie !",
+                            "Le poste a été désactivé."
+                        );
+                    }).error(function (data) {
+                        MessageBoxService.showError(
+                            "Echec de la désactivation...",
+                            "Le poste n'a pas pu être désactivé."
+                        );
+                    });
+                }
+            );
+        };
+
+        PositionService.getAllPositions(true);
     }
 })();
