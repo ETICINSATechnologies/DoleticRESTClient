@@ -17,7 +17,7 @@
 
         function showEditProfileForm() {
             ModalService.showModal({
-                templateUrl: "app/components/dashboard/profile-form-modal/profile-form-modal.template.html",
+                templateUrl: "app/components/dashboard/profile-form/profile-form.template.html",
                 controller: "ProfileFormController",
                 inputs:{
                     profile: angular.copy($scope.currentUser)
@@ -32,7 +32,7 @@
 
         function showEditPassForm() {
             ModalService.showModal({
-                templateUrl: "app/components/dashboard/pass-form-modal/pass-form-modal.template.html",
+                templateUrl: "app/components/dashboard/pass-form/pass-form.template.html",
                 controller: "PassFormController",
                 inputs:{
                     pass:{}

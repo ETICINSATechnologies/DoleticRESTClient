@@ -9,7 +9,7 @@
         return {
             bindings: {},
             controller: "PassFormController",
-            templateUrl: "app/components/dashboard/pass-form-modal/pass-form-modal.template.html"
+            templateUrl: "app/components/dashboard/pass-form/pass-form.template.html"
         }
     }
 })();
