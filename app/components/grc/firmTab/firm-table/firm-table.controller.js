@@ -20,19 +20,11 @@
                 aoColumns:[
                     {type: "text"},
                     {type: "text"},
-                    {
-                        type: "semantic-dropdown",
-                        values:['Autres', 'test'],
-                        id:"company_table_Type"
-                    },
                     {type: "text"},
                     {type: "text"},
                     {type: "text"},
-                    {
-                        type: "semantic-dropdown",
-                        values:['France','Allemagne', 'Belgique'],
-                        id:"company_table_country"
-                    },
+                    {type: "text"},
+                    {type: "text"},
                     {type: "reset-button"}
                 ]
             });

@@ -5,9 +5,9 @@
         .module('doleticApp')
         .controller('grcContactedProspectTableController', grcContactedProspectTableController);
 
-    grcContactedProspectTableController.$inject = ['$scope', '$state', 'ContactService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'ConfirmModalService', 'MessageBoxService', 'ModalService', 'GRCService', 'UserService'];
+    grcContactedProspectTableController.$inject = ['$scope', 'ContactService', 'DTOptionsBuilder', 'ConfirmModalService', 'MessageBoxService', 'ModalService', 'GRCService', 'UserService'];
 
-    function grcContactedProspectTableController($scope, $state, ContactService, DTOptionsBuilder, DTColumnDefBuilder, ConfirmModalService, MessageBoxService, ModalService, GRCService, UserService) {
+    function grcContactedProspectTableController($scope, ContactService, DTOptionsBuilder, DTColumnDefBuilder, ConfirmModalService, MessageBoxService, ModalService, GRCService, UserService) {
         $scope.contactService = ContactService;
         $scope.grcService = GRCService;
         $scope.userService = UserService;
@@ -16,7 +16,19 @@
             .newOptions()
             .withPaginationType('full_numbers')
             .withDisplayLength(25)
-            .withOption('stateSave', true);
+            .withOption('stateSave', true)
+            .withColumnFilter({
+                aoColumns:[
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "reset-button"}
+                ]
+            });
         $scope.dtColumnDefs = [];
 
         $scope.deleteContactedProspect = function (id) {

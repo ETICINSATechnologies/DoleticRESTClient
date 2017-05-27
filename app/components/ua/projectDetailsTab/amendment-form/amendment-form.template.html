@@ -3,6 +3,7 @@
         <form name="amendmentForm" class="ui form vertical segment"
               ng-submit="amendmentForm.$valid && editMode?editAmendment():addAmendment()"
               novalidate>
+            <fix-modal-component></fix-modal-component>
             <div class="ui message" ng-show="amendmentForm.$dirty"
                  ng-class="{'positive' : amendmentForm.$valid, 'negative' : amendmentForm.$invalid}">
                 Le formulaire est {{ amendmentForm.$valid ? "valide" : "invalide" }}

@@ -3,6 +3,7 @@
         <form name="clientForm" class="ui form vertical segment"
               ng-submit="clientForm.$valid && editMode?editClient():addClient()"
               novalidate>
+            <fix-modal-component></fix-modal-component>
             <div class="ui message" ng-show="clientForm.$dirty"
                  ng-class="{'positive' : clientForm.$valid, 'negative' : clientForm.$invalid}">
                 Le formulaire est {{ clientForm.$valid ? "valide" : "invalide" }}

@@ -5,18 +5,17 @@
         .module('doleticApp')
         .controller('ProfileFormController', ProfileFormController);
 
-    ProfileFormController.$inject = ['$scope', 'close', '$filter', '$state', 'SharedVariables', 'MessageBoxService', 'UserService', 'CountryService', 'GenderService', 'YearService', 'DepartmentService', 'profile'];
+    ProfileFormController.$inject = ['$scope', 'close', '$filter', '$state', 'MessageBoxService', 'UserService', 'CountryService', 'GenderService', 'SchoolYearService', 'DepartmentService', 'profile'];
 
-    function ProfileFormController($scope, close, $filter, $state, SharedVariables, MessageBoxService, UserService, CountryService, GenderService, YearService, DepartmentService, profile) {
+    function ProfileFormController($scope, close, $filter, $state, MessageBoxService, UserService, CountryService, GenderService, SchoolYearService, DepartmentService, profile) {
 
         $scope.$state = $state;
-        $scope.sharedVariables = SharedVariables;
         $scope.currentUser = UserService.getCurrentUser();
         $scope.currentUser.activePosition = _.find($scope.currentUser.positions, 'active');
         $scope.updateProfile = updateProfile;
         $scope.CountryService = CountryService;
         $scope.GenderService = GenderService;
-        $scope.YearService = YearService;
+        $scope.SchoolYearService = SchoolYearService;
         $scope.DepartmentService = DepartmentService;
         if(profile!={})formatProfile();
         $scope.profile = profile;
@@ -47,7 +46,7 @@
 
         CountryService.getAllCountries(true);
         GenderService.getAllGenders(true);
-        YearService.getAllYears(true);
+        SchoolYearService.getAllSchoolYears(true);
         DepartmentService.getAllDepartments(true);
 
         function formatProfile() {

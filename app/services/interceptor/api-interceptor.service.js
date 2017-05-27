@@ -25,7 +25,6 @@
             return $q.reject(response);
         };
         service.requestError = function (rejection) {
-            //SharedVariables.messageBox.show = true;
             return $q.reject(rejection);
         };
 

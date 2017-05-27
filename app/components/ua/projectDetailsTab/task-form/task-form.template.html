@@ -3,6 +3,7 @@
         <form name="taskForm" class="ui form vertical segment"
               ng-submit="taskForm.$valid && editMode?editTask():addTask()"
               novalidate>
+            <fix-modal-component></fix-modal-component>
             <div class="ui message" ng-show="taskForm.$dirty"
                  ng-class="{'positive' : taskForm.$valid, 'negative' : taskForm.$invalid}">
                 Le formulaire est {{ taskForm.$valid ? "valide" : "invalide" }}

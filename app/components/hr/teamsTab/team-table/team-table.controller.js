@@ -12,7 +12,7 @@
         $scope.dtOptions = DTOptionsBuilder
             .newOptions()
             .withPaginationType('full_numbers')
-            .withDisplayLength(20);
+            .withDisplayLength(25);
         $scope.dtColumnDefs = [];
 
         $scope.showTeamForm = function(team) {

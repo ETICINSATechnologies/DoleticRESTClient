@@ -5,12 +5,11 @@
         .module('doleticApp')
         .controller('DashboardController', DashboardController);
 
-    DashboardController.$inject = ['$scope', '$state', 'SharedVariables', 'UserService', 'ModalService'];
+    DashboardController.$inject = ['$scope', '$state', 'UserService', 'ModalService'];
 
-    function DashboardController($scope, $state, SharedVariables, UserService, ModalService) {
+    function DashboardController($scope, $state, UserService, ModalService) {
 
         $scope.$state = $state;
-        $scope.sharedVariables = SharedVariables;
         $scope.currentUser = UserService.getCurrentUser();
         $scope.currentUser.activePosition = _.find($scope.currentUser.positions, 'active');
         $scope.showEditPassForm = showEditPassForm;
