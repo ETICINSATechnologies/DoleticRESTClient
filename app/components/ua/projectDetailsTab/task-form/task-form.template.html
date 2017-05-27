@@ -8,8 +8,8 @@
                  ng-class="{'positive' : taskForm.$valid, 'negative' : taskForm.$invalid}">
                 Le formulaire est {{ taskForm.$valid ? "valide" : "invalide" }}
             </div>
-            <h2 ng-if="!editMode" class="ui dividing header">Ajout d'une phase</h2>
-            <h2 ng-if="editMode" class="ui dividing header">Modification d'une phase</h2>
+            <h4 ng-if="!editMode" class="ui dividing header">Ajout d'une phase</h4>
+            <h4 ng-if="editMode" class="ui dividing header">Modification d'une phase</h4>
             <div class="fields">
                 <div class="eight wide required field">
                     <label>Date de début</label>

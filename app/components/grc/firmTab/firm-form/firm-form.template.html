@@ -4,8 +4,8 @@
         <div class="ui message" ng-show="firmForm.$dirty" ng-class="{'positive' : firmForm.$valid, 'negative' : firmForm.$invalid}">
             Le formulaire est {{ firmForm.$valid ? "valide" : "invalide" }}
         </div>
-        <h2 ng-if="!editMode" class="ui dividing header">Ajout d'une société</h2>
-        <h2 ng-if="editMode" class="ui dividing header">Modification d'une société</h2>
+        <h4 ng-if="!editMode" class="ui dividing header">Ajout d'une société</h4>
+        <h4 ng-if="editMode" class="ui dividing header">Modification d'une société</h4>
         <div class="ui fields">
             <div class="eight wide field">
                 <label>SIRET</label>

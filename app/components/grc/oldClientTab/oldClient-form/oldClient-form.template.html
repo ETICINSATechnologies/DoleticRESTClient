@@ -8,8 +8,8 @@
                  ng-class="{'positive' : oldClientForm.$valid, 'negative' : oldClientForm.$invalid}">
                 Le formulaire est {{ oldClientForm.$valid ? "valide" : "invalide" }}
             </div>
-            <h2 ng-if="!editMode" class="ui dividing header">Ajout d'un ancien client</h2>
-            <h2 ng-if="editMode" class="ui dividing header">Modification d'un ancien client</h2>
+            <h4 ng-if="!editMode" class="ui dividing header">Ajout d'un ancien client</h4>
+            <h4 ng-if="editMode" class="ui dividing header">Modification d'un ancien client</h4>
             <div class="fields">
                 <div class="eight wide required field">
                     <label>Prénom</label>

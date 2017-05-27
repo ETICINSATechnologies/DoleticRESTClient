@@ -8,8 +8,8 @@
                  ng-class="{'positive' : amendmentForm.$valid, 'negative' : amendmentForm.$invalid}">
                 Le formulaire est {{ amendmentForm.$valid ? "valide" : "invalide" }}
             </div>
-            <h2 ng-if="!editMode" class="ui dividing header">Ajout d'un avenant</h2>
-            <h2 ng-if="editMode" class="ui dividing header">Modification d'un avenant</h2>
+            <h4 ng-if="!editMode" class="ui dividing header">Ajout d'un avenant</h4>
+            <h4 ng-if="editMode" class="ui dividing header">Modification d'un avenant</h4>
             <div class="sixteen wide required field">
                 <label>Date</label>
                 <input placeholder="JJ/MM/AAAA" type="text"
