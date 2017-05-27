@@ -21,10 +21,13 @@
         };
 
         userFactory.updatePassword = function (pass) {
-            return $http.post(server + urlBase + "/current/password", pass).success()
-                .error(function (error) {
-                    console.log(error);
-                });
+            pass['new[first]'] = pass.first;
+            pass['new[second]'] = pass.second;
+            return $http.post(server + urlBase + "/current/password", pass).success(function(data) {
+                console.log(data);
+            }).error(function (error) {
+                console.log(error);
+            });
         };
 
         userFactory.updateProfile = function (profile) {

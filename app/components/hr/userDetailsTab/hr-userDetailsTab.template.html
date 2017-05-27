@@ -5,12 +5,6 @@
                 <div class="ui green button" ng-click="showUserForm()" ng-if="kernelService.rightLevel >= 4">
                     Modifier l'utilisateur
                 </div>
-                <div class="ui button"
-                     ng-class="{olive: UserService.selectedUser.mainPosition.old, yellow: !UserService.selectedUser.mainPosition.old}"
-                     ng-click="" ng-if="kernelService.rightLevel >= 4">
-                    {{UserService.selectedUser.mainPosition.old ? 'Marquer comme membre actuel' : 'Marquer comme ancien
-                    membre'}}
-                </div>
                 <div class="ui orange button" ng-if="UserService.selectedUser.enabled && kernelService.rightLevel >= 4"
                      ng-click="disableUser()">
                     Désactiver l'utilisateur

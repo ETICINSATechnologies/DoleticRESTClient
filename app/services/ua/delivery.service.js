@@ -12,14 +12,6 @@
         var urlBase = '/api/ua/delivery';
         var deliveryFactory = {};
 
-        deliveryFactory.getDelivery = function (id) {
-            return $http.get(server + urlBase + '/' + id);
-        };
-
-        deliveryFactory.getAllDeliveries = function () {
-            return $http.get(server + urlBase + 's');
-        };
-
         deliveryFactory.getAllDeliveriesByProject = function (id, cache) {
             if (!cache) {
                 delete deliveryFactory.currentProjectDeliveries;

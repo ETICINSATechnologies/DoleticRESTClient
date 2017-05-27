@@ -5,15 +5,9 @@
         .module('doleticApp')
         .controller('PassFormController', PassFormController);
 
-    PassFormController.$inject = ['$scope', 'close', '$state', 'SharedVariables', 'MessageBoxService', 'UserService'];
+    PassFormController.$inject = ['$scope', 'close', 'MessageBoxService', 'UserService'];
 
-    function PassFormController($scope, close, $state, SharedVariables, MessageBoxService, UserService)  {
-
-        $scope.$state = $state;
-        $scope.sharedVariables = SharedVariables;
-        $scope.currentUser = UserService.getCurrentUser();
-        $scope.currentUser.activePosition = _.find($scope.currentUser.positions, 'active');
-        $scope.updatePassword = updatePassword;
+    function PassFormController($scope, close, MessageBoxService, UserService)  {
         $scope.pass = {};
 
         $scope.resetForm = function () {
@@ -21,7 +15,7 @@
             $scope.passForm.$setPristine();
         };
 
-        function updatePassword() {
+        $scope.updatePassword =  function() {
             UserService.updatePassword($scope.pass)
                 .success(function (data) {
                     $('#pass_form_modal').modal('hide');

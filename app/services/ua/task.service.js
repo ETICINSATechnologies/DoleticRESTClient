@@ -12,14 +12,6 @@
         var urlBase = '/api/ua/task';
         var taskFactory = {};
 
-        taskFactory.getTask = function (id) {
-            return $http.get(server + urlBase + '/' + id);
-        };
-
-        taskFactory.getAllTasks = function () {
-            return $http.get(server + urlBase + 's');
-        };
-
         taskFactory.getAllTasksByProject = function (id, cache) {
             if (!cache) {
                 delete taskFactory.currentProjectTasks;

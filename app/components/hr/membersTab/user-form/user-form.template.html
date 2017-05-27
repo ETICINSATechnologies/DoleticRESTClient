@@ -6,8 +6,8 @@
              ng-class="{'positive' : userForm.$valid, 'negative' : userForm.$invalid}">
             Le formulaire est {{ userForm.$valid ? "valide" : "invalide" }}
         </div>
-        <h2 ng-if="!editMode" class="ui dividing header">Ajout d'un membre</h2>
-        <h2 ng-if="editMode" class="ui dividing header">Modification d'un membre</h2>
+        <h4 ng-if="!editMode" class="ui dividing header">Ajout d'un membre</h4>
+        <h4 ng-if="editMode" class="ui dividing header">Modification d'un membre</h4>
         <div class="fields">
             <div class="eight wide required field">
                 <label>Prénom</label>

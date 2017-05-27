@@ -1,9 +1,9 @@
 <div id="confirm_modal" class="ui basic modal">
-    <div id="confirm_modal_header" class="header">
+    <div class="header">
         {{ confirmModalService.title }}
     </div>
     <div class="image content">
-        <div id="confirm_modal_icon" class="image">
+        <div class="image">
             <i class="icon" ng-class="confirmModalService.icon"></i>
         </div>
         <div id="confirm_modal_description" class="description">
@@ -12,11 +12,11 @@
     </div>
     <div class="actions">
         <div class="two fluid ui inverted buttons">
-            <div id="confirm_modal_no" class="ui red basic inverted button" ng-click="hideConfirmModal()">
+            <div class="ui red basic inverted button" ng-click="hideConfirmModal()">
                 <i class="remove icon"></i>
                 Non
             </div>
-            <div id="confirm_modal_yes" class="ui green basic inverted button"
+            <div class="ui green basic inverted button"
                  ng-click="confirm();">
                 <i class="checkmark icon"></i>
                 Oui

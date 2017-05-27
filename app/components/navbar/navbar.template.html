@@ -1,23 +1,23 @@
 <div>
-    <div id="left_menu" class="ui fixed menu">
-        <a id="menu_doletic" class="header item" ng-click="">
+    <div class="ui fixed menu">
+        <a class="header item" ui-sref="dashboard">
             <img class="ui mini spaced image" style="height:15px; width:15px;" src="/resources/doletic_logo.png"/>
             Doletic v2.1
         </a>
-        <a ng-if="AuthService.isLogged()" class="item module_submenu" id="submenu_home" ui-sref="dashboard">Accueil</a>
-        <a ng-if="AuthService.isLogged()" class="item module_submenu" id="submenu_grc" ui-sref="grc.firmTab">Gestion Relations Clients</a>
-        <a ng-if="AuthService.isLogged()" class="item module_submenu" id="submenu_rh" ui-sref="hr.membersTab">Ressources humaines</a>
-        <a ng-if="AuthService.isLogged()" class="item module_submenu" id="submenu_support" ui-sref="support.ticketTab">Support</a>
-        <a ng-if="AuthService.isLogged()" class="item module_submenu" id="submenu_tools" ui-sref="tools.signatureTab">Outils</a>
-        <a ng-if="AuthService.isLogged()" class="item module_submenu" id="submenu_ua" ui-sref="ua.statsTab">Unité d'Affaires</a>
-        <a id="menu_about_doletic" class="right floated item" ng-click="showAbout()">
+        <a ng-if="AuthService.isLogged()" class="item module_submenu" ui-sref="dashboard">Accueil</a>
+        <a ng-if="AuthService.isLogged()" class="item module_submenu" ui-sref="grc.firmTab">Gestion Relations Clients</a>
+        <a ng-if="AuthService.isLogged()" class="item module_submenu" ui-sref="hr.membersTab">Ressources humaines</a>
+        <a ng-if="AuthService.isLogged()" class="item module_submenu" ui-sref="support.ticketTab">Support</a>
+        <a ng-if="AuthService.isLogged()" class="item module_submenu" ui-sref="tools.signatureTab">Outils</a>
+        <a ng-if="AuthService.isLogged()" class="item module_submenu" ui-sref="ua.statsTab">Unité d'Affaires</a>
+        <a class="right floated item" ng-click="showAbout()">
             <i class="info circle icon"></i>
         </a>
-        <a ng-if="AuthService.isLogged()" id="menu_preferences_doletic" class="item"
+        <a ng-if="AuthService.isLogged()" class="item"
            ng-click="showSettingsModal();">
             <i class="settings icon"></i>
         </a>
-        <a ng-if="AuthService.isLogged()" id="menu_logout" class="item" ng-click="showLogout();">
+        <a ng-if="AuthService.isLogged()" class="item" ng-click="showLogout();">
             <i class="power icon"></i>
         </a>
     </div>

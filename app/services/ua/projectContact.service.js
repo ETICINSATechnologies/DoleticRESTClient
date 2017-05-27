@@ -12,14 +12,6 @@
         var urlBase = '/api/ua/project_contact';
         var projectContactFactory = {};
 
-        projectContactFactory.getProjectContact = function (id) {
-            return $http.get(server + urlBase + '/' + id);
-        };
-
-        projectContactFactory.getAllProjectContacts = function () {
-            return $http.get(server + urlBase + 's');
-        };
-
         projectContactFactory.getAllContactsByProject = function (id, cache) {
             if (!cache) {
                 delete projectContactFactory.currentProjectContacts;

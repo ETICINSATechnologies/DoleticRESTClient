@@ -5,14 +5,25 @@
         .module('doleticApp')
         .controller('hrOldTableController', hrOldTableController);
 
-    hrOldTableController.$inject = ['$scope', '$state', 'UserService', 'SharedVariables', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'ConfirmModalService', 'MessageBoxService'];
+    hrOldTableController.$inject = ['$scope', 'UserService', 'DTOptionsBuilder', 'ConfirmModalService', 'MessageBoxService'];
 
-    function hrOldTableController($scope, $state, UserService, SharedVariables, DTOptionsBuilder, DTColumnDefBuilder, ConfirmModalService, MessageBoxService) {
+    function hrOldTableController($scope, UserService, DTOptionsBuilder, ConfirmModalService, MessageBoxService) {
         $scope.userService = UserService;
         $scope.dtOptions = DTOptionsBuilder
             .newOptions()
             .withPaginationType('full_numbers')
-            .withDisplayLength(20);
+            .withDisplayLength(25)
+            .withColumnFilter({
+                aoColumns:[
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "reset-button"}
+                ]
+            });
         $scope.dtColumnDefs = [];
 
         $scope.disableUser = function (user) {

@@ -12,10 +12,6 @@
         var urlBase = '/api/ua/project_origin';
         var projectOriginFactory = {};
 
-        projectOriginFactory.getProjectOrigin = function (id) {
-            return $http.get(server + urlBase + '/' + id);
-        };
-
         projectOriginFactory.getAllProjectOrigins = function (cache) {
             if (!cache) {
                 delete projectOriginFactory.projectOrigins;

@@ -16,7 +16,19 @@
             .newOptions()
             .withPaginationType('full_numbers')
             .withDisplayLength(25)
-            .withOption('stateSave', true);
+            .withOption('stateSave', true)
+            .withColumnFilter({
+                aoColumns:[
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "reset-button"}
+                ]
+            });
         $scope.dtColumnDefs = [];
 
         $scope.deleteProspect = function (id) {

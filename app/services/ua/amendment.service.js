@@ -12,14 +12,6 @@
         var urlBase = '/api/ua/amendment';
         var amendmentFactory = {};
 
-        amendmentFactory.getAmendment = function (id) {
-            return $http.get(server + urlBase + '/' + id);
-        };
-
-        amendmentFactory.getAllAmendments = function () {
-            return $http.get(server + urlBase + 's');
-        };
-
         amendmentFactory.getAllAmendmentsByProject = function (id, cache) {
             if (!cache) {
                 delete amendmentFactory.currentProjectAmendments;
@@ -35,10 +27,6 @@
             }).error(function (error) {
                 console.log(error);
             });
-        };
-
-        amendmentFactory.getAllAmendmentsByType = function (id) {
-            return $http.get(server + urlBase + 's/type/' + id);
         };
 
         // POST

@@ -5,14 +5,25 @@
         .module('doleticApp')
         .controller('hrDisabledTableController', hrDisabledTableController);
 
-    hrDisabledTableController.$inject = ['$scope', '$state', 'UserService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'ConfirmModalService', 'MessageBoxService'];
+    hrDisabledTableController.$inject = ['$scope', 'UserService', 'DTOptionsBuilder', 'ConfirmModalService', 'MessageBoxService'];
 
-    function hrDisabledTableController($scope, $state, UserService, DTOptionsBuilder, DTColumnDefBuilder, ConfirmModalService, MessageBoxService) {
+    function hrDisabledTableController($scope, UserService, DTOptionsBuilder, ConfirmModalService, MessageBoxService) {
         $scope.userService = UserService;
         $scope.dtOptions = DTOptionsBuilder
             .newOptions()
             .withPaginationType('full_numbers')
-            .withDisplayLength(20);
+            .withDisplayLength(25)
+            .withColumnFilter({
+                aoColumns:[
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "reset-button"}
+                ]
+            });
         $scope.dtColumnDefs = [];
 
         $scope.enableUser = function (user) {
