@@ -33,10 +33,7 @@
         function showEditPassForm() {
             ModalService.showModal({
                 templateUrl: "app/components/dashboard/pass-form/pass-form.template.html",
-                controller: "PassFormController",
-                inputs:{
-                    pass:{}
-                }
+                controller: "PassFormController"
             }).then(function (modal) {
                 modal.element.modal('show');
             }).catch(function (error) {
