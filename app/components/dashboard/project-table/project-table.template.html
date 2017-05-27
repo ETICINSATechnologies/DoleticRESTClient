@@ -1,4 +1,4 @@
-<table class="ui very basic celled table" id="project_table">
+<table class="ui very basic celled table">
     <thead>
     <tr>
         <th>Numéro</th>
@@ -7,7 +7,7 @@
         <th>Statut</th>
     </tr>
     </thead>
-    <tbody id="project_body">
+    <tbody>
     <tr ng-repeat="project in projectService.currentUserProjects">
         <td>
             <button ui-sref="ua.projectDetailsTab({id:project.id})" class="ui teal button"

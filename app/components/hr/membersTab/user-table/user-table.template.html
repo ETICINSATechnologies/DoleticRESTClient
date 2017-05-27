@@ -58,11 +58,6 @@
                         ng-if="kernelService.rightLevel >= 4">
                     <i class="write icon"></i>
                 </button>
-                <button ng-if="kernelService.rightLevel >= 4" class="ui yellow icon button"
-                        data-tooltip="Marquer comme ancien membre"
-                        ng-click="">
-                    <i class="student icon"></i>
-                </button>
                 <button class="ui orange icon button"
                         ng-if="user.id != userService.getCurrentUser().id && kernelService.rightLevel >= 4"
                         data-tooltip="Désactiver" ng-click="disableUser(user)">
