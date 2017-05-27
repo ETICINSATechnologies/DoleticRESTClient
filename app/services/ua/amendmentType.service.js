@@ -12,14 +12,6 @@
         var urlBase = '/api/ua/amendment_type';
         var amendmentTypeFactory = {};
 
-        amendmentTypeFactory.getAmendmentType = function (id) {
-            return $http.get(server + urlBase + '/' + id);
-        };
-
-        amendmentTypeFactory.getAmendmentTypeByLabel = function (label) {
-            return $http.get(server + urlBase + '/' + label);
-        };
-
         amendmentTypeFactory.getAllAmendmentTypes = function (cache) {
             if (!cache) {
                 delete amendmentTypeFactory.amendmentTypes;

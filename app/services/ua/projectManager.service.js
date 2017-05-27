@@ -12,14 +12,6 @@
         var urlBase = '/api/ua/project_manager';
         var projectManagerFactory = {};
 
-        projectManagerFactory.getProjectManager = function (id) {
-            return $http.get(server + urlBase + '/' + id);
-        };
-
-        projectManagerFactory.getAllProjectManagers = function () {
-            return $http.get(server + urlBase + 's');
-        };
-
         projectManagerFactory.getAllManagersByProject = function (id, cache) {
             if (!cache) {
                 delete projectManagerFactory.currentProjectManagers;

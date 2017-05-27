@@ -5,12 +5,12 @@
         .module('doleticApp')
         .controller('ProjectTableController', ProjectTableController);
 
-    ProjectTableController.$inject = ['$scope', '$state', 'UserService', 'ProjectService'];
+    ProjectTableController.$inject = ['$scope', 'UserService', 'ProjectService'];
 
-    function ProjectTableController($scope, $state, UserService, ProjectService) {
+    function ProjectTableController($scope, UserService, ProjectService) {
         $scope.currentUser = UserService.getCurrentUser();
         $scope.projectService = ProjectService;
 
-        ProjectService.getCurrentUserProjects();
+        ProjectService.getCurrentUserProjects(true);
     }
 })();

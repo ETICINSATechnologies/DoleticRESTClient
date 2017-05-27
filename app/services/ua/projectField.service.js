@@ -12,10 +12,6 @@
         var urlBase = '/api/ua/project_field';
         var projectFieldFactory = {};
 
-        projectFieldFactory.getProjectField = function (id) {
-            return $http.get(server + urlBase + '/' + id);
-        };
-
         projectFieldFactory.getAllProjectFields = function (cache) {
             if (!cache) {
                 delete projectFieldFactory.projectFields;

@@ -12,14 +12,6 @@
         var urlBase = '/api/ua/consultant';
         var consultantFactory = {};
 
-        consultantFactory.getConsultant = function (id) {
-            return $http.get(server + urlBase + '/' + id);
-        };
-
-        consultantFactory.getAllConsultants = function () {
-            return $http.get(server + urlBase + 's');
-        };
-
         consultantFactory.getAllConsultantsByProject = function (id, cache) {
             if (!cache) {
                 delete consultantFactory.currentProjectConsultants;
@@ -35,10 +27,6 @@
             }).error(function (data) {
                 console.log(data);
             });
-        };
-
-        consultantFactory.getAllConsultantsByUser = function (id) {
-            return $http.get(server + urlBase + 's/user/' + id);
         };
 
         // POST

@@ -14,15 +14,16 @@
 
         // GET
         contactFactory.getCurrentUserContacts = function (cache) {
-            return $http.get(server + urlBase + "s/current", {cache: cache});
-        };
-
-        contactFactory.getAllContacts = function (cache) {
-            return $http.get(server + urlBase + "s", {cache: cache});
-        };
-
-        contactFactory.getAllContactsByType = function (type, cache) {
-            return $http.get(server + urlBase + "s/type/" + type, {cache: cache});
+            if (!cache) {
+                delete contactFactory.currentUserContacts;
+            } else if (contactFactory.currentUserContacts) {
+                return;
+            }
+            return $http.get(server + urlBase + "s/current", {cache: cache}).success(function(data) {
+                contactFactory.currentUserContacts = data.contacts;
+            }).error(function(data) {
+                console.log(data);
+            });
         };
 
         contactFactory.getAllContactsByFirm = function (firm, cache) {
