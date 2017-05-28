@@ -40,8 +40,48 @@
                     type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
                 });
                 saveAs(blob, number + "-" + label + ".docx");
-            }).error(function () {
-                //Some error log
+            }).error(function (error) {
+                console.log(error);
+            });
+        };
+
+        uaFactory.publishConsultantDocument = function (publishParams, label, number, consultantNumber) {
+            return $http({
+                url: server + urlBase + 'publish/consultant',
+                method: 'POST',
+                responseType: 'arraybuffer',
+                data: publishParams,
+                headers: {
+                    'Content-type': 'application/json',
+                    'Accept': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                }
+            }).success(function (data) {
+                var blob = new Blob([data], {
+                    type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                });
+                saveAs(blob, number + "-" + label + consultantNumber +  ".docx");
+            }).error(function (error) {
+                console.log(error);
+            });
+        };
+
+        uaFactory.publishDeliveryDocument = function (publishParams, label, number, deliveryNumber) {
+            return $http({
+                url: server + urlBase + 'publish/delivery',
+                method: 'POST',
+                responseType: 'arraybuffer',
+                data: publishParams,
+                headers: {
+                    'Content-type': 'application/json',
+                    'Accept': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                }
+            }).success(function (data) {
+                var blob = new Blob([data], {
+                    type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                });
+                saveAs(blob, number + "-" + label + deliveryNumber +  ".docx");
+            }).error(function (error) {
+                console.log(error);
             });
         };
 

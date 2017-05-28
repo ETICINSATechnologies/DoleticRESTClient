@@ -5,9 +5,13 @@
         .module('doleticApp')
         .factory('ProjectService', ProjectService);
 
-    ProjectService.$inject = ['$http', 'SERVER_CONFIG', 'UserService', 'ConsultantService', 'ProjectManagerService', 'ProjectContactService', 'TaskService', 'AmendmentService', 'DeliveryService', 'ProjectDocumentService'];
+    ProjectService.$inject = ['$http', 'SERVER_CONFIG', 'UserService', 'ConsultantService', 'ProjectManagerService', 'ProjectContactService',
+        'TaskService', 'AmendmentService', 'DeliveryService', 'ProjectDocumentService', 'ConsultantDocumentService',
+        'DeliveryDocumentService'];
 
-    function ProjectService($http, SERVER_CONFIG, UserService, ConsultantService, ProjectManagerService, ProjectContactService, TaskService, AmendmentService, DeliveryService, ProjectDocumentService) {
+    function ProjectService($http, SERVER_CONFIG, UserService, ConsultantService, ProjectManagerService, ProjectContactService,
+                            TaskService, AmendmentService, DeliveryService, ProjectDocumentService, ConsultantDocumentService,
+                            DeliveryDocumentService) {
         var server = SERVER_CONFIG.url;
         var urlBase = '/api/ua/project';
         var projectFactory = {};
@@ -93,9 +97,16 @@
 
                 // Consultants
                 ConsultantService.currentProjectConsultants = {};
+                ConsultantDocumentService.currentProjectConsultantDocuments = {};
                 var consultant;
                 for (consultant in data.project.consultants) {
                     ConsultantService.currentProjectConsultants[data.project.consultants[consultant].id] = data.project.consultants[consultant];
+                    ConsultantDocumentService.currentProjectConsultantDocuments[consultant] = {};
+                    var consultantObject = data.project.consultants[consultant];
+                    for (document in consultantObject.documents) {
+                        ConsultantDocumentService.currentProjectConsultantDocuments[consultant][consultantObject.documents[document].template.id]
+                            = consultantObject.documents[document];
+                    }
                 }
                 ConsultantService.currentProjectId = data.project.id;
 

@@ -37,6 +37,16 @@
         </tr>
         </thead>
         <tbody>
+
+
+        <!-- Project documents -->
+        <tr>
+            <td colspan="6">
+                <div class="sixteen wide center aligned column">
+                    <h4>Documents de l'étude</h4>
+                </div>
+            </td>
+        </tr>
         <tr ng-repeat="template in projectDocumentTemplateService.projectDocumentTemplates">
             <td>{{template.label}}</td>
             <td>
@@ -92,6 +102,85 @@
             <td ng-if="!projectDocumentService.currentProjectDocuments[template.id]">
                 Aucun document uploadé
             </td>
+        </tr>
+
+
+        <!-- Consultant documents -->
+        <tr>
+            <td colspan="6">
+                <div class="sixteen wide center aligned column">
+                    <h4>Documents Consultant de {{consultantService.currentProjectConsultants[publish.consultant].consultantFullName}}</h4>
+                </div>
+            </td>
+        </tr>
+        <tr ng-repeat="template in consultantDocumentTemplateService.consultantDocumentTemplates">
+            <td>{{template.label}}</td>
+            <td>
+                <div class="ui olive icon button" ng-click="publishConsultantDocument(template)">
+                    <i class="book icon"></i>
+                </div>
+            </td>
+            <td ng-if="consultantDocumentService.currentProjectConsultantDocuments[publish.consultant][publish.consultant][template.id]">
+                <div class="ui buttons">
+                    <div class="ui yellow icon button"
+                         data-tooltip="Uploader une nouvelle version"
+                         ng-click="triggerUpload($event)">
+                        <i class="upload icon"></i>
+                    </div>
+                    <div class="ui blue icon button"
+                         data-tooltip="Télécharger le document"
+                         ng-click="downloadConsultantDocument(consultantDocumentService.currentProjectConsultantDocuments[publish.consultant][template.id].id, template)">
+                        <i class="download icon"></i>
+                    </div>
+                    <input style="display: none;" type="file"
+                           accept="application/pdf"
+                           onchange="angular.element(this).scope().replaceConsultantDocument(this, angular.element(this).scope().consultantDocumentService.currentProjectConsultantDocuments[publish.consultant][angular.element(this).scope().template.id])"/>
+                </div>
+            </td>
+            <td ng-if="!consultantDocumentService.currentProjectConsultantDocuments[publish.consultant][template.id]">
+                <div class="ui yellow icon button"
+                     data-tooltip="Uploader le document"
+                     ng-click="triggerUpload($event)">
+                    <i class="upload icon"></i>
+                </div>
+                <input style="display: none;" type="file"
+                       accept="application/pdf"
+                       onchange="angular.element(this).scope().uploadConsultantDocument(this, angular.element(this).scope().template)"/>
+            </td>
+            <td ng-if="consultantDocumentService.currentProjectConsultantDocuments[publish.consultant][template.id]">
+                <div ng-if="uaService.rightLevel >= 4">
+                    <div ng-if="consultantDocumentService.currentProjectConsultantDocuments[publish.consultant][template.id].valid" class="ui red button"
+                         data-tooltip="Valider le document"
+                         ng-click="validateConsultantDocument(consultantDocumentService.currentProjectConsultantDocuments[publish.consultant][template.id])">
+                        Non
+                    </div>
+                    <div ng-if="!consultantDocumentService.currentProjectConsultantDocuments[publish.consultant][template.id].valid"
+                         class="ui green icon button"
+                         data-tooltip="Annuler la validation"
+                         ng-click="invalidateConsultantDocument(consultantDocumentService.currentProjectConsultantDocuments[publish.consultant][template.id])">
+                        Oui
+                    </div>
+                </div>
+                <div ng-if="uaService.rightLevel <4">
+                    {{consultantDocumentService.currentProjectConsultantDocuments[publish.consultant][template.id].valid ? 'Oui' : 'Non'}}
+                </div>
+            </td>
+            <td ng-if="!consultantDocumentService.currentProjectConsultantDocuments[publish.consultant][template.id]">
+                Aucun document uploadé
+            </td>
+        </tr>
+
+
+        <!-- Delivery documents -->
+        <tr>
+            <td colspan="6">
+                <div class="sixteen wide center aligned column">
+                    <h4>Documents Livrable de</h4>
+                </div>
+            </td>
+        </tr>
+        <tr ng-repeat="template in deliveryDocumentTemplateService.deliveryDocumentTemplates">
+
         </tr>
         </tbody>
     </table>
