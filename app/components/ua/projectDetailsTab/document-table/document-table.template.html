@@ -7,21 +7,27 @@
         <div class="fields">
             <div class="five wide required field">
                 <label>Contact</label>
-                <ng-dropdown data-label="contactFullName" ng-option="projectService.selectedProject.contacts"
+                <ng-dropdown data-label="contactFullName" ng-option="projectContactService.currentProjectContacts"
                              data-value="id"
                              ng-model="publish.contact" required="true"></ng-dropdown>
             </div>
             <div class="six wide required field">
                 <label>Chargé d'affaires</label>
-                <ng-dropdown data-label="managerFullName" ng-option="projectService.selectedProject.managers"
+                <ng-dropdown data-label="managerFullName" ng-option="projectManagerService.currentProjectManagers"
                              data-value="id"
                              ng-model="publish.manager" required="true"></ng-dropdown>
             </div>
             <div class="five wide field">
                 <label>Consultant</label>
-                <ng-dropdown data-label="consultantFullName" ng-option="projectService.selectedProject.consultants"
+                <ng-dropdown data-label="consultantFullName" ng-option="consultantService.currentProjectConsultants"
                              data-value="id"
                              ng-model="publish.consultant"></ng-dropdown>
+            </div>
+            <div class="five wide field">
+                <label>Livrable</label>
+                <ng-dropdown data-label="number" ng-option="deliveryService.currentProjectDeliveries"
+                             data-value="id"
+                             ng-model="publish.delivery"></ng-dropdown>
             </div>
         </div>
     </form>
@@ -175,7 +181,7 @@
         <tr>
             <td colspan="6">
                 <div class="sixteen wide center aligned column">
-                    <h4>Documents Livrable de</h4>
+                    <h4>Documents du livrable N°{{deliveryService.currentProjectDeliveries[publish.delivery].number}}</h4>
                 </div>
             </td>
         </tr>

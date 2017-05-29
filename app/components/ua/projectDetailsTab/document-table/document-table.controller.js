@@ -6,14 +6,14 @@
         .controller('uaDocumentTableController', uaDocumentTableController);
 
     uaDocumentTableController.$inject = ['$scope', '$state', 'ProjectService', 'UAService', 'ProjectDocumentTemplateService',
-        'ProjectDocumentService', 'ProjectManagerService', 'ProjectContactService', 'ConsultantService', 'ConfirmModalService',
-        'MessageBoxService', 'ModalService', 'ConsultantDocumentTemplateService', 'ConsultantDocumentService',
-        'DeliveryDocumentTemplateService', 'DeliveryDocumentService'];
+        'ProjectDocumentService', 'ProjectManagerService', 'ProjectContactService', 'ConsultantService',
+        'MessageBoxService', 'ConsultantDocumentTemplateService', 'ConsultantDocumentService',
+        'DeliveryDocumentTemplateService', 'DeliveryDocumentService', 'DeliveryService'];
 
     function uaDocumentTableController($scope, $state, ProjectService, UAService, ProjectDocumentTemplateService,
-                                       ProjectDocumentService, ProjectManagerService, ProjectContactService, ConsultantService, ConfirmModalService,
-                                       MessageBoxService, ModalService, ConsultantDocumentTemplateService, ConsultantDocumentService,
-                                       DeliveryDocumentTemplateService, DeliveryDocumentService) {
+                                       ProjectDocumentService, ProjectManagerService, ProjectContactService, ConsultantService,
+                                       MessageBoxService, ConsultantDocumentTemplateService, ConsultantDocumentService,
+                                       DeliveryDocumentTemplateService, DeliveryDocumentService, DeliveryService) {
         $scope.uaService = UAService;
 
         $scope.projectService = ProjectService;
@@ -27,6 +27,7 @@
         $scope.consultantDocumentTemplateService = ConsultantDocumentTemplateService;
         $scope.consultantDocumentService = ConsultantDocumentService;
 
+        $scope.deliveryService = DeliveryService;
         $scope.deliveryDocumentTemplateService = DeliveryDocumentTemplateService;
         $scope.deliveryDocumentService = DeliveryDocumentService;
 
@@ -37,7 +38,9 @@
             contact: ProjectContactService.currentProjectContacts && angular.equals(ProjectContactService.currentProjectContacts, {}) ?
                 null : ProjectContactService.currentProjectContacts[Object.keys(ProjectContactService.currentProjectContacts)[0]].id,
             consultant: ConsultantService.currentProjectConsultants && angular.equals(ConsultantService.currentProjectConsultants, {}) ?
-                null : ConsultantService.currentProjectConsultants[Object.keys(ConsultantService.currentProjectConsultants)[0]].id
+                null : ConsultantService.currentProjectConsultants[Object.keys(ConsultantService.currentProjectConsultants)[0]].id,
+            delivery: DeliveryService.currentProjectDeliveries && angular.equals(DeliveryService.currentProjectDeliveries, {}) ?
+                null : DeliveryService.currentProjectDeliveries[Object.keys(DeliveryService.currentProjectDeliveries)[0]].id
         };
 
         $scope.resetForm = function () {

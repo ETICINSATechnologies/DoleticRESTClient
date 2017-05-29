@@ -39,6 +39,7 @@
                 deliveryFactory.currentProjectDeliveries = angular.equals(deliveryFactory.currentProjectDeliveries, []) ?
                     {} : deliveryFactory.currentProjectDeliveries;
                 deliveryFactory.currentProjectDeliveries[data.delivery.id] = data.delivery;
+                deliveryFactory.currentProjectDeliveries[data.delivery.id].task = deliveryFactory.currentProjectDeliveries[data.delivery.id].task.name;
             }).error(function (error) {
                 console.log(error);
             });
@@ -50,6 +51,7 @@
                 deliveryFactory.currentProjectDeliveries = angular.equals(deliveryFactory.currentProjectDeliveries, []) ?
                     {} : deliveryFactory.currentProjectDeliveries;
                 deliveryFactory.currentProjectDeliveries[data.delivery.id] = data.delivery;
+                deliveryFactory.currentProjectDeliveries[data.delivery.id].task = deliveryFactory.currentProjectDeliveries[data.delivery.id].task.name;
             }).error(function (error) {
                 console.log(error);
             });
@@ -60,6 +62,7 @@
                 deliveryFactory.currentProjectDeliveries = angular.equals(deliveryFactory.currentProjectDeliveries, []) ?
                     {} : deliveryFactory.currentProjectDeliveries;
                 deliveryFactory.currentProjectDeliveries[data.delivery.id] = data.delivery;
+                deliveryFactory.currentProjectDeliveries[data.delivery.id].task = deliveryFactory.currentProjectDeliveries[data.delivery.id].task.name;
             }).error(function (error) {
                 console.log(error);
             });
@@ -70,6 +73,7 @@
                 deliveryFactory.currentProjectDeliveries = angular.equals(deliveryFactory.currentProjectDeliveries, []) ?
                     {} : deliveryFactory.currentProjectDeliveries;
                 deliveryFactory.currentProjectDeliveries[data.delivery.id] = data.delivery;
+                deliveryFactory.currentProjectDeliveries[data.delivery.id].task = deliveryFactory.currentProjectDeliveries[data.delivery.id].task.name;
             }).error(function (error) {
                 console.log(error);
             });
@@ -80,6 +84,7 @@
                 deliveryFactory.currentProjectDeliveries = angular.equals(deliveryFactory.currentProjectDeliveries, []) ?
                     {} : deliveryFactory.currentProjectDeliveries;
                 deliveryFactory.currentProjectDeliveries[data.delivery.id] = data.delivery;
+                deliveryFactory.currentProjectDeliveries[data.delivery.id].task = deliveryFactory.currentProjectDeliveries[data.delivery.id].task.name;
             }).error(function (error) {
                 console.log(error);
             });
@@ -90,6 +95,7 @@
                 deliveryFactory.currentProjectDeliveries = angular.equals(deliveryFactory.currentProjectDeliveries, []) ?
                     {} : deliveryFactory.currentProjectDeliveries;
                 deliveryFactory.currentProjectDeliveries[data.delivery.id] = data.delivery;
+                deliveryFactory.currentProjectDeliveries[data.delivery.id].task = deliveryFactory.currentProjectDeliveries[data.delivery.id].task.name;
             }).error(function (error) {
                 console.log(error);
             });

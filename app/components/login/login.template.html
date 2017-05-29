@@ -41,7 +41,7 @@
                         <div ng-class="{'field error':inputError}" class="required field">
                             <label>Mot de passe</label>
                             <input id="pass_input" placeholder="mot de passe" name="password" type="password"
-                                   ng-model="password" onKeyPress="if(event.keyCode == 13) { checkLoginFormInputs(); }">
+                                   ng-model="password" onKeyPress="if(event.keyCode == 13) { angular.element(this).scope().login(); }">
                             <div ng-if="inputError" id="pass_error"
                                  class="ui basic red pointing prompt label transition visible">Veuillez entrer votre mot
                                 de
