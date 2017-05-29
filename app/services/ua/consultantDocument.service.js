@@ -12,30 +12,6 @@
         var urlBase = '/api/ua/consultant_document';
         var consultantDocumentFactory = {};
 
-        consultantDocumentFactory.getConsultantDocument = function (id) {
-            return $http.get(server + urlBase + '/' + id);
-        };
-
-        consultantDocumentFactory.getConsultantDocuments = function () {
-            return $http.get(server + urlBase + 's');
-        };
-
-        consultantDocumentFactory.getConsultantDocumentsValidatedByCurrentUser = function () {
-            return $http.get(server + urlBase + 's/auditor/current');
-        };
-
-        consultantDocumentFactory.getConsultantDocumentsValidatedByUser = function (id) {
-            return $http.get(server + urlBase + 's/auditor/' + id);
-        };
-
-        consultantDocumentFactory.getConsultantDocumentsByConsultant = function (id) {
-            return $http.get(server + urlBase + 's/consultant/' + id);
-        };
-
-        consultantDocumentFactory.getConsultantDocumentsFromTemplate = function (id) {
-            return $http.get(server + urlBase + 's/template/' + id);
-        };
-
         consultantDocumentFactory.downloadConsultantDocument = function (id, label, number, consultantNumber) {
             // ResponseType is mandatory, or else the downloaded PDF will be blank
             return $http.get(server + urlBase + "/" + id + "/download", {responseType: "arraybuffer"}).success(function (data) {

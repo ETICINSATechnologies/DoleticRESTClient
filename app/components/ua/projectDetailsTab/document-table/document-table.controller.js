@@ -55,6 +55,10 @@
             ConsultantDocumentService.downloadConsultantDocument(id, template.label, ProjectService.selectedProject.number, ConsultantService.currentProjectConsultants[$scope.publish.consultant].number);
         };
 
+        $scope.downloadDeliveryDocument = function (id, template) {
+            DeliveryDocumentService.downloadDeliveryDocument(id, template.label, ProjectService.selectedProject.number, DeliveryService.currentProjectDeliveries[$scope.publish.delivery].number);
+        };
+
         $scope.replaceDocument = function (e, document) {
             var documentData = angular.copy(document);
             if (documentData.template) documentData.template = documentData.template.id;
@@ -81,6 +85,25 @@
             documentData.file = e.files[0];
 
             ConsultantDocumentService.putConsultantDocument(documentData, $scope.publish.consultant).success(function (data) {
+                MessageBoxService.showSuccess(
+                    "Upload réussi !",
+                    "Le nouveau fichier a été uploadé !"
+                );
+            }).error(function (data) {
+                MessageBoxService.showError(
+                    "Echec de l'upload !",
+                    "Impossible d'uploader le document. Vérifiez qu'il est bien au format PDF."
+                );
+            });
+        };
+
+        $scope.replaceDeliveryDocument = function (e, document) {
+            var documentData = angular.copy(document);
+            if (documentData.template) documentData.template = documentData.template.id;
+            documentData.delivery = $scope.publish.delivery;
+            documentData.file = e.files[0];
+
+            DeliveryDocumentService.putDeliveryDocument(documentData, $scope.publish.delivery).success(function (data) {
                 MessageBoxService.showSuccess(
                     "Upload réussi !",
                     "Le nouveau fichier a été uploadé !"
@@ -135,6 +158,25 @@
             });
         };
 
+        $scope.uploadDeliveryDocument = function (e, template) {
+            DeliveryDocumentService.postDeliveryDocument({
+                file: e.files[0],
+                delivery: $scope.publish.delivery,
+                template: template.id,
+                valid: false
+            }, $scope.publish.delivery).success(function (data) {
+                MessageBoxService.showSuccess(
+                    "Upload réussi !",
+                    "Le fichier a été uploadé !"
+                );
+            }).error(function (data) {
+                MessageBoxService.showError(
+                    "Echec de l'upload !",
+                    "Impossible d'uploader le document. Vérifiez qu'il est bien au format PDF."
+                );
+            });
+        };
+
         $scope.publishDocument = function (template) {
             $scope.publish.template = template.id;
             if ($scope.publishForm.$valid) {
@@ -167,6 +209,29 @@
                         "Le téléchargement devrait démarrer."
                     );
                 }).error(function (data) {
+                    MessageBoxService.showError(
+                        "Echec du publipostage !",
+                        "Impossible de générer le document."
+                    );
+                });
+            } else {
+                MessageBoxService.showError(
+                    "Données manquantes !",
+                    "Impossible de publiposter un document si le chargé d'affaires et le contact ne sont pas selectionnés."
+                );
+            }
+        };
+
+        $scope.publishDeliveryDocument = function (template) {
+            $scope.publish.template = template.id;
+            if ($scope.publishForm.$valid && $scope.publish.delivery) {
+                UAService.publishDeliveryDocument($scope.publish, template.label, ProjectService.selectedProject.number, DeliveryService.currentProjectDeliveries[$scope.publish.delivery].number)
+                    .success(function (data) {
+                        MessageBoxService.showSuccess(
+                            "Publipostage réussi !",
+                            "Le téléchargement devrait démarrer."
+                        );
+                    }).error(function (data) {
                     MessageBoxService.showError(
                         "Echec du publipostage !",
                         "Impossible de générer le document."

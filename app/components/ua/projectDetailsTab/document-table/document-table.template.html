@@ -186,7 +186,60 @@
             </td>
         </tr>
         <tr ng-repeat="template in deliveryDocumentTemplateService.deliveryDocumentTemplates">
-
+            <td>{{template.label}}</td>
+            <td>
+                <div class="ui olive icon button" ng-click="publishDeliveryDocument(template)">
+                    <i class="book icon"></i>
+                </div>
+            </td>
+            <td ng-if="deliveryDocumentService.currentProjectDeliveryDocuments[publish.delivery][template.id]">
+                <div class="ui buttons">
+                    <div class="ui yellow icon button"
+                         data-tooltip="Uploader une nouvelle version"
+                         ng-click="triggerUpload($event)">
+                        <i class="upload icon"></i>
+                    </div>
+                    <div class="ui blue icon button"
+                         data-tooltip="Télécharger le document"
+                         ng-click="downloadDeliveryDocument(deliveryDocumentService.currentProjectDeliveryDocuments[publish.delivery][template.id].id, template)">
+                        <i class="download icon"></i>
+                    </div>
+                    <input style="display: none;" type="file"
+                           accept="application/pdf"
+                           onchange="angular.element(this).scope().replaceDeliveryDocument(this, angular.element(this).scope().deliveryDocumentService.currentProjectDeliveryDocuments[angular.element(this).scope().publish.delivery][angular.element(this).scope().template.id])"/>
+                </div>
+            </td>
+            <td ng-if="!deliveryDocumentService.currentProjectDeliveryDocuments[publish.delivery][template.id]">
+                <div class="ui yellow icon button"
+                     data-tooltip="Uploader le document"
+                     ng-click="triggerUpload($event)">
+                    <i class="upload icon"></i>
+                </div>
+                <input style="display: none;" type="file"
+                       accept="application/pdf"
+                       onchange="angular.element(this).scope().uploadDeliveryDocument(this, angular.element(this).scope().template)"/>
+            </td>
+            <td ng-if="deliveryDocumentService.currentProjectDeliveryDocuments[publish.delivery][template.id]">
+                <div ng-if="uaService.rightLevel >= 4">
+                    <div ng-if="deliveryDocumentService.currentProjectDeliveryDocuments[publish.delivery][template.id].valid" class="ui red button"
+                         data-tooltip="Valider le document"
+                         ng-click="validateDeliveryDocument(deliveryDocumentService.currentProjectDeliveryDocuments[publish.delivery][template.id])">
+                        Non
+                    </div>
+                    <div ng-if="!deliveryDocumentService.currentProjectDeliveryDocuments[publish.delivery][template.id].valid"
+                         class="ui green icon button"
+                         data-tooltip="Annuler la validation"
+                         ng-click="invalidateDeliveryDocument(deliveryDocumentService.currentProjectDeliveryDocuments[publish.delivery][template.id])">
+                        Oui
+                    </div>
+                </div>
+                <div ng-if="uaService.rightLevel < 4">
+                    {{deliveryDocumentService.currentProjectDeliveryDocuments[publish.delivery][template.id].valid ? 'Oui' : 'Non'}}
+                </div>
+            </td>
+            <td ng-if="!deliveryDocumentService.currentProjectDeliveryDocuments[publish.delivery][template.id]">
+                Aucun document uploadé
+            </td>
         </tr>
         </tbody>
     </table>

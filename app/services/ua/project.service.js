@@ -111,11 +111,18 @@
                 // Tasks and Deliveries
                 TaskService.currentProjectTasks = [];
                 DeliveryService.currentProjectDeliveries = {};
+                DeliveryDocumentService.currentProjectDeliveryDocuments = {};
                 for (var k = 0; k < data.project.tasks.length; k++) {
                     TaskService.currentProjectTasks[data.project.tasks[k].number] = data.project.tasks[k];
                     for (var l = 0; l < data.project.tasks[k].deliveries.length; l++) {
                         DeliveryService.currentProjectDeliveries[data.project.tasks[k].deliveries[l].id] = data.project.tasks[k].deliveries[l];
                         DeliveryService.currentProjectDeliveries[data.project.tasks[k].deliveries[l].id].task = data.project.tasks[k].name;
+                        var deliveryObject = DeliveryService.currentProjectDeliveries[data.project.tasks[k].deliveries[l].id];
+                        DeliveryDocumentService.currentProjectDeliveryDocuments[deliveryObject.id] = {};
+                        for (var o = 0; o < deliveryObject.documents.length; o++) {
+                            DeliveryDocumentService.currentProjectDeliveryDocuments[deliveryObject.id][deliveryObject.documents[o].template.id]
+                                = deliveryObject.documents[o];
+                        }
                     }
                 }
                 TaskService.currentProjectId = data.project.id;
