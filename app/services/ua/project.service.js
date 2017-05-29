@@ -81,61 +81,56 @@
 
                 // Managers
                 ProjectManagerService.currentProjectManagers = {};
-                var manager;
-                for (manager in data.project.managers) {
-                    ProjectManagerService.currentProjectManagers[data.project.managers[manager].id] = data.project.managers[manager];
+                for (var g = 0; g < data.project.managers.length; g++) {
+                    ProjectManagerService.currentProjectManagers[data.project.managers[g].id] = data.project.managers[g];
                 }
                 ProjectManagerService.currentProjectId = data.project.id;
 
                 // Project contacts
                 ProjectContactService.currentProjectContacts = {};
-                var contact;
-                for (contact in data.project.contacts) {
-                    ProjectContactService.currentProjectContacts[data.project.contacts[contact].id] = data.project.contacts[contact];
+                for (var h = 0; h < data.project.contacts.length; h++) {
+                    ProjectContactService.currentProjectContacts[data.project.contacts[h].id] = data.project.contacts[h];
                 }
                 ProjectContactService.currentProjectId = data.project.id;
 
                 // Consultants
                 ConsultantService.currentProjectConsultants = {};
                 ConsultantDocumentService.currentProjectConsultantDocuments = {};
-                var consultant;
-                for (consultant in data.project.consultants) {
-                    ConsultantService.currentProjectConsultants[data.project.consultants[consultant].id] = data.project.consultants[consultant];
-                    ConsultantDocumentService.currentProjectConsultantDocuments[consultant] = {};
-                    var consultantObject = data.project.consultants[consultant];
-                    for (document in consultantObject.documents) {
-                        ConsultantDocumentService.currentProjectConsultantDocuments[consultant][consultantObject.documents[document].template.id]
-                            = consultantObject.documents[document];
+                for (var i = 0; i < data.project.consultants.length; i++) {
+                    var consultantObject = data.project.consultants[i];
+                    ConsultantService.currentProjectConsultants[consultantObject.id] = data.project.consultants[i];
+                    ConsultantDocumentService.currentProjectConsultantDocuments[consultantObject.id] = {};
+                    for (var j = 0; j < consultantObject.documents.length; j++) {
+                        ConsultantDocumentService.currentProjectConsultantDocuments[consultantObject.id][consultantObject.documents[j].template.id]
+                            = consultantObject.documents[j];
                     }
                 }
+
                 ConsultantService.currentProjectId = data.project.id;
 
                 // Tasks and Deliveries
                 TaskService.currentProjectTasks = [];
                 DeliveryService.currentProjectDeliveries = {};
-                var task;
-                for (task in data.project.tasks) {
-                    TaskService.currentProjectTasks[data.project.tasks[task].number] = data.project.tasks[task];
-                    for (var delivery in data.project.tasks[task].deliveries) {
-                        DeliveryService.currentProjectDeliveries[data.project.tasks[task].deliveries[delivery].id] = data.project.tasks[task].deliveries[delivery];
-                        DeliveryService.currentProjectDeliveries[data.project.tasks[task].deliveries[delivery].id].task = data.project.tasks[task].number;
+                for (var k = 0; k < data.project.tasks.length; k++) {
+                    TaskService.currentProjectTasks[data.project.tasks[k].number] = data.project.tasks[k];
+                    for (var l = 0; l < data.project.tasks[k].deliveries.length; l++) {
+                        DeliveryService.currentProjectDeliveries[data.project.tasks[k].deliveries[l].id] = data.project.tasks[k].deliveries[l];
+                        DeliveryService.currentProjectDeliveries[data.project.tasks[k].deliveries[l].id].task = data.project.tasks[k].number;
                     }
                 }
                 TaskService.currentProjectId = data.project.id;
 
                 // Amendments
                 AmendmentService.currentProjectAmendments = {};
-                var amendment;
-                for (amendment in data.project.amendments) {
-                    AmendmentService.currentProjectAmendments[data.project.amendments[amendment].id] = data.project.amendments[amendment];
+                for (var m = 0; m < data.project.amendments.length; m++) {
+                    AmendmentService.currentProjectAmendments[data.project.amendments[m].id] = data.project.amendments[m];
                 }
                 AmendmentService.currentProjectId = data.project.id;
 
                 // Project documents
                 ProjectDocumentService.currentProjectDocuments = {};
-                var document;
-                for (document in data.project.documents) {
-                    ProjectDocumentService.currentProjectDocuments[data.project.documents[document].template.id] = data.project.documents[document];
+                for (var n = 0; n < data.project.documents.length; n++) {
+                    ProjectDocumentService.currentProjectDocuments[data.project.documents[n].template.id] = data.project.documents[n];
                 }
                 ProjectDocumentService.currentProjectId = data.project.id;
 
@@ -153,13 +148,13 @@
             var currentUser = UserService.getCurrentUser();
             return $http.get(server + urlBase + "s/manager/" + currentUser.id).success(function (managerData) {
                 projectFactory.currentUserProjects = {};
-                for(var id in managerData.projects) {
+                for (var id in managerData.projects) {
                     managerData.projects[id].role = "Chargé d'affaires";
                     projectFactory.currentUserProjects[id] = managerData.projects[id];
                 }
                 $http.get(server + urlBase + "s/consultant/" + currentUser.id).success(function (consultantData) {
-                    for(var id in consultantData.projects) {
-                        if(projectFactory.currentUserProjects[id]) {
+                    for (var id in consultantData.projects) {
+                        if (projectFactory.currentUserProjects[id]) {
                             projectFactory.currentUserProjects[id].role += ", Consultant";
                         } else {
                             consultantData.projects[id].role = "Consultant";
@@ -167,8 +162,8 @@
                         }
                     }
                     $http.get(server + urlBase + "s/auditor/" + currentUser.id).success(function (auditorData) {
-                        for(var id in auditorData.projects) {
-                            if(projectFactory.currentUserProjects[id]) {
+                        for (var id in auditorData.projects) {
+                            if (projectFactory.currentUserProjects[id]) {
                                 projectFactory.currentUserProjects[id].role += ", Correspondant Qualité";
                             } else {
                                 auditorData.projects[id].role = "Correspondant Qualité";
@@ -220,10 +215,10 @@
         projectFactory.signProject = function (project) {
             isCyclic(project);
 
-            function isCyclic (obj) {
+            function isCyclic(obj) {
                 var seenObjects = [];
 
-                function detect (obj) {
+                function detect(obj) {
                     if (obj && typeof obj === 'object') {
                         if (seenObjects.indexOf(obj) !== -1) {
                             return true;
@@ -241,6 +236,7 @@
 
                 return detect(obj);
             }
+
             return $http.post(server + urlBase + "/" + project.id + "/sign", project).success(function (data) {
                 if (projectFactory.currentProjects) {
                     projectFactory.currentProjects[data.project.id] = data.project;

@@ -120,7 +120,7 @@
                     <i class="book icon"></i>
                 </div>
             </td>
-            <td ng-if="consultantDocumentService.currentProjectConsultantDocuments[publish.consultant][publish.consultant][template.id]">
+            <td ng-if="consultantDocumentService.currentProjectConsultantDocuments[publish.consultant][template.id]">
                 <div class="ui buttons">
                     <div class="ui yellow icon button"
                          data-tooltip="Uploader une nouvelle version"
@@ -134,7 +134,7 @@
                     </div>
                     <input style="display: none;" type="file"
                            accept="application/pdf"
-                           onchange="angular.element(this).scope().replaceConsultantDocument(this, angular.element(this).scope().consultantDocumentService.currentProjectConsultantDocuments[publish.consultant][angular.element(this).scope().template.id])"/>
+                           onchange="angular.element(this).scope().replaceConsultantDocument(this, angular.element(this).scope().consultantDocumentService.currentProjectConsultantDocuments[angular.element(this).scope().publish.consultant][angular.element(this).scope().template.id])"/>
                 </div>
             </td>
             <td ng-if="!consultantDocumentService.currentProjectConsultantDocuments[publish.consultant][template.id]">
@@ -161,7 +161,7 @@
                         Oui
                     </div>
                 </div>
-                <div ng-if="uaService.rightLevel <4">
+                <div ng-if="uaService.rightLevel < 4">
                     {{consultantDocumentService.currentProjectConsultantDocuments[publish.consultant][template.id].valid ? 'Oui' : 'Non'}}
                 </div>
             </td>

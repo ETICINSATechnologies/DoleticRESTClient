@@ -14,6 +14,8 @@
                                        ProjectDocumentService, ProjectManagerService, ProjectContactService, ConsultantService, ConfirmModalService,
                                        MessageBoxService, ModalService, ConsultantDocumentTemplateService, ConsultantDocumentService,
                                        DeliveryDocumentTemplateService, DeliveryDocumentService) {
+        $scope.uaService = UAService;
+
         $scope.projectService = ProjectService;
         $scope.projectDocumentService = ProjectDocumentService;
         $scope.projectDocumentTemplateService = ProjectDocumentTemplateService;
@@ -46,6 +48,10 @@
             ProjectDocumentService.downloadProjectDocument(id, template.label, ProjectService.selectedProject.number);
         };
 
+        $scope.downloadConsultantDocument = function (id, template) {
+            ConsultantDocumentService.downloadConsultantDocument(id, template.label, ProjectService.selectedProject.number, ConsultantService.currentProjectConsultants[$scope.publish.consultant].number);
+        };
+
         $scope.replaceDocument = function (e, document) {
             var documentData = angular.copy(document);
             if (documentData.template) documentData.template = documentData.template.id;
@@ -53,6 +59,25 @@
             documentData.file = e.files[0];
 
             ProjectDocumentService.putProjectDocument(documentData).success(function (data) {
+                MessageBoxService.showSuccess(
+                    "Upload réussi !",
+                    "Le nouveau fichier a été uploadé !"
+                );
+            }).error(function (data) {
+                MessageBoxService.showError(
+                    "Echec de l'upload !",
+                    "Impossible d'uploader le document. Vérifiez qu'il est bien au format PDF."
+                );
+            });
+        };
+
+        $scope.replaceConsultantDocument = function (e, document) {
+            var documentData = angular.copy(document);
+            if (documentData.template) documentData.template = documentData.template.id;
+            documentData.consultant = $scope.publish.consultant;
+            documentData.file = e.files[0];
+
+            ConsultantDocumentService.putConsultantDocument(documentData, $scope.publish.consultant).success(function (data) {
                 MessageBoxService.showSuccess(
                     "Upload réussi !",
                     "Le nouveau fichier a été uploadé !"
@@ -94,7 +119,7 @@
                 consultant: $scope.publish.consultant,
                 template: template.id,
                 valid: false
-            }).success(function (data) {
+            }, $scope.publish.consultant).success(function (data) {
                 MessageBoxService.showSuccess(
                     "Upload réussi !",
                     "Le fichier a été uploadé !"

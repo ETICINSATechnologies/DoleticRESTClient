@@ -62,9 +62,9 @@
         // PUT
         projectDocumentFactory.putProjectDocument = function (document) {
             return Upload.upload({url: server + urlBase + "/" + document.id, data: document}).success(function (data) {
-                projectDocumentFactory.projectDocuments = angular.equals(projectDocumentFactory.projectDocuments, []) ?
-                    {} : projectDocumentFactory.projectDocuments;
-                projectDocumentFactory.projectDocuments[data.project_document.template.id] = data.project_document;
+                projectDocumentFactory.currentProjectDocuments = angular.equals(projectDocumentFactory.currentProjectDocuments, []) ?
+                    {} : projectDocumentFactory.currentProjectDocuments;
+                projectDocumentFactory.currentProjectDocuments[data.project_document.template.id] = data.project_document;
             }).error(function (error) {
                 console.log(error);
             });
