@@ -12,30 +12,6 @@
         var urlBase = '/api/ua/project_document';
         var projectDocumentFactory = {};
 
-        projectDocumentFactory.getProjectDocument = function (id) {
-            return $http.get(server + urlBase + '/' + id);
-        };
-
-        projectDocumentFactory.getAllProjectDocuments = function () {
-            return $http.get(server + urlBase + 's');
-        };
-
-        projectDocumentFactory.getAllProjectDocumentsByProject = function (id) {
-            return $http.get(server + urlBase + 's/project/' + id);
-        };
-
-        projectDocumentFactory.getAllProjectDocumentsByAuditor = function (id) {
-            return $http.get(server + urlBase + 's/auditor/' + id);
-        };
-
-        projectDocumentFactory.getAllProjectDocumentsByAuditor = function () {
-            return $http.get(server + urlBase + 's/auditor/current');
-        };
-
-        projectDocumentFactory.getAllProjectDocumentsByTemplate = function (id) {
-            return $http.get(server + urlBase + 's/template/' + id);
-        };
-
         projectDocumentFactory.downloadProjectDocument = function (id, label, number) {
             // ResponseType is mandatory, or else the downloaded PDF will be blank
             return $http.get(server + urlBase + "/" + id + "/download", {responseType: "arraybuffer"}).success(function (data) {
@@ -62,9 +38,9 @@
         // PUT
         projectDocumentFactory.putProjectDocument = function (document) {
             return Upload.upload({url: server + urlBase + "/" + document.id, data: document}).success(function (data) {
-                projectDocumentFactory.projectDocuments = angular.equals(projectDocumentFactory.projectDocuments, []) ?
-                    {} : projectDocumentFactory.projectDocuments;
-                projectDocumentFactory.projectDocuments[data.project_document.template.id] = data.project_document;
+                projectDocumentFactory.currentProjectDocuments = angular.equals(projectDocumentFactory.currentProjectDocuments, []) ?
+                    {} : projectDocumentFactory.currentProjectDocuments;
+                projectDocumentFactory.currentProjectDocuments[data.project_document.template.id] = data.project_document;
             }).error(function (error) {
                 console.log(error);
             });
