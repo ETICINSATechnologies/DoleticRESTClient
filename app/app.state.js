@@ -27,6 +27,12 @@
                 abstract: true,
                 templateUrl: "app/components/hr/hr.template.html",
                 controller: "hrController"
+            }).state('stdDoc',
+            {
+                url: "/stdDoc",
+                abstract: true,
+                templateUrl: "app/components/stdDoc/stdDoc.template.html",
+                controller: "stdDocController"
             }).state('grc',
             {
                 url: "/grc",

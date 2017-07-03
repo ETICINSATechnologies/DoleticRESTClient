@@ -1,0 +1,17 @@
+<div class="ui two column grid container">
+    <div class="row"></div>
+    <div class="row">
+        <div class="sixteen wide column" id="page_content">
+            <div class="ui top attached tabular menu" id="tabmenu">
+                <a ng-class="{active: $state.current.activetab == 'doc'}" class="item" id="memlist" data-tab="doc" ui-sref="stdDoc.docTab">Documents actuels</a>
+                <a ng-class="{active: $state.current.activetab == 'oldDoc'}" class="item" id="oldlist" data-tab="oldDoc" ui-sref="stdDoc.oldDocTab">Anciens documents</a>
+                <a ng-if="userService.selectedUser" ng-class="{active: $state.current.activetab == 'userDetails'}" class="item" id="det" data-tab="userDetails" ui-sref="stdDoc.userDetailsTab({id:userService.selectedUser.id})">Détails de {{userService.selectedUser.fullName}}</a>
+            </div>
+            <div class="ui bottom attached tab segment active" data-tab="{{$state.current.activetab}}">
+                <div ui-view></div>
+            </div>
+        </div>
+    </div>
+    <div class="row"></div>
+    <div class="row"></div>
+</div>

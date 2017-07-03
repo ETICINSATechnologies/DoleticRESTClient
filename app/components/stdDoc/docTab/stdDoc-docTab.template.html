@@ -1,0 +1,27 @@
+<div class="ui two column grid container">
+    <div class="row">
+        <div class="sixteen wide column">
+            <div class="ui buttons">
+                <div class="ui green button" ng-click="showUserForm()" ng-if="kernelService.rightLevel >= 4">Ajouter
+                    un
+                    document
+                </div>
+                <div class="ui olive button" ng-click="userService.getAllCurrentUsers(false)">Actualiser
+                    la
+                    liste
+                </div>
+                <div class="ui yellow button" ng-click="alert('Fonction non implémentée...')">
+                    Exporter au
+                    format ???
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="sixteen wide column">
+            <stdDoc-user-table-component></stdDoc-user-table-component>
+        </div>
+    </div>
+    <div class="row">
+    </div>
+</div>
