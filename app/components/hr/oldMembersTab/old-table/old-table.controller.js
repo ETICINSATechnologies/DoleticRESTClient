@@ -50,7 +50,7 @@
 
         $scope.showUserForm = function(user) {
             ModalService.showModal({
-                templateUrl: "app/components/hr/membersTab/doc-form/doc-form.template.html",
+                templateUrl: "app/components/hr/membersTab/user-form/user-form.template.html",
                 controller: "hrUserFormController",
                 inputs: {
                     editMode: true,

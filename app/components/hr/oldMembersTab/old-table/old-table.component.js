@@ -9,7 +9,7 @@
         return {
             bindings: {},
             controller: "hrOldTableController",
-            templateUrl: "app/components/hr/oldDocTab/old-table/old-table.template.html"
+            templateUrl: "app/components/hr/oldMembersTab/old-table/old-table.template.html"
         }
     }
 })();
