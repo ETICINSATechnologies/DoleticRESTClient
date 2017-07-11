@@ -41,8 +41,8 @@
             activetab: 'teams'
         }).state('hr.userDetailsTab', {
             parent: 'hr',
-            url: "/userDetailsTab/{id:int}",
-            templateUrl: "app/components/hr/userDetailsTab/hr-userDetailsTab.template.html",
+            url: "/docDetailsTab/{id:int}",
+            templateUrl: "app/components/hr/docDetailsTab/stdDoc-docDetailsTab.template.html",
             controller: "hrUserDetailsTabController",
             activetab: 'userDetails'
         });

@@ -17,8 +17,8 @@
             activetab: 'doc'
         }).state('stdDoc.oldDocTab', {
             parent: 'stdDoc',
-            url: "/oldDocTab",
-            templateUrl: "app/components/stdDoc/oldDocTab/stdDoc-oldDocTab.template.html",
+            url: "/deprecatedDocTab",
+            templateUrl: "app/components/stdDoc/deprecatedDocTab/stdDoc-deprecatedDocTab.template.html",
             controller: "stdDocOldDocTabController",
             activetab: 'oldDoc'
         }).state('stdDoc.userDetailsTab', {

@@ -1,0 +1,107 @@
+<div class="ui grid container" ng-init="loadUser(true)">
+    <div class="row">
+        <div class="sixteen wide column">
+            <div class="ui buttons">
+                <div class="ui green button" ng-click="showUserForm()" ng-if="kernelService.rightLevel >= 4">
+                    Modifier l'utilisateur
+                </div>
+                <div class="ui orange button" ng-if="UserService.selectedUser.enabled && kernelService.rightLevel >= 4"
+                     ng-click="disableUser()">
+                    Désactiver l'utilisateur
+                </div>
+                <div class="ui olive button" ng-if="!UserService.selectedUser.enabled && kernelService.rightLevel >= 4"
+                     ng-click="enableUser()">
+                    Réactiver l'utilisateur
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="four wide column">
+            <div class="ui relaxed divided list">
+                <div class="item">
+                    <div class="content">
+                        <div class="header">Nom complet</div>
+                        <div class="description">{{userService.selectedUser.fullName}}</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        <div class="header">Poste actuel</div>
+                        <div class="description">{{userService.selectedUser.mainPosition.label}}</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        <div class="header">Date de naissance</div>
+                        <div class="description">{{userService.selectedUser.birthDate|date:"dd/MM/y"}}</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        <div class="header">Année</div>
+                        <div class="description" id="det_year">
+                            {{userService.selectedUser.schoolYear.year}}{{userService.selectedUser.department.label}}
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        <div class="header">Téléphone</div>
+                        <div class="description" id="det_tel">0{{userService.selectedUser.tel}}</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        <div class="header">Email</div>
+                        <div class="description" id="det_mail">{{userService.selectedUser.email}}</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        <div class="header">Adresse</div>
+                        <div class="description">{{userService.selectedUser.address}}</div>
+                        <div class="description">{{userService.selectedUser.postalCode}}</div>
+                        <div class="description">{{userService.selectedUser.city}}</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        <div class="header">Nationalité</div>
+                        <div class="description">{{userService.selectedUser.country.label}}</div>
+                    </div>
+                </div>
+                <div class="item" ng-if="userService.selectedUser.recruitmentEvent">
+                    <div class="content">
+                        <div class="header">AG de recrutement</div>
+                        <div class="description">{{userService.selectedUser.recruitmentEvent.date|date:"dd/MM/y"}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="twelve wide column">
+            <div class="ui horizontal divider">
+                {{kernelService.rightLevel >= 4 ? "Gestion" : "Historique"}} des postes
+            </div>
+            <div class="row">
+                <hr-position-table-component></hr-position-table-component>
+            </div>
+            <div class="ui horizontal divider" ng-if="rhService.rightLevel >= 3">
+                Adhésions administrateur
+            </div>
+            <div class="row" ng-if="rhService.rightLevel >= 3">
+                <hr-admm-table-component></hr-admm-table-component>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="sixteen wide column">
+            <div class="ui horizontal divider" ng-if="rhService.rightLevel >= 3">
+                Adhésion consultant
+            </div>
+            <div class="row" ng-if="rhService.rightLevel >= 3">
+                <hr-intm-table-component></hr-intm-table-component>
+            </div>
+        </div>
+    </div>
+</div>
