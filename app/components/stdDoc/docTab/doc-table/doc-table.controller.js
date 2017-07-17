@@ -5,10 +5,10 @@
         .module('doleticApp')
         .controller('stdDocTableController', stdDocTableController);
 
-    stdDocTableController.$inject = ['$scope', 'UserService', 'DTOptionsBuilder', 'ConfirmModalService', 'MessageBoxService', 'ModalService', 'KernelService'];
+    stdDocTableController.$inject = ['$scope', 'DocumentTemplateService', 'DTOptionsBuilder', 'ConfirmModalService', 'MessageBoxService', 'ModalService', 'KernelService'];
 
-    function stdDocTableController($scope, UserService, DTOptionsBuilder, ConfirmModalService, MessageBoxService, ModalService, KernelService) {
-        $scope.userService = UserService;
+    function stdDocTableController($scope, DocumentTemplateService, DTOptionsBuilder, ConfirmModalService, MessageBoxService, ModalService, KernelService) {
+        $scope.documentTemplateService = DocumentTemplateService;
         $scope.kernelService = KernelService;
         $scope.dtOptions = DTOptionsBuilder
             .newOptions()
@@ -25,7 +25,7 @@
             });
         $scope.dtColumnDefs = [];
 
-        $scope.disableUser = function (doc) {
+        $scope.disableDocument = function (doc) {
             var name = doc.label;
             ConfirmModalService.showConfirmModal(
                 "Confirmer la suppression",
@@ -34,13 +34,13 @@
                 function () {
                     UserService.disabledDoc(doc).success(function (data) {
                         MessageBoxService.showSuccess(
-                            "Historisation réussie réussie !",
-                            "Le document " + name + " a été historisé."
+                            "Suppression réussie !",
+                            "Le document " + name + " est désormais déprécié."
                         );
                     }).error(function (data) {
                         MessageBoxService.showError(
-                            "Echec de l'Historisation ...",
-                            "Le document " + name + " n'a pas pu être historisé."
+                            "Echec de la suppression ...",
+                            "Le document " + name + " est désormais déprécié."
                         );
                     });
                 }
@@ -84,7 +84,5 @@
         $scope.isUserInvalid = function(user) {
             return user.consultant == 1 || user.administrator == 1;
         };
-
-        UserService.getAllCurrentDoc(true);
     }
 })();

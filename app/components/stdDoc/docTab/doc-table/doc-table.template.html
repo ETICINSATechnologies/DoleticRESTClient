@@ -18,7 +18,7 @@
         <th>Action</th>
     </tr>
     </tfoot>
-    <tbody id="user_body">
+    <tbody id="document_body">
     <tr ng-repeat="doc in docService.currentDoc" ng-class="{error:isDocInvalid(user)}">
         <td>
             <button class="ui teal icon button"
@@ -31,12 +31,12 @@
         <td>
             <div class="ui small header">
                 <div class="content">
-                    {{doc.label}}
+                    {{document.label}}
                 </div>
             </div>
         </td>
-        <td>{{doc.version}}{{doc.date}}</td>
-        <td>{{doc.description}}</td>
+        <td>{{document.version}}{{document.date}}</td>
+        <td>{{document.description}}</td>
         <td>
             <div class="ui icon buttons">
                 <button class="ui blue icon button" data-tooltip="Nouvelle version" ng-click=""
@@ -47,13 +47,12 @@
                         ng-if="kernelService.rightLevel >= 4">
                     <i class="write icon"></i>
                 </button>
-                <button class="ui orange icon button"
+                <button class="ui orange icon button"  data-tooltip="Retirer" ng-click="disabledDoc()">
                         ng-if="kernelService.rightLevel >= 4"
-                        data-tooltip="Retirer" ng-click="disabledDoc()">
                     <i class="remove user icon"></i>
-                </button><button class="ui orange icon button"
+                </button>
+                <button class="ui orange icon button" data-tooltip="Télécharger" ng-click="">
                         ng-if="kernelService.rightLevel >= 4"
-                        data-tooltip="Télécharger" ng-click="">
                     <i class="download icon"></i>
                 </button>
             </div>

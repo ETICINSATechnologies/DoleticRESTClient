@@ -1,98 +1,43 @@
-<div class="ui modal" id="user_form_modal">
-    <form class="ui form segment" name="userForm"
-          ng-submit="userForm.$valid && editMode?editUser():addUser()" novalidate>
+<div class="ui modal" id="document_form_modal">
+    <form class="ui form segment" name="docForm"
+          ng-submit="uploadTemplateDocument()" novalidate>
         <fix-modal-component></fix-modal-component>
-        <div class="ui message" ng-show="userForm.$dirty"
-             ng-class="{'positive' : userForm.$valid, 'negative' : userForm.$invalid}">
-            Le formulaire est {{ userForm.$valid ? "valide" : "invalide" }}
+        <div class="ui message" ng-show="docForm.$dirty"
+             ng-class="{'positive' : docForm.$valid, 'negative' : docForm.$invalid}">
+            Le formulaire est {{ docForm.$valid ? "valide" : "invalide" }}
         </div>
-        <h4 ng-if="!editMode" class="ui dividing header">Ajout d'un membre</h4>
-        <h4 ng-if="editMode" class="ui dividing header">Modification d'un membre</h4>
+        <h4 class="ui dividing header">Ajout d'une nouvelle version du document</h4>
         <div class="fields">
-            <div class="eight wide required field">
-                <label>Prénom</label>
-                <input placeholder="Prénom..." type="text" name="firstName" ng-model="user.firstName" required/>
-            </div>
             <div class="eight wide required field">
                 <label>Nom</label>
-                <input placeholder="Nom..." type="text" name="lastName" ng-model="user.lastName" required/>
+                <input placeholder="Nom du document" type="text" name="name" ng-model="document.label" />
             </div>
         </div>
         <div class="fields">
-            <div class="twelve wide required field">
-                <label>Civilité</label>
-                <ng-dropdown data-label="label" ng-option="genderService.genders" data-value="id"
-                             ng-model="user.gender" required="true"></ng-dropdown>
-            </div>
-            <div class="twelve wide field">
-                <label>Date de naissance</label>
-                <input placeholder="JJ/MM/AAAA" type="text"
-                       ng-pattern="/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/"
-                       name="birthDate" ng-model="user.birthDate"/>
+            <div class="eight wide required field">
+                <label>Version</label>
+                <input placeholder="Version du document" type="text" name="name" ng-model="document.version" />
             </div>
         </div>
         <div class="fields">
             <div class="eight wide field">
-                <label>Numéro de téléphone</label>
-                <input type="tel" placeholder="0000000000" ng-pattern="/^[0-9]+$/" ng-model="user.tel" name="tel"/>
+                <label>Description</label>
+                <input type="text" ng-model="document.description" name="description"/>
             </div>
-            <div class="eight wide required field">
-                <label>Adresse mail</label>
-                <input placeholder="Email..." type="email" ng-model="user.email"/>
-            </div>
-        </div>
-        <div class="sixteen wide field">
-            <label>Adresse</label>
-            <input placeholder="20 Avenue Albert Einstein" type="text" ng-model="user.address" name="address"/>
         </div>
         <div class="fields">
             <div class="eight wide field">
-                <label>Code postal</label>
-                <input type="number" placeholder="69100" ng-pattern="/^[0-9]+$/" ng-model="user.postalCode"
-                       name="postalCode "/>
-            </div>
-            <div class="eight wide field">
-                <label>Ville</label>
-                <input placeholder="Villeurbanne" type="text" ng-model="user.city" name="city"/>
+                <label>Fichier</label>
+                <input type="file" ng-model="document.file" name="file"/>
             </div>
         </div>
-        <div class="sixteen wide required field">
-            <label>Pays</label>
-            <ng-dropdown data-label="label" ng-option="countryService.countries" data-value="id"
-                         ng-model="user.country" required="true"></ng-dropdown>
-        </div>
-        <div class="fields">
-            <div class="eight wide required field">
-                <label>Année d'étude</label>
-                <ng-dropdown data-label="year" ng-option="schoolYearService.years" data-value="id"
-                             ng-model="user.schoolYear" required="true"></ng-dropdown>
-            </div>
-            <div class="eight wide required field">
-                <label>Département</label>
-                <ng-dropdown data-label="label" ng-option="departmentService.departments" data-value="id"
-                             ng-model="user.department" required="true"></ng-dropdown>
-            </div>
-        </div>
-        <div class="fields">
-            <div class="eight wide required field" ng-if="!editMode">
-                <label>Position</label>
-                <ng-dropdown data-label="label" ng-option="positionService.positions" data-value="id"
-                             ng-model="user.mainPosition" required="!editMode"></ng-dropdown>
-            </div>
-            <div class="wide field" ng-class="{eight:!editMode, sixteen:editMode}">
-                <label>AG de recrutement</label>
-                <ng-dropdown data-label="date" ng-option="recruitmentEventService.recruitmentEvents"
-                             data-value="id"
-                             ng-model="user.recruitmentEvent"></ng-dropdown>
-            </div>
-        </div>
+
         <div class="ui hr_center small buttons">
             <input type="reset" value="Annuler" class="ui button"/>
             <div class="or" data-text="ou"></div>
-            <input ng-if="!editMode" type="submit" value="Ajouter" class="ui green button"
-                   ng-class="{ 'disabled': userForm.$invalid }"/>
-            <input ng-if="editMode" type="submit" value="Modifier" class="ui green button"
-                   ng-class="{ 'disabled': userForm.$invalid }"/>
+            <input type="submit" value="Ajouter" class="ui green button"
+                   ng-class="{'disabled': docForm.$invalid }"/>
+
         </div>
     </form>
 </div>

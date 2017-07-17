@@ -8,7 +8,7 @@
     function stdDocTableComponent() {
         return {
             bindings: {},
-            controller: "stdDocTableComponent",
+            controller: "stdDocTableController",
             templateUrl: "app/components/stdDoc/docTab/doc-table/doc-table.template.html"
         }
     }

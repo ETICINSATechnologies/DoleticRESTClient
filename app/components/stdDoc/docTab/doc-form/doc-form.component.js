@@ -3,12 +3,12 @@
 
     angular
         .module('doleticApp')
-        .component('hrUserFormComponent', hrUserFormComponent());
+        .component('stdDocFormComponent', stdDocFormComponent());
 
-    function hrUserFormComponent() {
+    function stdDocFormComponent() {
         return {
             bindings: {},
-            controller: "hrUserFormController",
+            controller: "stdDocFormComponent",
             templateUrl: "app/components/hr/userTab/doc-form/doc-form.template.html"
         }
     }

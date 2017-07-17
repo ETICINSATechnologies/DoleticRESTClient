@@ -5,16 +5,16 @@
         .module('doleticApp')
         .controller('stdDocDocTabController', stdDocDocTabController);
 
-    stdDocDocTabController.$inject = ['$scope', 'UserService', 'KernelService', 'ModalService'];
+    stdDocDocTabController.$inject = ['$scope', 'KernelService', 'ModalService', 'DocumentTemplateService'];
 
-    function stdDocDocTabController($scope, UserService, KernelService, ModalService) {
-        $scope.userService = UserService;
+    function stdDocDocTabController($scope, KernelService, ModalService, DocumentTemplateService) {
         $scope.kernelService = KernelService;
+        $scope.documentTemplateService = DocumentTemplateService;
 
-        $scope.showUserForm = function() {
+        $scope.showDocForm = function() {
             ModalService.showModal({
                 templateUrl: "app/components/stdDoc/docTab/doc-form/doc-form.template.html",
-                controller: "stdDocDocFormController",
+                controller: "stdDocFormController",
                 inputs: {
                     editMode: false,
                     user: {}
