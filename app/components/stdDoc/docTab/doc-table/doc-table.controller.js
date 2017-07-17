@@ -3,11 +3,11 @@
 
     angular
         .module('doleticApp')
-        .controller('hrUserTableController', hrUserTableController);
+        .controller('stdDocTableController', stdDocTableController);
 
-    hrUserTableController.$inject = ['$scope', 'UserService', 'DTOptionsBuilder', 'ConfirmModalService', 'MessageBoxService', 'ModalService', 'KernelService'];
+    stdDocTableController.$inject = ['$scope', 'UserService', 'DTOptionsBuilder', 'ConfirmModalService', 'MessageBoxService', 'ModalService', 'KernelService'];
 
-    function hrUserTableController($scope, UserService, DTOptionsBuilder, ConfirmModalService, MessageBoxService, ModalService, KernelService) {
+    function stdDocTableController($scope, UserService, DTOptionsBuilder, ConfirmModalService, MessageBoxService, ModalService, KernelService) {
         $scope.userService = UserService;
         $scope.kernelService = KernelService;
         $scope.dtOptions = DTOptionsBuilder
@@ -20,44 +20,40 @@
                     {type: "text"},
                     {type: "text"},
                     {type: "text"},
-                    {type: "text"},
-                    {type: "text"},
-                    {type: "text"},
-                    {type: "text"},
                     {type: "reset-button"}
                 ]
             });
         $scope.dtColumnDefs = [];
 
-        $scope.disableUser = function (user) {
-            var name = user.fullName;
+        $scope.disableUser = function (doc) {
+            var name = doc.label;
             ConfirmModalService.showConfirmModal(
-                "Confirmer la désactivation",
-                "Voulez-vous vraiment désactiver l'utilisateur " + name + " ?",
-                "delete user",
+                "Confirmer la suppression",
+                "Voulez-vous vraiment déprécier cette version de " + name + " ?",
+                "delete version",
                 function () {
-                    UserService.disableCurrentUser(user).success(function (data) {
+                    UserService.disabledDoc(doc).success(function (data) {
                         MessageBoxService.showSuccess(
-                            "Désactivation réussie !",
-                            "L'utilisateur " + name + " a été désactivé."
+                            "Historisation réussie réussie !",
+                            "Le document " + name + " a été historisé."
                         );
                     }).error(function (data) {
                         MessageBoxService.showError(
-                            "Echec de la désactivation...",
-                            "L'utilisateur " + name + " n'a pas pu être désactivé."
+                            "Echec de l'Historisation ...",
+                            "Le document " + name + " n'a pas pu être historisé."
                         );
                     });
                 }
             )
         };
 
-        $scope.showUserForm = function(user) {
+        $scope.showDocForm = function(doc) {
             ModalService.showModal({
-                templateUrl: "app/components/hr/docTab/doc-form/doc-form.template.html",
-                controller: "hrUserFormController",
+                templateUrl: "app/components/stdDoc/docTab/doc-form/doc-form.template.html",
+                controller: "stdDocFormController",
                 inputs: {
                     editMode: true,
-                    user: angular.copy(user)
+                    user: angular.copy(doc)
                 }
             }).then(function (modal) {
                 modal.element.modal('show');
@@ -89,6 +85,6 @@
             return user.consultant == 1 || user.administrator == 1;
         };
 
-        UserService.getAllCurrentUsers(true);
+        UserService.getAllCurrentDoc(true);
     }
 })();

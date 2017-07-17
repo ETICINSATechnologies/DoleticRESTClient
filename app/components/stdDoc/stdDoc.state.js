@@ -26,7 +26,7 @@
             url: "/docDetailsTab/{id:int}",
             templateUrl: "app/components/stdDoc/docDetailsTab/stdDoc-docDetailsTab.template.html",
             controller: "stdDocUserDetailsTabController",
-            activetab: 'userDetails'
+            activetab: 'docDetails'
         });
     }
 })();

@@ -2,7 +2,7 @@
     <div class="row">
         <div class="sixteen wide column">
             <div class="ui buttons">
-                <div class="ui green button" ng-click="showUserForm()" ng-if="kernelService.rightLevel >= 4">Ajouter
+                <div class="ui green button" ng-click="showDocForm()" ng-if="kernelService.rightLevel >= 4">Ajouter
                     un
                     document
                 </div>
@@ -10,16 +10,12 @@
                     la
                     liste
                 </div>
-                <div class="ui yellow button" ng-click="alert('Fonction non implémentée...')">
-                    Exporter au
-                    format ???
-                </div>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="sixteen wide column">
-            <stdDoc-user-table-component></stdDoc-user-table-component>
+            <std-doc-table-component></std-doc-table-component>
         </div>
     </div>
     <div class="row">

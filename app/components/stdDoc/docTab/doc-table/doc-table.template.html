@@ -3,34 +3,26 @@
     <thead>
     <tr>
         <th></th>
-        <th>Nom/Mail</th>
-        <th>Poste</th>
-        <th>Pôle</th>
-        <th>Téléphone</th>
-        <th>Année</th>
-        <th>Actif</th>
-        <th>Consultant</th>
-        <th>Actions</th>
+        <th>Nom du Document</th>
+        <th>Version/date</th>
+        <th>Description</th>
+        <th>Action</th>
     </tr>
     </thead>
     <tfoot>
     <tr>
         <th></th>
-        <th>Nom</th>
-        <th>Poste</th>
-        <th>Pôle</th>
-        <th>Téléphone</th>
-        <th>Année</th>
-        <th>Actif</th>
-        <th>Consultant</th>
-        <th></th>
+        <th>Nom du Document</th>
+        <th>Version/date</th>
+        <th>Description</th>
+        <th>Action</th>
     </tr>
     </tfoot>
     <tbody id="user_body">
-    <tr ng-repeat="user in userService.currentUsers" ng-class="{error:isUserInvalid(user)}">
+    <tr ng-repeat="doc in docService.currentDoc" ng-class="{error:isDocInvalid(user)}">
         <td>
             <button class="ui teal icon button"
-                    data-tooltip="Détails de {{user.fullName}}"
+                    data-tooltip="Détails de {{doc.label}}"
                     data-content="Cliquez ici pour afficher plus d'informations"
                     ui-sref="hr.userDetailsTab({id : user.id})">
                 <i class="user icon"></i>
@@ -39,29 +31,30 @@
         <td>
             <div class="ui small header">
                 <div class="content">
-                    {{user.fullName}}
-                    <div class="sub header">
-                        <a href="mailto:{{user.email}}" target="_blank">{{user.email}}</a>
-                    </div>
+                    {{doc.label}}
                 </div>
             </div>
         </td>
-        <td>{{user.mainPosition.label}}</td>
-        <td>{{user.mainPosition.division.label}}</td>
-        <td>0{{user.tel}}</td>
-        <td>{{user.schoolYear.year}}{{user.department.label}}</td>
-        <td>{{isUserAdministrator(user)}}</td>
-        <td>{{isUserConsultant(user)}}</td>
+        <td>{{doc.version}}{{doc.date}}</td>
+        <td>{{doc.description}}</td>
         <td>
             <div class="ui icon buttons">
-                <button class="ui blue icon button" data-tooltip="Modifier" ng-click="showUserForm(user)"
+                <button class="ui blue icon button" data-tooltip="Nouvelle version" ng-click=""
+                        ng-if="kernelService.rightLevel >= 4">
+                    <i class="new user icon"></i>
+                </button>
+                <button class="ui blue icon button" data-tooltip="Modifier" ng-click=""
                         ng-if="kernelService.rightLevel >= 4">
                     <i class="write icon"></i>
                 </button>
                 <button class="ui orange icon button"
-                        ng-if="user.id != userService.getCurrentUser().id && kernelService.rightLevel >= 4"
-                        data-tooltip="Désactiver" ng-click="disableUser(user)">
+                        ng-if="kernelService.rightLevel >= 4"
+                        data-tooltip="Retirer" ng-click="disabledDoc()">
                     <i class="remove user icon"></i>
+                </button><button class="ui orange icon button"
+                        ng-if="kernelService.rightLevel >= 4"
+                        data-tooltip="Télécharger" ng-click="">
+                    <i class="download icon"></i>
                 </button>
             </div>
         </td>

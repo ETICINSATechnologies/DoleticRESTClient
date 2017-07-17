@@ -3,13 +3,13 @@
 
     angular
         .module('doleticApp')
-        .component('hrUserTableComponent', hrUserTableComponent());
+        .component('stdDocTableComponent', stdDocTableComponent());
 
-    function hrUserTableComponent() {
+    function stdDocTableComponent() {
         return {
             bindings: {},
-            controller: "hrUserTableController",
-            templateUrl: "app/components/hr/docTab/doc-table/doc-table.template.html"
+            controller: "stdDocTableComponent",
+            templateUrl: "app/components/stdDoc/docTab/doc-table/doc-table.template.html"
         }
     }
 })();
