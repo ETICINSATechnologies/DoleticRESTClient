@@ -16,7 +16,7 @@
             .withDisplayLength(25)
             .withColumnFilter({
                 aoColumns:[
-                    {type: "text"},
+                    {type: "label"},
                     {type: "text"},
                     {type: "text"},
                     {type: "text"},

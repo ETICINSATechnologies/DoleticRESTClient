@@ -26,7 +26,6 @@
         };
 
         documentTemplateFactory.uploadTemplateDocument = function (document) {
-            console.log("document : "+document);
             return $http.post(server + urlBase + '/standard_document_template', document).success(function (data) {
                 alert("success : "+data);
             }).error(function (error) {

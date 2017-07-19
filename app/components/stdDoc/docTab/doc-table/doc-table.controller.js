@@ -32,7 +32,7 @@
                 "Voulez-vous vraiment déprécier cette version de " + name + " ?",
                 "delete version",
                 function () {
-                    UserService.disabledDoc(doc).success(function (data) {
+                    DocumentTemplateService.disabledDoc(doc).success(function (data) {
                         MessageBoxService.showSuccess(
                             "Suppression réussie !",
                             "Le document " + name + " est désormais déprécié."
@@ -53,7 +53,6 @@
                 controller: "stdDocFormController",
                 inputs: {
                     editMode: true,
-                    user: angular.copy(doc)
                 }
             }).then(function (modal) {
                 modal.element.modal('show');

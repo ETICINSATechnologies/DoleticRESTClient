@@ -47,12 +47,12 @@
                         ng-if="kernelService.rightLevel >= 4">
                     <i class="write icon"></i>
                 </button>
-                <button class="ui orange icon button"  data-tooltip="Retirer" ng-click="disabledDoc()">
-                        ng-if="kernelService.rightLevel >= 4"
+                <button class="ui orange icon button"  data-tooltip="Retirer" ng-click="disabledDoc()"
+                        ng-if="kernelService.rightLevel >= 4" >
                     <i class="remove user icon"></i>
                 </button>
-                <button class="ui orange icon button" data-tooltip="Télécharger" ng-click="">
-                        ng-if="kernelService.rightLevel >= 4"
+                <button class="ui orange icon button" data-tooltip="Télécharger" ng-click="saveAs()"
+                        ng-if="kernelService.rightLevel >= 4" >
                     <i class="download icon"></i>
                 </button>
             </div>
