@@ -57,7 +57,7 @@
                 controller: "hrUserFormController",
                 inputs: {
                     editMode: true,
-                    user: angular.copy(user)
+                    user: angular.copy(user),
                 }
             }).then(function (modal) {
                 modal.element.modal('show');

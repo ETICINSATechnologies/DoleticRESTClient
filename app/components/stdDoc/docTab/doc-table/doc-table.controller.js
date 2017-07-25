@@ -7,6 +7,20 @@
 
     stdDocTableController.$inject = ['$scope', 'DocumentTemplateService', 'DTOptionsBuilder', 'ConfirmModalService', 'MessageBoxService', 'ModalService', 'KernelService'];
 
+    angular.module('doleticApp').filter('orderTemplateBy', function() {
+        return function(items, field, reverse) {
+            var filtered = [];
+            angular.forEach(items, function(item) {
+                filtered.push(item);
+            });
+            filtered.sort(function (a, b) {
+                return (a[field] > b[field] ? 1 : -1);
+            });
+            if(reverse) filtered.reverse();
+            return filtered;
+        };
+    });
+
     function stdDocTableController($scope, DocumentTemplateService, DTOptionsBuilder, ConfirmModalService, MessageBoxService, ModalService, KernelService) {
         $scope.documentTemplateService = DocumentTemplateService;
         $scope.kernelService = KernelService;
@@ -25,34 +39,24 @@
             });
         $scope.dtColumnDefs = [];
 
-        $scope.disableDocument = function (doc) {
-            var name = doc.label;
+        $scope.disableDocumentTemplate = function (template) {
             ConfirmModalService.showConfirmModal(
-                "Confirmer la suppression",
-                "Voulez-vous vraiment déprécier cette version de " + name + " ?",
-                "delete version",
-                function () {
-                    DocumentTemplateService.disabledDoc(doc).success(function (data) {
-                        MessageBoxService.showSuccess(
-                            "Suppression réussie !",
-                            "Le document " + name + " est désormais déprécié."
-                        );
-                    }).error(function (data) {
-                        MessageBoxService.showError(
-                            "Echec de la suppression ...",
-                            "Le document " + name + " est désormais déprécié."
-                        );
-                    });
+                "Confirmer la dépréciation",
+                "Voulez-vous vraiment déprécier cette version de " + template.label + " ?",
+                "version dépréciée",
+                function(){
+                    DocumentTemplateService.disableDocumentTemplate(template.id)
                 }
             )
         };
 
-        $scope.showDocForm = function(doc) {
+        $scope.updateDocumentTemplate = function (template) {
             ModalService.showModal({
                 templateUrl: "app/components/stdDoc/docTab/doc-form/doc-form.template.html",
                 controller: "stdDocFormController",
                 inputs: {
                     editMode: true,
+                    template: angular.copy(template)
                 }
             }).then(function (modal) {
                 modal.element.modal('show');
@@ -60,7 +64,13 @@
                 // error contains a detailed error message.
                 console.log(error);
             });
-        };
+
+        }
+
+        $scope.downloadDocumentTemplate = function(template){
+            DocumentTemplateService.downloadDocumentTemplate(template);
+
+        }
 
         $scope.isUserAdministrator = function(user) {
             if(user.administrator == 2) {

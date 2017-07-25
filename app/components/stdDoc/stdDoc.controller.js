@@ -13,6 +13,8 @@
         $scope.kernelService = KernelService;
         $scope.documentTemplateService = DocumentTemplateService;
 
+        $scope.documentTemplateService.getAllDocumentTemplates(false);
+
         RHService.getUserRights(true);
         KernelService.getUserRights(true);
     }

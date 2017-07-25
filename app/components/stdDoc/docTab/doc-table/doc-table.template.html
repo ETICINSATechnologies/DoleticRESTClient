@@ -2,58 +2,50 @@
        id="user_table">
     <thead>
     <tr>
-        <th></th>
         <th>Nom du Document</th>
-        <th>Version/date</th>
+        <th>Version</th>
+        <th>Date de mise en ligne</th>
         <th>Description</th>
         <th>Action</th>
     </tr>
     </thead>
     <tfoot>
     <tr>
-        <th></th>
         <th>Nom du Document</th>
-        <th>Version/date</th>
+        <th>Version</th>
+        <th>Date de mise en ligne</th>
         <th>Description</th>
         <th>Action</th>
     </tr>
     </tfoot>
     <tbody id="document_body">
-    <tr ng-repeat="doc in docService.currentDoc" ng-class="{error:isDocInvalid(user)}">
+        <tr ng-repeat="template in documentTemplateService.documentTemplates | orderTemplateBy:'label':'false' | orderTemplateBy:'version':'true'">
         <td>
-            <button class="ui teal icon button"
-                    data-tooltip="Détails de {{doc.label}}"
-                    data-content="Cliquez ici pour afficher plus d'informations"
-                    ui-sref="hr.userDetailsTab({id : user.id})">
-                <i class="user icon"></i>
-            </button>
-        </td>
-        <td>
-            <div class="ui small header">
+            <div class="ui small header" ng-hide="template.deprecated">
                 <div class="content">
-                    {{document.label}}
+                    {{template.label}}
                 </div>
             </div>
+            <div class="content" ng-show="template.deprecated">
+                {{template.label}}
+            </div>
         </td>
-        <td>{{document.version}}{{document.date}}</td>
-        <td>{{document.description}}</td>
+        <td>{{template.version}}</td>
+        <td>{{template.last_upload | date:"d MMMM H:m"}}</td>
+        <td>{{template.description}}</td>
         <td>
             <div class="ui icon buttons">
-                <button class="ui blue icon button" data-tooltip="Nouvelle version" ng-click=""
-                        ng-if="kernelService.rightLevel >= 4">
-                    <i class="new user icon"></i>
+                <button class="ui green icon button" data-tooltip="Ajouter une version" ng-hide="template.deprecated"
+                        ng-click="updateDocumentTemplate(template);" ng-if="kernelService.rightLevel >= 4">
+                    <i class="file icon"></i>
                 </button>
-                <button class="ui blue icon button" data-tooltip="Modifier" ng-click=""
-                        ng-if="kernelService.rightLevel >= 4">
-                    <i class="write icon"></i>
-                </button>
-                <button class="ui orange icon button"  data-tooltip="Retirer" ng-click="disabledDoc()"
-                        ng-if="kernelService.rightLevel >= 4" >
-                    <i class="remove user icon"></i>
-                </button>
-                <button class="ui orange icon button" data-tooltip="Télécharger" ng-click="saveAs()"
-                        ng-if="kernelService.rightLevel >= 4" >
+                <button class="ui olive icon button" data-tooltip="Télécharger"
+                        ng-click="downloadDocumentTemplate(template)" ng-if="kernelService.rightLevel >= 4" >
                     <i class="download icon"></i>
+                </button>
+                <button class="ui red icon button"  data-tooltip="Retirer" ng-hide="template.deprecated"
+                        ng-click="disableDocumentTemplate(template)" ng-if="kernelService.rightLevel >= 4" >
+                    <i class="remove icon"></i>
                 </button>
             </div>
         </td>

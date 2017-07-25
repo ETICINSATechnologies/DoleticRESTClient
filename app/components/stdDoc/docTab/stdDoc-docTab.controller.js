@@ -10,6 +10,7 @@
     function stdDocDocTabController($scope, KernelService, ModalService, DocumentTemplateService) {
         $scope.kernelService = KernelService;
         $scope.documentTemplateService = DocumentTemplateService;
+        $scope.documentTemplates = null;
 
         $scope.showDocForm = function() {
             ModalService.showModal({
@@ -17,7 +18,7 @@
                 controller: "stdDocFormController",
                 inputs: {
                     editMode: false,
-                    user: {}
+                    template: {}
                 }
             }).then(function (modal) {
                 modal.element.modal('show');

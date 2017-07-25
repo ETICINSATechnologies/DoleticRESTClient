@@ -1,58 +1,60 @@
 <div class="ui modal" id="document_form_modal" >
     <form class="ui form segment" name="docForm"
-          ng-submit="uploadTemplateDocument(file)" novalidate>
+          ng-submit="uploadTemplateDocument(myFile)" novalidate>
         <fix-modal-component></fix-modal-component>
         <div class="ui message" ng-show="docForm.$dirty"
              ng-class="{'positive' : docForm.$valid, 'negative' : docForm.$invalid}">
             Le formulaire est {{ docForm.$valid ? "valide" : "invalide" }}
         </div>
-        <h4 class="ui dividing header">Ajout d'une nouvelle version du document</h4>
+        <h4 class="ui dividing header" ng-if="editMode">Ajout d'une nouvelle version</h4>
+        <h4 class="ui dividing header" ng-if="!editMode">Ajout d'un nouveau document</h4>
         <div class="fields">
             <div class="eight wide required field">
                 <label>Nom</label>
-                <input type="text" name="name" ng-model="document.label" />
+                <input type="text" name="name" ng-model="template.label" ng-disabled="editMode" required/>
             </div>
         </div>
         <div class="fields">
             <div class="eight wide required field">
                 <label>Version</label>
-                <input placeholder="1.0" type="text" name="name" ng-model="document.version" />
+                <input placeholder="1.0" type="text" name="name" ng-model="template.version" required/>
+                <label ng-if="editMode" >Veuillez choisir une version différente de celle précédente !</label>
             </div>
         </div>
         <div class="fields">
             <div class="eight wide field">
                 <label>Visibilité</label>
                 <br />
-                <input type="radio" ng-model="document.visibility" value="all" checked="checked"/>
+                <input type="radio" ng-model="template.visibility" value="all" checked="checked"/>
                 <label>Accessible pour tous</label>
-                <input type="radio" ng-model="document.visibility" value="restricted"/>
+                <input type="radio" ng-model="template.visibility" value="restricted"/>
                 <label>Accessible uniquement au CA</label>
             </div>
         </div>
         <div class="fields">
             <div class="eight wide field">
                 <label>Description</label>
-                <input type="text" ng-model="document.description" name="description"/>
+                <input type="text" ng-model="template.description" name="description"/>
             </div>
         </div>
         <div class="fields">
             <div class="eight wide field">
                 <label>Fichier</label>
-                <input id="file" ngf-select type="file" ng-model="file" accept="*" />
+                <input id="file" type="file" ngf-select ng-model="template.file" accept="*" ng-required="!editMode"/>
                 <br/>
             </div>
         </div>
 
         <div class="ui hr_center small buttons">
-            <input type="reset" value="Annuler" class="ui button"/>
+            <input type="reset" value="Annuler" class="ui button" ng-disabled="editMode" />
             <div class="or" data-text="ou"></div>
 
 
 
-
-            <input type="submit" value="Ajouter" class="ui green button"
-                   ng-class="{'disabled': docForm.$invalid }"/>
-
+            <input ng-if="!editMode" type="submit" value="Ajouter un nouveau document" class="ui green button"
+                   ng-class="{ 'disabled': userForm.$invalid }"/>
+            <input ng-if="editMode" type="submit" value="Ajouter une nouvelle version" class="ui green button"
+                   ng-class="{ 'disabled': userForm.$invalid }"/>
         </div>
     </form>
 </div>
