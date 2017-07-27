@@ -16,11 +16,11 @@
             <label>Description</label>
             <textarea ng-model="project.description" placeholder="Description..." required></textarea>
         </div>
-        <div class="ui fields">
-            <div class="eight wide required field">
+        <div class="ui fields" >
+            <div class="eight wide field" ng-show="editMode">
                 <label>Origine de la sollicitation</label>
                 <ng-dropdown data-label="label" ng-option="projectOriginService.projectOrigins" data-value="id"
-                             ng-model="project.origin" required="true"></ng-dropdown>
+                             ng-model="project.origin"></ng-dropdown>
             </div>
             <div class="eight wide required field">
                 <label>Domaine principal</label>
@@ -29,15 +29,24 @@
             </div>
         </div>
         <div class="ui fields">
-            <div class="eight wide field">
+            <div class="eight wide required field">
+                <label>Le contact client</label>
+                <ng-dropdown data-label="fullName" ng-option="contactService.contacts" data-value="id" ng-model="project.contacts"
+                             required="true"></ng-dropdown>
+            </div>
+            <div class="eight wide required field">
                 <label>Société</label>
                 <ng-dropdown data-label="name" ng-option="firmService.firms" data-value="id" ng-model="project.firm"
                              required="true"></ng-dropdown>
             </div>
-            <div class="eight wide field" ng-hide="editMode">
-                <label>Je suis chargé d'affaires</label>
-                <checkbox type="toggle" ng-model="project.currentAsManager"></checkbox>
-            </div>
+        </div>
+        <div class="ui fields" >
+
+            <multiple-autocomplete ng-model="project.consultants" required="true"
+                                   object-property="name"
+                                   suggestions-arr="userService.currentUsers">
+            </multiple-autocomplete>
+
         </div>
         <div ng-show="editMode" class="fields">
             <div class="eight wide field">
@@ -67,6 +76,10 @@
             <div class="eight wide field">
                 <label>Etude critique ?</label>
                 <checkbox type="toggle" ng-model="prospect.critical"></checkbox>
+            </div>
+            <div class="eight wide field" ng-hide="editMode">
+                <label>Je suis chargé d'affaires</label>
+                <checkbox type="toggle" ng-model="project.currentAsManager"></checkbox>
             </div>
         </div>
         <div class="ui hr_center small buttons">

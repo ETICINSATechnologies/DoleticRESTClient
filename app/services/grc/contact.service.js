@@ -26,6 +26,19 @@
             });
         };
 
+        contactFactory.getAllContacts = function (cache) {
+            if (!cache) {
+                delete contactFactory.contacts;
+            } else if (contactFactory.contacts) {
+                return;
+            }
+            return $http.get(server + urlBase + "s", {cache: cache}).success(function(data) {
+                contactFactory.contacts = data.contacts;
+            }).error(function(data) {
+                console.log(data);
+            });
+        };
+
         contactFactory.getAllContactsByFirm = function (firm, cache) {
             if (!cache) {
                 delete contactFactory.firmContacts;
