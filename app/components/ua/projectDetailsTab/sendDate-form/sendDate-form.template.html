@@ -1,0 +1,25 @@
+<div class="ui modal" id="sendDate_form_modal">
+    <div class="ui segment">
+        <form name="sendDateForm" class="ui form vertical segment"
+              ng-submit="sendDateForm.$valid && sendDateProject()"
+              novalidate>
+            <div class="ui message" ng-show="sendDateForm.$dirty"
+                 ng-class="{'positive' : sendDateForm.$valid, 'negative' : sendDateForm.$invalid}">
+                Le formulaire est {{ sendDateForm.$valid ? "valide" : "invalide" }}
+            </div>
+            <h2 class="ui dividing header">Date d'envoie de la proposition commerciale</h2>
+            <div class="sixteen wide required field">
+                <label>Date d'envoie de la proposition commerciale</label>
+                <input placeholder="JJ/MM/AAAA" type="text"
+                       ng-pattern="/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/"
+                       ng-model="project.sendDate" required/>
+            </div>
+            <div class="ui small buttons">
+                <input type="reset" value="Annuler" class="ui button"/>
+                <div class="or" data-text="ou"></div>
+                <input type="submit" value="Confirmer" class="ui green button"
+                       ng-class="{ 'disabled': sendDateForm.$invalid }"/>
+            </div>
+        </form>
+    </div>
+</div>

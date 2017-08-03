@@ -12,6 +12,7 @@
         $scope.contactService = ContactService;
         $scope.projectService = ProjectService;
         $scope.projectContactService = ProjectContactService;
+        $scope.prix = 0;
 
         $scope.resetForm = function () {
             $scope.projectContact = {};

@@ -25,7 +25,7 @@
             <div class="eight wide required field">
                 <label>Domaine principal</label>
                 <ng-dropdown data-label="label" ng-option="projectFieldService.projectFields" data-value="id"
-                             ng-model="project.field" required="true"></ng-dropdown>
+                             ng-model="project.field" required></ng-dropdown>
             </div>
         </div>
         <div class="ui fields">
@@ -39,14 +39,6 @@
                 <ng-dropdown data-label="name" ng-option="firmService.firms" data-value="id" ng-model="project.firm"
                              required="true"></ng-dropdown>
             </div>
-        </div>
-        <div class="ui fields" >
-
-            <multiple-autocomplete ng-model="project.consultants" required="true"
-                                   object-property="name"
-                                   suggestions-arr="userService.currentUsers">
-            </multiple-autocomplete>
-
         </div>
         <div ng-show="editMode" class="fields">
             <div class="eight wide field">
@@ -80,6 +72,16 @@
             <div class="eight wide field" ng-hide="editMode">
                 <label>Je suis chargé d'affaires</label>
                 <checkbox type="toggle" ng-model="project.currentAsManager"></checkbox>
+            </div>
+        </div>
+        <div class="fields">
+            <div class="eight wide field">
+                <label>Pré-étude ?</label>
+                <checkbox type="toggle" ng-model="project.prestudy"></checkbox>
+            </div>
+            <div class="eight wide field">
+                <label>Ancien client ?</label>
+                <checkbox type="toggle" ng-model="project.old_client"></checkbox>
             </div>
         </div>
         <div class="ui hr_center small buttons">

@@ -42,7 +42,7 @@
         }).state('hr.userDetailsTab', {
             parent: 'hr',
             url: "/docDetailsTab/{id:int}",
-            templateUrl: "app/components/hr/docDetailsTab/stdDoc-docDetailsTab.template.html",
+            templateUrl: "app/components/hr/userDetailsTab/hr-userDetailsTab.template.html",
             controller: "hrUserDetailsTabController",
             activetab: 'userDetails'
         });

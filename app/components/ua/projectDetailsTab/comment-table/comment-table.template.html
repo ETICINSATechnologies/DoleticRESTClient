@@ -1,0 +1,12 @@
+<div>
+    <button class="ui blue button" ng-click="ProjectService.showComments()">Voir tous les commentaires</button>
+    <form name="commentTable" ng-submit="addComment()" novalidate>
+        <h2 class="ui dividing header">Ajouter un commentaire</h2>
+        <div class="sixteen wide required field">
+            <textarea ng-model="comment.body" required></textarea>
+        </div>
+        <div class="ui small buttons">
+            <input type="submit" value="Envoyer" class="ui green button"/>
+        </div>
+    </form>
+</div>

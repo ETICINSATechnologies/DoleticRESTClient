@@ -38,10 +38,34 @@
                         </div>
                     </div>
                 </div>
+                <div class="item" ng-if="projectService.selectedProject.firm">
+                    <div class="content">
+                        <div class="header">Société</div>
+                        <div class="description">{{projectService.selectedProject.firm.name}}</div>
+                    </div>
+                </div>
+                <div class="item" ng-if="projectService.selectedProject.contacts">
+                    <div class="content">
+                        <div class="header">Client</div>
+                        <div class="description" ng-repeat="contact in projectService.selectedProject.contacts">{{contact.contactFullName}}</div>
+                    </div>
+                </div>
+                <div class="item" ng-if="projectService.selectedProject.firm">
+                    <div class="content">
+                        <div class="header">Type de client</div>
+                        <div class="description">{{projectService.selectedProject.firm.type.label}}</div>
+                    </div>
+                </div>
                 <div class="item" ng-if="projectService.selectedProject.origin">
                     <div class="content">
                         <div class="header">Origine de la sollicitation</div>
                         <div class="description">{{projectService.selectedProject.origin.detail}}</div>
+                    </div>
+                </div>
+                <div class="item" ng-if="projectService.selectedProject.consultants">
+                    <div class="content">
+                        <div class="header">Prix</div>
+                        <div class="description">{{projectService.price}}</div>
                     </div>
                 </div>
                 <div class="item">
@@ -50,16 +74,19 @@
                         <div class="description">{{projectService.selectedProject.status}}</div>
                     </div>
                 </div>
-                <div class="item" ng-if="projectService.selectedProject.firm">
-                    <div class="content">
-                        <div class="header">Société</div>
-                        <div class="description">{{projectService.selectedProject.firm.name}}</div>
-                    </div>
-                </div>
-                <div class="item">
+                <div class="item" ng-if="projectService.selectedProject.status=='En sollicitation' ||
+                                         projectService.selectedProject.status=='Stand-by' ||
+                                         projectService.selectedProject.status=='Avortée'">
                     <div class="content">
                         <div class="header">Date de création</div>
                         <div class="description">{{projectService.selectedProject.creationDate|date:"dd/MM/y"}}</div>
+                        <div class="header">Date d'envoi</div>
+                        <div class="description">{{projectService.selectedProject.lastUpdate|date:"dd/MM/y"}}</div>
+                        <div class="ui green button"
+                             ng-if="uaService.rightLevel >= 4 && !projectService.selectedProject.archived && !projectService.selectedProject.signDate && !projectService.selectedProject.endDate"
+                             ng-click="showSendDateForm()">
+                            Modifier la date d'envoie
+                        </div>
                     </div>
                 </div>
             </div>
@@ -91,7 +118,7 @@
                 </div>
             </div>
             <div class="ui horizontal divider">Signature/Clôture</div>
-            <div class="ui relaxed divided list">
+            <div class="ui relaxed divided list" ng-if="projectService.selectedProject.status=='En sollicitation'">
                 <div class="item">
                     <div class="content">
                         <div class="header">Date de signature</div>
@@ -101,6 +128,7 @@
                             </span>
                             <div class="ui green button"
                                  ng-if="uaService.rightLevel >= 4 && !projectService.selectedProject.archived && !projectService.selectedProject.disabled && !projectService.selectedProject.signDate && !projectService.selectedProject.endDate"
+                                 ng-required="true"
                                  ng-click="showSignForm()">
                                 Signer l'étude
                             </div>
@@ -135,8 +163,45 @@
                     </div>
                 </div>
             </div>
+            <div class="ui horizontal divider">Participants de l'étude</div>
+            <div class="item">
+                <div class="content">
+                    <div class="header">Correspondant qualité</div>
+                    <div class="description">{{projectService.selectedProject.auditor.fullName}}</div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="content">
+                    <div class="header">Responsable BU</div>
+                    <div class="description">?</div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="content">
+                    <div class="header">Chargé d'affaire</div>
+                    <div class="description"
+                         ng-repeat="manager in projectService.selectedProject.managers">{{manager.managerFullName}}</div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="content">
+                    <div class="header">Consultants</div>
+                    <div class="description"
+                         ng-repeat="consultant in projectService.selectedProject.consultants">{{consultant.consultantFullName}}</div>
+                </div>
+            </div>
+
+
         </div>
         <div class="twelve wide column">
+            <div class="ui horizontal divider" ng-if="projectService.selectedProject.description">
+                Commentaires
+            </div>
+            <div class="row">
+                <!-- ng-if is necessary to make sure the project details have been loaded -->
+                <ua-comment-table-component ng-if="projectService.selectedProject"></ua-comment-table-component>
+            </div>
+
             <div class="ui horizontal divider" ng-if="projectService.selectedProject.description">
                 Description de l'étude
             </div>
@@ -215,4 +280,9 @@
             </ua-document-table-component>
         </div>
     </div>
+    <div class="row">
+        <div class="sixteen wide column">
+            <div class="ui horizontal divider">
+                Documents de l'étude
+            </div>
 </div>
