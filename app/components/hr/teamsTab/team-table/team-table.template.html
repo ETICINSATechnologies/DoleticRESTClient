@@ -1,0 +1,42 @@
+<table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="ui very basic celled table">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Chef d'équipe</th>
+            <th>Pôle</th>
+            <th>Membres</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th>Nom</th>
+            <th>Chef d'équipe</th>
+            <th>Pôle</th>
+            <th>Membres</th>
+            <th></th>
+        </tr>
+    </tfoot>
+    <tbody>
+        <tr ng-repeat="team in teamService.teams">
+            <td>
+                <h4 class="ui header">
+                        {{team.name}}
+                </h4>
+            </td>
+            <td>{{team.leader.fullName}}</td>
+            <td>{{team.division.label}}</td>
+            <td></td>
+            <td>
+                <div class="ui icon buttons">
+                    <button class="ui blue icon button" data-tooltip="Modifier" ng-click="showTeamForm(team)">
+                        <i class="write icon"></i>
+                    </button>
+                    <button class="ui orange icon button" data-tooltip="Supprimer" ng-click="deleteTeam(team)">
+                        <i class="remove icon"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

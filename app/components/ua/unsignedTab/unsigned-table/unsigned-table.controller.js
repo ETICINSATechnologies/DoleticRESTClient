@@ -5,9 +5,9 @@
         .module('doleticApp')
         .controller('uaUnsignedTableController', uaUnsignedTableController);
 
-    uaUnsignedTableController.$inject = ['$scope', '$state', 'ProjectService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'ConfirmModalService', 'MessageBoxService', 'ModalService', 'UAService', 'UserService'];
+    uaUnsignedTableController.$inject = ['$scope', 'ProjectService', 'DTOptionsBuilder', 'ConfirmModalService', 'MessageBoxService', 'ModalService', 'UAService', 'UserService'];
 
-    function uaUnsignedTableController($scope, $state, ProjectService, DTOptionsBuilder, DTColumnDefBuilder, ConfirmModalService, MessageBoxService, ModalService, UAService, UserService) {
+    function uaUnsignedTableController($scope, ProjectService, DTOptionsBuilder, ConfirmModalService, MessageBoxService, ModalService, UAService, UserService) {
         $scope.projectService = ProjectService;
         $scope.uaService = UAService;
         $scope.userService = UserService;
@@ -16,7 +16,20 @@
             .newOptions()
             .withPaginationType('full_numbers')
             .withDisplayLength(25)
-            .withOption('stateSave', true);
+            .withOption('stateSave', true)
+            .withColumnFilter({
+                aoColumns:[
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "reset-button"}
+                ]
+            });
         $scope.dtColumnDefs = [];
 
         $scope.abortProject = function (project) {

@@ -3,12 +3,12 @@
 
     angular
         .module('doleticApp')
-        .component('hrDisabledUserTableComponent', hrDisabledUserTableComponent());
+        .component('hrDisabledTableComponent', hrDisabledTableComponent());
 
-    function hrDisabledUserTableComponent() {
+    function hrDisabledTableComponent() {
         return {
             bindings: {},
-            controller: "hrDisabledUserTableController",
+            controller: "hrDisabledTableController",
             templateUrl: "app/components/hr/disabledMembersTab/disabled-table/disabled-table.template.html"
         }
     }

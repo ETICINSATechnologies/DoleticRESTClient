@@ -1,0 +1,82 @@
+<div class="ui modal" id="profile_form_modal">
+    <form class="ui form segment" name="profileForm"
+          ng-submit="profileForm.$valid && updateProfile()" novalidate>
+        <fix-modal-component></fix-modal-component>
+        <div class="ui message" ng-show="profileForm.$dirty"
+             ng-class="{'positive' : profileForm.$valid, 'negative' : profileForm.$invalid}">
+            Le formulaire est {{ profileForm.$valid ? "valide" : "invalide" }}
+        </div>
+        <h4 class="ui dividing header">Modifier mon profil</h4>
+        <div class="fields">
+            <div class="eight wide required field">
+                <label>Prénom</label>
+                <input placeholder="Prénom..." type="text" name="firstName" ng-model="profile.firstName" required/>
+            </div>
+            <div class="eight wide required field">
+                <label>Nom</label>
+                <input placeholder="Nom..." type="text" name="lastName" ng-model="profile.lastName" required/>
+            </div>
+        </div>
+        <div class="fields">
+            <div class="twelve wide required field">
+                <label>Civilité</label>
+                <ng-dropdown data-label="label" ng-option="genderService.genders" data-value="id"
+                             ng-model="profile.gender" required="true"></ng-dropdown>
+            </div>
+            <div class="twelve wide field">
+                <label>Date de naissance</label>
+                <input placeholder="JJ/MM/AAAA" type="text"
+                       ng-pattern="/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/"
+                       name="birthDate" ng-model="profile.birthDate"/>
+            </div>
+        </div>
+        <div class="fields">
+            <div class="eight wide field">
+                <label>Numéro de téléphone</label>
+                <input type="tel" placeholder="0000000000" ng-pattern="/^[0-9]+$/" ng-model="profile.tel" name="tel"/>
+            </div>
+            <div class="eight wide required field">
+                <label>Adresse mail</label>
+                <input placeholder="Email..." type="email" ng-model="profile.email"/>
+            </div>
+        </div>
+        <div class="sixteen wide field">
+            <label>Adresse</label>
+            <input placeholder="X rue de ..." type="text" ng-model="profile.address" name="address"/>
+        </div>
+        <div class="fields">
+            <div class="eight wide field">
+                <label>Code postal</label>
+                <input type="number" placeholder="00000" ng-pattern="/^[0-9]+$/" ng-model="profile.postalCode"
+                       name="tel"/>
+            </div>
+            <div class="eight wide field">
+                <label>Ville</label>
+                <input placeholder="Ville..." type="text" ng-model="profile.city" name="city"/>
+            </div>
+        </div>
+        <div class="sixteen wide required field">
+            <label>Pays</label>
+            <ng-dropdown data-label="label" ng-option="countryService.countries" data-value="id"
+                         ng-model="profile.country" required="true"></ng-dropdown>
+        </div>
+        <div class="fields">
+            <div class="eight wide required field">
+                <label>Année d'étude</label>
+                <ng-dropdown data-label="year" ng-option="schoolYearService.years" data-value="id"
+                             ng-model="profile.schoolYear" required="true"></ng-dropdown>
+            </div>
+            <div class="eight wide required field">
+                <label>Département</label>
+                <ng-dropdown data-label="label" ng-option="departmentService.departments" data-value="id"
+                             ng-model="profile.department" required="true"></ng-dropdown>
+            </div>
+        </div>
+        <div class="ui hr_center small buttons">
+            <input type="reset" value="Annuler" class="ui button"/>
+            <div class="or" data-text="ou"></div>
+            <input type="submit" value="Confirmer" class="ui green button"
+                   ng-class="{ 'disabled': profileForm.$invalid }"/>
+        </div>
+    </form>
+</div>

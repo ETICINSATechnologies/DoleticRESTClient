@@ -1,0 +1,27 @@
+<div class="ui small modal" id="passForm_modal">
+    <div class="ui segment">
+        <form name="passForm" ng-submit="passForm.$valid && updatePassword()" class="ui form" novalidate>
+            <h4 class="ui header">Modification du mot de passe</h4>
+            <div class="sixteen wide required field">
+                <label>Ancien mot de passe</label>
+                <input name="oldpass" ng-model="pass.olpass" type="password"  required>
+                <div ng-messages="passForm.old.$error" ng-messages-include="Erreurs.html" ></div>
+            </div>
+            <div class="sixteen wide required field">
+                <label>Nouveau mot de passe</label>
+                <input name="first" ng-model="pass.first" type="password" required ng-minlength="10"/>
+                <div ng-messages="passForm.first.$error" ng-messages-include="Erreurs.html" ></div>
+            </div>
+            <div class="sixteen wide required field">
+                <label>Confirmer le mot de passe</label>
+                <input name="second" ng-model="pass.second" type="password" required ng-minlength="10"/>
+                <div ng-messages="passForm.second.$error" ng-messages-include="Erreurs.html" ></div>
+            </div>
+            <div class="ui hr_center small buttons">
+                <input type="reset" value="Annuler" class="ui button"/>
+                <div class="or" data-text="ou"></div>
+                <input type="submit" value="Confirmer" class="ui green button" ng-disabled="passForm.$invalid"/>
+            </div>
+        </form>
+    </div>
+</div>

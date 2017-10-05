@@ -1,7 +1,7 @@
 <div class="ui two column grid container">
     <div class="row">
         <div class="nine wide center aligned column">
-            <div id="refresh_indicators" class="ui olive button" ng-click="">Actualiser les
+            <div class="ui olive button" ng-click="">Actualiser les
                 indicateurs
             </div>
             <div class="row" id="graphs">
@@ -30,15 +30,9 @@
             <div class="ui horizontal divider">
                 Gestion des AG de Recrutement
             </div>
-            <div class="ui stackable grid container" id="ag_container">
+            <div class="ui stackable grid container">
                 <div class="row">
-                    <div class="center aligned column">
-                        <div id="addag_modal_btn" class="ui green button" ng-click="">
-                            Ajouter une AG de recrutement
-                        </div>
-                    </div>
-                </div>
-                <div class="row" id="agr_table_container">
+                    <hr-recruitment-event-table-component></hr-recruitment-event-table-component>
                 </div>
             </div>
         </div>

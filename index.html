@@ -56,16 +56,21 @@
         <script src="bower_components/dataTables.semanticui.min/index.js"></script>
         <script src="bower_components/ng-dropdown/dist/ngDropdown.js"></script>
         <script src="bower_components/angular-semantic-ui/dist/angular-semantic-ui.min.js"></script>
+        <script src="bower_components/angular-file-saver/dist/angular-file-saver.min.js"></script>
+        <script src="bower_components/file-saver/FileSaver.js"></script>
+        <script src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
 
         <script src="app/app.module.js"></script>
         <script src="app/app.state.js"></script>
         <script src="app/app.constants.js"></script>
 
         <!-- Services -->
-        <script src="app/services/sharedVariables/sharedVariables.service.js"></script>
         <script src="app/services/user/user.service.js"></script>
         <script src="app/services/kernel/country.service.js"></script>
         <script src="app/services/kernel/gender.service.js"></script>
+        <script src="app/services/kernel/kernel.service.js"></script>
+        <script src="app/services/kernel/position.service.js"></script>
+        <script src="app/services/kernel/userPosition.service.js"></script>
         <script src="app/services/auth/auth.service.js"></script>
         <script src="app/services/message-box/message-box.service.js"></script>
         <script src="app/services/confirm-modal/confirm-modal.service.js"></script>
@@ -82,10 +87,19 @@
         <script src="app/services/ua/projectContact.service.js"></script>
         <script src="app/services/ua/consultant.service.js"></script>
         <script src="app/services/ua/delivery.service.js"></script>
-        <script src="app/services/kernel/kernel.service.js"></script>
+        <script src="app/services/ua/deliveryDocument.service.js"></script>
+        <script src="app/services/ua/projectDocument.service.js"></script>
+        <script src="app/services/ua/consultantDocument.service.js"></script>
+        <script src="app/services/ua/deliveryDocumentTemplate.service.js"></script>
+        <script src="app/services/ua/projectDocumentTemplate.service.js"></script>
+        <script src="app/services/ua/consultantDocumentTemplate.service.js"></script>
         <script src="app/services/rh/rh.service.js"></script>
         <script src="app/services/rh/department.service.js"></script>
-        <script src="app/services/rh/schoolyear.service.js"></script>
+        <script src="app/services/rh/team.service.js"></script>
+        <script src="app/services/rh/schoolYear.service.js"></script>
+        <script src="app/services/rh/recruitmentEvent.service.js"></script>
+        <script src="app/services/rh/administratorMembership.service.js"></script>
+        <script src="app/services/rh/consultantMembership.service.js"></script>
         <script src="app/services/support/support.service.js"></script>
         <script src="app/services/grc/grc.service.js"></script>
         <script src="app/services/grc/contact.service.js"></script>
@@ -99,12 +113,13 @@
         <script src="app/components/login/login.controller.js"></script>
 
         <script src="app/components/dashboard/dashboard.controller.js"></script>
-        <script src="app/components/dashboard/pass-form-modal/pass-form.controller.js"></script>
-        <script src="app/components/dashboard/profile-form-modal/profile-form.controller.js"></script>
+        <script src="app/components/dashboard/pass-form/pass-form.controller.js"></script>
+        <script src="app/components/dashboard/profile-form/profile-form.controller.js"></script>
 
         <script src="app/components/hr/hr.controller.js"></script>
-        <script src="app/components/hr/disabledMembersTab/hr-disabledMembersTab.controller.js"></script>
+        <script src="app/components/hr/disabledMembersTab/hr-disabledTab.controller.js"></script>
         <script src="app/components/hr/membersTab/hr-membersTab.controller.js"></script>
+        <script src="app/components/hr/oldMembersTab/hr-oldMembersTab.controller.js"></script>
         <script src="app/components/hr/statsTab/hr-statsTab.controller.js"></script>
         <script src="app/components/hr/teamsTab/hr-teamsTab.controller.js"></script>
         <script src="app/components/hr/userDetailsTab/hr-userDetailsTab.controller.js"></script>
@@ -169,17 +184,41 @@
 
         <script src="app/components/dashboard/contact-table/contact-table.controller.js"></script>
         <script src="app/components/dashboard/contact-table/contact-table.component.js"></script>
-        <script src="app/components/dashboard/pass-form-modal/pass-form.component.js"></script>
-        <script src="app/components/dashboard/profile-form-modal/profile-form.component.js"></script>
+        <script src="app/components/dashboard/pass-form/pass-form.component.js"></script>
+        <script src="app/components/dashboard/profile-form/profile-form.component.js"></script>
 
         <script src="app/components/dashboard/project-table/project-table.controller.js"></script>
         <script src="app/components/dashboard/project-table/project-table.component.js"></script>
 
+        <script src="app/components/hr/statsTab/recruitmentEvent-table/recruitmentEvent-table.controller.js"></script>
+        <script src="app/components/hr/statsTab/recruitmentEvent-table/recruitmentEvent-table.component.js"></script>
+
         <script src="app/components/hr/membersTab/user-table/user-table.controller.js"></script>
         <script src="app/components/hr/membersTab/user-table/user-table.component.js"></script>
 
+        <script src="app/components/hr/membersTab/user-form/user-form.controller.js"></script>
+        <script src="app/components/hr/membersTab/user-form/user-form.component.js"></script>
+
+        <script src="app/components/hr/oldMembersTab/old-table/old-table.controller.js"></script>
+        <script src="app/components/hr/oldMembersTab/old-table/old-table.component.js"></script>
+
         <script src="app/components/hr/disabledMembersTab/disabled-table/disabled-table.controller.js"></script>
         <script src="app/components/hr/disabledMembersTab/disabled-table/disabled-table.component.js"></script>
+
+        <script src="app/components/hr/teamsTab/team-table/team-table.controller.js"></script>
+        <script src="app/components/hr/teamsTab/team-table/team-table.component.js"></script>
+
+        <script src="app/components/hr/teamsTab/team-form/team-form.controller.js"></script>
+        <script src="app/components/hr/teamsTab/team-form/team-form.component.js"></script>
+
+        <script src="app/components/hr/userDetailsTab/admm-table/admm-table.controller.js"></script>
+        <script src="app/components/hr/userDetailsTab/admm-table/admm-table.component.js"></script>
+
+        <script src="app/components/hr/userDetailsTab/intm-table/intm-table.controller.js"></script>
+        <script src="app/components/hr/userDetailsTab/intm-table/intm-table.component.js"></script>
+
+        <script src="app/components/hr/userDetailsTab/position-table/position-table.controller.js"></script>
+        <script src="app/components/hr/userDetailsTab/position-table/position-table.component.js"></script>
 
         <script src="app/components/grc/firmTab/firm-table/firm-table.controller.js"></script>
         <script src="app/components/grc/firmTab/firm-table/firm-table.component.js"></script>
@@ -276,6 +315,9 @@
 
         <script src="app/components/ua/projectDetailsTab/delivery-form/delivery-form.controller.js"></script>
         <script src="app/components/ua/projectDetailsTab/delivery-form/delivery-form.component.js"></script>
+
+        <script src="app/components/ua/projectDetailsTab/document-table/document-table.controller.js"></script>
+        <script src="app/components/ua/projectDetailsTab/document-table/document-table.component.js"></script>
 
         <!-- End Component -->
 

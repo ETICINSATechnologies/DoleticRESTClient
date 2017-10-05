@@ -1,0 +1,70 @@
+<table class="ui very basic celled table">
+    <thead>
+    <tr>
+        <th>Poste</th>
+        <th>Date de début</th>
+        <th>Date de fin</th>
+        <th>Principal ?</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tfoot ng-if="kernelService.rightLevel >= 4">
+    <tr ng-if="!position">
+        <td colspan="5">
+            <div class="sixteen wide center aligned column">
+                <button class="ui green button" ng-click="showUserPositionForm()">
+                    Ajouter un poste
+                </button>
+            </div>
+        </td>
+    </tr>
+    <tr ng-if="position">
+        <td colspan="5">
+            <form name="userPositionForm" ng-submit="userPositionForm.$valid && addUserPosition()"
+                  novalidate>
+                <div class="ui center aligned grid">
+                    <div class="eleven wide column">
+                        <ng-dropdown data-label="label" ng-option="positionService.positions" data-value="id"
+                                     ng-model="position.position" required="true"></ng-dropdown>
+                    </div>
+                    <div class="two wide column">
+                        <checkbox type="toggle" ng-model="position.main"></checkbox>
+                    </div>
+                    <div class="three wide center aligned column">
+                        <div class="ui small buttons">
+                            <button type="submit" class="ui green icon button" data-tooltip="Valider"
+                                    ng-class="{ 'disabled': userPositionForm.$invalid }">
+                                <i class="checkmark icon"></i>
+                            </button>
+                            <div class="ui icon button" ng-click="cancelUserPositionForm()" data-tooltip="Annuler">
+                                <i class="remove icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </td>
+    </tr>
+    </tfoot>
+    <tbody>
+    <tr ng-repeat="userPosition in userPositionService.currentUserPositions"
+        ng-class="{warning: userPosition.active && !userPosition.main, positive: userPosition.main}">
+        <td>{{userPosition.position.label}}</td>
+        <td>{{userPosition.startDate|date:"dd/MM/y"}}</td>
+        <td>{{userPosition.active ? 'Active' : userPosition.endDate|date:"dd/MM/y"}}</td>
+        <td>{{userPosition.main ? 'Oui' : 'Non'}}</td>
+        <td>
+            <div class="ui icon buttons">
+                <button class="ui blue icon button" data-tooltip="Marquer comme poste principal"
+                        ng-click="setAsMainPosition(userPosition)" ng-if="!userPosition.main && userPosition.active">
+                    <i class="power icon"></i>
+                </button>
+                <button class="ui orange icon button" data-tooltip="Terminer" ng-if="userPosition.active && !userPosition.main"
+                        ng-click="disableUserPosition(userPosition)">
+                    <i class="remove icon"></i>
+                </button>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>

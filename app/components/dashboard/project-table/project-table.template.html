@@ -1,28 +1,22 @@
-<table class="ui very basic celled table" id="project_table">
+<table class="ui very basic celled table">
     <thead>
-        <tr>
-            <th>Numéro</th>
-            <th>Nom</th>
-            <th>Rôle</th>
-            <th>Statut</th>
-        </tr>
+    <tr>
+        <th>Numéro</th>
+        <th>Nom</th>
+        <th>Rôle</th>
+        <th>Statut</th>
+    </tr>
     </thead>
-    <tfoot>
-        <tr>
-            <th>Numéro</th>
-            <th>Nom</th>
-            <th>Rôle</th>
-            <th>Statut</th>
-        </tr>
-    </tfoot>
-    <tbody id="project_body">
-        <tr ng-repeat="project in projects">
-            <td>
-                <button ng-click="" class="ui teal button" data-tooltip="Détails de l'étude {{project.number}}">{{project.number}}</button>
-            </td>
-            <td>{{project.name}}</td>
-            <td>{{project.userType}}</td>
-            <td>{{project.status}}</td>
-        </tr>
+    <tbody>
+    <tr ng-repeat="project in projectService.currentUserProjects">
+        <td>
+            <button ui-sref="ua.projectDetailsTab({id:project.id})" class="ui teal button"
+                    data-tooltip="Détails de l'étude {{project.number}}">{{project.number}}
+            </button>
+        </td>
+        <td>{{project.name}}</td>
+        <td>{{project.role}}</td>
+        <td>{{project.status}}</td>
+    </tr>
     </tbody>
 </table>

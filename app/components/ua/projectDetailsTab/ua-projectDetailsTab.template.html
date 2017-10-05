@@ -1,4 +1,4 @@
-<div class="ui grid container" ng-init="loadProject()">
+<div class="ui grid container" ng-init="loadProject(true)">
     <div class="row">
         <div class="sixteen wide column">
             <div class="ui buttons">
@@ -6,7 +6,7 @@
                      ng-click="showProjectForm()">
                     Modifier l'étude
                 </div>
-                <div class="ui olive button" ng-click="loadProject()">
+                <div class="ui olive button" ng-click="loadProject(false)">
                     Actualiser les détails
                 </div>
                 <div ng-if="uaService.rightLevel >= 4 && !projectService.selectedProject.disabled"
@@ -47,7 +47,7 @@
                 <div class="item">
                     <div class="content">
                         <div class="header">Statut actuel</div>
-                        <div class="description">{{projectService.selectedProject.status.detail}}</div>
+                        <div class="description">{{projectService.selectedProject.status}}</div>
                     </div>
                 </div>
                 <div class="item" ng-if="projectService.selectedProject.firm">
@@ -202,6 +202,17 @@
             <div class="ui green fluid button" ng-click="showAmendmentForm()">
                 Ajouter un avenant
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="sixteen wide column">
+            <div class="ui horizontal divider">
+                Documents de l'étude
+            </div>
+            <ua-document-table-component
+                    ng-if="projectManagerService.currentProjectManagers && projectContactService.currentProjectContacts && consultantService.currentProjectConsultants">
+
+            </ua-document-table-component>
         </div>
     </div>
 </div>

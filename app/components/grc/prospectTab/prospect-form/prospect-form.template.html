@@ -3,12 +3,13 @@
         <form name="prospectForm" class="ui form vertical segment"
               ng-submit="prospectForm.$valid && editMode?editProspect():addProspect()"
               novalidate>
+            <fix-modal-component></fix-modal-component>
             <div class="ui message" ng-show="prospectForm.$dirty"
                  ng-class="{'positive' : prospectForm.$valid, 'negative' : prospectForm.$invalid}">
                 Le formulaire est {{ prospectForm.$valid ? "valide" : "invalide" }}
             </div>
-            <h2 ng-if="!editMode" class="ui dividing header">Ajout d'un prospect</h2>
-            <h2 ng-if="editMode" class="ui dividing header">Modification d'un prospect</h2>
+            <h4 ng-if="!editMode" class="ui dividing header">Ajout d'un prospect</h4>
+            <h4 ng-if="editMode" class="ui dividing header">Modification d'un prospect</h4>
             <div class="fields">
                 <div class="eight wide required field">
                     <label>Prénom</label>

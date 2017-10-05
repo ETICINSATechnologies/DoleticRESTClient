@@ -1,21 +1,20 @@
 <div class="ui two column grid container">
     <div class="row">
         <div class="ui buttons">
-            <div id="addteam_modal_btn" class="ui green button" ng-click="">Ajouter une
+            <div class="ui green button" ng-click="">Ajouter une
                 équipe
             </div>
-            <div id="refresh_team_btn" class="ui olive button" ng-click="">Actualiser la
+            <div class="ui olive button" ng-click="teamService.getAllTeams(false)">Actualiser la
                 liste
             </div>
-            <div id="excel_team_btn" class="ui yellow button" ng-click="alert('Fonction non implémentée...')">Exporter au
+            <div class="ui yellow button" ng-click="alert('Fonction non implémentée...')">Exporter au
                 format Excel
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="sixteen wide column" id="team_table_container">
-            <div class="ui loader active"></div>
-            <!--Team table will go there-->
+        <div class="sixteen wide column">
+            <hr-team-table-component></hr-team-table-component>
         </div>
         <div class="ui modal" id="team_form_modal">
             <form id="team_form" class="ui form segment">

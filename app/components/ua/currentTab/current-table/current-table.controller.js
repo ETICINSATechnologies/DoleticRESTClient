@@ -5,9 +5,9 @@
         .module('doleticApp')
         .controller('uaCurrentTableController', uaCurrentTableController);
 
-    uaCurrentTableController.$inject = ['$scope', '$state', 'ProjectService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'ConfirmModalService', 'MessageBoxService', 'ModalService', 'UAService', 'UserService'];
+    uaCurrentTableController.$inject = ['$scope', 'ProjectService', 'DTOptionsBuilder', 'ConfirmModalService', 'MessageBoxService', 'ModalService', 'UAService', 'UserService'];
 
-    function uaCurrentTableController($scope, $state, ProjectService, DTOptionsBuilder, DTColumnDefBuilder, ConfirmModalService, MessageBoxService, ModalService, UAService, UserService) {
+    function uaCurrentTableController($scope, ProjectService, DTOptionsBuilder, ConfirmModalService, MessageBoxService, ModalService, UAService, UserService) {
         $scope.projectService = ProjectService;
         $scope.uaService = UAService;
         $scope.userService = UserService;
@@ -16,7 +16,20 @@
             .newOptions()
             .withPaginationType('full_numbers')
             .withDisplayLength(25)
-            .withOption('stateSave', true);
+            .withOption('stateSave', true)
+            .withColumnFilter({
+                aoColumns:[
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "text"},
+                    {type: "reset-button"}
+                ]
+            });
         $scope.dtColumnDefs = [];
 
         $scope.archiveProject = function (project) {
@@ -26,7 +39,7 @@
                 "Voulez-vous vraiment archiver l'étude " + number + " ?",
                 "archive",
                 function () {
-                    ProjectService.archiveCurrentProject(id).success(function (data) {
+                    ProjectService.archiveCurrentProject(project).success(function (data) {
                         MessageBoxService.showSuccess(
                             "Archivage réussi !",
                             "L'étude " + number + " a été archivée."

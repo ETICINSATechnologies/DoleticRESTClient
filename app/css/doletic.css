@@ -102,3 +102,7 @@
     width: 100%;
     min-width: 0;
 }
+
+.spinner {
+    position: fixed !important;
+}

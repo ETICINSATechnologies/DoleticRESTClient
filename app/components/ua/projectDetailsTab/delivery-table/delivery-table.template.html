@@ -7,14 +7,13 @@
         <th>Facturé</th>
         <th>Livré</th>
         <th>Payé</th>
-        <th>PVL</th>
         <th>Actions</th>
     </tr>
     </thead>
     <tbody>
     <tr ng-repeat="delivery in deliveryService.currentProjectDeliveries">
         <td>{{delivery.number}}</td>
-        <td>{{delivery.task.number}}</td>
+        <td>{{delivery.task}}</td>
         <td>{{delivery.content}}</td>
         <td>{{delivery.billed ? 'Oui' : 'Non'}}</td>
         <td>
@@ -48,19 +47,6 @@
             <span ng-if="delivery.paid && !projectService.selectedProject.userHasRights">
                 {{delivery.paymentDate|date:"dd/MM/y"}}
             </span>
-        </td>
-        <td>
-            <div class="ui buttons">
-                <div class="ui olive icon button" data-tooltip="Publiposter" ng-click="publishPVL(delivery)">
-                    <i class="book icon"></i>
-                </div>
-                <div class="ui green icon button" data-tooltip="Uploader PDF" ng-click="uploadPVL(delivery)">
-                    <i class="upload icon"></i>
-                </div>
-                <div class="ui blue icon button" data-tooltip="Télécharger PDF" ng-click="downloadPVL(delivery)">
-                    <i class="download icon"></i>
-                </div>
-            </div>
         </td>
         <td>
             <div class="ui icon buttons">
