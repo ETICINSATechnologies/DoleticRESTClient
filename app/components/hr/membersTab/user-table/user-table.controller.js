@@ -16,7 +16,7 @@
             .withDisplayLength(25)
             .withColumnFilter({
                 aoColumns:[
-                    {type: "text"},
+                    {type: "label"},
                     {type: "text"},
                     {type: "text"},
                     {type: "text"},
@@ -57,7 +57,7 @@
                 controller: "hrUserFormController",
                 inputs: {
                     editMode: true,
-                    user: angular.copy(user)
+                    user: angular.copy(user),
                 }
             }).then(function (modal) {
                 modal.element.modal('show');

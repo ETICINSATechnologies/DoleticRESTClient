@@ -1,0 +1,23 @@
+<div class="ui two column grid container">
+    <div class="row">
+        <div class="sixteen wide column">
+            <div class="ui buttons">
+                <div class="ui green button" ng-click="showDocForm()" ng-if="kernelService.rightLevel >= 4">Ajouter
+                    un
+                    document
+                </div>
+                <div class="ui olive button" ng-click="documentTemplateService.getAllDocumentTemplates(false);">Actualiser
+                    la 
+                    liste
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="sixteen wide column">
+            <std-doc-table-component></std-doc-table-component>
+        </div>
+    </div>
+    <div class="row">
+    </div>
+</div>

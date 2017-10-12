@@ -9,7 +9,7 @@
         return {
             bindings: {},
             controller: "hrUserFormController",
-            templateUrl: "app/components/hr/userTab/user-form/user-form.template.html"
+            templateUrl: "app/components/hr/userTab/doc-form/doc-form.template.html"
         }
     }
 })();

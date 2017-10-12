@@ -29,11 +29,21 @@
             $scope.consultant.project = ProjectService.selectedProject.id;
             ConsultantService.postConsultant(ProjectService.selectedProject.id, $scope.consultant)
                 .success(function (data) {
-                    $scope.resetForm();
+                    //$scope.resetForm();
                     MessageBoxService.showSuccess(
                         "Opération réussie !",
                         "Le consultant de l'étude a été ajouté."
                     );
+
+                    if(data.consultant.user.country.label !== "France"){
+                        MessageBoxService.showInfo(
+                            "Attention !",
+                            "Attention le consultant que tu as choisis est étranger, " +
+                            "as-tu pensé à vérifier s’il faisait parti d’un pays qui ne fait pas parti de l’Espace Economique Européen ? " +
+                            "Auquel cas, il faut faire une déclaration en préfecture au moins 2 jours avant le début de l’étude. " +
+                            "Rapproche-toi du secrétaire Général qui fera la déclaration."
+                        );
+                    }
                 }).error(function (data) {
                     MessageBoxService.showError(
                         "Echec de l'ajout...",

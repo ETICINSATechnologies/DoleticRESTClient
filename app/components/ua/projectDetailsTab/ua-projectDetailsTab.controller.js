@@ -143,6 +143,21 @@
             });
         };
 
+        $scope.showSendDateForm = function () {
+            ModalService.showModal({
+                templateUrl: "app/components/ua/projectDetailsTab/sendDate-form/sendDate-form.template.html",
+                controller: "uaSendDateFormController",
+                inputs: {
+                    project: angular.copy(ProjectService.selectedProject)
+                }
+            }).then(function (modal) {
+                modal.element.modal('show');
+            }).catch(function (error) {
+                // error contains a detailed error message.
+                console.log(error);
+            });
+        };
+
         $scope.showEndForm = function () {
             ModalService.showModal({
                 templateUrl: "app/components/ua/projectDetailsTab/end-form/end-form.template.html",

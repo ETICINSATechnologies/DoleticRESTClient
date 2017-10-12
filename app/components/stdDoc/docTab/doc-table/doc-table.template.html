@@ -1,0 +1,54 @@
+<table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="ui very basic celled table"
+       id="user_table">
+    <thead>
+    <tr>
+        <th>Nom du Document</th>
+        <th>Version</th>
+        <th>Date de mise en ligne</th>
+        <th>Description</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tfoot>
+    <tr>
+        <th>Nom du Document</th>
+        <th>Version</th>
+        <th>Date de mise en ligne</th>
+        <th>Description</th>
+        <th>Action</th>
+    </tr>
+    </tfoot>
+    <tbody id="document_body">
+        <tr ng-repeat="template in documentTemplateService.documentTemplates | orderTemplateBy:'label':'false' | orderTemplateBy:'version':'true'">
+        <td>
+            <div class="ui small header" ng-hide="template.deprecated">
+                <div class="content">
+                    {{template.label}}
+                </div>
+            </div>
+            <div class="content" ng-show="template.deprecated">
+                {{template.label}}
+            </div>
+        </td>
+        <td>{{template.version}}</td>
+        <td>{{template.last_upload | date:"d MMMM H:m"}}</td>
+        <td>{{template.description}}</td>
+        <td>
+            <div class="ui icon buttons">
+                <button class="ui green icon button" data-tooltip="Ajouter une version" ng-hide="template.deprecated"
+                        ng-click="updateDocumentTemplate(template);" ng-if="kernelService.rightLevel >= 4">
+                    <i class="file icon"></i>
+                </button>
+                <button class="ui olive icon button" data-tooltip="Télécharger"
+                        ng-click="downloadDocumentTemplate(template)" ng-if="kernelService.rightLevel >= 4" >
+                    <i class="download icon"></i>
+                </button>
+                <button class="ui red icon button"  data-tooltip="Retirer" ng-hide="template.deprecated"
+                        ng-click="disableDocumentTemplate(template)" ng-if="kernelService.rightLevel >= 4" >
+                    <i class="remove icon"></i>
+                </button>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>

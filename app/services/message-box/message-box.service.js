@@ -53,7 +53,7 @@
             service.content = content;
             service.color = "info";
             service.show = true;
-            $timeout(service.hide, 2000);
+            $timeout(service.hide, 20000);
         };
 
         service.showSuccess = function (title, content) {

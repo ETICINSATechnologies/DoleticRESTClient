@@ -21,8 +21,9 @@
         };
 
         userFactory.updatePassword = function (pass) {
-            pass['new[first]'] = pass.first;
-            pass['new[second]'] = pass.second;
+            pass['new'] = {"first" : pass.first, "second" : pass.second};
+            delete pass.first;
+            delete pass.second;
             return $http.post(server + urlBase + "/current/password", pass).success(function(data) {
                 console.log(data);
             }).error(function (error) {
@@ -186,6 +187,24 @@
                     userFactory.disabledUsers = angular.equals(userFactory.disabledUsers, []) ?
                         {} : userFactory.disabledUsers;
                     userFactory.disabledUsers[data.user.id] = data.user;
+                }
+                if (userFactory.currentUsers) {
+                    delete userFactory.currentUsers[data.user.id];
+                }
+                if (userFactory.selectedUser && userFactory.selectedUser.id == data.user.id) {
+                    userFactory.selectedUser = data.user;
+                }
+            }).error(function (data) {
+                console.log(data);
+            });
+        };
+
+        userFactory.deleteUser = function (user) {
+            return $http.post(server + urlBase + "/" + user.id).success(function (data) {
+                if (userFactory.deletedUsers) {
+                    userFactory.deletedUsers = angular.equals(userFactory.deletedUsers, []) ?
+                        {} : userFactory.deletedUsers;
+                    userFactory.deletedUsers[data.user.id] = data.user;
                 }
                 if (userFactory.currentUsers) {
                     delete userFactory.currentUsers[data.user.id];

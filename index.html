@@ -14,6 +14,8 @@
         <link rel="stylesheet" href="bower_components/semantic/dist/semantic.min.css">
         <link rel="stylesheet" href="bower_components/angular-datatables/dist/css/angular-datatables.min.css">
         <link rel="stylesheet" href="app/css/doletic.css">
+        <link rel="stylesheet" href="bower_components/angularMultipleSelect/build/multiple-select.min.css">
+        <link rel="stylesheet" href="bower_components/angularMultipleSelect/build/multiple-select.css">
 
         <!-- End CSS Librairies -->
 
@@ -57,8 +59,11 @@
         <script src="bower_components/ng-dropdown/dist/ngDropdown.js"></script>
         <script src="bower_components/angular-semantic-ui/dist/angular-semantic-ui.min.js"></script>
         <script src="bower_components/angular-file-saver/dist/angular-file-saver.min.js"></script>
-        <script src="bower_components/file-saver/FileSaver.js"></script>
+        <script src="bower_components/file-saver.js/FileSaver.js"></script>
         <script src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+        <script src="bower_components/angularMultipleSelect/build/multiple-select.min.js"></script>
+        <script src="bower_components/angularMultipleSelect/build/multiple-select.js"></script>
+
 
         <script src="app/app.module.js"></script>
         <script src="app/app.state.js"></script>
@@ -66,6 +71,7 @@
 
         <!-- Services -->
         <script src="app/services/user/user.service.js"></script>
+        <script src="app/services/kernel/documentTemplate.service.js"></script>
         <script src="app/services/kernel/country.service.js"></script>
         <script src="app/services/kernel/gender.service.js"></script>
         <script src="app/services/kernel/kernel.service.js"></script>
@@ -103,6 +109,7 @@
         <script src="app/services/support/support.service.js"></script>
         <script src="app/services/grc/grc.service.js"></script>
         <script src="app/services/grc/contact.service.js"></script>
+        <script src="app/services/grc/contactType.service.js"></script>
         <script src="app/services/grc/contactAction.service.js"></script>
         <script src="app/services/grc/contactActionType.service.js"></script>
         <script src="app/services/grc/firm.service.js"></script>
@@ -123,6 +130,9 @@
         <script src="app/components/hr/statsTab/hr-statsTab.controller.js"></script>
         <script src="app/components/hr/teamsTab/hr-teamsTab.controller.js"></script>
         <script src="app/components/hr/userDetailsTab/hr-userDetailsTab.controller.js"></script>
+
+        <script src="app/components/stdDoc/stdDoc.controller.js"></script>
+        <script src="app/components/stdDoc/docTab/stdDoc-docTab.controller.js"></script>
 
         <script src="app/components/grc/grc.controller.js"></script>
         <script src="app/components/grc/statsTab/grc-statsTab.controller.js"></script>
@@ -158,6 +168,7 @@
 
         <!-- States -->
         <script src="app/components/hr/hr.state.js"></script>
+        <script src="app/components/stdDoc/stdDoc.state.js"></script>
         <script src="app/components/grc/grc.state.js"></script>
         <script src="app/components/ua/ua.state.js"></script>
         <script src="app/components/tools/tools.state.js"></script>
@@ -219,6 +230,13 @@
 
         <script src="app/components/hr/userDetailsTab/position-table/position-table.controller.js"></script>
         <script src="app/components/hr/userDetailsTab/position-table/position-table.component.js"></script>
+
+
+        <script src="app/components/stdDoc/docTab/doc-table/doc-table.controller.js"></script>
+        <script src="app/components/stdDoc/docTab/doc-table/doc-table.component.js"></script>
+
+        <script src="app/components/stdDoc/docTab/doc-form/doc-form.controller.js"></script>
+        <script src="app/components/stdDoc/docTab/doc-form/doc-form.component.js"></script>
 
         <script src="app/components/grc/firmTab/firm-table/firm-table.controller.js"></script>
         <script src="app/components/grc/firmTab/firm-table/firm-table.component.js"></script>
@@ -288,6 +306,9 @@
 
         <script src="app/components/ua/projectDetailsTab/contact-table/contact-table.controller.js"></script>
         <script src="app/components/ua/projectDetailsTab/contact-table/contact-table.component.js"></script>
+
+        <script src="app/components/ua/projectDetailsTab/comment-table/comment-table.controller.js"></script>
+        <script src="app/components/ua/projectDetailsTab/comment-table/comment-table.component.js"></script>
 
         <script src="app/components/ua/projectDetailsTab/manager-table/manager-table.controller.js"></script>
         <script src="app/components/ua/projectDetailsTab/manager-table/manager-table.component.js"></script>

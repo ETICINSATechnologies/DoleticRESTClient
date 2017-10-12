@@ -16,6 +16,11 @@
         var urlBase = '/api/ua/project';
         var projectFactory = {};
 
+        projectFactory.addComment = function(){alert("a")};
+        projectFactory.showComments = function(){alert("b")};
+
+
+
         // GET
 
         projectFactory.getAllUnsignedProjects = function (cache) {
@@ -141,6 +146,12 @@
                 }
                 ProjectDocumentService.currentProjectId = data.project.id;
 
+                //price
+                projectFactory.price = 0;
+                for(var consultant in projectFactory.selectedProject.consultants){
+                    projectFactory.price += projectFactory.selectedProject.consultants[consultant].jehAssigned*projectFactory.selectedProject.consultants[consultant].payByJeh;
+                }
+
             }).error(function (data) {
                 console.log(data);
             });
@@ -217,6 +228,10 @@
             }).error(function (error) {
                 console.log(error);
             });
+        };
+
+        projectFactory.sendDateProject = function (project) {
+          //to do
         };
 
         projectFactory.signProject = function (project) {

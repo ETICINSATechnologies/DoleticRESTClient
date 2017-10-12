@@ -17,7 +17,7 @@
             $scope.signForm.$setPristine();
         };
 
-        $scope.signProject = function () {
+        $scope.signProject = function (){
             ProjectService.signProject($scope.project)
                 .success(
                     function (data) {
@@ -43,6 +43,7 @@
         };
 
         function formatProject() {
+            if (project.signDate) project.signDate = $filter('date')(project.signDate, "dd/MM/y");
             if (project.signDate) project.signDate = $filter('date')(project.signDate, "dd/MM/y");
         }
     }

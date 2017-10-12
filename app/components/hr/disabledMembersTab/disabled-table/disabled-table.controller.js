@@ -48,9 +48,32 @@
             )
         };
 
+        $scope.deleteUser = function (user) {
+            var name = user.fullName;
+            ConfirmModalService.showConfirmModal(
+                "Confirmer la suppression",
+                "Voulez-vous vraiment supprimer l'utilisateur " + name + " ?\n"+
+                "Cette action est irréversible",
+                "reply",
+                function () {
+                    UserService.deleteUser(user).success(function (data) {
+                        MessageBoxService.showSuccess(
+                            "Suppression réussie !",
+                            "L'utilisateur " + name + " a été supprimé."
+                        );
+                    }).error(function (data) {
+                        MessageBoxService.showError(
+                            "Echec de la suppression...",
+                            "L'utilisateur " + name + " n'a pas pu être supprimé."
+                        );
+                    });
+                }
+            )
+        };
+
         $scope.showUserForm = function(user) {
             ModalService.showModal({
-                templateUrl: "app/components/hr/membersTab/user-form/user-form.template.html",
+                templateUrl: "app/components/hr/membersTab/doc-form/doc-form.template.html",
                 controller: "hrUserFormController",
                 inputs: {
                     editMode: true,
